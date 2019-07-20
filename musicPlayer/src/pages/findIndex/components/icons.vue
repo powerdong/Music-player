@@ -1,42 +1,26 @@
 <template>
   <div class="container border-bottom">
-    <div class="icon-wrapper">
+    <div class="icon-wrapper" v-for="(item, index) in findIcons" :key="index">
       <div class="icon">
-        <span class="today">11</span>
-        <i class="iconfont rili"></i>
+        <span class="today" v-if="item.text === '每日推荐'" >{{today}}</span>
+        <i :class="item.icon" class="iconfont"></i>
       </div>
-      <span class="icon-text">每日推荐</span>
-    </div>
-    <div class="icon-wrapper">
-      <div class="icon">
-        <i class="iconfont gedan"></i>
-      </div>
-      <span class="icon-text">歌单</span>
-    </div>
-    <div class="icon-wrapper">
-      <div class="icon">
-        <i class="iconfont paixingbang"></i>
-      </div>
-      <span class="icon-text">排行榜</span>
-    </div>
-    <div class="icon-wrapper">
-      <div class="icon">
-        <i class="iconfont diantai"></i>
-      </div>
-      <span class="icon-text">电台</span>
-    </div>
-    <div class="icon-wrapper">
-      <div class="icon">
-        <i class="iconfont zhibo"></i>
-      </div>
-      <span class="icon-text">直播</span>
+      <span class="icon-text">{{item.text}}</span>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex"
+
 export default {
-  name: "findIcon"
+  name: "findIcon",
+  computed: {
+    today: function () {
+      return new Date().getDate()
+    },
+    ...mapState(["findIcons"])
+  }
 }
 </script>
 
@@ -47,7 +31,7 @@ export default {
   display: flex;
   width: 100%;
   height: 1.4rem;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   padding: 0.2rem 0 0.3rem;
   .icon-wrapper {
@@ -72,7 +56,7 @@ export default {
         position: absolute;
         top: 0.1rem;
         left: 0.34rem;
-        font-size: 0.1rem;
+        font-size: 0.2rem;
       }
     }
     .icon-text {

@@ -23,7 +23,3 @@ html {overflow-x: hidden;height: 100%;font-size: 50px;-webkit-tap-highlight-colo
 body {font-family: Arial, "Microsoft Yahei", "Helvetica Neue", Helvetica, sans-serif;color: #333;font-size: .28em;line-height: 1;-webkit-text-size-adjust: none;}
 hr {height: .02rem;margin: .1rem 0;border: medium none;border-top: .02rem solid #cacaca;}
 a {color: #25a4bb;text-decoration: none;}
-.ac{
-  color: #000;
-  font-size: 0.28rem;
-}

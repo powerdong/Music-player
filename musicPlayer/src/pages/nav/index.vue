@@ -1,14 +1,18 @@
 <template>
   <!-- 顶部导航条 -->
   <div class="nav-wrapper">
-    <div class="nav-left">菜单</div>
+    <div class="nav-left">
+      <i class="iconfont iconnav"></i>
+    </div>
     <ul class="nav-center">
       <router-link tag="li" to="/home">我的</router-link>
       <router-link tag="li" to="/find">发现</router-link>
       <router-link tag="li" to="/friend">朋友</router-link>
       <router-link tag="li" to="/video">视频</router-link>
     </ul>
-    <div class="nav-right">搜索</div>
+    <div class="nav-right">
+      <i class="iconfont iconsousuo"></i>
+    </div>
   </div>
 </template>
 
@@ -19,9 +23,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import url('https://at.alicdn.com/t/font_1298894_btl1q00lfth.css');
 .nav-wrapper {
+  box-sizing: border-box;
   width: 100%;
   height: 0.8rem;
+  padding: 0 0.1rem;
   display: flex;
   .nav-left {
     flex: 2;
