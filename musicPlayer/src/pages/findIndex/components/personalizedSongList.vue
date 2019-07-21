@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper pd23">
     <div class="title">
       <div class="recommended">推荐歌单</div>
       <div class="square">歌单广场</div>
@@ -88,7 +88,6 @@ export default {
 @import url("http://at.alicdn.com/t/font_1298894_btl1q00lfth.css");
 
 .wrapper {
-  padding: 0 0.1rem;
   .title {
     width: 100%;
     height: 1.2rem;

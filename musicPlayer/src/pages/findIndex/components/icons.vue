@@ -30,15 +30,16 @@ export default {
 .container {
   display: flex;
   width: 100%;
-  height: 1.4rem;
+  height: 1.6rem;
   justify-content: space-around;
   align-items: center;
   padding: 0.2rem 0 0.3rem;
   .icon-wrapper {
+    box-sizing: border-box;
     display: flex;
     height: 100%;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     .icon {
       width: 0.9rem;

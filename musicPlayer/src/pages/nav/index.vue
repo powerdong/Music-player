@@ -2,7 +2,7 @@
   <!-- 顶部导航条 -->
   <div class="nav-wrapper">
     <div class="nav-left">
-      <i class="iconfont iconnav"></i>
+      <i class="iconfont iconnav" ></i>
     </div>
     <ul class="nav-center">
       <router-link tag="li" to="/home">我的</router-link>
@@ -19,16 +19,22 @@
 <script>
 export default {
   name: "defaultNav"
+
 }
 </script>
 
 <style lang="less" scoped>
-@import url('https://at.alicdn.com/t/font_1298894_btl1q00lfth.css');
+@import url("https://at.alicdn.com/t/font_1298894_btl1q00lfth.css");
 .nav-wrapper {
   box-sizing: border-box;
   width: 100%;
   height: 0.8rem;
-  padding: 0 0.1rem;
+  padding: 0 0.23rem;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: #fff;
   display: flex;
   .nav-left {
     flex: 2;

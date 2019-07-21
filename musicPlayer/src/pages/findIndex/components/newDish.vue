@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper pd23">
     <div class="title">
       <div class="recommended">新碟</div>
       <div class="square">更多新碟</div>
@@ -85,7 +85,6 @@ export default {
 
 <style lang="less" scoped>
 .wrapper {
-  padding: 0 0.1rem;
   .title {
     width: 100%;
     height: 1.2rem;

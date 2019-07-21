@@ -31,7 +31,7 @@ let homeIcons = [{
 }, {
   text: "驾驶模式",
   icon: "iconqiche"
-} ]
+}]
 
 let findIcons = [{
   text: "每日推荐",
@@ -50,7 +50,30 @@ let findIcons = [{
   icon: "zhibo"
 }]
 
+let homeList = [{
+  icon: "iconyinyue",
+  text: "本地音乐",
+  num: 0
+}, {
+  icon: "iconzuijinbofang",
+  text: "最近播放",
+  num: 0
+}, {
+  icon: "iconwode_xiazaiguanli-",
+  text: "下载管理",
+  num: 0
+}, {
+  icon: "icondiantai",
+  text: "我的电台",
+  num: 0
+}, {
+  icon: "iconicon-31",
+  text: "我的收藏",
+  num: 0
+}]
+
 export default {
-  homeIcons: homeIcons,
-  findIcons: findIcons
+  homeIcons,
+  findIcons,
+  homeList
 }
