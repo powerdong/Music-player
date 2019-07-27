@@ -8,13 +8,13 @@
 </template>
 
 <script>
-import swiper from "./components/swiper"
-import icon from "./components/icons"
-import songList from "./components/personalizedSongList"
-import newDish from "./components/newDish"
+import swiper from './components/swiper'
+import icon from './components/icons'
+import songList from './components/personalizedSongList'
+import newDish from './components/newDish'
 
 export default {
-  name: "findIndex",
+  name: 'findIndex',
   components: {
     swiper,
     icon,

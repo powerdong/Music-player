@@ -8,10 +8,15 @@
 </template>
 
 <script>
-import defaultNav from "./pages/nav/index"
+import defaultNav from './pages/nav/index'
 
 export default {
-  name: "App",
+  name: 'App',
+  data () {
+    return {
+      show: false
+    }
+  },
   components: { defaultNav }
 }
 </script>

@@ -21,10 +21,10 @@
 </template>
 
 <script>
-import axios from "axios"
+import axios from 'axios'
 
 export default {
-  name: "songList",
+  name: 'songList',
   data () {
     return {
       songList: []
@@ -37,7 +37,7 @@ export default {
       this.songList.forEach(element => {
         playCount.push(
           element.playCount > 10000
-            ? Math.floor(element.playCount / 10000) + "万"
+            ? Math.floor(element.playCount / 10000) + '万'
             : element.playCount
         )
       })
@@ -47,11 +47,11 @@ export default {
   methods: {
     getSongListInfo () {
       axios
-        .get("http://140.143.128.100:3000/personalized")
+        .get('http://140.143.128.100:3000/personalized')
         .then(this.setSongListInfo)
     },
     setSongListInfo (res) {
-      if (res.status === 200 && res.statusText === "OK") {
+      if (res.status === 200 && res.statusText === 'OK') {
         res = res.data.result
         this.songList = this.getRandomArrayElements(res, 6)
       }
@@ -85,8 +85,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import url('~styles/global.less');
 @import url("http://at.alicdn.com/t/font_1298894_btl1q00lfth.css");
-
 .wrapper {
   .title {
     width: 100%;
@@ -100,20 +100,12 @@ export default {
       font-weight: 700;
     }
     .square {
-      box-sizing: border-box;
-      padding: 0.1rem 0.1rem 0.1rem 0.13rem;
-      font-size: 0.2rem;
-      border-radius: 1rem;
-      letter-spacing: 0.05rem;
-      text-align: center;
-      border: 1px solid #ccc;
+      .smallTag();
       margin-left: auto;
     }
   }
   .song-group {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    .flex-between();
     flex-wrap: wrap;
     .song-list {
       flex: 0 0 30%;
@@ -122,7 +114,7 @@ export default {
       .list-img {
         position: relative;
         img {
-          border-radius: 0.11rem;
+          border-radius: @imgBorderRadius;
           width: 100%;
         }
         .play-count {
@@ -141,13 +133,7 @@ export default {
         font-size: 0.24rem;
         line-height: 0.3rem;
         letter-spacing: 1px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        overflow: hidden;
-        /*! autoprefixer: off */
-        -webkit-box-orient: vertical;
+        .twoLinesEllipsis()
       }
     }
   }

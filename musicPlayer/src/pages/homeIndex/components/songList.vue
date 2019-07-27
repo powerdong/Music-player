@@ -32,28 +32,27 @@
 
 <script>
 export default {
-  name: "songList"
+  name: 'songList'
 }
 </script>
 
 <style lang="less" scoped>
+@import url('~styles/global.less');
 @import url("https:////at.alicdn.com/t/font_1306338_0j9qd4b899zn.css");
+@listHeight:0.8rem;
 
 .wrapper-title {
   width: 100%;
-  height: 0.76rem;
-  line-height: 0.76rem;
-  display: flex;
-  justify-content: space-between;
+  height: @listHeight;
+  line-height: @listHeight;
+  .flex-between();
   .left-title {
     .title {
       font-size: 0.32rem;
       font-weight: 700;
     }
     .num {
-      font-size: 0.2rem;
-      color: #ccc;
-      margin-left: 0.1rem;
+      .num()
     }
   }
   .right-title {
@@ -65,16 +64,15 @@ export default {
 .song-group {
   .song-list {
     width: 100%;
-    height: 0.8rem;
+    height: @listHeight;
     margin: 0.16rem 0;
-    display: flex;
-    justify-content: space-between;
+    .flex-between();
     .list-img {
       background-color: rgba(0, 0, 0, 0.7);
-      border-radius: 0.1rem;
-      width: 0.8rem;
-      height: 0.8rem;
-      line-height: 0.8rem;
+      border-radius: @imgBorderRadius;
+      width: @listHeight;
+      height: @listHeight;
+      line-height: @listHeight;
       text-align: center;
       color: #fff;
       margin-right: 0.3rem;
@@ -96,18 +94,12 @@ export default {
     }
     .heart {
       width: 2rem;
-      height: 0.8rem;
+      height: @listHeight;
       display: flex;
       align-items: center;
       justify-content: center;
       .heart-text {
-        box-sizing: border-box;
-        padding: 0.1rem 0.1rem 0.1rem 0.13rem;
-        font-size: 0.2rem;
-        border-radius: 1rem;
-        letter-spacing: 0.05rem;
-        text-align: center;
-        border: 1px solid #ccc;
+        .smallTag();
         .iconxindong{
           font-size: 0.2rem;
           font-weight: 700;

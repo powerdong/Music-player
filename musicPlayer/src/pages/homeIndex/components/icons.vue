@@ -20,22 +20,22 @@
 </template>
 
 <script>
-import { mapState } from "vuex"
-import { swiper } from "vue-awesome-swiper"
+import { mapState } from 'vuex'
+import { swiper } from 'vue-awesome-swiper'
 
 export default {
-  name: "homeIcons",
+  name: 'homeIcons',
   data () {
     return {
       swiperOption: {
         pagination: {
-          el: ".swiper-pagination"
+          el: '.swiper-pagination'
         }
       }
     }
   },
   computed: {
-    ...mapState(["homeIcons"])
+    ...mapState(['homeIcons'])
   },
   components: {
     swiper
@@ -44,6 +44,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import url("~styles/global.less");
 @import url("https://at.alicdn.com/t/font_1301440_eoa9vxvejgq.css");
 
 .wrapper {
@@ -64,19 +65,14 @@ export default {
       .icon-list {
         min-width: 1.6rem;
         height: 100%;
-        display: flex;
+        .flex-around();
         flex-direction: column;
-        justify-content: space-around;
         align-items: center;
         .icon {
-          width: 0.72rem;
-          height: 0.72rem;
-          border-radius: 50%;
-          background: linear-gradient(to right, #ff5a4c, #ff1d11);
-          text-align: center;
-          line-height: 0.72rem;
-          position: relative;
-          color: #fff;
+          width: @iconWidth * 0.72;
+          height: @iconWidth * 0.72;
+          line-height: @iconWidth * 0.72;
+          .icons();
           .iconfont {
             font-size: 0.4rem;
           }
@@ -85,7 +81,7 @@ export default {
           background: #ccc;
         }
         .icon-text {
-          font-size: 0.24rem;
+          font-size: @iconText;
         }
       }
     }

@@ -8,12 +8,12 @@
 </template>
 
 <script>
-import homeIcons from "./components/icons"
-import homeList from "./components/homeList"
-import songList from "./components/songList"
+import homeIcons from './components/icons'
+import homeList from './components/homeList'
+import songList from './components/songList'
 
 export default {
-  name: "homeIndex",
+  name: 'homeIndex',
   components: {
     homeIcons,
     homeList,

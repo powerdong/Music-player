@@ -1,1 +1,46 @@
-@bgcolor:#C20C0C;
+@bgcolor: #E54546;
+@imgBorderRadius: 0.11rem;
+@iconWidth: 1rem;
+@iconText: 0.24rem;
+
+.flex-between{
+  display: flex;
+  justify-content: space-between;
+}
+.flex-around{
+  display: flex;
+  justify-content: space-around;
+}
+.twoLinesEllipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  /*! autoprefixer: off */
+  -webkit-box-orient: vertical;
+}
+
+.smallTag {
+  box-sizing: border-box;
+  padding: 0.1rem 0.1rem 0.1rem 0.13rem;
+  font-size: 0.2rem;
+  border-radius: 1rem;
+  letter-spacing: 0.05rem;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+.icons {
+  border-radius: 50%;
+  background: linear-gradient(to right, #ff5a4c, #ff1d11);
+  text-align: center;
+  position: relative;
+  color: #fff;
+}
+
+.num {
+  font-size: 0.2rem;
+  margin-left: 0.1rem;
+  color: #ccc;
+}

@@ -15,17 +15,17 @@
 </template>
 
 <script>
-import { swiper, swiperSlide } from "vue-awesome-swiper"
-import axios from "axios"
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import axios from 'axios'
 
 export default {
-  name: "findSwiper",
+  name: 'findSwiper',
   data () {
     return {
       swiperList: [],
       swiperOption: {
         pagination: {
-          el: ".swiper-pagination"
+          el: '.swiper-pagination'
         },
         loop: true,
         autoplay: {
@@ -43,11 +43,11 @@ export default {
   methods: {
     getFindInfo () {
       axios
-        .get("http://140.143.128.100:3000/banner?type=1")
+        .get('http://140.143.128.100:3000/banner?type=1')
         .then(this.getFindInfoSuc)
     },
     getFindInfoSuc (res) {
-      if (res.status === 200 && res.statusText === "OK") {
+      if (res.status === 200 && res.statusText === 'OK') {
         res = res.data.banners
         this.swiperList = res
       }
@@ -60,13 +60,13 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url("~@/assets/styles/global.less");
+@import url("~styles/global.less");
 
 .banner-container /deep/ .swiper-pagination-bullet-active {
   background: @bgcolor;
 }
 .swiper-container {
-  border-radius: 0.15rem;
+  border-radius: @imgBorderRadius;
 }
 .banner-container {
   box-sizing: border-box;
@@ -75,7 +75,6 @@ export default {
   width: 100%;
   height: 0;
   padding-bottom: 40%;
-  border-radius: 0.15rem;
   .banner-img {
     width: 100%;
     height: 100%;
@@ -88,7 +87,7 @@ export default {
     font-size: smaller;
     padding: 3px 6px;
     opacity: 0.8;
-    border-top-left-radius: 0.15rem;
+    border-top-left-radius: @imgBorderRadius;
   }
 }
 </style>
