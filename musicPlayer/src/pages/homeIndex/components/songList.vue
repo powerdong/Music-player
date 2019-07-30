@@ -2,19 +2,19 @@
   <div class="container pd13">
     <div class="wrapper-title">
       <div class="left-title">
-        <i class="iconfont iconxiala"></i>
+        <i class="home iconarrow"></i>
         <span class="title">创建的歌单</span>
         <span class="num">(1)</span>
       </div>
       <div class="right-title">
-        <i class="iconfont iconjia"></i>
-        <i class="iconfont icondian"></i>
+        <i class="home iconincrease"></i>
+        <i class="home icondiandiandian"></i>
       </div>
     </div>
     <ul class="song-group">
       <li class="song-list">
         <div class="list-img">
-          <i class="iconfont iconxin"></i>
+          <i class="home iconxin"></i>
         </div>
         <div class="list-info">
           <p class="list-title">我喜欢的音乐</p>
@@ -22,7 +22,7 @@
         </div>
         <div class="heart">
           <span class="heart-text">
-            <i class="iconfont iconxindong"></i>心动模式
+            <i class="home iconxintiao"></i>心动模式
           </span>
         </div>
       </li>
@@ -38,7 +38,7 @@ export default {
 
 <style lang="less" scoped>
 @import url('~styles/global.less');
-@import url("https:////at.alicdn.com/t/font_1306338_0j9qd4b899zn.css");
+
 @listHeight:0.8rem;
 
 .wrapper-title {
@@ -56,7 +56,7 @@ export default {
     }
   }
   .right-title {
-    .icondian {
+    .icondiandiandian {
       margin-left: 0.13rem;
     }
   }
@@ -100,7 +100,7 @@ export default {
       justify-content: center;
       .heart-text {
         .smallTag();
-        .iconxindong{
+        .iconxintiao{
           font-size: 0.2rem;
           font-weight: 700;
         }

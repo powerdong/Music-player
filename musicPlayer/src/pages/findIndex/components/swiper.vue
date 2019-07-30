@@ -60,7 +60,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url("~styles/global.less");
+@import url('~styles/global.less');
 
 .banner-container /deep/ .swiper-pagination-bullet-active {
   background: @bgcolor;

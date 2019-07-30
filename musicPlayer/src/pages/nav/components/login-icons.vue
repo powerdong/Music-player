@@ -3,7 +3,7 @@
     <ul class="icons-wrapper">
       <li class="icon-list" v-for="(item, index) in loginIcons" :key="index">
         <div class="icon">
-          <i class="iconfont" :class="item.icon"></i>
+          <i class="login" :class="item.icon"></i>
         </div>
         <span class="icon-text">{{item.text}}</span>
       </li>
@@ -12,26 +12,34 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { loginIcons } from 'getInfos/getData'
 export default {
   name: 'loginIcons',
-  computed: {
-    ...mapState(['loginIcons'])
+  data () {
+    return {
+      loginIcons
+    }
+  },
+  mounted () {
+    this.iniData()
+  },
+  methods: {
+    async iniData () {
+      this.loginIcons = loginIcons()
+    }
   }
 }
 </script>
 
 <style lang="less" scoped>
-@import url("~styles/global.less");
-@import url("https://at.alicdn.com/t/font_1310719_61p4mqsq7ea.css");
+@import url('~styles/global.less');
 
 .icons-wrapper {
-  width: 100%;
   box-sizing: border-box;
+  width: 100%;
   padding: 1rem 0.13rem 0.5rem;
   .flex-around();
   .icon-list {
-    min-width: 1.6rem;
     height: 100%;
     text-align: center;
     display: flex;
@@ -41,7 +49,7 @@ export default {
       width: @iconWidth * 0.72;
       height: @iconWidth * 0.72;
       line-height: @iconWidth * 0.72;
-      .iconfont {
+      .login {
         font-size: 0.4rem;
         color: @bgcolor;
       }

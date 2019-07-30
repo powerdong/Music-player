@@ -3,7 +3,7 @@
     <div class="icon-wrapper" v-for="(item, index) in findIcons" :key="index">
       <div class="icon">
         <span class="today" v-if="item.text === '每日推荐'" >{{today}}</span>
-        <i :class="item.icon" class="iconfont"></i>
+        <i :class="item.icon" class="find"></i>
       </div>
       <span class="icon-text">{{item.text}}</span>
     </div>
@@ -11,22 +11,34 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import {findIcons} from 'getInfos/getData'
 
 export default {
   name: 'findIcon',
+  data () {
+    return {
+      findIcons
+    }
+  },
   computed: {
     today: function () {
       return new Date().getDate()
-    },
-    ...mapState(['findIcons'])
+    }
+  },
+  mounted () {
+    this.iniData()
+  },
+  methods: {
+    async iniData () {
+      this.findIcons = findIcons()
+    }
   }
 }
 </script>
 
 <style lang="less" scoped>
-@import url("~styles/global.less");
-@import url("http://at.alicdn.com/t/font_1295705_hdzk2gocoyo.css");
+@import url('~styles/global.less');
+
 .container {
   .flex-around();
   width: 100%;
@@ -44,7 +56,7 @@ export default {
       height: @iconWidth*0.9;
       line-height: @iconWidth*0.9;
       .icons();
-      .iconfont{
+      .find{
         font-size: 0.5rem;
       }
       .today{

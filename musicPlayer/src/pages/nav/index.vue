@@ -1,8 +1,8 @@
 <template>
   <!-- 顶部导航条 -->
-  <div class="nav-wrapper">
+  <nav class="nav-wrapper">
     <div class="nav-left">
-      <i class="iconfont iconnav" @click="showLogin"></i>
+      <i class="nav iconnav" @click="SHOW_LOGIN"></i>
     </div>
     <ul class="nav-center">
       <router-link tag="li" to="/home">我的</router-link>
@@ -11,44 +11,39 @@
       <router-link tag="li" to="/video">视频</router-link>
     </ul>
     <div class="nav-right">
-      <i class="iconfont iconsousuo"></i>
+      <i class="nav iconsousuo"></i>
     </div>
     <transition name="mask-show">
-      <div class="mask" v-show="loginPage" @click="hideLogin" @touchmove.prevent></div>
+      <div class="mask" v-show="loginPage" @click="HIDE_LOGIN" @touchmove.prevent></div>
     </transition>
-    <transition name="login-show">
+    <transition name="login-show" mode="out-in">
       <login v-if="loginPage" @touchmove.prevent></login>
     </transition>
-  </div>
+  </nav>
 </template>
 
 <script>
 import login from './components/login'
+import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'defaultNav',
   components: {
     login
   },
-  data () {
-    return {
-      loginPage: false
-    }
+  computed: {
+    ...mapState(['loginPage'])
   },
   methods: {
-    showLogin: function () {
-      this.loginPage = !this.loginPage
-      this.$modalHelper.afterOpen() // 打开禁用
-    },
-    hideLogin: function () {
-      this.loginPage = !this.loginPage
-      this.$modalHelper.beforeClose() // 关闭禁用
-    }
+    ...mapMutations(['SHOW_LOGIN']),
+    ...mapMutations(['HIDE_LOGIN'])
   }
 }
 </script>
 
 <style lang="less" scoped>
-@import url("https://at.alicdn.com/t/font_1298894_btl1q00lfth.css");
+@import url("~styles/global.less");
+@import url("//at.alicdn.com/t/font_1298894_8b2aso7zegl.css");
+// 遮罩层动画
 .mask-show-enter,
 .mask-show-leave-to {
   opacity: 0;
@@ -58,7 +53,7 @@ export default {
 .mask-show-leave-active {
   transition: opacity linear 0.2s;
 }
-
+// 左侧侧边栏显示隐藏动画
 .login-show-enter,
 .login-show-leave-to {
   transform: translateX(-6rem);
@@ -68,6 +63,7 @@ export default {
 .login-show-leave-active {
   transition: transform ease-out 0.2s;
 }
+// 顶部的导航条
 .nav-wrapper {
   box-sizing: border-box;
   width: 100%;
@@ -99,6 +95,7 @@ export default {
     justify-content: flex-end;
     align-items: center;
   }
+  // 遮罩层
   .mask {
     position: fixed;
     z-index: 10;

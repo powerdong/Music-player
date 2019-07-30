@@ -10,8 +10,8 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
 import 'styles/reset.css'
 import 'styles/border.css'
-import 'styles/global.css'
 Vue.prototype.$modalHelper = ModalHelper
+
 // import ""
 
 Vue.config.productionTip = false

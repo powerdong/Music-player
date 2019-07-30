@@ -1,16 +1,25 @@
+// 主题色
 @bgcolor: #E54546;
+// 图片圆角
 @imgBorderRadius: 0.11rem;
+// 图标宽度
 @iconWidth: 1rem;
+// 图标下方文本大小
 @iconText: 0.24rem;
 
+// 定义盒子模型 两边对齐布局
 .flex-between{
   display: flex;
   justify-content: space-between;
 }
+
+// 定义盒子模型  分散布局
 .flex-around{
   display: flex;
   justify-content: space-around;
 }
+
+// 两行文本溢出打点 ...
 .twoLinesEllipsis {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -21,6 +30,7 @@
   -webkit-box-orient: vertical;
 }
 
+// 小标签
 .smallTag {
   box-sizing: border-box;
   padding: 0.1rem 0.1rem 0.1rem 0.13rem;
@@ -31,6 +41,7 @@
   border: 1px solid #ccc;
 }
 
+// 红色图标样式
 .icons {
   border-radius: 50%;
   background: linear-gradient(to right, #ff5a4c, #ff1d11);
@@ -39,8 +50,45 @@
   color: #fff;
 }
 
+// 灰色的数字样式
 .num {
   font-size: 0.2rem;
   margin-left: 0.1rem;
   color: #ccc;
+}
+
+// 导航栏的访问样式
+.ac{
+  color: #000;
+  font-size: 0.28rem;
+}
+
+// a标签覆盖整个区域
+.cover{
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+
+// 页面灰色分割线样式
+.split{
+  width: 100%;
+  height: 0.13rem;
+  background-color: #eee;
+}
+
+// 页面有的左右padding
+.pd13{
+  box-sizing: border-box;
+  padding: 0 0.13rem;
+}
+
+// 页面有的左右padding
+.pd23{
+  box-sizing: border-box;
+  padding: 0 0.23rem;
 }

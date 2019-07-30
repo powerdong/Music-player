@@ -9,7 +9,7 @@
         <div class="list-img">
           <img :src="item.picUrl" alt />
           <span class="play-count">
-            <i class="iconfont iconbofang"></i>
+            <i class="find bofang"></i>
             {{playCount[index]}}
           </span>
           <router-link class="cover" :to="'/playlist?id='+item.id"></router-link>
@@ -86,7 +86,7 @@ export default {
 
 <style lang="less" scoped>
 @import url('~styles/global.less');
-@import url("http://at.alicdn.com/t/font_1298894_btl1q00lfth.css");
+
 .wrapper {
   .title {
     width: 100%;
@@ -123,7 +123,7 @@ export default {
           right: 0.11rem;
           font-size: 0.2rem;
           color: #fff;
-          .iconbofang {
+          .bofang {
             font-size: 0.18rem;
           }
         }

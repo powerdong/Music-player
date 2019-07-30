@@ -2,7 +2,7 @@
   <div class="container pd13">
     <ul>
       <li v-for="(item, index) in homeList" :key="index" class="list-item">
-        <i class="iconfont" :class="item.icon"></i>
+        <i class="home" :class="item.icon"></i>
         <div class="border-bottom wrapper">
           <span class="list-content">{{item.text}}</span>
           <span class="num">({{item.num}})</span>
@@ -13,18 +13,28 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import {homeList} from 'getInfos/getData'
+
 export default {
   name: 'homeList',
-  computed: {
-    ...mapState(['homeList'])
+  data () {
+    return {
+      homeList
+    }
+  },
+  mounted () {
+    this.iniData()
+  },
+  methods: {
+    async iniData () {
+      this.homeList = homeList()
+    }
   }
 }
 </script>
 
 <style lang="less" scoped>
 @import url('~styles/global.less');
-@import url("https://at.alicdn.com/t/font_1306085_nryhea053g.css");
 .list-item {
   .flex-between();
   margin: 0.1rem 0;
@@ -39,7 +49,7 @@ export default {
       .num()
     }
   }
-  .iconfont {
+  .home {
     font-size: 0.5rem;
     margin: 0 0.4rem;
   }

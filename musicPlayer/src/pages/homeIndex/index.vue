@@ -22,4 +22,6 @@ export default {
 }
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+@import url('//at.alicdn.com/t/font_1322300_au86cqimtlb.css');
+</style>
