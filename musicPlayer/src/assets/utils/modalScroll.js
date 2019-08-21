@@ -1,3 +1,9 @@
+/*
+ * @Author: 李浩栋
+ * @Begin: 2019-07-27 17:08:42
+ * @Update: 2019-08-10 16:42:32
+ * @Update log: 更新日志
+ */
 // 解决遮罩层滚动穿透问题，分别在遮罩层弹出后和关闭前调用
 let _scrollTop
 class ModalHelper {

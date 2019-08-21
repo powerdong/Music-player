@@ -1,3 +1,9 @@
+/*
+ * @Author: 李浩栋
+ * @Begin: 2019-07-30 16:42:30
+ * @Update: 2019-08-19 14:56:07
+ * @Update log: 更新日志
+ */
 let homeIcons = [{
   text: '私藏推荐',
   icon: 'iconxindian'

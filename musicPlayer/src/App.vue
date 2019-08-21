@@ -1,6 +1,11 @@
+<!--
+ * @Author: 李浩栋
+ * @Begin: 2019-07-27 17:08:42
+ * @Update: 2019-08-19 18:52:07
+ * @Update log: 更新日志
+ -->
 <template>
   <div id="app">
-    <default-nav></default-nav>
     <keep-alive>
       <router-view />
     </keep-alive>
@@ -8,7 +13,6 @@
 </template>
 
 <script>
-import defaultNav from './pages/nav/index'
 
 export default {
   name: 'App',
@@ -16,8 +20,7 @@ export default {
     return {
       show: false
     }
-  },
-  components: { defaultNav }
+  }
 }
 </script>
 

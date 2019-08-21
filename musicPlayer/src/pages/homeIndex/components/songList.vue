@@ -1,10 +1,16 @@
+<!--
+ * @Author: 李浩栋
+ * @Begin: 2019-07-30 16:42:30
+ * @Update: 2019-08-19 18:45:55
+ * @Update log: 更新日志
+ -->
 <template>
   <div class="container pd13">
     <div class="wrapper-title">
       <div class="left-title">
         <i class="home iconarrow"></i>
         <span class="title">创建的歌单</span>
-        <span class="num">(1)</span>
+        <span class="num">({{index.createNum}})</span>
       </div>
       <div class="right-title">
         <i class="home iconincrease"></i>
@@ -12,13 +18,40 @@
       </div>
     </div>
     <ul class="song-group">
-      <li class="song-list">
+      <li class="song-list" v-for="(item, index) in createList" :key="index">
         <div class="list-img">
-          <i class="home iconxin"></i>
+          <img :src="item.coverImgUrl">
         </div>
         <div class="list-info">
-          <p class="list-title">我喜欢的音乐</p>
-          <p class="list-num">0首</p>
+          <p class="list-title">{{ item.name | setName}}</p>
+          <p class="list-num">{{item.trackCount}}首</p>
+        </div>
+        <div class="heart">
+          <span class="heart-text">
+            <i class="home iconxintiao"></i>心动模式
+          </span>
+        </div>
+      </li>
+    </ul>
+    <div class="wrapper-title" v-if="index.favoritesNum">
+      <div class="left-title">
+        <i class="home iconarrow"></i>
+        <span class="title">收藏的歌单</span>
+        <span class="num">({{index.favoritesNum}})</span>
+      </div>
+      <div class="right-title">
+        <i class="home iconincrease"></i>
+        <i class="home icondiandiandian"></i>
+      </div>
+    </div>
+    <ul class="song-group">
+    <li class="song-list" v-for="(item, index) in favoritesList" :key="index">
+        <div class="list-img">
+          <img :src="item.coverImgUrl">
+        </div>
+        <div class="list-info">
+          <p class="list-title">{{ item.name}}</p>
+          <p class="list-num">{{item.trackCount}}首</p>
         </div>
         <div class="heart">
           <span class="heart-text">
@@ -31,15 +64,75 @@
 </template>
 
 <script>
+import api from 'api'
 export default {
-  name: 'songList'
+  name: 'songList',
+  data () {
+    return {
+      // 收藏歌单详情
+      favoritesList: [],
+      // 创建歌单详情
+      createList: []
+    }
+  },
+  // 使用筛选功能，将列表中的 我喜欢的音乐 标题正确渲染
+  filters: {
+    setName: function (value) {
+      let reg = new RegExp(/喜欢的音乐$/)
+      if (reg.test(value)) {
+        value = '我喜欢的音乐'
+      }
+      return value
+      // value = value.toString()
+      // return value.charAt(0).toUpperCase() + value.slice(1)
+    }
+  },
+  props: ['index'],
+  mounted () {
+    this.favoritesIndex = this.index.favoritesNum
+    this.createIndex = this.index.createNum
+  },
+  watch: {
+    index: {
+      deep: true,
+      handler (val, oldVal) {
+        this.createIndex = val.createNum
+        this.favoritesIndex = val.favoritesNum
+        this.getPlaylist(this.$store.state.accountUid)
+      }
+    }
+  },
+  methods: {
+    // 获取用户歌单
+    getPlaylist (id) {
+      api.playlistFn(id).then(res => {
+        let data = res.data
+        if (data.code === 200) {
+          this.sliceInfo(data.playlist)
+        }
+      })
+    },
+    /**
+     * 得到数组，分割赋值
+     * 根据传入的 index 值分割总歌单数组
+     * @param {Array} arr
+     */
+    sliceInfo (arr) {
+      let from = this.createIndex
+      let len = this.createIndex + this.favoritesIndex
+      this.createList = arr.slice(0, from)
+      this.favoritesList = arr.slice(from, len)
+      console.log(this.createList)
+      console.log(this.favoritesList)
+    }
+  }
 }
 </script>
 
 <style lang="less" scoped>
-@import url('~styles/global.less');
+@import url("~styles/global.less");
 
-@listHeight:0.8rem;
+@listHeight: 0.8rem;
 
 .wrapper-title {
   width: 100%;
@@ -52,7 +145,7 @@ export default {
       font-weight: 700;
     }
     .num {
-      .num()
+      .num();
     }
   }
   .right-title {
@@ -68,16 +161,16 @@ export default {
     margin: 0.16rem 0;
     .flex-between();
     .list-img {
-      background-color: rgba(0, 0, 0, 0.7);
       border-radius: @imgBorderRadius;
       width: @listHeight;
       height: @listHeight;
       line-height: @listHeight;
       text-align: center;
-      color: #fff;
       margin-right: 0.3rem;
-      .iconxin {
-        font-size: 0.47rem;
+      overflow: hidden;
+      img{
+        width: 100%;
+        height: 100%;
       }
     }
     .list-info {
@@ -86,6 +179,9 @@ export default {
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
+      .list-title{
+        font-size: small
+      }
       .list-num {
         margin-top: 0.13rem;
         font-size: 0.2rem;
@@ -100,7 +196,7 @@ export default {
       justify-content: center;
       .heart-text {
         .smallTag();
-        .iconxintiao{
+        .iconxintiao {
           font-size: 0.2rem;
           font-weight: 700;
         }

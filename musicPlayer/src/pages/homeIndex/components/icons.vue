@@ -1,3 +1,10 @@
+<!--
+ * @Author: 李浩栋
+ * @Begin: 2019-07-30 16:42:30
+ * @Update: 2019-08-11 17:51:47
+ * @Update log: 我的页面图标展示
+ *              可左右滑动
+ -->
 <template>
   <div class="wrapper border-bottom">
     <div class="container ">
@@ -20,7 +27,7 @@
 </template>
 
 <script>
-import {homeIcons} from 'getInfos/getData'
+import { homeIcons } from 'getInfos/getData'
 import { swiper } from 'vue-awesome-swiper'
 
 export default {
@@ -58,8 +65,10 @@ export default {
   height: 1.8rem;
   // 定义可左右滑动的图标组
   .container {
+    // 横向滚动条
     overflow-x: scroll;
     .icons-group {
+      // flex布局 溢出不换行
       height: 1.5rem;
       display: flex;
       flex-wrap: nowrap;
@@ -68,6 +77,7 @@ export default {
       width: auto;
       min-width: 100%;
       .icon-list {
+        // 每项 icon 样式
         min-width: 1.6rem;
         height: 100%;
         .flex-around();

@@ -1,3 +1,9 @@
+/*
+ * @Author: 李浩栋
+ * @Begin: 2019-07-30 16:42:30
+ * @Update: 2019-08-19 14:02:44
+ * @Update log: 更新日志
+ */
 'use strict'
 const path = require('path')
 const utils = require('./utils')
@@ -37,7 +43,9 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
       'styles': resolve('src/assets/styles'),
-      'getInfos': resolve('src/getInfos')
+      'getInfos': resolve('src/getInfos'),
+      'base': resolve('src/base'),
+      'api': resolve('src/api')
     }
   },
   module: {

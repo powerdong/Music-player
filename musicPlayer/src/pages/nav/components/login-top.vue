@@ -1,3 +1,9 @@
+<!--
+ * @Author: 李浩栋
+ * @Begin: 2019-07-30 16:42:30
+ * @Update: 2019-08-11 17:10:52
+ * @Update log: 更新日志
+ -->
 <template>
   <div class="wrapper">
     <div class="content">
@@ -51,7 +57,6 @@ export default {
     border-radius: 0.5rem;
     font-size: @fontSize;
     color: @color;
-
   }
 }
 </style>

@@ -1,3 +1,9 @@
+<!--
+ * @Author: 李浩栋
+ * @Begin: 2019-07-30 16:42:30
+ * @Update: 2019-08-11 17:41:44
+ * @Update log: 更新日志
+ -->
 <template>
   <div class="wrapper pd23">
     <div class="title">
@@ -33,7 +39,9 @@ export default {
   computed: {
     // 将播放数的数字转换为以万为单位
     playCount () {
+      // 用来存放转换后的数据
       const playCount = []
+      // 遍历当前数据
       this.songList.forEach(element => {
         playCount.push(
           element.playCount > 10000
