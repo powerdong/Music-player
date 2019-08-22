@@ -1,9 +1,8 @@
 <h1 align="center">Welcome to Music-player 👋</h1>
-<p align="center">
-  <img src="https://img.shields.io/badge/npm-6.4.1-yellowgreen" />
-</p>
 
 ## 🚀 如何运行
+
+> node 版本 `[6.4.0]`
 
 ### ✨开发过程
 
