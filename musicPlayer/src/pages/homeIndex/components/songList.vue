@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-08-19 18:45:55
+ * @Update: 2019-08-24 16:53:01
  * @Update log: 更新日志
  -->
 <template>
@@ -20,7 +20,7 @@
     <ul class="song-group">
       <li class="song-list" v-for="(item, index) in createList" :key="index">
         <div class="list-img">
-          <img :src="item.coverImgUrl">
+          <img :src="item.coverImgUrl" />
         </div>
         <div class="list-info">
           <p class="list-title">{{ item.name | setName}}</p>
@@ -45,9 +45,9 @@
       </div>
     </div>
     <ul class="song-group">
-    <li class="song-list" v-for="(item, index) in favoritesList" :key="index">
+      <li class="song-list" v-for="(item, index) in favoritesList" :key="index">
         <div class="list-img">
-          <img :src="item.coverImgUrl">
+          <img :src="item.coverImgUrl" />
         </div>
         <div class="list-info">
           <p class="list-title">{{ item.name}}</p>
@@ -55,7 +55,7 @@
         </div>
         <div class="heart">
           <span class="heart-text">
-            <i class="home iconxintiao"></i>心动模式
+            <i class="home icondiandiandian"></i>
           </span>
         </div>
       </li>
@@ -91,11 +91,13 @@ export default {
   mounted () {
     this.favoritesIndex = this.index.favoritesNum
     this.createIndex = this.index.createNum
+    this.getPlaylist(this.$store.state.accountUid)
   },
   watch: {
     index: {
       deep: true,
       handler (val, oldVal) {
+        console.log(val)
         this.createIndex = val.createNum
         this.favoritesIndex = val.favoritesNum
         this.getPlaylist(this.$store.state.accountUid)
@@ -103,7 +105,9 @@ export default {
     }
   },
   methods: {
-    // 获取用户歌单
+    /**
+     * 获取用户歌单
+     */
     getPlaylist (id) {
       api.playlistFn(id).then(res => {
         let data = res.data
@@ -122,8 +126,6 @@ export default {
       let len = this.createIndex + this.favoritesIndex
       this.createList = arr.slice(0, from)
       this.favoritesList = arr.slice(from, len)
-      console.log(this.createList)
-      console.log(this.favoritesList)
     }
   }
 }
@@ -168,7 +170,7 @@ export default {
       text-align: center;
       margin-right: 0.3rem;
       overflow: hidden;
-      img{
+      img {
         width: 100%;
         height: 100%;
       }
@@ -179,8 +181,8 @@ export default {
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
-      .list-title{
-        font-size: small
+      .list-title {
+        font-size: small;
       }
       .list-num {
         margin-top: 0.13rem;

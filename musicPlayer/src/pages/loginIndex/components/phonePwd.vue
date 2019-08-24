@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-14 15:42:41
- * @Update: 2019-08-19 14:09:09
+ * @Update: 2019-08-24 17:07:21
  * @Update log: 手机号登录密码页面
  -->
 <template>
@@ -13,7 +13,7 @@
     </div>
     <login-btn @click.native="logon" :title="title"></login-btn>
     <!-- 设置提示语 -->
-    <alert :is-alert="alert" alert="用户名或密码错误"></alert>
+    <alert :is-alert="alert" :alert="alertText"></alert>
     <loading :is-loading="loading"></loading>
   </div>
 </template>
@@ -30,6 +30,7 @@ export default {
     return {
       pwd: '',
       alert: false,
+      alertText: '用户名或密码错误',
       title: '登录',
       loading: false,
       flag: true
@@ -46,7 +47,7 @@ export default {
      * 输入框内容为空
      */
     clearInput () {
-      this.$data.pwd = ''
+      this.pwd = ''
     },
     /**
      * 提示组件的事件
@@ -54,21 +55,55 @@ export default {
     alertEvent () {
       // 如果输入内容不合法，提示组件显示
       // 显示一段时间后隐藏
-      if (this.$data.timer) {
-        clearTimeout(this.$data.timer)
-        this.$data.timer = null
+      if (this.timer) {
+        clearTimeout(this.timer)
+        this.timer = null
       }
-      this.$data.alert = true
+      this.alert = true
       // 1s 后隐藏组件
-      this.$data.timer = setTimeout(() => {
-        this.$data.alert = false
+      this.timer = setTimeout(() => {
+        this.alert = false
       }, 1000)
+    },
+    /**
+     * 登陆成功后存取登录状态及信息
+     */
+    getLoginState () {
+      api.loginStatusFn()
+        .then(res => {
+        // 存取用户 id
+          let userId = res.data.profile.userId
+          if (res.data.code === 200) {
+          // 存取用户信息
+            let accountInfo = res.data.profile
+            // 成功登陆
+            // 修改状态为 1
+            this.$store.commit('LOGIN_STATE')
+            // Vuex在用户刷新的时候loginState会回到默认值false
+            // 所以我们需要用到HTML5储存
+            // 我们设置一个名为loginState
+            localStorage.setItem('loginState', true)
+            // 存入用户头像 昵称
+            localStorage.setItem('avatarUrl', accountInfo.avatarUrl)
+            localStorage.setItem('nickname', accountInfo.nickname)
+            // 存取用户 uid信息
+            this.$store.commit('ACCOUNT_UID', userId)
+            localStorage.setItem('accountUid', userId)
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     /**
      * 判断密码是否正确
      * @param pwd 传入密码内容
      */
     passwordIsCorrect (pwd) {
+      if (!pwd) {
+        this.alertText = '请输入密码'
+        this.alertEvent()
+      }
       // 创建一个正则表达式
       let reg = new RegExp(/\d*$/)
       // window.location.hash 返回从 “#” 开始的 url
@@ -96,13 +131,16 @@ export default {
       this.$store.commit('LOGIN_STATE')
       // loading 样式隐藏
       this.LoadingEnd()
+      // 存取登陆状态
+      this.getLoginState()
       // 跳转到发现页面
-      this.$router.push({path: '/home'})
+      this.$router.push({path: '/find'})
     },
     /**
-     * 登录失败
+     * 密码错误登录失败
      */
     error () {
+      this.alertText = '用户名或密码错误'
       // 显示提示信息
       this.alertEvent()
       // 输入框内容为空
@@ -110,18 +148,18 @@ export default {
       // loading 样式隐藏
       this.LoadingEnd()
       // 登陆按钮的锁去掉
-      this.$data.flag = true
+      this.flag = true
     },
     /**
      * 由于在点击时会触发两次请求 设置flag锁
      * 点击登录按钮要发生的事件
      */
     logon () {
-      if (this.$data.flag) {
-        this.$data.flag = false
+      if (this.flag) {
+        this.flag = false
         this.Loading()
         // 判断密码是否正确
-        this.passwordIsCorrect(this.$data.pwd)
+        this.passwordIsCorrect(this.pwd)
       }
     },
     /**
@@ -130,18 +168,18 @@ export default {
      */
     LoadingEnd () {
       // 将按钮内容设置为 登录.
-      this.$data.title = '登录'
+      this.title = '登录'
       // 页面显示loading 样式
-      this.$data.loading = false
+      this.loading = false
     },
     /**
      * 登录中的 loading 设置
      */
     Loading () {
       // 将按钮内容设置为 登录中...
-      this.$data.title = '登录中...'
+      this.title = '登录中...'
       // 页面显示loading 样式
-      this.$data.loading = true
+      this.loading = true
     },
     // 在vue生命周期的created()钩子函数进行的DOM操作要放在Vue.nextTick()的回调函数中，
     // 因为created()钩子函数执行的时候DOM并未进行任何渲染，而此时进行DOM操作是徒劳的，所以此处一定要将DOM操作的JS代码放进Vue.nextTick()的回调函数中。

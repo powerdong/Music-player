@@ -1,3 +1,9 @@
+<!--
+ * @Author: 李浩栋
+ * @Begin: 2019-07-30 16:42:30
+ * @Update: 2019-08-24 15:43:13
+ * @Update log: 更新日志
+ -->
 <template>
   <!-- 顶部导航条 -->
   <nav class="nav-wrapper">
@@ -24,14 +30,14 @@
 
 <script>
 import login from './components/login'
-import { mapState, mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'defaultNav',
   components: {
     login
   },
   computed: {
-    ...mapState(['loginPage'])
+    ...mapGetters({loginPage: 'LOGIN_PAGE'})
   },
   methods: {
     ...mapMutations(['SHOW_LOGIN']),

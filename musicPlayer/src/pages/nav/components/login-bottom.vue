@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-08-18 13:42:36
+ * @Update: 2019-08-24 15:45:59
  * @Update log: 更新日志
  -->
 <template>
@@ -23,13 +23,13 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'loginBottom',
   computed: {
-    ...mapState(['iconyueliang1']),
-    ...mapState(['icontaiyang']),
-    ...mapState(['modeText'])
+    ...mapGetters({iconyueliang1: 'ICON_NIGHT'}),
+    ...mapGetters({icontaiyang: 'LOGIN_STATE'}),
+    ...mapGetters({modeText: 'MODE_TEXT'})
   },
   methods: {
     ...mapMutations(['TOGGLE_MODE'])

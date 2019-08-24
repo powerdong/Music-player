@@ -1,3 +1,9 @@
+<!--
+ * @Author: 李浩栋
+ * @Begin: 2019-07-30 16:42:30
+ * @Update: 2019-08-24 11:53:28
+ * @Update log: 更新日志
+ -->
 <template>
   <div class="login-menu">
     <login-top></login-top>
@@ -28,7 +34,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url('//at.alicdn.com/t/font_1322263_qmujtttwdn.css');
+@import url('//at.alicdn.com/t/font_1322263_fy4q7rzis3b.css');
 .login-menu {
     // 左侧侧边栏 宽度设置为6rem
     position: absolute;
