@@ -1,12 +1,11 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-14 15:42:41
- * @Update: 2019-08-24 17:07:21
+ * @Update: 2019-08-25 13:41:54
  * @Update log: 手机号登录密码页面
  -->
 <template>
   <div class="wrapper">
-    <login-nav></login-nav>
     <div class="inp border-bottom">
       <input type="password" v-model="pwd" placeholder="请输入密码" ref="inputs" autofocus="autofocus" />
       <router-link to="/forget">忘记密码</router-link>
@@ -19,7 +18,6 @@
 </template>
 
 <script>
-import loginNav from 'base/generalNav'
 import loginBtn from 'base/button'
 import alert from 'base/alert'
 import loading from 'base/loading'
@@ -37,7 +35,6 @@ export default {
     }
   },
   components: {
-    loginNav,
     loginBtn,
     alert,
     loading
@@ -74,7 +71,7 @@ export default {
         // 存取用户 id
           let userId = res.data.profile.userId
           if (res.data.code === 200) {
-          // 存取用户信息
+            // 存取用户信息
             let accountInfo = res.data.profile
             // 成功登陆
             // 修改状态为 1
@@ -112,7 +109,8 @@ export default {
       api.phoneLoginFn(phone, pwd)
         .then(res => {
           // 密码正确
-          // 显示登陆中，页面中间显示 loading 样式
+          // 将账号存下，以后登录时账号输入框自动填写
+          localStorage.setItem('account', phone)
           this.success()
         })
         // eslint 报 handle-callback-err 错误 添加 if 判断
