@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-14 15:42:41
- * @Update: 2019-08-25 13:41:54
+ * @Update: 2019-08-26 13:48:18
  * @Update log: 手机号登录密码页面
  -->
 <template>
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import {getPhone} from 'utils/getPhone'
 import loginBtn from 'base/button'
 import alert from 'base/alert'
 import loading from 'base/loading'
@@ -101,11 +102,7 @@ export default {
         this.alertText = '请输入密码'
         this.alertEvent()
       }
-      // 创建一个正则表达式
-      let reg = new RegExp(/\d*$/)
-      // window.location.hash 返回从 “#” 开始的 url
-      // 返回一个数组（未匹配到则返回 null）
-      let phone = reg.exec(window.location.hash)[0]
+      let phone = getPhone()
       api.phoneLoginFn(phone, pwd)
         .then(res => {
           // 密码正确

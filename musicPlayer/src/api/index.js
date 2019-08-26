@@ -1,13 +1,15 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-08-19 16:05:35
+ * @Update: 2019-08-26 14:13:21
  * @Update log: 更新日志
  */
 import axios from 'axios'
 
 import {
   phoneLogin,
+  sendVerify,
+  verify,
   phoneRegistered,
   loginStatus,
   userRecord,
@@ -25,6 +27,31 @@ export default {
     return axios.get(phoneRegistered, {
       params: {
         phone
+      }
+    })
+  },
+  /**
+   * 调用此接口 ,传入手机号码, 可发送验证码
+   * @param {number} phone 手机号
+   */
+  sendVerifyFn (phone) {
+    return axios.get(sendVerify, {
+      params: {
+        phone
+      }
+    })
+  },
+  /**
+   * 验证验证码
+   * 调用此接口 ,传入手机号码和验证码, 可校验验证码是否正确
+   * @param {*} phone 手机号
+   * @param {*} captcha 验证码
+   */
+  verifyFn (phone, captcha) {
+    return axios.get(verify, {
+      params: {
+        phone,
+        captcha
       }
     })
   },

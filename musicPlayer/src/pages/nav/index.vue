@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-08-24 15:43:13
+ * @Update: 2019-08-26 17:50:26
  * @Update log: 更新日志
  -->
 <template>
@@ -40,8 +40,7 @@ export default {
     ...mapGetters({loginPage: 'LOGIN_PAGE'})
   },
   methods: {
-    ...mapMutations(['SHOW_LOGIN']),
-    ...mapMutations(['HIDE_LOGIN'])
+    ...mapMutations(['SHOW_LOGIN', 'HIDE_LOGIN'])
   }
 }
 </script>
@@ -57,7 +56,7 @@ export default {
 
 .mask-show-enter-active,
 .mask-show-leave-active {
-  transition: opacity linear 0.2s;
+  transition: opacity linear 0.3s;
 }
 // 左侧侧边栏显示隐藏动画
 .login-show-enter,
@@ -67,7 +66,7 @@ export default {
 
 .login-show-enter-active,
 .login-show-leave-active {
-  transition: transform ease-out 0.2s;
+  transition: transform linear 0.3s;
 }
 // 顶部的导航条
 .nav-wrapper {

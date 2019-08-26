@@ -8,13 +8,13 @@
 @iconText: 0.24rem;
 
 // 定义盒子模型 两边对齐布局
-.flex-between{
+.flex-between {
   display: flex;
   justify-content: space-between;
 }
 
 // 定义盒子模型  分散布局
-.flex-around{
+.flex-around {
   display: flex;
   justify-content: space-around;
 }
@@ -58,13 +58,13 @@
 }
 
 // 导航栏的访问样式
-.ac{
+.ac {
   color: #000;
   font-size: 0.28rem;
 }
 
 // a标签覆盖整个区域
-.cover{
+.cover {
   position: absolute;
   top: 0;
   left: 0;
@@ -75,20 +75,52 @@
 }
 
 // 页面灰色分割线样式
-.split{
+.split {
   width: 100%;
   height: 0.13rem;
   background-color: #eee;
 }
 
 // 页面有的左右padding
-.pd13{
+.pd13 {
   box-sizing: border-box;
   padding: 0 0.13rem;
 }
 
 // 页面有的左右padding
-.pd23{
+.pd23 {
   box-sizing: border-box;
   padding: 0 0.23rem;
+}
+
+// 点击有波纹效果
+.ripple {
+  position: relative;
+  //隐藏溢出的径向渐变背景
+  overflow: hidden;
+
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    //设置径向渐变
+    background-image: radial-gradient(circle, #666 10%, transparent 10.01%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transform: scale(10, 10);
+    opacity: 0;
+    transition: transform .3s, opacity .5s;
+  }
+
+  &:active:after {
+    transform: scale(0, 0);
+    opacity: .3;
+    //设置初始状态
+    transition: 0s;
+  }
 }
