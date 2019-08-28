@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-08-26 17:50:26
+ * @Update: 2019-08-27 12:37:10
  * @Update log: 更新日志
  -->
 <template>
@@ -17,7 +17,7 @@
       <router-link tag="li" to="/video">视频</router-link>
     </ul>
     <div class="nav-right">
-      <i class="nav iconsousuo"></i>
+      <router-link to="search" tag="i" class="nav iconsousuo"></router-link>
     </div>
     <transition name="mask-show">
       <div class="mask" v-show="loginPage" @click="HIDE_LOGIN" @touchmove.prevent></div>

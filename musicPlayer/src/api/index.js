@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-08-26 14:13:21
+ * @Update: 2019-08-28 11:57:52
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -15,7 +15,11 @@ import {
   userRecord,
   userInfo,
   playlist,
-  userDj
+  userDj,
+  hotSearchList,
+  search,
+  defaultSearch,
+  suggestSearch
 } from './config'
 
 export default {
@@ -116,13 +120,60 @@ export default {
     })
   },
   /**
-  * 登陆后调用此接口 , 传入用户 id, 可以获取用户电台
-  * @param {*} uid 用户 id
-  */
+   * 登陆后调用此接口 , 传入用户 id, 可以获取用户电台
+   * @param {*} uid 用户 id
+   */
   userDjFn (uid) {
     return axios.get(userDj, {
       params: {
         uid
+      }
+    })
+  },
+  /**
+   * 调用此接口,可获取热门搜索列表
+   */
+  hotSearchListFn () {
+    return axios.get(hotSearchList)
+  },
+  /**
+   * 调用此接口 , 传入搜索关键词可以搜索
+   * 该音乐 / 专辑 / 歌手 / 歌单 / 用户 , 关键词可以多个 , 以空格隔开
+   * @param {*} keywords 关键词
+   * @param {*} limit 返回数量 , 默认为 30
+   * @param {*} offset 偏移数量，用于分页 默认为 0
+   * @param {*} type 搜索类型 默认为 1 即单曲 这里设置默认返回综合
+   * 1: 单曲, 10: 专辑, 100: 歌手, 1000: 歌单
+   * 1002: 用户, 1004: MV, 1006: 歌词, 1009: 电台, 1014: 视频, 1018:综合
+   */
+  searchFn (keywords, limit = 30, offset = 0, type = 1018) {
+    return axios.get(search, {
+      params: {
+        keywords,
+        limit,
+        offset,
+        type
+      }
+    })
+  },
+  /**
+   * 调用此接口 , 可获取默认搜索关键词
+   */
+  defaultSearchFn () {
+    return axios.get(defaultSearch)
+  },
+  /**
+   * 调用此接口
+   * 传入搜索关键词可获得搜索建议 ,
+   * 搜索结果同时包含单曲 , 歌手 , 歌单 ,mv 信息
+   * @param {*} keywords 关键词
+   * @param {*} type 默认返回移动端数据
+   */
+  suggestSearchFn (keywords, type = 'mobile') {
+    return axios.get(suggestSearch, {
+      params: {
+        keywords,
+        type
       }
     })
   }
