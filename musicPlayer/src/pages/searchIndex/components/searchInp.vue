@@ -1,33 +1,37 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-27 12:42:24
- * @Update: 2019-08-28 20:02:10
+ * @Update: 2019-08-29 13:35:13
  * @Update log: 更新日志
  -->
 <template>
   <div class="wrapper pd23">
-    <i class="search iconzuojiantou"></i>
+    <i class="search iconzuojiantou"  @click="returnPage"></i>
     <input
           class="searchInp"
           type="text"
           placeholder=""
           ref="inp"
-          v-model.trim="keywords">
+          autofocus="autofocus"
+          v-model.trim="keywords"
+          @focus="displayList">
     <i class="search icongeshou"></i>
     <div class="floatInfo" v-if="showList">
       <ul>
         <li  @click="searchKey(keywords)" class="blue border-bottom">搜索<span class="text">"{{ keywords }}"</span></li>
         <li @click="searchKey(item.keyword)" class="border-bottom" v-for="(item, index) in searchList" :key="index">
-          <i class="search iconsousuo"></i>
+          <i class="search iconsousuo1"></i>
           {{ item.keyword }}
         </li>
       </ul>
     </div>
+    <div class="mask" v-show="showList" @click="hideList"></div>
   </div>
 </template>
 
 <script>
 import api from 'api'
+import Bus from '../../../assets/Bus'
 export default {
   name: 'searchInp',
   data () {
@@ -36,12 +40,18 @@ export default {
       default: '',
       keywords: '',
       showList: false,
+      // 将 history 存入 vuex
       history: []
     }
   },
   created () {
+    // 获取焦点
+    this.changFocus()
     // 先将默认搜索建议显示
     this.setDefault()
+  },
+  mounted () {
+    // 获取历史搜索记录
     this.getHistory()
   },
   watch: {
@@ -58,6 +68,20 @@ export default {
     }
   },
   methods: {
+    /**
+     * 自动获取焦点
+     */
+    changFocus () {
+      this.$nextTick(x => {
+        this.$refs.inputs.focus()
+      })
+    },
+    /**
+     * 返回上一页
+     */
+    returnPage () {
+      this.$router.go(-1)
+    },
     /**
      * 设置输入框的默认显示
      */
@@ -81,6 +105,10 @@ export default {
      * 显示搜索列表建议
      */
     displayList () {
+      // 当搜索框内没有内容时不显示
+      if (!this.keywords) {
+        return
+      }
       this.showList = true
     },
     /**
@@ -101,10 +129,17 @@ export default {
     getHistory (key) {
       let keys = localStorage.getItem('keys') ? localStorage.getItem('keys').split(',') : []
       if (key) {
-        keys.push(key)
+        // 将关键字插入到数组最前面
+        keys.unshift(key)
+        // 存入本地之前进行去重
+        keys = this.unique(keys)
+        // 存入本地
         localStorage.setItem('keys', keys)
       }
-      this.history = this.unique(keys)
+      this.history = keys
+      // 通过Bus 进行兄弟组件之间传值
+      // 通过 Bus.$emit('方法名',要传的值)
+      Bus.$emit('history', this.history)
     },
     /**
      * 搜索
@@ -141,7 +176,7 @@ export default {
 .wrapper{
   .flex-between();
   .search{
-    font-size: 0.7rem
+    font-size: 0.5rem
   }
   .searchInp{
     flex: 1;
@@ -171,6 +206,14 @@ export default {
     .blue{
       color: #38f
     }
+  }
+  .mask{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
   }
 }
 </style>

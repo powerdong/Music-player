@@ -1,12 +1,13 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-08-27 12:39:30
+ * @Update: 2019-08-29 13:25:29
  * @Update log: 更新日志
  */
 import Vue from 'vue'
 import Router from 'vue-router'
 
+const navIndex = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/nav/index')
 const findIndex = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/findIndex/index')
 const homeIndex = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/homeIndex/index')
 const loginIndex = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/loginIndex/index')
@@ -33,14 +34,16 @@ export default new Router({
      */
     path: '/',
     name: 'main',
-    redirect: '/find'
-  }, {
-    path: '/find',
-    component: findIndex
-  }, {
-    path: '/home',
-    name: 'home',
-    component: homeIndex
+    component: navIndex,
+    redirect: '/find',
+    children: [{
+      path: '/find',
+      component: findIndex
+    }, {
+      path: '/home',
+      name: 'home',
+      component: homeIndex
+    }]
   }, {
     path: '/login',
     name: 'login',

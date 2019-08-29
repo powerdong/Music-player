@@ -40,6 +40,7 @@ export default {
     this.getList()
   },
   methods: {
+    // 获取热搜榜单
     getList () {
       api.hotSearchListFn()
         .then(res => {
@@ -52,6 +53,9 @@ export default {
           console.log(error)
         })
     },
+    /**
+     * 通过点击热歌榜将关键字返回给父组件，父组件调用搜索组件的搜索功能
+     */
     returnKey (key) {
       this.$emit('returnKey', key)
     }

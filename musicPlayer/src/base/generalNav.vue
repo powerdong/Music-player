@@ -1,13 +1,14 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-14 15:44:26
- * @Update: 2019-08-18 13:48:36
+ * @Update: 2019-08-29 10:41:57
  * @Update log: 登录页通用顶部导航
  -->
 <template>
   <nav class="phone-nav">
     <i class="phone iconzuojiantou" @click="returnPage"></i>
-    <span class="text">{{ nav }}</span>
+    <slot :text="nav"></slot>
+    <!-- <span class="text">{{ nav }}</span> -->
   </nav>
 </template>
 

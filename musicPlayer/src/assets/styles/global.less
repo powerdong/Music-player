@@ -99,7 +99,7 @@
   //隐藏溢出的径向渐变背景
   overflow: hidden;
 
-  &:after {
+  &::after {
     content: "";
     display: block;
     position: absolute;
@@ -117,7 +117,7 @@
     transition: transform .3s, opacity .5s;
   }
 
-  &:active:after {
+  :active:after {
     transform: scale(0, 0);
     opacity: .3;
     //设置初始状态

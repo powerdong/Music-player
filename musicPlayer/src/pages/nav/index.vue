@@ -1,23 +1,24 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-08-27 12:37:10
+ * @Update: 2019-08-29 13:34:25
  * @Update log: 更新日志
  -->
 <template>
+<div>
   <!-- 顶部导航条 -->
   <nav class="nav-wrapper">
     <div class="nav-left">
-      <i class="nav iconnav" @click="SHOW_LOGIN"></i>
+      <i class="nav iconnav ripple" @click="SHOW_LOGIN"></i>
     </div>
     <ul class="nav-center">
-      <router-link tag="li" to="/home">我的</router-link>
-      <router-link tag="li" to="/find">发现</router-link>
-      <router-link tag="li" to="/friend">朋友</router-link>
-      <router-link tag="li" to="/video">视频</router-link>
+      <router-link tag="li" class="nav-title ripple" to="/home">我的</router-link>
+      <router-link tag="li" class="nav-title ripple" to="/find">发现</router-link>
+      <router-link tag="li" class="nav-title ripple" to="/friend">朋友</router-link>
+      <router-link tag="li" class="nav-title ripple" to="/video">视频</router-link>
     </ul>
     <div class="nav-right">
-      <router-link to="search" tag="i" class="nav iconsousuo"></router-link>
+      <router-link to="search" tag="i" class="nav iconsousuo ripple"></router-link>
     </div>
     <transition name="mask-show">
       <div class="mask" v-show="loginPage" @click="HIDE_LOGIN" @touchmove.prevent></div>
@@ -26,6 +27,8 @@
       <login v-if="loginPage" @touchmove.prevent></login>
     </transition>
   </nav>
+  <router-view></router-view>
+</div>
 </template>
 
 <script>
@@ -48,6 +51,13 @@ export default {
 <style lang="less" scoped>
 @import url("~styles/global.less");
 @import url("//at.alicdn.com/t/font_1298894_8b2aso7zegl.css");
+@height:0.8rem;
+.navIcon{
+  width: @height;
+  height: @height;
+  border-radius: 50%;
+  text-align: center;
+}
 // 遮罩层动画
 .mask-show-enter,
 .mask-show-leave-to {
@@ -70,21 +80,25 @@ export default {
 }
 // 顶部的导航条
 .nav-wrapper {
+  display: flex;
   box-sizing: border-box;
   width: 100%;
-  height: 0.8rem;
+  height: @height;
   padding: 0 0.23rem;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 2;
   background-color: #fff;
-  display: flex;
+  line-height: @height;
   .nav-left {
     flex: 2;
     display: flex;
     justify-content: left;
     align-items: center;
+    .iconnav{
+      .navIcon()
+    }
   }
   .nav-center {
     flex: 6;
@@ -93,12 +107,18 @@ export default {
     align-items: center;
     color: #999;
     font-size: 0.24rem;
+    .nav-title{
+      .navIcon();
+    }
   }
   .nav-right {
     flex: 2;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    .iconsousuo{
+      .navIcon()
+    }
   }
   // 遮罩层
   .mask {

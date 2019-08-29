@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-27 12:37:42
- * @Update: 2019-08-28 13:00:15
+ * @Update: 2019-08-29 11:16:26
  * @Update log: 这里用到了父组件调用子组件方法
  -->
 <template>
@@ -43,5 +43,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url('//at.alicdn.com/t/font_1371990_wmbtlal3hm.css');
+@import url('//at.alicdn.com/t/font_1371990_nz4220l62x.css');
 </style>

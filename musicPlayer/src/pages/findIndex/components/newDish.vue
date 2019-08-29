@@ -1,3 +1,9 @@
+<!--
+ * @Author: 李浩栋
+ * @Begin: 2019-07-27 17:08:42
+ * @Update: 2019-08-29 13:41:43
+ * @Update log: 更新日志
+ -->
 <template>
   <div class="wrapper pd23">
     <div class="title">
@@ -112,8 +118,13 @@ export default {
       flex-direction: column;
       .list-img {
         position: relative;
+        width: 2.1rem;
+        height: 0;
+        padding-bottom: 2.1rem;
+        background-color: #aaa;
+        border-radius: @imgBorderRadius;
+        overflow: hidden;
         img {
-          border-radius: @imgBorderRadius;
           width: 100%;
         }
       }

@@ -1,29 +1,21 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-27 13:29:51
- * @Update: 2019-08-28 12:29:49
+ * @Update: 2019-08-29 13:36:16
  * @Update log: 更新日志
  -->
 <template>
- <div class="history pd23">
+ <div class="history pd23" v-if="history.length">
    <div class="history-title">
      <span>历史记录</span>
-     <i class="search iconlajitong"></i>
+     <i class="search iconlajitong" @click="clearHistory"></i>
    </div>
    <div class="wrapper">
     <div class="container ">
       <ul class="icons-group">
-        <li class="icon-list">莫甘娜后只
-        </li>
-        <li class="icon-list">莫甘娜后只
-        </li>
-        <li class="icon-list">莫甘娜
-        </li>
-        <li class="icon-list">莫后只
-        </li>
-        <li class="icon-list">莫
-        </li>
-        <li class="icon-list">莫甘娜后只
+        <li class="icon-list"
+            v-for="(item, index) in history"
+            :key="index">{{item}}
         </li>
       </ul>
     </div>
@@ -32,20 +24,52 @@
 </template>
 
 <script>
+import Bus from '../../../assets/Bus'
 export default {
-  name: 'history'
+  name: 'history',
+  data () {
+    return {
+      history
+    }
+  },
+  created () {
+    this.getHistory()
+  },
+  methods: {
+    /**
+     * 获取历史记录
+     */
+    getHistory () {
+      // 兄弟组件进行值的接收
+      // Bus.$on('方法名(与兄弟组件方法名一致), 回调函数 参数为传过来的值')
+      Bus.$on('history', (history) => {
+        console.log(history)
+        this.history = history
+      })
+    },
+    /**
+     * 清除历史记录
+     */
+    clearHistory () {
+      localStorage.removeItem('keys')
+      this.history = []
+    }
+  }
 }
 </script>
 
 <style lang='less' scoped>
 @import url('~styles/global.less');
 .history{
-  margin-top: 0.7rem;
+  margin-top: 0.5rem;
   .history-title{
     .flex-between();
     height: 0.8rem;
     line-height: 0.8rem;
-    .search{
+    .iconlajitong{
+      width: 0.8rem;
+      height: 0.8rem;
+      text-align: center;
       font-size: 0.4rem
     }
   }

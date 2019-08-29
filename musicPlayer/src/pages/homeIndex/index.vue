@@ -1,12 +1,11 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-08-24 17:24:15
+ * @Update: 2019-08-29 13:30:03
  * @Update log: 更新日志
  -->
 <template>
   <div class="container">
-    <default-nav></default-nav>
     <home-icons></home-icons>
     <home-list :num="homeListNum"></home-list>
     <div class="split"></div>
@@ -16,7 +15,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import defaultNav from '../../pages/nav/index'
 import homeIcons from './components/icons'
 import homeList from './components/homeList'
 import songList from './components/songList'
@@ -42,7 +40,6 @@ export default {
     }
   },
   components: {
-    defaultNav,
     homeIcons,
     homeList,
     songList
