@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-08-29 13:34:25
+ * @Update: 2019-08-29 18:09:54
  * @Update log: 更新日志
  -->
 <template>
@@ -27,7 +27,9 @@
       <login v-if="loginPage" @touchmove.prevent></login>
     </transition>
   </nav>
-  <router-view></router-view>
+  <keep-alive>
+    <router-view></router-view>
+  </keep-alive>
 </div>
 </template>
 
