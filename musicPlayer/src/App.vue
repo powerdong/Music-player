@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-08-19 18:52:07
+ * @Update: 2019-08-30 19:46:03
  * @Update log: 更新日志
  -->
 <template>
@@ -25,7 +25,5 @@ export default {
 </script>
 
 <style lang="less">
-#app {
-  background-color: #fff;
-}
+
 </style>
