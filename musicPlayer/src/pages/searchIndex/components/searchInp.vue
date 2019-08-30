@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-27 12:42:24
- * @Update: 2019-08-29 13:35:13
+ * @Update: 2019-08-30 12:13:08
  * @Update log: 更新日志
  -->
 <template>
@@ -73,7 +73,7 @@ export default {
      */
     changFocus () {
       this.$nextTick(x => {
-        this.$refs.inputs.focus()
+        this.$refs.inp.focus()
       })
     },
     /**
@@ -143,16 +143,13 @@ export default {
     },
     /**
      * 搜索
+     * 搜索功能跳转到搜索展示页面
      */
     searchKey (key) {
       this.getHistory(key)
-      api.searchFn(key)
-        .then(res => {
-          const data = res.data
-          if (data.code === 200) {
-            console.log(data)
-          }
-        })
+      this.$router.push({
+        path: `/searchResults/${key}`
+      })
     },
     /**
      * 数组去重

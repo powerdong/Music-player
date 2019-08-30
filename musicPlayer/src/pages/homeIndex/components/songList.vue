@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-08-25 14:17:09
+ * @Update: 2019-08-30 13:46:24
  * @Update log: 更新日志
  -->
 <template>
@@ -196,6 +196,7 @@ export default {
     height: @listHeight;
     margin: 0.16rem 0;
     .flex-between();
+    .ripple();
     .list-cover{
       border-radius: @imgBorderRadius;
       width: @listHeight;

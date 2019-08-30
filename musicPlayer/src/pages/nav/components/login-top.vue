@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-08-24 17:02:22
+ * @Update: 2019-08-30 13:17:54
  * @Update log: 更新日志
  -->
 <template>
@@ -19,10 +19,13 @@
     <!-- 已经登陆状态样式 -->
     <div class="login-ed" v-if="loginState">
       <div class="img-info">
-        <img class="account-bg" :src="avatarUrl" alt="">
+        <el-avatar class="account-bg" :src="avatarUrl"></el-avatar>
+        <!-- <img class="account-bg" :src="avatarUrl" alt=""> -->
         <p class="account-nickname">{{nickname}}</p>
       </div>
-      <div class="daily_sign-in"><i class="login icontubiaozhizuo-"></i> 签到</div>
+      <div class="daily_sign-in">
+          <el-button  type="danger" size="mini"  round><i class="login icontubiaozhizuo-"></i>签到</el-button>
+      </div>
     </div>
   </div>
 </template>
@@ -84,15 +87,14 @@ export default {
         height: 100%;
         border-radius: 50%;
       }
-      .account-nickname{
-        margin-top: 20px;
-      }
     }
     .daily_sign-in{
+      display: flex;
+      justify-content: center;
+      align-items: center;
       box-sizing: border-box;
       padding: 0.07rem;
       font-size: 0.2rem;
-      text-align: center;
       margin-top: auto;
       color: #fff;
       width: 1.2rem;

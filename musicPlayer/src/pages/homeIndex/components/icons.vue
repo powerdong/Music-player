@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-08-11 17:51:47
+ * @Update: 2019-08-30 13:01:17
  * @Update log: 我的页面图标展示
  *              可左右滑动
  -->
@@ -11,7 +11,7 @@
       <ul class="icons-group">
         <li class="icon-list" v-for="(item, index) in homeIcons" :key="index">
           <div class="icon">
-            <i class="home" :class="item.icon"></i>
+            <el-button type="danger" :class="item.icon" class="home" size="small" circle></el-button>
           </div>
           <span class="icon-text">{{item.text}}</span>
         </li>

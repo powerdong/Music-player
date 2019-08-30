@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-08-19 17:53:57
+ * @Update: 2019-08-30 13:44:34
  * @Update log: 我的页面的列表项
  -->
 <template>
@@ -74,6 +74,7 @@ export default {
   margin: 0.1rem 0;
   height: 0.76rem;
   line-height: 0.76rem;
+  .ripple();
   &:last-child .wrapper::before {
     border: none;
   }
