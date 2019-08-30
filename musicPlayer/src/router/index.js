@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-08-29 13:25:29
+ * @Update: 2019-08-30 12:20:16
  * @Update log: 更新日志
  */
 import Vue from 'vue'
@@ -16,6 +16,7 @@ const phoneAccount = () => import(/* webpackChunkName: "group-Detail" */ '@/page
 const phonePwd = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/loginIndex/components/phonePwd')
 const phoneVerify = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/loginIndex/components/phoneVerify')
 const search = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/searchIndex/index')
+const searchResults = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/searchResults/index')
 
 Vue.use(Router)
 
@@ -66,5 +67,8 @@ export default new Router({
   }, {
     path: '/search',
     component: search
+  }, {
+    path: '/searchResults/:id',
+    component: searchResults
   }]
 })
