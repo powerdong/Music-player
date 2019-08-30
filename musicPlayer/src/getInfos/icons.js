@@ -1,59 +1,62 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-08-19 14:56:07
+ * @Update: 2019-08-30 21:22:32
  * @Update log: 更新日志
  */
 let homeIcons = [{
   text: '私藏推荐',
-  icon: 'iconxindian'
+  icon: 'home iconxindian'
 }, {
   text: '私人FM',
-  icon: 'iconshouyinji'
+  icon: 'home iconshouyinji'
 }, {
   text: 'Sati空间',
-  icon: 'iconyueliang'
+  icon: 'home iconyueliang'
 }, {
   text: '最新电音',
-  icon: 'iconduodian'
+  icon: 'home iconduodian'
 }, {
   text: '因乐交友',
-  icon: 'iconjiaoyou'
+  icon: 'home iconjiaoyou'
 }, {
   text: '亲子频道',
-  icon: 'iconertong'
+  icon: 'home iconertong'
 }, {
   text: '古典专区',
-  icon: 'icongangqin'
+  icon: 'home icongangqin'
 }, {
   text: '跑步FM',
-  icon: 'iconorder-received'
+  icon: 'home iconorder-received'
 }, {
   text: '小冰电台',
-  icon: 'iconbingjiling'
+  icon: 'home iconbingjiling'
 }, {
   text: '爵士电台',
-  icon: 'iconyandou'
+  icon: 'home iconyandou'
 }, {
   text: '驾驶模式',
-  icon: 'iconqiche'
+  icon: 'home iconqiche'
+}, {
+  text: '编辑',
+  icon: 'home icontoggle'
 }]
 
 let findIcons = [{
   text: '每日推荐',
-  icon: 'rili'
+  icon: 'find rili'
 }, {
   text: '歌单',
-  icon: 'gedan'
+  icon: 'find gedan'
 }, {
   text: '排行榜',
-  icon: 'paixingbang'
+  icon: 'find paixingbang'
 }, {
   text: '电台',
-  icon: 'diantai'
+  icon: 'find diantai'
 }, {
   text: '直播',
-  icon: 'zhibo'
+  icon: 'find zhibo'
 }]
 
 let homeList = [{
@@ -79,16 +82,16 @@ let homeList = [{
 }]
 
 let loginIcons = [{
-  icon: 'iconwodexiaoxi',
+  icon: 'login iconwodexiaoxi',
   text: '我的消息'
 }, {
-  icon: 'iconyonghu',
+  icon: 'login iconyonghu',
   text: '我的好友'
 }, {
-  icon: 'iconpifu',
+  icon: 'login iconpifu',
   text: '个性皮肤'
 }, {
-  icon: 'icontinggeshiqu40x40',
+  icon: 'login icontinggeshiqu40x40',
   text: '听歌识曲'
 }]
 

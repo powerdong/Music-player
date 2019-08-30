@@ -1,6 +1,15 @@
+<!--
+ * @Author: 李浩栋
+ * @Begin: 2019-07-30 16:42:30
+ * @Update: 2019-08-30 21:38:37
+ * @Update log: 更新日志
+ -->
 <template>
   <div class="container border-bottom">
     <ul class="icons-wrapper">
+      <!-- <li v-for="(item, index) in loginIcons" :key="index"
+          :icons="item"
+          is="icon"></li> -->
       <li class="icon-list" v-for="(item, index) in loginIcons" :key="index">
         <div class="icon">
           <i class="login" :class="item.icon"></i>
@@ -13,8 +22,12 @@
 
 <script>
 import { loginIcons } from 'getInfos/getData'
+import icon from 'base/icon'
 export default {
   name: 'loginIcons',
+  components: {
+    icon
+  },
   data () {
     return {
       loginIcons
