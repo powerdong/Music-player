@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-08-30 12:20:16
+ * @Update: 2019-08-31 11:29:51
  * @Update log: 更新日志
  */
 import Vue from 'vue'
@@ -17,6 +17,14 @@ const phonePwd = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/lo
 const phoneVerify = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/loginIndex/components/phoneVerify')
 const search = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/searchIndex/index')
 const searchResults = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/searchResults/index')
+const composite = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/searchResults/composite/composite')
+const song = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/searchResults/songIndex/song')
+const video = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/searchResults/videoIndex/video')
+const artist = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/searchResults/artistIndex/artist')
+const album = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/searchResults/albumIndex/album')
+const playList = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/searchResults/playListIndex/playList')
+const djRadio = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/searchResults/djRadioIndex/djRadio')
+const user = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/searchResults/userIndex/user')
 
 Vue.use(Router)
 
@@ -69,6 +77,39 @@ export default new Router({
     component: search
   }, {
     path: '/searchResults/:id',
-    component: searchResults
+    component: searchResults,
+    children: [{
+      // 综合页面
+      path: '',
+      component: composite
+    }, {
+      // 单曲页面
+      path: '/song',
+      component: song
+    }, {
+      // 视频页面
+      path: '/video',
+      component: video
+    }, {
+      // 歌手页面
+      path: '/artist',
+      component: artist
+    }, {
+      // 专辑页面
+      path: '/album',
+      component: album
+    }, {
+      // 歌单页面
+      path: '/playList',
+      component: playList
+    }, {
+      // 主播电台页面
+      path: 'djRadio',
+      component: djRadio
+    }, {
+      // 用户页面
+      path: 'user',
+      component: user
+    }]
   }]
 })

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-08-29 13:40:38
+ * @Update: 2019-08-31 10:14:21
  * @Update log: 更新日志
  -->
 <template>
@@ -45,7 +45,9 @@ export default {
       this.songList.forEach(element => {
         playCount.push(
           element.playCount > 10000
-            ? Math.floor(element.playCount / 10000) + '万'
+            ? element.playCount > 100000000
+              ? ((element.playCount / 100000000).toFixed(1)) + '亿'
+              : Math.floor(element.playCount / 10000) + '万'
             : element.playCount
         )
       })

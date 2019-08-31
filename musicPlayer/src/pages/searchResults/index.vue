@@ -1,44 +1,46 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-30 12:05:38
- * @Update: 2019-08-30 13:40:34
+ * @Update: 2019-08-31 15:08:18
  * @Update log: 更新日志
+ * 建立各个组件，将对象传给对应的组件进行渲染
  -->
 <template>
  <div>
+   <search-input :keyword="key">
+   </search-input>
    搜索结果展示
-    <el-tag type="info" hit=false effect="plain" >标签二</el-tag>
-    <el-button type="info"  circle>我的</el-button>
-    <div type="submit" class="btn button">提交</div>
+   <page-loading></page-loading>
+   <router-view :keywords="key"></router-view>
  </div>
 </template>
 
 <script>
-import api from 'api'
+import searchInput from 'base/searchInput'
+import pageLoading from 'base/pageLoading'
 export default {
   name: 'searchResults',
+  components: {
+    pageLoading,
+    searchInput
+  },
   data () {
     return {
       key: ''
     }
   },
+  watch: {
+    '$route' (to, from) {
+      // 对路由变化作出响应...
+      this.key = to.params.id
+    }
+  },
   created () {
-    this.key = this.$route.params.id
-    this.searchShow(this.key)
+    this.setKey()
   },
   methods: {
-    /**
-     * 通过获取到的 id 就是动态的搜索关键字
-     * 来获取数据，返回到页面
-     */
-    searchShow (key) {
-      api.searchFn(key)
-        .then(res => {
-          const data = res.data
-          if (data.code === 200) {
-            console.log(data)
-          }
-        })
+    setKey () {
+      this.key = this.$route.params.id
     }
   }
 }

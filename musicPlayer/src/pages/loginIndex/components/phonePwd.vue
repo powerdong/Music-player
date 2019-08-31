@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-14 15:42:41
- * @Update: 2019-08-26 13:48:18
+ * @Update: 2019-08-31 09:52:03
  * @Update log: 手机号登录密码页面
  -->
 <template>
@@ -209,7 +209,7 @@ export default {
       // 给input的height设定一个较小的高度，然后用padding去填充，基本上可以解决所有浏览器的问题
       height: 16px;
       padding: 4px 0px;
-      font-size: 12px;
+      font-size: 0.24rem;
       // ---------------------------
       margin-left: 10px;
       flex: 1;

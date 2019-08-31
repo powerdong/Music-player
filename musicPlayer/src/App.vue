@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-08-30 21:59:09
+ * @Update: 2019-08-31 10:15:49
  * @Update log: 更新日志
  -->
 <template>
@@ -27,5 +27,6 @@ export default {
 <style lang="less">
 #app{
   height: 100vh;
+  width: 100vw;
 }
 </style>

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-08-30 13:46:24
+ * @Update: 2019-08-31 12:40:03
  * @Update log: 更新日志
  -->
 <template>
@@ -129,7 +129,6 @@ export default {
     index: {
       deep: true,
       handler (val, oldVal) {
-        console.log(val)
         this.createIndex = val.createNum
         this.favoritesIndex = val.favoritesNum
         this.getPlaylist(this.$store.state.accountUid)
