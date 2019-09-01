@@ -1,16 +1,17 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:17:07
- * @Update: 2019-08-31 11:35:35
+ * @Update: 2019-09-01 21:27:59
  * @Update log: 更新日志
  -->
 <template>
- <div>
-   综合页面
+ <div class="wrapper">
+   <song-list :songList="songList"></song-list>
  </div>
 </template>
 
 <script>
+import songList from './components/song'
 import api from 'api'
 
 export default {
@@ -21,26 +22,33 @@ export default {
       type: String
     }
   },
+  watch: {
+    keywords: function (val) {
+      if (val) {
+        this.searchShow(val)
+      }
+    }
+  },
   data () {
     return {
       // 这个搜索结果都包含哪些部分
-      order: {},
+      orderList: {},
       // 查看同名歌曲
-      song: {},
+      songList: {},
       // 查看全部歌单
-      playList: {},
+      playListList: {},
       // 查看全部视频
-      video: {},
+      videoList: {},
       // 相关搜索
-      sim_query: {},
+      sim_queryList: {},
       // 查看全部歌手
-      artist: {},
+      artistList: {},
       // 查看全部专辑
-      album: {},
+      albumList: {},
       // 查看全部电台
-      djRadio: {},
+      djRadioList: {},
       // 查看全部用户
-      user: {}
+      userList: {}
     }
   },
   created () {
@@ -56,14 +64,41 @@ export default {
         .then(res => {
           const data = res.data
           if (data.code === 200) {
-            console.log(data)
+            let { album,
+              order,
+              song,
+              playList,
+              video,
+              artist,
+              djRadio,
+              user
+            } = data.result
+            let simQuery = data.result.sim_query
+            this.orderList = order
+            this.songList = song
+            this.playListList = playList
+            this.videoList = video
+            this.sim_queryList = simQuery
+            this.artistList = artist
+            this.albumList = album
+            this.djRadioList = djRadio
+            this.userList = user
+            this.$store.commit('SET_LOAD')
+            console.log(this.songList)
           }
         })
     }
+  },
+  components: {
+    songList
   }
 }
 </script>
 
 <style lang='less' scoped>
-
+@import url('//at.alicdn.com/t/font_1380711_hgcpetr0qxo.css');
+.wrapper{
+  box-sizing: border-box;
+  padding: 0 0.23rem;
+}
 </style>

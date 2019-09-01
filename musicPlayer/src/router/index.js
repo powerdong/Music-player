@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-08-31 11:29:51
+ * @Update: 2019-08-31 21:18:30
  * @Update log: 更新日志
  */
 import Vue from 'vue'
@@ -78,37 +78,38 @@ export default new Router({
   }, {
     path: '/searchResults/:id',
     component: searchResults,
+    redirect: '/composite/:id',
     children: [{
       // 综合页面
-      path: '',
+      path: '/composite/:id',
       component: composite
     }, {
       // 单曲页面
-      path: '/song',
+      path: '/song/:id',
       component: song
     }, {
       // 视频页面
-      path: '/video',
+      path: '/video/:id',
       component: video
     }, {
       // 歌手页面
-      path: '/artist',
+      path: '/artist/:id',
       component: artist
     }, {
       // 专辑页面
-      path: '/album',
+      path: '/album/:id',
       component: album
     }, {
       // 歌单页面
-      path: '/playList',
+      path: '/playList/:id',
       component: playList
     }, {
       // 主播电台页面
-      path: 'djRadio',
+      path: '/djRadio/:id',
       component: djRadio
     }, {
       // 用户页面
-      path: 'user',
+      path: '/user/:id',
       component: user
     }]
   }]

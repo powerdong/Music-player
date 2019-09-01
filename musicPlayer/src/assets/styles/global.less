@@ -30,10 +30,19 @@
   -webkit-box-orient: vertical;
 }
 
+// 单行文字打点
+.ellipsis{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 // 小标签
 .smallTag {
   box-sizing: border-box;
   padding: 0.1rem 0.1rem 0.1rem 0.13rem;
+  display: flex;
+  align-items: center;
+  // justify-content: center;
   font-size: 0.2rem;
   border-radius: 1rem;
   letter-spacing: 0.05rem;

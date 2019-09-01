@@ -12,3 +12,5 @@ export const TO_SUN = 'TO_SUN' // 由夜转换到日
 export const TO_YUE = 'TO_YUE' // 由日转换到夜
 export const LOGIN_STATE = 'LOGIN_STATE' // 登陆状态
 export const ACCOUNT_UID = 'ACCOUNT_UID' // 存取用户id
+export const SET_LOAD = 'SET_LOAD' // 设置当前已经返回数据，显示界面
+export const RETURN_LOAD = 'RETURN_LOAD' // 将load返回默认的true

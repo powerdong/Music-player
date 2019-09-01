@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-30 12:05:38
- * @Update: 2019-08-31 15:08:18
+ * @Update: 2019-09-01 21:36:10
  * @Update log: 更新日志
  * 建立各个组件，将对象传给对应的组件进行渲染
  -->
@@ -9,20 +9,24 @@
  <div>
    <search-input :keyword="key">
    </search-input>
-   搜索结果展示
-   <page-loading></page-loading>
-   <router-view :keywords="key"></router-view>
+   <nav-list></nav-list>
+   <page-loading v-show="load"></page-loading>
+   <router-view v-show="!load" :keywords="key"></router-view>
  </div>
 </template>
 
 <script>
 import searchInput from 'base/searchInput'
 import pageLoading from 'base/pageLoading'
+import navList from './navIndex'
+
+import { mapGetters } from 'vuex'
 export default {
   name: 'searchResults',
   components: {
     pageLoading,
-    searchInput
+    searchInput,
+    navList
   },
   data () {
     return {
@@ -34,6 +38,9 @@ export default {
       // 对路由变化作出响应...
       this.key = to.params.id
     }
+  },
+  computed: {
+    ...mapGetters({'load': 'LOAD'})
   },
   created () {
     this.setKey()

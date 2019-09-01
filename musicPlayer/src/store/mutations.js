@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-08-26 17:40:08
+ * @Update: 2019-09-01 21:15:45
  * @Update log: 更新日志
  */
 import {
@@ -12,7 +12,9 @@ import {
   TO_SUN,
   TO_YUE,
   LOGIN_STATE,
-  ACCOUNT_UID
+  ACCOUNT_UID,
+  SET_LOAD,
+  RETURN_LOAD
 } from './mutation-types'
 
 // 实现侧边栏显示时底部不跟随滚动
@@ -66,5 +68,11 @@ export default {
   // 存取用户 uid
   [ACCOUNT_UID] (state, id) {
     state.accountUid = id
+  },
+  [SET_LOAD] (state) {
+    state.load = false
+  },
+  [RETURN_LOAD] (state) {
+    state.load = true
   }
 }
