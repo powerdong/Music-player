@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-02 18:07:09
- * @Update: 2019-09-02 18:57:31
+ * @Update: 2019-09-02 20:46:17
  * @Update log: 展示页面公共的标题和底部组件
  -->
 <template>
@@ -45,7 +45,7 @@ export default {
 @import url('~styles/global.less');
 
 .list-global{
-  margin-top: 0.26rem;
+  margin-top: 0.36rem;
   .title{
     display: flex;
     justify-content: space-between;

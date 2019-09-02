@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:17:07
- * @Update: 2019-09-02 13:45:41
+ * @Update: 2019-09-02 20:57:29
  * @Update log: 更新日志
  -->
 <template>
@@ -9,6 +9,9 @@
    <song-list :songList="songList"></song-list>
    <play-list :playList="playListList"></play-list>
    <video-list :videoList="videoList"></video-list>
+   <sim-query :simQuery="sim_queryList"></sim-query>
+   <artist :artist="artistList"></artist>
+   <album :album="albumList"></album>
  </div>
 </template>
 
@@ -16,6 +19,9 @@
 import songList from './components/song'
 import playList from './components/playList'
 import videoList from './components/video'
+import simQuery from './components/simQuery'
+import artist from './components/artist'
+import album from './components/album'
 import api from 'api'
 
 export default {
@@ -96,13 +102,16 @@ export default {
   components: {
     songList,
     playList,
-    videoList
+    videoList,
+    simQuery,
+    artist,
+    album
   }
 }
 </script>
 
 <style lang='less' scoped>
-@import url('//at.alicdn.com/t/font_1380711_rfnnbzvm09i.css');
+@import url('//at.alicdn.com/t/font_1380711_2y3lrembltl.css');
 .wrapper{
   box-sizing: border-box;
   padding: 0 0.23rem;
