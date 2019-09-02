@@ -1,17 +1,21 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:17:07
- * @Update: 2019-09-01 21:27:59
+ * @Update: 2019-09-02 13:45:41
  * @Update log: 更新日志
  -->
 <template>
  <div class="wrapper">
    <song-list :songList="songList"></song-list>
+   <play-list :playList="playListList"></play-list>
+   <video-list :videoList="videoList"></video-list>
  </div>
 </template>
 
 <script>
 import songList from './components/song'
+import playList from './components/playList'
+import videoList from './components/video'
 import api from 'api'
 
 export default {
@@ -90,13 +94,15 @@ export default {
     }
   },
   components: {
-    songList
+    songList,
+    playList,
+    videoList
   }
 }
 </script>
 
 <style lang='less' scoped>
-@import url('//at.alicdn.com/t/font_1380711_hgcpetr0qxo.css');
+@import url('//at.alicdn.com/t/font_1380711_rfnnbzvm09i.css');
 .wrapper{
   box-sizing: border-box;
   padding: 0 0.23rem;
