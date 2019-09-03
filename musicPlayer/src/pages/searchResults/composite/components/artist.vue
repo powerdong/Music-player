@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 10:57:52
- * @Update: 2019-09-02 21:00:17
+ * @Update: 2019-09-03 11:02:12
  * @Update log: 更新日志
  -->
 <template>
@@ -10,7 +10,7 @@
                 :more="artist.more"
                 :moreText="artist.moreText">
     <list-con v-for="(item, index) in artist.artists" :key="index"
-              :artist="true"
+              :circle="true"
               :ImgUrl="item.img1v1Url"
               :name="item.name"
               :isIn="item.accountId"

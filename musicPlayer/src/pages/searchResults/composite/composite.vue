@@ -1,17 +1,35 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:17:07
- * @Update: 2019-09-02 20:57:29
+ * @Update: 2019-09-03 10:31:38
  * @Update log: 更新日志
  -->
 <template>
  <div class="wrapper">
-   <song-list :songList="songList"></song-list>
-   <play-list :playList="playListList"></play-list>
-   <video-list :videoList="videoList"></video-list>
-   <sim-query :simQuery="sim_queryList"></sim-query>
-   <artist :artist="artistList"></artist>
-   <album :album="albumList"></album>
+   <song-list :songList="songList"
+              v-if="orderList.includes('song')">
+    </song-list>
+   <play-list :playList="playListList"
+              v-if="orderList.includes('playList')">
+    </play-list>
+   <video-list :videoList="videoList"
+                v-if="orderList.includes('video')"
+    ></video-list>
+   <sim-query :simQuery="sim_queryList"
+              v-if="orderList.includes('sim_query')">
+    </sim-query>
+   <artist :artist="artistList"
+              v-if="orderList.includes('artist')">
+    </artist>
+   <album :album="albumList"
+              v-if="orderList.includes('album')">
+    </album>
+   <dj-radio  :djRadio="djRadioList"
+              v-if="orderList.includes('djRadio')">
+    </dj-radio>
+   <user :user="userList"
+          v-if="orderList.includes('user')">
+    </user>
  </div>
 </template>
 
@@ -22,6 +40,8 @@ import videoList from './components/video'
 import simQuery from './components/simQuery'
 import artist from './components/artist'
 import album from './components/album'
+import djRadio from './components/djRadio'
+import user from './components/user'
 import api from 'api'
 
 export default {
@@ -42,7 +62,7 @@ export default {
   data () {
     return {
       // 这个搜索结果都包含哪些部分
-      orderList: {},
+      orderList: [],
       // 查看同名歌曲
       songList: {},
       // 查看全部歌单
@@ -105,13 +125,15 @@ export default {
     videoList,
     simQuery,
     artist,
-    album
+    album,
+    djRadio,
+    user
   }
 }
 </script>
 
 <style lang='less' scoped>
-@import url('//at.alicdn.com/t/font_1380711_2y3lrembltl.css');
+@import url('//at.alicdn.com/t/font_1380711_51fxen37om.css');
 .wrapper{
   box-sizing: border-box;
   padding: 0 0.23rem;

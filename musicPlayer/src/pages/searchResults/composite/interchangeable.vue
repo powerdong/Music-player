@@ -1,28 +1,53 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-02 13:36:42
- * @Update: 2019-09-02 21:46:07
+ * @Update: 2019-09-03 11:31:27
  * @Update log: 这是一个公共的组件，用来展示搜索展示页面除单曲以外的项目
  * 通过props接收对应的结果，渲染。
  * 组件调用是通过 for 循环组件，来循环组件渲染的
  -->
 <template>
   <div class="list-item">
+    <!-- 左边的图片展示区域，用不同的类名展示不同的效果 -->
+    <!-- 在歌单 视频 用户 等三种的图片展示样式不同 -->
     <div class="img-info"
         :class="{ bigImg: videoList,
                   smallImg: songList,
-                  circle: artist,
-                  album
+                  circle,
+                  album,
+                  dj
                 }">
+      <!-- 视频的播放量 -->
       <span class="count" v-if="playTime">
         <i class="result bofang1" ></i>
         {{playTime | numRule}}
       </span>
+      <!-- 图片链接 -->
       <img :src="ImgUrl" alt="">
     </div>
+    <!-- 右侧的相关文字信息 -->
     <div class="info-content">
-      <div class="play-name">{{name}}</div>
+      <!-- 标题文字 -->
+      <div class="play-name">
+        {{name}}
+        <!-- 在用户区域用类名显示不同的用户性别图标 -->
+        <i class="result" :class="{
+                          nan: gender === 1,
+                          nv: gender === 2}"
+        v-if="gender"></i>
+      </div>
+      <!-- 右侧信息说明文字 由于各项的展示方式不同，所以分开编写 -->
       <div class="play-tag">
+        <!-- 作者 -->
+        <p class="user">{{nickname}}
+        </p>
+        <!-- 电台展示 -->
+        <p class="dj" v-if="dj">
+          <span class="dj-art">
+            {{nicknames.nickname}}
+          </span>
+        </p>
+        <!-- 专辑展示 -->
         <p class="album" v-if="artists">
           <span class="album-art"
                 v-for="(item, index) in artists"
@@ -32,6 +57,7 @@
             {{durationms | setYear}}
           </span>
         </p>
+        <!-- 视频展示 -->
         <p class="video" v-if="videoList">
             <span class="time">
             {{durationms | setTime}}
@@ -43,6 +69,7 @@
             </span>
           </span>
         </p>
+        <!-- 歌单列表展示 -->
         <p class="song-list" v-if="songList" >
           <span class="song-num">{{trackCount}}首</span>
           <span class="song-art">by {{nickname}},</span>
@@ -50,6 +77,7 @@
         </p>
       </div>
     </div>
+    <!-- 展示歌手是否已入驻 -->
     <span class="artist-is-in" v-if="isIn" ><i class="result yonghufangkeshu"></i> 已入驻</span>
   </div>
 </template>
@@ -62,8 +90,16 @@ export default {
       type: Boolean,
       default: false
     },
+    gender: {
+      type: Number,
+      default: 0
+    },
     artists: {
       type: Array
+    },
+    dj: {
+      type: Boolean,
+      default: false
     },
     album: {
       type: Boolean,
@@ -72,7 +108,7 @@ export default {
     isIn: {
       type: Number
     },
-    artist: {
+    circle: {
       type: Boolean,
       default: false
     },
@@ -83,7 +119,7 @@ export default {
       type: Number
     },
     nicknames: {
-      type: Array
+      type: [Array, Object]
     },
     songList: {
       type: Boolean,
@@ -115,7 +151,9 @@ export default {
     }
   },
   filters: {
-    // 将播放次数进行格式转换
+    /**
+     * 将播放次数进行格式转换
+     */
     numRule: function (value) {
       if (!value) return ''
       if (value > 10000) {
@@ -125,8 +163,10 @@ export default {
       }
       return value
     },
-    // 将毫秒数转换为正常的时间
-    // 212245 ==> 03:32
+    /**
+     * 将毫秒数转换为正常的时间
+     *  212245 ==> 03:32
+    */
     setTime: function (value) {
       if (!value) return ''
       let min = parseInt(value / (1000 * 60))
@@ -140,6 +180,9 @@ export default {
       value = `${min}:${sec}`
       return value
     },
+    /**
+     * 将毫秒转换为 年月日
+     */
     setYear: function (value) {
       const oDate = new Date(value)
       const oYear = oDate.getFullYear()
@@ -167,13 +210,17 @@ export default {
     box-sizing: border-box;
     height: 0;
     background-color: #ccc;
+    border-radius: 0.1rem;
+    img{
+      overflow: hidden;
+      border-radius: 0.1rem;
+    }
     &.bigImg{
       width: 2.8rem;
       padding-bottom: 1.4rem;
       img{
         width: 2.8rem;
         height: 1.4rem;
-        border-radius: 0.1rem;
       }
     }
     &.smallImg{
@@ -181,7 +228,6 @@ export default {
       padding-bottom: 1.6rem;
       img{
         width: 100%;
-        border-radius: 0.1rem;
       }
     }
     &.circle{
@@ -198,7 +244,13 @@ export default {
       padding-bottom: 1.6rem;
       img{
         width: 100%;
-        border-radius: 0.1rem;
+      }
+    }
+    &.dj{
+      width: 1.6rem;
+      padding-bottom: 1.6rem;
+      img{
+        width: 100%;
       }
     }
     .count{
@@ -217,6 +269,12 @@ export default {
     .play-name{
       line-height: 0.4rem;
       .twoLinesEllipsis();
+      .nan{
+        color: #00cec9;
+      }
+      .nv{
+        color: #fd79a8;
+      }
     }
     .play-tag{
       height: 0.5rem;

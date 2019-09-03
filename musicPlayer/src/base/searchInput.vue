@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-27 12:42:24
- * @Update: 2019-09-01 21:40:02
+ * @Update: 2019-09-03 11:22:49
  * @Update log: 更新日志
  -->
 <template>
@@ -228,7 +228,7 @@ export default {
         this.pushKey(key)
       }, 0)
       this.$router.push({
-        path: `/searchResults/${key}`
+        path: `/composite/${key}`
       })
     },
     /**
