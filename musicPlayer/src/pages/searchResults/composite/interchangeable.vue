@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-02 13:36:42
- * @Update: 2019-09-03 11:31:27
+ * @Update: 2019-09-03 20:39:00
  * @Update log: 这是一个公共的组件，用来展示搜索展示页面除单曲以外的项目
  * 通过props接收对应的结果，渲染。
  * 组件调用是通过 for 循环组件，来循环组件渲染的
@@ -49,9 +49,11 @@
         </p>
         <!-- 专辑展示 -->
         <p class="album" v-if="artists">
-          <span class="album-art"
-                v-for="(item, index) in artists"
-                :key="index">{{item.name}}
+          <span>
+            <span class="album-art"
+                  v-for="(item, index) in artists"
+                  :key="index">{{item.name}}
+            </span>
           </span>
           <span class="time">
             {{durationms | setYear}}
@@ -288,6 +290,9 @@ export default {
         &:last-child::after{
           content: "";
         }
+      }
+      .time{
+        margin-left: 0.13rem;
       }
       .song-num{
         margin-right: 0.13rem;

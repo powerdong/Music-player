@@ -1,12 +1,12 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 19:54:27
- * @Update: 2019-09-01 11:51:49
+ * @Update: 2019-09-03 17:58:06
  * @Update log: 因为存在 url地址自动将中文转换为编码
  *              在第一次加载时，默认组件不能正确添加active样式
  -->
 <template>
- <div class="wrapper pd23">
+ <div class="wrapper pd23" ref="navs">
     <!-- 使用 replace 它不会向 history 添加新记录 -->
    <router-link  class="nav-list"
                 v-for="(item, index) in list"
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Bus from '../../../assets/Bus'
 export default {
   name: '',
@@ -26,6 +27,9 @@ export default {
     this.setLinkPage()
     // 通过Bus传值获取
     this.getKey()
+  },
+  computed: {
+    ...mapGetters({page: 'LINK_PAGE'})
   },
   methods: {
     /**
@@ -42,6 +46,13 @@ export default {
       Bus.$on('push', key => {
         this.linkPage = key
       })
+    },
+    handleScroll (index) {
+      this.$refs.navs.scrollLeft = index * 85
+    },
+    getPage (val) {
+      let index = this.toLink.indexOf(val)
+      this.handleScroll(index)
     }
   },
   /**
@@ -79,12 +90,23 @@ export default {
           text: '用户'
         }
       ]
+    },
+    page: function (val) {
+      /**
+       * 获取到当前要跳转的路由页
+       * 寻找下标
+       * 0 : 0
+       * 1 : 85
+       * 2 : 170
+       */
+      this.getPage(val)
     }
   },
   data () {
     return {
       linkPage: '',
-      list: []
+      list: [],
+      toLink: ['composite', 'song', 'video', 'artist', 'album', 'playList', 'djRadio', 'user']
     }
   }
 }

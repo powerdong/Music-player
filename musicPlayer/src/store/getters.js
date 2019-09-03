@@ -11,7 +11,8 @@ const getters = {
   MODE_TEXT: state => state.modeText,
   LOGIN_STATE: state => state.loginState,
   ACCOUNT_UID: state => state.accountUid,
-  LOAD: state => state.load
+  LOAD: state => state.load,
+  LINK_PAGE: state => state.linkPage
 }
 
 export default getters

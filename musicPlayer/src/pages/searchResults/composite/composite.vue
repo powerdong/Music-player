@@ -1,33 +1,41 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:17:07
- * @Update: 2019-09-03 10:31:38
+ * @Update: 2019-09-03 21:29:17
  * @Update log: 更新日志
  -->
 <template>
  <div class="wrapper">
    <song-list :songList="songList"
+              :keyword="keywords"
               v-if="orderList.includes('song')">
     </song-list>
    <play-list :playList="playListList"
+              :keyword="keywords"
               v-if="orderList.includes('playList')">
     </play-list>
    <video-list :videoList="videoList"
+                :keyword="keywords"
                 v-if="orderList.includes('video')"
     ></video-list>
    <sim-query :simQuery="sim_queryList"
+              :keyword="keywords"
               v-if="orderList.includes('sim_query')">
     </sim-query>
    <artist :artist="artistList"
+              :keyword="keywords"
               v-if="orderList.includes('artist')">
     </artist>
    <album :album="albumList"
+              :keyword="keywords"
               v-if="orderList.includes('album')">
     </album>
    <dj-radio  :djRadio="djRadioList"
+              :keyword="keywords"
               v-if="orderList.includes('djRadio')">
     </dj-radio>
    <user :user="userList"
+          :keyword="keywords"
           v-if="orderList.includes('user')">
     </user>
  </div>
@@ -114,7 +122,6 @@ export default {
             this.djRadioList = djRadio
             this.userList = user
             this.$store.commit('SET_LOAD')
-            console.log(this.songList)
           }
         })
     }
@@ -133,9 +140,10 @@ export default {
 </script>
 
 <style lang='less' scoped>
-@import url('//at.alicdn.com/t/font_1380711_51fxen37om.css');
 .wrapper{
   box-sizing: border-box;
   padding: 0 0.23rem;
+  height: 87vh;
+  overflow-y: scroll;
 }
 </style>

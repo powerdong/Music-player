@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-30 12:05:38
- * @Update: 2019-09-02 13:47:46
+ * @Update: 2019-09-03 20:31:01
  * @Update log: 更新日志
  * 建立各个组件，将对象传给对应的组件进行渲染
  -->
@@ -54,6 +54,8 @@ export default {
 </script>
 
 <style lang='less' scoped>
+@import url('//at.alicdn.com/t/font_1380711_51fxen37om.css');
+
 @import url('~styles/global.less');
 .el-button--info{
   background: #fff;

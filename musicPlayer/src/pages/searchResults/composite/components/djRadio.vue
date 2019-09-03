@@ -7,7 +7,9 @@
 <template>
  <list-global title="电台"
               :more="djRadio.more"
-              :moreText="djRadio.moreText">
+              :moreText="djRadio.moreText"
+              linkPage="djRadio"
+            :keyW="keyword">
   <list-con v-for="(item, index) in djRadio.djRadios"
             :key="index"
             :dj="true"
@@ -26,6 +28,9 @@ export default {
   props: {
     djRadio: {
       type: Object
+    },
+    keyword: {
+      type: String
     }
   },
   components: {

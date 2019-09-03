@@ -14,7 +14,8 @@ import {
   LOGIN_STATE,
   ACCOUNT_UID,
   SET_LOAD,
-  RETURN_LOAD
+  RETURN_LOAD,
+  SET_LINK_PAGE
 } from './mutation-types'
 
 // 实现侧边栏显示时底部不跟随滚动
@@ -69,10 +70,17 @@ export default {
   [ACCOUNT_UID] (state, id) {
     state.accountUid = id
   },
+  // 设置搜索展示页面的loading图标
   [SET_LOAD] (state) {
     state.load = false
   },
   [RETURN_LOAD] (state) {
     state.load = true
+  },
+  /**
+   * 设置搜索展示页标签导航条
+   */
+  [SET_LINK_PAGE] (state, page) {
+    state.linkPage = page
   }
 }

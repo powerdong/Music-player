@@ -7,7 +7,9 @@
 <template>
  <list-global title="用户"
               :more="user.more"
-              :moreText="user.moreText">
+              :moreText="user.moreText"
+              linkPage="user"
+            :keyW="keyword">
   <list-con v-for="(item, index) in user.users"
             :key="index"
             :circle="true"
@@ -27,6 +29,9 @@ export default {
   props: {
     user: {
       type: Object
+    },
+    keyword: {
+      type: String
     }
   },
   components: {

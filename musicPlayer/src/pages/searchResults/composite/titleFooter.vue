@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-02 18:07:09
- * @Update: 2019-09-02 20:46:17
+ * @Update: 2019-09-03 18:00:27
  * @Update log: 展示页面公共的标题和底部组件
  -->
 <template>
@@ -14,7 +14,7 @@
      </span>
    </div>
     <slot></slot>
-    <div class="more" v-if="more" >
+    <div class="more" v-if="more" @click="toLInk">
     {{moreText}}<i class="result youjiantou"></i>
     </div>
  </div>
@@ -36,6 +36,24 @@ export default {
     },
     songList: {
       type: Boolean
+    },
+    linkPage: {
+      type: String
+    },
+    keyW: {
+      type: String
+    }
+  },
+  methods: {
+    toLInk () {
+      /**
+       * 点击的时候把要跳转的页面传到state中，
+       * 标签导航组件获取到当前的state。根据index值计算出要滚动的距离
+       */
+      this.$store.commit('SET_LINK_PAGE', this.linkPage)
+      this.$router.push({
+        path: `/${this.linkPage}/${this.keyW}`
+      })
     }
   }
 }

@@ -1,14 +1,16 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 10:56:42
- * @Update: 2019-09-02 18:21:06
+ * @Update: 2019-09-03 20:44:11
  * @Update log: 更新日志
  -->
 <template>
 <list-global title="单曲"
             :songList="true"
             :more="songList.more"
-            :moreText="songList.moreText">
+            :moreText="songList.moreText"
+            linkPage="song"
+            :keyW="keyword">
 <ul class="song-group">
   <li class="list-item" v-for="(item, index) in songList.songs" :key="index">
     <div class="song-info">
@@ -34,6 +36,9 @@ export default {
   props: {
     songList: {
       type: Object
+    },
+    keyword: {
+      type: String
     }
   },
   filters: {
@@ -62,6 +67,7 @@ export default {
         flex-direction: column;
         .song-name{
           height: 0.4rem;
+          width: 6rem;
           line-height: 0.4rem;
           .ellipsis();
         }

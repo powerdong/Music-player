@@ -8,7 +8,9 @@
  <div>
    <list-global title="歌手"
                 :more="artist.more"
-                :moreText="artist.moreText">
+                :moreText="artist.moreText"
+                linkPage="artist"
+                :keyW="keyword">
     <list-con v-for="(item, index) in artist.artists" :key="index"
               :circle="true"
               :ImgUrl="item.img1v1Url"
@@ -28,6 +30,9 @@ export default {
   props: {
     artist: {
       type: Object
+    },
+    keyword: {
+      type: String
     }
   },
   components: {

@@ -1,13 +1,15 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 10:57:13
- * @Update: 2019-09-02 18:23:10
+ * @Update: 2019-09-03 12:38:58
  * @Update log: 更新日志
  -->
 <template>
 <list-global title="视频"
             :more="videoList.more"
-            :moreText="videoList.moreText">
+            :moreText="videoList.moreText"
+            linkPage="video"
+            :keyW="keyword">
 <list-con  :videoList="true"
               v-for="(item, index) in videoList.videos"
               :key="index"
@@ -33,6 +35,9 @@ export default {
   props: {
     videoList: {
       type: Object
+    },
+    keyword: {
+      type: String
     }
   }
 }
