@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-30 12:05:38
- * @Update: 2019-09-03 20:31:01
+ * @Update: 2019-09-05 09:37:03
  * @Update log: 更新日志
  * 建立各个组件，将对象传给对应的组件进行渲染
  -->
@@ -10,8 +10,8 @@
    <search-input :keyword="key">
    </search-input>
    <nav-list></nav-list>
-   <page-loading v-show="load"></page-loading>
    <router-view v-show="!load" :keywords="key"></router-view>
+   <page-loading v-show="load"></page-loading>
  </div>
 </template>
 
@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style lang='less' scoped>
-@import url('//at.alicdn.com/t/font_1380711_51fxen37om.css');
+@import url('//at.alicdn.com/t/font_1380711_5p2kgyidw5.css');
 
 @import url('~styles/global.less');
 .el-button--info{

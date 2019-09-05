@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import listCon from '../interchangeable'
-import listGlobal from '../titleFooter'
+import listCon from 'base/interchangeable'
+import listGlobal from 'base/titleFooter'
 export default {
   name: '',
   components: {

@@ -1,43 +1,46 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:17:07
- * @Update: 2019-09-03 21:29:17
+ * @Update: 2019-09-05 17:26:59
  * @Update log: 更新日志
  -->
 <template>
  <div class="wrapper">
-   <song-list :songList="songList"
-              :keyword="keywords"
-              v-if="orderList.includes('song')">
-    </song-list>
-   <play-list :playList="playListList"
-              :keyword="keywords"
-              v-if="orderList.includes('playList')">
-    </play-list>
-   <video-list :videoList="videoList"
+   <div v-if="!info">
+    <song-list :songList="songList"
                 :keyword="keywords"
-                v-if="orderList.includes('video')"
-    ></video-list>
-   <sim-query :simQuery="sim_queryList"
-              :keyword="keywords"
-              v-if="orderList.includes('sim_query')">
-    </sim-query>
-   <artist :artist="artistList"
-              :keyword="keywords"
-              v-if="orderList.includes('artist')">
-    </artist>
-   <album :album="albumList"
-              :keyword="keywords"
-              v-if="orderList.includes('album')">
-    </album>
-   <dj-radio  :djRadio="djRadioList"
-              :keyword="keywords"
-              v-if="orderList.includes('djRadio')">
-    </dj-radio>
-   <user :user="userList"
-          :keyword="keywords"
-          v-if="orderList.includes('user')">
-    </user>
+                v-if="orderList.includes('song')">
+      </song-list>
+    <play-list :playList="playListList"
+                :keyword="keywords"
+                v-if="orderList.includes('playList')">
+      </play-list>
+    <video-list :videoList="videoList"
+                  :keyword="keywords"
+                  v-if="orderList.includes('video')"
+      ></video-list>
+    <sim-query :simQuery="sim_queryList"
+                :keyword="keywords"
+                v-if="orderList.includes('sim_query')">
+      </sim-query>
+    <artist :artist="artistList"
+                :keyword="keywords"
+                v-if="orderList.includes('artist')">
+      </artist>
+    <album :album="albumList"
+                :keyword="keywords"
+                v-if="orderList.includes('album')">
+      </album>
+    <dj-radio  :djRadio="djRadioList"
+                :keyword="keywords"
+                v-if="orderList.includes('djRadio')">
+      </dj-radio>
+    <user :user="userList"
+            :keyword="keywords"
+            v-if="orderList.includes('user')">
+      </user>
+  </div>
+  <info :info="info" :keywords="keywords"></info>
  </div>
 </template>
 
@@ -50,6 +53,7 @@ import artist from './components/artist'
 import album from './components/album'
 import djRadio from './components/djRadio'
 import user from './components/user'
+import info from 'base/pageErrorInfo'
 import api from 'api'
 
 export default {
@@ -86,7 +90,8 @@ export default {
       // 查看全部电台
       djRadioList: {},
       // 查看全部用户
-      userList: {}
+      userList: {},
+      info: false
     }
   },
   created () {
@@ -122,7 +127,16 @@ export default {
             this.djRadioList = djRadio
             this.userList = user
             this.$store.commit('SET_LOAD')
+            // 没有信息展示
+            if (this.orderList.length === 0) {
+              this.info = true
+            }
           }
+        })
+        .catch(error => {
+          this.$store.commit('SET_LOAD')
+          this.info = true
+          console.log(error)
         })
     }
   },
@@ -134,7 +148,8 @@ export default {
     artist,
     album,
     djRadio,
-    user
+    user,
+    info
   }
 }
 </script>

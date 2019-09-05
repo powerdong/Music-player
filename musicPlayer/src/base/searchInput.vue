@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-27 12:42:24
- * @Update: 2019-09-03 13:23:55
+ * @Update: 2019-09-05 18:46:53
  * @Update log: 更新日志
  -->
 <template>
@@ -58,7 +58,9 @@ export default {
       keywords: '',
       showList: false,
       // 将 history 存入 vuex
-      history: []
+      history: [],
+      // 防抖定时器
+      time: null
     }
   },
   created () {
@@ -175,15 +177,22 @@ export default {
     },
     /**
      * 根据搜索内容展示搜索建议列表
+     * 使用防抖
      */
     setSearchList (keywords) {
-      api.suggestSearchFn(keywords)
-        .then(res => {
-          const data = res.data
-          if (data.code === 200) {
-            this.searchList = data.result.allMatch
-          }
-        })
+      if (this.time) {
+        clearTimeout(this.time)
+        this.time = null
+      }
+      this.time = setTimeout(() => {
+        api.suggestSearchFn(keywords)
+          .then(res => {
+            const data = res.data
+            if (data.code === 200) {
+              this.searchList = data.result.allMatch
+            }
+          })
+      }, 50)
     },
     /**
      * 获取历史搜索记录

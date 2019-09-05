@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import listGlobal from '../titleFooter'
-import listCon from '../interchangeable'
+import listGlobal from 'base/titleFooter'
+import listCon from 'base/interchangeable'
 
 export default {
   name: '',

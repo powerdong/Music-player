@@ -9,7 +9,7 @@
    <div class="title">
      <span class="title-content">{{title}}</span>
      <span class="smallTag" v-if="songList">
-       <i class="result bofang"></i>
+       <i class="result cbofang"></i>
        播放全部
      </span>
    </div>

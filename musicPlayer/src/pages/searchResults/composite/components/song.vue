@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import listGlobal from '../titleFooter'
+import listGlobal from 'base/titleFooter'
 export default {
   name: '',
   props: {
