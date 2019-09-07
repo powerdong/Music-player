@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-08-30 21:35:18
+ * @Update: 2019-09-06 11:10:20
  * @Update log: 更新日志
  -->
 <template>
@@ -9,7 +9,8 @@
     <icon v-for="(item, index) in findIcons"
           :icons="item"
           :bgcolor="bgcolor"
-          :key="index">
+          :key="index"
+          :linkTo="item.linkTo">
       <span class="today" v-if="item.text === '每日推荐'" >{{today}}</span>
     </icon>
   </div>
@@ -55,30 +56,11 @@ export default {
   height: 1.6rem;
   align-items: center;
   padding: 0.2rem 0 0.3rem;
-  // .icon-wrapper {
-  //   .flex-around();
-  //   box-sizing: border-box;
-  //   height: 100%;
-  //   flex-direction: column;
-  //   align-items: center;
-  //   .icon {
-  //     width: @iconWidth*0.9;
-  //     height: @iconWidth*0.9;
-  //     line-height: @iconWidth*0.9;
-  //     .icons();
-  //     .find{
-  //       font-size: 0.5rem;
-  //     }
   .today{
     position: absolute;
     top: 0.1rem;
-    left: 0.3rem;
+    left: 0.35rem;
     font-size: 0.2rem;
   }
-  //   }
-  //   .icon-text {
-  //     font-size: @iconText;
-  //   }
-  // }
 }
 </style>

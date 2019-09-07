@@ -1,12 +1,17 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-08-28 11:57:52
+ * @Update: 2019-09-07 11:29:20
  * @Update log: 更新日志
  */
 import axios from 'axios'
 
 import {
+  bannerSwiper,
+  recSongList,
+  recSongs,
+  dateRecSongList,
+  newDish,
   phoneLogin,
   sendVerify,
   verify,
@@ -23,6 +28,55 @@ import {
 } from './config'
 
 export default {
+  /**
+   * 请求发现页面首页轮播图
+   */
+  bannerSwiperFn () {
+    return axios.get(bannerSwiper)
+  },
+  /**
+   * 调用此接口 , 可获得每日推荐歌曲 ( 需要登录 )
+   */
+  recSongsFn () {
+    return axios.get(recSongs)
+  },
+  /**
+   * 请求 可获取推荐歌单
+   * ?limit=10&order=hot
+   * @param {*} limit 取出数量，默认是30
+   * @param {*} order 分别对应最新和最热,可选值为 'new' 和 'hot'
+   * @param {*} cat tag, 比如 " 华语 "、" 古风 " 、" 欧美 "、" 流行 ", 默认为 "全部",
+   *  :( 页数 -1)*30, 其中 30 为 limit 的值 , 默认 为 0
+   */
+  recSongListFn (limit = 30, order = 'hot', cat) {
+    return axios.get(recSongList, {
+      params: {
+        limit,
+        order,
+        cat
+      }
+    })
+  },
+  /**
+   * 可获得每日推荐歌单 ( 需要登录 )
+   */
+  dateRecSongListFn () {
+    return axios.get(dateRecSongList)
+  },
+  /**
+   * 调用此接口 , 可获取新碟上架列表
+   * @param {*} limit 取出数量 , 默认为 50
+   * @param {*} offset 偏移数量 , 用于分页
+   *  如 :( 页数 -1)*50, 其中 50 为 limit 的值 , 默认 为 0
+   */
+  newDishFn (limit = 20, offset) {
+    return axios.get(newDish, {
+      params: {
+        limit,
+        offset
+      }
+    })
+  },
   /**
    * 检测手机号码是否已注册
    * @param {*} phone 手机号

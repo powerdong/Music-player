@@ -1,17 +1,19 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-30 20:21:12
- * @Update: 2019-08-30 21:34:11
+ * @Update: 2019-09-06 11:28:58
  * @Update log: 公共图标组件
  -->
 <template>
-    <div class="icon-list" :class="{width}" >
-      <div class="icon" :class="{bgcolor}">
-        <i  :class="icons.icon"></i>
-        <slot></slot>
-      </div>
-      <span class="icon-text">{{icons.text}}</span>
+  <router-link class="icon-list"
+              :class="{width}"
+              :to="linkTo">
+    <div class="icon" :class="{bgcolor}">
+      <i  :class="icons.icon"></i>
+      <slot></slot>
     </div>
+    <span class="icon-text">{{icons.text}}</span>
+  </router-link>
 </template>
 
 <script>
@@ -26,6 +28,10 @@ export default {
     },
     bgcolor: {
       type: String
+    },
+    linkTo: {
+      type: String,
+      default: 'afa'
     }
   }
 }
@@ -46,6 +52,7 @@ export default {
   justify-content: space-around;
   flex-direction: column;
   align-items: center;
+  color: #000;
   .bgcolor{
     background: linear-gradient(to right, #ff5a4c, #ff1d11);
   }

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:24:50
- * @Update: 2019-09-05 17:26:49
+ * @Update: 2019-09-07 20:06:44
  * @Update log: 更新日志
  -->
 <template>
@@ -9,30 +9,17 @@
    <div v-if="!info">
     <div class="title">
       <span>
-        <i class="result bofang"></i>
+        <i class="result cbofang"></i>
         播放全部
       </span>
     </div>
-    <ul class="song-group">
-      <li class="list-item" v-for="(item, index) in allSongList" :key="index">
-        <div class="song-info">
-          <p class="song-name">{{item.name}}</p>
-          <p class="song-art">
-            <span>
-              <span class="artist" v-for="(item, index) in item.artists" :key="index">
-                {{ item.name }}
-              </span>
-            </span>
-            <span class="album-name">
-              {{ item.album.name }}
-            </span>
-          </p>
-        </div>
-        <div class="icon">
-            <i class="result diandiandian"></i>
-        </div>
-      </li>
-    </ul>
+    <div class="song-group">
+      <song-list v-for="(item, index) in allSongList"
+              :key="index"
+              :songName="item.name"
+              :artists="item.artists"
+              :albumName="item.album.name"></song-list>
+    </div>
     <page-loading v-show="scroll"></page-loading>
   </div>
   <info :info="info" :keywords="keywords"></info>
@@ -43,12 +30,14 @@
 import api from 'api'
 import info from 'base/pageErrorInfo'
 import pageLoading from 'base/pageLoading'
+import songList from 'base/song'
 
 export default {
   name: '',
   components: {
     pageLoading,
-    info
+    info,
+    songList
   },
   data () {
     return {

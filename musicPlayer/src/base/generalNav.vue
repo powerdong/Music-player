@@ -1,13 +1,13 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-14 15:44:26
- * @Update: 2019-08-29 10:41:57
+ * @Update: 2019-09-07 11:49:53
  * @Update log: 登录页通用顶部导航
  -->
 <template>
   <nav class="phone-nav">
     <i class="phone iconzuojiantou" @click="returnPage"></i>
-    <slot :text="nav"></slot>
+    <slot></slot>
     <!-- <span class="text">{{ nav }}</span> -->
   </nav>
 </template>
@@ -18,7 +18,7 @@ export default {
   props: {
     nav: {
       type: String,
-      default: '手机号登录'
+      default: ''
     }
   },
   methods: {
@@ -38,10 +38,6 @@ export default {
   .phone{
     font-size: 0.7rem;
     margin-right: 5px;
-  }
-  .text{
-    font-size: 0.4rem;
-  vertical-align: 5px;
   }
 }
 </style>

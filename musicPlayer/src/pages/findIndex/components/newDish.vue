@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-08-29 13:41:43
+ * @Update: 2019-09-06 11:46:06
  * @Update log: 更新日志
  -->
 <template>
@@ -15,7 +15,7 @@
         <div class="list-img">
           <img :src="item.picUrl" alt />
           <!-- 跳转到专辑详情页 -->
-          <router-link class="cover" :to="'/album?id='+item.id"></router-link>
+          <router-link class="cover" :to="'/albumPage/'+item.id"></router-link>
         </div>
         <div class="list-con">{{item.name}}</div>
       </li>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import api from 'api'
 
 export default {
   name: 'newDish',
@@ -51,8 +51,7 @@ export default {
   },
   methods: {
     getDishListInfo () {
-      axios
-        .get('http://140.143.128.100:3000/top/album?offset=0&limit=20')
+      api.newDishFn()
         .then(this.setDishListInfo)
     },
     setDishListInfo (res) {

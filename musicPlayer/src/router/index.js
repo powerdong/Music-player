@@ -1,30 +1,37 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-08-31 21:18:30
+ * @Update: 2019-09-07 11:05:16
  * @Update log: 更新日志
  */
 import Vue from 'vue'
 import Router from 'vue-router'
 
-const navIndex = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/nav/index')
-const findIndex = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/findIndex/index')
-const homeIndex = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/homeIndex/index')
-const loginIndex = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/loginIndex/index')
-const accountLogin = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/loginIndex/components/accountLogin')
-const phoneAccount = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/loginIndex/components/phoneAccount')
-const phonePwd = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/loginIndex/components/phonePwd')
-const phoneVerify = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/loginIndex/components/phoneVerify')
-const search = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/searchIndex/index')
-const searchResults = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/searchResults/index')
-const composite = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/searchResults/composite/composite')
-const song = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/searchResults/songIndex/song')
-const video = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/searchResults/videoIndex/video')
-const artist = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/searchResults/artistIndex/artist')
-const album = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/searchResults/albumIndex/album')
-const playList = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/searchResults/playListIndex/playList')
-const djRadio = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/searchResults/djRadioIndex/djRadio')
-const user = () => import(/* webpackChunkName: "group-Detail" */ '@/pages/searchResults/userIndex/user')
+const navIndex = () => import(/* webpackChunkName: "group-nav" */ '@/pages/nav/index')
+const findIndex = () => import(/* webpackChunkName: "group-findPage" */ '@/pages/findIndex/index')
+const homeIndex = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/homeIndex/index')
+const loginIndex = () => import(/* webpackChunkName: "group-loginPage" */ '@/pages/loginIndex/index')
+const accountLogin = () => import(/* webpackChunkName: "group-login-accountPage" */ '@/pages/loginIndex/components/accountLogin')
+const phoneAccount = () => import(/* webpackChunkName: "group-login-phonePage" */ '@/pages/loginIndex/components/phoneAccount')
+const phonePwd = () => import(/* webpackChunkName: "group-login-pwdPage" */ '@/pages/loginIndex/components/phonePwd')
+const phoneVerify = () => import(/* webpackChunkName: "group-login-verifyPage" */ '@/pages/loginIndex/components/phoneVerify')
+const search = () => import(/* webpackChunkName: "group-searchPage" */ '@/pages/searchIndex/index')
+const searchResults = () => import(/* webpackChunkName: "group-resultPage" */ '@/pages/searchResults/index')
+const composite = () => import(/* webpackChunkName: "group-result-comPage" */ '@/pages/searchResults/composite/composite')
+const song = () => import(/* webpackChunkName: "group-result-songPage" */ '@/pages/searchResults/songIndex/song')
+const video = () => import(/* webpackChunkName: "group-result-videoPage" */ '@/pages/searchResults/videoIndex/video')
+const artist = () => import(/* webpackChunkName: "group-result-artistPage" */ '@/pages/searchResults/artistIndex/artist')
+const album = () => import(/* webpackChunkName: "group-result-albumPage" */ '@/pages/searchResults/albumIndex/album')
+const playList = () => import(/* webpackChunkName: "group-result-playlistPage" */ '@/pages/searchResults/playListIndex/playList')
+const djRadio = () => import(/* webpackChunkName: "group-result-djRadioPage" */ '@/pages/searchResults/djRadioIndex/djRadio')
+const user = () => import(/* webpackChunkName: "group-result-userPage" */ '@/pages/searchResults/userIndex/user')
+const dateRecommend = () => import(/* webpackChunkName: "group-date-recommendPage" */ '@/pages/dateRecommend')
+const recommend = () => import(/* webpackChunkName: "group-recommendPage" */ '@/pages/recommend')
+const idx = () => import(/* webpackChunkName: "group-idxPage" */ '@/pages/idx')
+const dj = () => import(/* webpackChunkName: "group-djPage" */ '@/pages/dj')
+const personalFm = () => import(/* webpackChunkName: "group-personal-fmPage" */ '@/pages/personalFm')
+const songListPage = () => import(/* webpackChunkName: "group-song-listPage" */ 'base/songListPage')
+const albumPage = () => import(/* webpackChunkName: "group-albumPage" */ 'base/albumPage')
 
 Vue.use(Router)
 
@@ -34,6 +41,8 @@ export default new Router({
    * 设置 链接激活时使用的 CSS 类名
    * 默认值: "router-link-active"
    * 可以通过路由的构造选项 linkActiveClass 来全局配置。
+   *
+   * 通过设置 meta: { keepAlive: true },来定义一个页面是否需要做缓存
    *
    **************************************************/
   linkActiveClass: 'ac',
@@ -73,9 +82,11 @@ export default new Router({
       component: phoneVerify
     }]
   }, {
+    // 搜索页
     path: '/search',
     component: search
   }, {
+    // 搜索展示页面
     path: '/searchResults/:id',
     component: searchResults,
     redirect: '/composite/:id',
@@ -112,5 +123,33 @@ export default new Router({
       path: '/user/:id',
       component: user
     }]
+  }, {
+    // 每日推荐页面
+    path: '/dateRecommend',
+    component: dateRecommend
+  }, {
+    // 歌单广场页面
+    path: '/recommend',
+    component: recommend
+  }, {
+    // 排行榜页面
+    path: '/idx',
+    component: idx
+  }, {
+    // 电台页面
+    path: '/dj',
+    component: dj
+  }, {
+    // 私人 FM 页面
+    path: '/personalFm',
+    component: personalFm
+  }, {
+    // 通用歌单展示页面
+    path: '/songListPage/:id',
+    component: songListPage
+  }, {
+    // 通用专辑展示页面
+    path: '/albumPage/:id',
+    component: albumPage
   }]
 })

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-08-14 17:54:48
+ * @Update: 2019-09-06 10:16:48
  * @Update log: 更新日志
  -->
 <template>
@@ -22,7 +22,7 @@
 
 <script>
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import axios from 'axios'
+import api from 'api'
 
 export default {
   name: 'findSwiper',
@@ -51,8 +51,7 @@ export default {
   },
   methods: {
     getFindInfo () {
-      axios
-        .get('http://140.143.128.100:3000/banner?type=1')
+      api.bannerSwiperFn()
         .then(this.getFindInfoSuc)
     },
     getFindInfoSuc (res) {
