@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-07 12:09:22
- * @Update: 2019-09-07 14:46:22
+ * @Update: 2019-09-08 17:50:54
  * @Update log: 更新日志
  -->
 <template>
@@ -59,11 +59,12 @@ height: 1rem;
 .img-info{
   width: 0.7rem;
   height: 0;
-  padding-bottom: 1rem;
+  padding-bottom: 0.7rem;
   margin-right: 0.2rem;
   img{
     border-radius: 0.1rem;
     width: 0.7rem;
+    height: 0.7rem;
   }
 }
 .song-info{

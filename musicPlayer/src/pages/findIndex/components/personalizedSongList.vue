@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-09-08 16:55:59
+ * @Update: 2019-09-08 17:48:59
  * @Update log: 更新日志
  -->
 <template>
@@ -11,9 +11,10 @@
       <div class="square">歌单广场</div>
     </div>
     <div class="img-col">
+      <!-- 因为两个接口的属性名不同，这里使用了或 -->
       <img-card v-for="(item, index) in songList"
                 :key="index"
-                :imgUrl="item.coverImgUrl"
+                :imgUrl="item.picUrl || item.coverImgUrl"
                 :dec="item.name"
                 :playCount="item.playCount"
                 :albumId="item.id"></img-card>

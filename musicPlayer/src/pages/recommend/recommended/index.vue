@@ -1,20 +1,20 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-08 13:17:01
- * @Update: 2019-09-08 16:14:18
+ * @Update: 2019-09-08 18:01:29
  * @Update log: 更新日志
  -->
 <template>
  <div class="pd23">
    <div v-show="!load">
-      <el-carousel class="swiper" type="card" height="4.12rem" :autoplay="false" indicator-position="none">
+      <el-carousel class="swiper" @change="change" type="card" height="4.12rem" :autoplay="false" indicator-position="none">
         <el-carousel-item v-for="(item, index) in swiper" :key="index">
-          <img-card :playCount="item.playCount"
+          <!-- <img-card :playCount="item.playCount"
                     :imgUrl="item.coverImgUrl"
                     :dec="item.name"
                     width="3.35rem"
                     top=""
-                    :swiper="true"></img-card>
+                    :swiper="true"></img-card> -->
         </el-carousel-item>
       </el-carousel>
       <div class="img-col">
@@ -47,6 +47,9 @@ export default {
     this.getListInfo()
   },
   methods: {
+    change (start, end) {
+      console.log(start, end)
+    },
     getListInfo () {
       api.recSongListFn(33)
         .then(res => {
