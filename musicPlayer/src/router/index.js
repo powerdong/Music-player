@@ -27,6 +27,9 @@ const djRadio = () => import(/* webpackChunkName: "group-result-djRadioPage" */ 
 const user = () => import(/* webpackChunkName: "group-result-userPage" */ '@/pages/searchResults/userIndex/user')
 const dateRecommend = () => import(/* webpackChunkName: "group-date-recommendPage" */ '@/pages/dateRecommend')
 const recommend = () => import(/* webpackChunkName: "group-recommendPage" */ '@/pages/recommend')
+const recommended = () => import(/* webpackChunkName: "group-recommendedPage" */ '@/pages/recommend/recommended')
+const fine = () => import(/* webpackChunkName: "group-recommendedPage" */ '@/pages/recommend/fine')
+const general = () => import(/* webpackChunkName: "group-recommendedPage" */ '@/pages/recommend/general')
 const idx = () => import(/* webpackChunkName: "group-idxPage" */ '@/pages/idx')
 const dj = () => import(/* webpackChunkName: "group-djPage" */ '@/pages/dj')
 const personalFm = () => import(/* webpackChunkName: "group-personal-fmPage" */ '@/pages/personalFm')
@@ -130,7 +133,21 @@ export default new Router({
   }, {
     // 歌单广场页面
     path: '/recommend',
-    component: recommend
+    component: recommend,
+    redirect: '/recommended',
+    children: [{
+      // 推荐歌单
+      path: '/recommended',
+      component: recommended
+    }, {
+      // 精品歌单
+      path: '/fine',
+      component: fine
+    }, {
+      // 通用歌单
+      path: '/general/:id',
+      component: general
+    }]
   }, {
     // 排行榜页面
     path: '/idx',

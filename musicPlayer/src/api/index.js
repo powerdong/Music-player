@@ -9,6 +9,7 @@ import axios from 'axios'
 import {
   bannerSwiper,
   recSongList,
+  highquality,
   recSongs,
   dateRecSongList,
   newDish,
@@ -53,6 +54,21 @@ export default {
       params: {
         limit,
         order,
+        cat
+      }
+    })
+  },
+  /**
+   * 获取精品歌单
+   * @param {*} limit 取出歌单数量 , 默认为 30
+   * @param {*} before 分页参数,取上一页最后一个歌单的 updateTime 获取下一页数据
+   * @param {*} cat cat: tag
+   */
+  highqualityFn (limit = 30, before, cat) {
+    return axios.get(highquality, {
+      params: {
+        limit,
+        before,
         cat
       }
     })

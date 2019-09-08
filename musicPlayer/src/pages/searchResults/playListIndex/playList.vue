@@ -6,7 +6,8 @@
  -->
 <template>
  <div class="wrapper pd23">
-   <song-list v-for="(item, index) in allSongListList" :key="index"
+   <div v-show="!load">
+     <song-list v-for="(item, index) in allSongListList" :key="index"
               :songList="true"
               :ImgUrl="item.coverImgUrl"
               :name="item.name"
@@ -15,24 +16,29 @@
               :playCount="item.playCount"
               ></song-list>
     <info :info="info" :keywords="keywords"></info>
+    </div>
+    <page-loading v-show="load"></page-loading>
  </div>
 </template>
 
 <script>
 import api from 'api'
 import songList from 'base/interchangeable'
+import pageLoading from 'base/pageLoading'
 import info from 'base/pageErrorInfo'
 
 export default {
   name: '',
   components: {
     songList,
-    info
+    info,
+    pageLoading
   },
   data () {
     return {
       allSongListList: [],
-      info: false
+      info: false,
+      load: true
     }
   },
   props: {
@@ -60,7 +66,7 @@ export default {
             } else {
               this.allSongListList = data.result.playlists
             }
-            this.$store.commit('SET_LOAD')
+            this.load = false
           }
         })
         .catch(error => {
@@ -74,8 +80,4 @@ export default {
 <style lang='less' scoped>
 @import url('~styles/global.less');
 
-.wrapper{
-  height: 87vh;
-  overflow-y: scroll;
-}
 </style>

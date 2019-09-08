@@ -7,7 +7,7 @@
 // ===================发现页面
 export const bannerSwiper = '/api/banner?type=1' // 请求发现页面轮播图
 export const recSongList = '/api/top/playlist' // 推荐歌单，歌单广场
-export const highquality = '/api/top/playlist/highquality' // 精品歌单 !!!
+export const highquality = '/api/top/playlist/highquality' // 精品歌单
 export const catlist = '/api/playlist/catlist' // 获取歌单分类 !!!
 export const hot = '/api/playlist/hot' // 获取热门歌单分类 !!!
 export const topList = '/api/toplist/detail' // 获取所有榜单内容摘要   !!!

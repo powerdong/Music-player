@@ -5,42 +5,45 @@
  * @Update log: 更新日志
  -->
 <template>
- <div class="wrapper">
-   <div v-if="!info">
-    <song-list :songList="songList"
-                :keyword="keywords"
-                v-if="orderList.includes('song')">
-      </song-list>
-    <play-list :playList="playListList"
-                :keyword="keywords"
-                v-if="orderList.includes('playList')">
-      </play-list>
-    <video-list :videoList="videoList"
+ <div class="wrapper pd23">
+   <div v-show="!load">
+    <div v-if="!info">
+      <song-list :songList="songList"
                   :keyword="keywords"
-                  v-if="orderList.includes('video')"
-      ></video-list>
-    <sim-query :simQuery="sim_queryList"
-                :keyword="keywords"
-                v-if="orderList.includes('sim_query')">
-      </sim-query>
-    <artist :artist="artistList"
-                :keyword="keywords"
-                v-if="orderList.includes('artist')">
-      </artist>
-    <album :album="albumList"
-                :keyword="keywords"
-                v-if="orderList.includes('album')">
-      </album>
-    <dj-radio  :djRadio="djRadioList"
-                :keyword="keywords"
-                v-if="orderList.includes('djRadio')">
-      </dj-radio>
-    <user :user="userList"
-            :keyword="keywords"
-            v-if="orderList.includes('user')">
-      </user>
+                  v-if="orderList.includes('song')">
+        </song-list>
+      <play-list :playList="playListList"
+                  :keyword="keywords"
+                  v-if="orderList.includes('playList')">
+        </play-list>
+      <video-list :videoList="videoList"
+                    :keyword="keywords"
+                    v-if="orderList.includes('video')"
+        ></video-list>
+      <sim-query :simQuery="sim_queryList"
+                  :keyword="keywords"
+                  v-if="orderList.includes('sim_query')">
+        </sim-query>
+      <artist :artist="artistList"
+                  :keyword="keywords"
+                  v-if="orderList.includes('artist')">
+        </artist>
+      <album :album="albumList"
+                  :keyword="keywords"
+                  v-if="orderList.includes('album')">
+        </album>
+      <dj-radio  :djRadio="djRadioList"
+                  :keyword="keywords"
+                  v-if="orderList.includes('djRadio')">
+        </dj-radio>
+      <user :user="userList"
+              :keyword="keywords"
+              v-if="orderList.includes('user')">
+        </user>
+    </div>
+    <info :info="info" :keywords="keywords"></info>
   </div>
-  <info :info="info" :keywords="keywords"></info>
+  <page-loading v-show="load"></page-loading>
  </div>
 </template>
 
@@ -54,6 +57,7 @@ import album from './components/album'
 import djRadio from './components/djRadio'
 import user from './components/user'
 import info from 'base/pageErrorInfo'
+import pageLoading from 'base/pageLoading'
 import api from 'api'
 
 export default {
@@ -91,7 +95,8 @@ export default {
       djRadioList: {},
       // 查看全部用户
       userList: {},
-      info: false
+      info: false,
+      load: true
     }
   },
   created () {
@@ -126,7 +131,7 @@ export default {
             this.albumList = album
             this.djRadioList = djRadio
             this.userList = user
-            this.$store.commit('SET_LOAD')
+            this.load = false
             // 没有信息展示
             if (this.orderList.length === 0) {
               this.info = true
@@ -134,7 +139,7 @@ export default {
           }
         })
         .catch(error => {
-          this.$store.commit('SET_LOAD')
+          this.load = false
           this.info = true
           console.log(error)
         })
@@ -149,16 +154,13 @@ export default {
     album,
     djRadio,
     user,
-    info
+    info,
+    pageLoading
   }
 }
 </script>
 
 <style lang='less' scoped>
-.wrapper{
-  box-sizing: border-box;
-  padding: 0 0.23rem;
-  height: 87vh;
-  overflow-y: scroll;
-}
+@import url('~styles/global.less');
+
 </style>

@@ -6,23 +6,26 @@
  -->
 <template>
  <div class="wrapper pd23" @scroll="handleScroll">
-   <div v-if="!info">
-    <div class="title">
-      <span>
-        <i class="result cbofang"></i>
-        播放全部
-      </span>
+   <div v-show="!load">
+    <div v-if="!info">
+      <div class="title">
+        <span>
+          <i class="result cbofang"></i>
+          播放全部
+        </span>
+      </div>
+      <div class="song-group">
+        <song-list v-for="(item, index) in allSongList"
+                :key="index"
+                :songName="item.name"
+                :artists="item.artists"
+                :albumName="item.album.name"></song-list>
+      </div>
+      <page-loading v-show="scroll"></page-loading>
     </div>
-    <div class="song-group">
-      <song-list v-for="(item, index) in allSongList"
-              :key="index"
-              :songName="item.name"
-              :artists="item.artists"
-              :albumName="item.album.name"></song-list>
-    </div>
-    <page-loading v-show="scroll"></page-loading>
+    <info :info="info" :keywords="keywords"></info>
   </div>
-  <info :info="info" :keywords="keywords"></info>
+  <page-loading v-show="load"></page-loading>
  </div>
 </template>
 
@@ -44,7 +47,8 @@ export default {
       allSongList: [],
       offset: 0,
       scroll: false,
-      info: false
+      info: false,
+      load: true
     }
   },
   props: {
@@ -67,7 +71,7 @@ export default {
             } else {
               this.allSongList = data.result.songs
             }
-            this.$store.commit('SET_LOAD')
+            this.load = false
             this.scroll = false
             if (data.result.songCount === 0) {
               this.info = true
@@ -75,7 +79,7 @@ export default {
           }
         })
         .catch(error => {
-          this.$store.commit('SET_LOAD')
+          this.load = false
           this.info = true
           console.log(error)
         })
@@ -98,8 +102,6 @@ export default {
 @import url('~styles/global.less');
 
 .wrapper{
-  height: 87vh;
-  overflow-y: scroll;
   .title{
     margin: 0.23rem 0 ;
     font-size: 0.3rem;

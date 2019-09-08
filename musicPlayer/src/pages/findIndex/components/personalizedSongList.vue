@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-09-06 11:48:17
+ * @Update: 2019-09-08 16:55:59
  * @Update log: 更新日志
  -->
 <template>
@@ -10,43 +10,30 @@
       <div class="recommended">推荐歌单</div>
       <div class="square">歌单广场</div>
     </div>
-    <ul class="song-group">
-      <li class="song-list" v-for="(item, index) in songList" :key="index">
-        <div class="list-img">
-          <img :src="item.picUrl" alt />
-          <span class="play-count">
-            <i class="find bofang"></i>
-            {{item.playcount | playCount}}
-          </span>
-          <router-link class="cover" :to="'/songListPage/'+item.id"></router-link>
-        </div>
-        <div class="list-con">{{item.name}}</div>
-      </li>
-    </ul>
+    <div class="img-col">
+      <img-card v-for="(item, index) in songList"
+                :key="index"
+                :imgUrl="item.coverImgUrl"
+                :dec="item.name"
+                :playCount="item.playCount"
+                :albumId="item.id"></img-card>
+      </div>
   </div>
 </template>
 
 <script>
 import api from 'api'
+import imgCard from 'base/imgCard'
+
 import { mapGetters } from 'vuex'
 export default {
   name: 'songList',
+  components: {
+    imgCard
+  },
   data () {
     return {
       songList: []
-    }
-  },
-  filters: {
-    playCount: function (val) {
-      if (!val) {
-        return ''
-      }
-      if (val > 100000000) {
-        val = ((val / 100000000).toFixed(1)) + '亿'
-      } else if (val > 10000) {
-        val = Math.floor(val / 10000) + '万'
-      }
-      return val
     }
   },
   computed: {
@@ -58,13 +45,13 @@ export default {
      */
     getSongListInfo () {
       api.recSongListFn()
-        .then(this.setSongListInfo)
-    },
-    setSongListInfo (res) {
-      if (res.status === 200 && res.statusText === 'OK') {
-        res = res.data.result
-        this.songList = this.getRandomArrayElements(res, 6)
-      }
+        .then(res => {
+          const data = res.data
+          if (data.code === 200) {
+            this.songList = this.getRandomArrayElements(data.playlists, 6)
+          }
+        })
+        .catch(error => console.log(error))
     },
     /**
      * 随机取出数组中的几项
@@ -99,7 +86,6 @@ export default {
           const data = res.data
           if (data.code === 200) {
             const arr = data.recommend
-            console.log(arr)
             this.songList = this.getRandomArrayElements(arr, 6)
           }
         })
@@ -111,6 +97,7 @@ export default {
       // 用户已经登录
       this.loadGetSongListInfo()
     } else {
+      console.log(111)
       this.getSongListInfo()
     }
   }
@@ -137,43 +124,9 @@ export default {
       margin-left: auto;
     }
   }
-  .song-group {
-    .flex-between();
-    flex-wrap: wrap;
-    .song-list {
-      flex: 0 0 30%;
-      display: flex;
-      flex-direction: column;
-      .list-img {
-        position: relative;
-        width: 2.1rem;
-        height: 0;
-        padding-bottom: 2.1rem;
-        background-color: #aaa;
-        border-radius: @imgBorderRadius;
-        overflow: hidden;
-        img {
-          width: 100%;
-        }
-        .play-count {
-          position: absolute;
-          top: 0.11rem;
-          right: 0.11rem;
-          font-size: 0.2rem;
-          color: #fff;
-          .bofang {
-            font-size: 0.18rem;
-          }
-        }
-      }
-      .list-con {
-        margin: 0.2rem 0 0.3rem;
-        font-size: 0.24rem;
-        line-height: 0.3rem;
-        letter-spacing: 1px;
-        .twoLinesEllipsis()
-      }
-    }
-  }
+  .img-col{
+  .flex-between();
+  flex-wrap: wrap;
+}
 }
 </style>

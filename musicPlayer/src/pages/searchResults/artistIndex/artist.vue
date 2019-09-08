@@ -6,13 +6,16 @@
  -->
 <template>
  <div class="wrapper pd23">
-   <artist v-for="(item, index) in allArtistList" :key="index"
-              :circle="true"
-              :ImgUrl="item.img1v1Url"
-              :name="item.name"
-              :isIn="item.accountId"
-              ></artist>
-  <info :info="info" :keywords="keywords"></info>
+   <div v-show="!load">
+    <artist v-for="(item, index) in allArtistList" :key="index"
+                :circle="true"
+                :ImgUrl="item.img1v1Url"
+                :name="item.name"
+                :isIn="item.accountId"
+                ></artist>
+    <info :info="info" :keywords="keywords"></info>
+  </div>
+  <page-loading v-show="load"></page-loading>
  </div>
 </template>
 
@@ -20,17 +23,20 @@
 import api from 'api'
 import info from 'base/pageErrorInfo'
 import artist from 'base/interchangeable'
+import pageLoading from 'base/pageLoading'
 
 export default {
   name: '',
   components: {
     artist,
-    info
+    info,
+    pageLoading
   },
   data () {
     return {
       allArtistList: [],
-      info: false
+      info: false,
+      load: true
     }
   },
   props: {
@@ -53,14 +59,14 @@ export default {
             } else {
               this.allArtistList = data.result.artists
             }
-            this.$store.commit('SET_LOAD')
+            this.load = false
             if (data.result.artistCount === 0) {
               this.info = true
             }
           }
         })
         .catch(error => {
-          this.$store.commit('SET_LOAD')
+          this.load = false
           this.info = true
           console.log(error)
         })
@@ -72,8 +78,4 @@ export default {
 <style lang='less' scoped>
 @import url('~styles/global.less');
 
-.wrapper{
-  height: 87vh;
-  overflow-y: scroll;
-}
 </style>

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-09-06 11:46:06
+ * @Update: 2019-09-08 16:43:51
  * @Update log: 更新日志
  -->
 <template>
@@ -10,43 +10,29 @@
       <div class="recommended">新碟</div>
       <div class="square">更多新碟</div>
     </div>
-    <ul class="song-group">
-      <li class="song-list" v-for="(item, index) in dishList" :key="index">
-        <div class="list-img">
-          <img :src="item.picUrl" alt />
-          <!-- 跳转到专辑详情页 -->
-          <router-link class="cover" :to="'/albumPage/'+item.id"></router-link>
-        </div>
-        <div class="list-con">{{item.name}}</div>
-      </li>
-    </ul>
-  </div>
+    <div class="img-col">
+      <img-card v-for="(item, index) in dishList"
+                :key="index"
+                :imgUrl="item.picUrl"
+                :dec="item.name"
+                :fine="true"
+                :albumId="item.id"></img-card>
+      </div>
+    </div>
 </template>
 
 <script>
 import api from 'api'
+import imgCard from 'base/imgCard'
 
 export default {
   name: 'newDish',
+  components: {
+    imgCard
+  },
   data () {
     return {
       dishList: []
-    }
-  },
-  computed: {
-    // 将播放数的数字转换为以万为单位
-    playCount () {
-      const playCount = []
-      this.dishList.forEach(element => {
-        playCount.push(
-          element.playCount > 10000
-            ? element.playCount > 100000000
-              ? ((element.playCount / 100000000).toFixed(1)) + '亿'
-              : Math.floor(element.playCount / 10000) + '万'
-            : element.playCount
-        )
-      })
-      return playCount
     }
   },
   methods: {
@@ -110,33 +96,9 @@ export default {
       margin-left: auto;
     }
   }
-  .song-group {
+  .img-col{
     .flex-between();
     flex-wrap: wrap;
-    .song-list {
-      flex: 0 0 30%;
-      display: flex;
-      flex-direction: column;
-      .list-img {
-        position: relative;
-        width: 2.1rem;
-        height: 0;
-        padding-bottom: 2.1rem;
-        background-color: #aaa;
-        border-radius: @imgBorderRadius;
-        overflow: hidden;
-        img {
-          width: 100%;
-        }
-      }
-      .list-con {
-        margin: 0.2rem 0 0.3rem;
-        font-size: 0.24rem;
-        line-height: 0.3rem;
-        letter-spacing: 1px;
-        .twoLinesEllipsis();
-      }
-    }
   }
 }
 </style>

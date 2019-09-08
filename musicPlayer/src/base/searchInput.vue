@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-27 12:42:24
- * @Update: 2019-09-05 18:46:53
+ * @Update: 2019-09-08 16:35:32
  * @Update log: 更新日志
  -->
 <template>
@@ -229,8 +229,6 @@ export default {
       this.getHistory(key)
       this.hideList()
       this.clearInp()
-      // 将loading显示样式设置回去
-      this.$store.commit('RETURN_LOAD')
       // 这里解决了Bus传值第一次无法获取到的问题
       // 后需解决！！！！
       setTimeout(() => {
