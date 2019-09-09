@@ -1,13 +1,16 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-07 12:09:22
- * @Update: 2019-09-08 17:50:54
+ * @Update: 2019-09-09 17:20:39
  * @Update log: 更新日志
  -->
 <template>
   <div class="list-item" >
     <div class="img-info" v-if="imgUrl">
       <img :src="imgUrl">
+    </div>
+    <div class="index" v-if="num">
+      {{ num }}
     </div>
     <div class="song-info">
       <p class="song-name">{{songName}}</p>
@@ -43,6 +46,9 @@ export default {
     },
     imgUrl: {
       type: String
+    },
+    num: {
+      type: Number
     }
   }
 }
@@ -56,6 +62,9 @@ export default {
 .flex-between();
 align-items: center;
 height: 1rem;
+.index{
+  color: #999;
+}
 .img-info{
   width: 0.7rem;
   height: 0;

@@ -11,9 +11,11 @@ import {
   recSongList,
   highquality,
   recSongs,
+  topList,
   dateRecSongList,
   newDish,
   phoneLogin,
+  albumDetail,
   sendVerify,
   verify,
   phoneRegistered,
@@ -40,6 +42,25 @@ export default {
    */
   recSongsFn () {
     return axios.get(recSongs)
+  },
+  /**
+   * 调用此接口 , 传入歌单 id, 可 以获取对应歌单内的所有的音乐
+   * @param {*} id 歌单 id
+   * @param {*} s 歌单最近的 s 个收藏者,默认5个
+   */
+  albumDetailFn (id, s = 5) {
+    return axios.get(albumDetail, {
+      params: {
+        id,
+        s
+      }
+    })
+  },
+  /**
+   * 调用此接口,可获取所有榜单内容摘要
+   */
+  topListFn () {
+    return axios.get(topList)
   },
   /**
    * 请求 可获取推荐歌单

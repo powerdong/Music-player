@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-09-08 16:43:51
+ * @Update: 2019-09-09 18:00:01
  * @Update log: 更新日志
  -->
 <template>
@@ -15,7 +15,6 @@
                 :key="index"
                 :imgUrl="item.picUrl"
                 :dec="item.name"
-                :fine="true"
                 :albumId="item.id"></img-card>
       </div>
     </div>

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-08 14:37:08
- * @Update: 2019-09-08 17:14:01
+ * @Update: 2019-09-09 14:07:03
  * @Update log: 更新日志
  -->
 <template>
@@ -9,6 +9,7 @@
    <span class="tag" v-if="playCount" ><i class="card cardbofang"></i>{{playCount | setPlayCount}}</span>
    <span class="swiper-tag" v-if="swiper"><i class="card cardbofang1"></i></span>
    <span class="fine-tag" v-if="fine"><i class="card cardhuangguan"></i></span>
+   <span class="time-tag" v-if="updateTime">{{ updateTime }}</span>
    <div class="img-con" :style="{width,paddingBottom:width}">
     <img v-lazy="imgUrl" class="image">
     <!-- 跳转到专辑详情页 -->
@@ -26,6 +27,9 @@ export default {
   props: {
     playCount: {
       type: Number
+    },
+    updateTime: {
+      type: String
     },
     imgUrl: {
       type: String
@@ -76,6 +80,13 @@ export default {
 .img-card{
   position: relative;
   background-color: #fff;
+  .time-tag{
+    position: absolute;
+    bottom: 0.54rem;
+    left: 3px;
+    font-size: 12px;
+    color: #fff;
+  }
   .tag{
     position: absolute;
     top: 0.11rem;
@@ -117,7 +128,7 @@ export default {
   }
   .dec{
     margin-top: 0.2rem;
-    font-size: 0.24rem;
+    font-size: 0.23rem;
     line-height: 0.3rem;
     letter-spacing: 1px;
     .twoLinesEllipsis()

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-08 13:17:01
- * @Update: 2019-09-08 18:01:29
+ * @Update: 2019-09-09 14:42:07
  * @Update log: 更新日志
  -->
 <template>
@@ -22,7 +22,8 @@
                 :key="index"
                 :playCount="item.playCount"
                 :imgUrl="item.coverImgUrl"
-                :dec="item.name"></img-card>
+                :dec="item.name"
+                :albumId="item.id"></img-card>
       </div>
   </div>
   <page-loading v-show="load"></page-loading>
