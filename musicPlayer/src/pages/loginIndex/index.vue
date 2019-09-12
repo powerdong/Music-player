@@ -31,7 +31,9 @@ export default {
     height: 0.8rem;
     border-radius: 0.4rem;
     background-color: #fff;
-    color: red
+    color: @bgcolor;
+    font-weight: 600;
+    letter-spacing: 3px;
   }
 }
 </style>

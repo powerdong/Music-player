@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:33:42
- * @Update: 2019-09-09 14:46:30
+ * @Update: 2019-09-12 14:27:32
  * @Update log: 更新日志
  -->
 <template>
@@ -11,7 +11,8 @@
               :songName="item.name"
               :artists="item.artists"
               :albumName="item.album.name"
-              :imgUrl="item.album.blurPicUrl">
+              :imgUrl="item.album.blurPicUrl"
+              @click.native="setAudioList(item, index)">
   </song-list>
  </song-list-page>
 </template>
@@ -21,6 +22,7 @@ import api from 'api'
 import songList from 'base/song'
 import songListPage from 'base/songListPage'
 
+import { mapActions } from 'vuex'
 export default {
   name: '',
   components: {
@@ -46,7 +48,15 @@ export default {
             this.load = false
           }
         })
-    }
+    },
+    setAudioList (item, index) {
+      console.log(111)
+      this.selectPlay({
+        list: this.songLists,
+        index
+      })
+    },
+    ...mapActions(['selectPlay'])
   }
 }
 </script>

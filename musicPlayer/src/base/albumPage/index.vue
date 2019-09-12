@@ -1,30 +1,32 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:47:11
- * @Update: 2019-09-09 17:58:49
- * @Update log: 更新日志
+ * @Update: 2019-09-12 13:19:24
+ * @Update log: 这个是歌单展示的通用组件
  -->
 <template>
-<song-list-page title="歌单"
-                :load="load"
-                :imgUrl="albumInfo.coverImgUrl"
-                :albumTitle="albumInfo.name"
-                :creatorImgUrl="albumInfo.creator.avatarUrl"
-                :author="albumInfo.creator.nickname"
-                :description="albumInfo.description"
-                :commentCount="albumInfo.commentCount"
-                :shareCount="albumInfo.shareCount"
-                :trackCount="albumInfo.trackCount"
-                :subscribedCount="albumInfo.subscribedCount"
-                :subscribed="albumInfo.subscribed">
-  <song-list v-for="(item, index) in albumInfo.tracks"
-            :key="index"
-            :songName="item.name"
-            :artists="item.ar"
-            :albumName="item.al.name"
-            :num="index + 1">
-</song-list>
-</song-list-page>
+  <!-- 通过传递参数给子组件，标题，加载样式，图片链接，歌单名称，作者头像，作者昵称，歌单介绍，评论数，分享数，歌单歌曲数，收藏数，是否收藏 -->
+  <song-list-page title="歌单"
+                  :load="load"
+                  :imgUrl="albumInfo.coverImgUrl"
+                  :albumTitle="albumInfo.name"
+                  :creatorImgUrl="albumInfo.creator.avatarUrl"
+                  :author="albumInfo.creator.nickname"
+                  :description="albumInfo.description"
+                  :commentCount="albumInfo.commentCount"
+                  :shareCount="albumInfo.shareCount"
+                  :trackCount="albumInfo.trackCount"
+                  :subscribedCount="albumInfo.subscribedCount"
+                  :subscribed="albumInfo.subscribed">
+    <!-- 这是一个通用的用来展示歌曲列表的组件，通过for循环组件进行渲染  这里使用 index+1 展示了页面的索引值 -->
+    <song-list v-for="(item, index) in albumInfo.tracks"
+               :key="index"
+               :songName="item.name"
+               :artists="item.ar"
+               :albumName="item.al.name"
+               :num="index + 1">
+    </song-list>
+  </song-list-page>
 </template>
 
 <script>
@@ -36,8 +38,9 @@ export default {
   name: '',
   data () {
     return {
+      // 存储信息的数组
       albumInfo: [],
-      name: 'fafafa',
+      // 用来定义是否显示load加载组件
       load: true
     }
   },
@@ -45,6 +48,9 @@ export default {
     songListPage,
     songList
   },
+  /**
+   * 生命钩子函数在实例创建完成后被立即调用
+   */
   created () {
     this.getInfoId()
   },
@@ -60,29 +66,36 @@ export default {
     // next()
   },
   methods: {
+    /**
+     * 获取页面的动态id信息
+     */
     getInfoId () {
       const id = this.$route.params.id
-      console.log(id)
       this.getInfo(id)
     },
+    /**
+     * 根据传入的id获取歌单信息
+     *
+     * 这里需要增加 catch 方法！！！
+     */
     getInfo (id) {
+      // 这里使用的是定义的接口信息，详情查看 api 文件夹
       api.albumDetailFn(id)
+        // 请求成功后返回数据
         .then(res => {
+          // 接受数据
           const data = res.data
+          // 查看返回数据的 code 状态，如果是 200 的话进行使用
           if (data.code === 200) {
-            console.log(data)
+            // 将请求回来的数据使用，将load 样式关闭
             this.albumInfo = data.playlist
             this.load = false
           }
         })
     }
-  },
-  destroyed () {
-    this.albumInfo = []
   }
 }
 </script>
 
 <style lang='less' scoped>
-
 </style>

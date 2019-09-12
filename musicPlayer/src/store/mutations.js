@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-09-01 21:15:45
+ * @Update: 2019-09-12 13:48:12
  * @Update log: 更新日志
  */
 import {
@@ -15,7 +15,11 @@ import {
   ACCOUNT_UID,
   SET_LOAD,
   RETURN_LOAD,
-  SET_LINK_PAGE
+  SET_LINK_PAGE,
+  SET_PLAY_SATE,
+  SET_FULL_SCREEN,
+  SET_AUDIO_LIST,
+  SET_AUDIO_INDEX
 } from './mutation-types'
 
 // 实现侧边栏显示时底部不跟随滚动
@@ -82,5 +86,31 @@ export default {
    */
   [SET_LINK_PAGE] (state, page) {
     state.linkPage = page
+  },
+  /**
+   * 设置播放状态
+   * @param {*} state state 数据
+   * @param {*} flag 播放状态
+   */
+  [SET_PLAY_SATE] (state, flag) {
+    state.playState = flag
+  },
+  /**
+   * 设置播放器是大还是小
+   */
+  [SET_FULL_SCREEN] (state, flag) {
+    state.fullScreen = flag
+  },
+  /**
+   * 设置播放列表信息
+   */
+  [SET_AUDIO_LIST] (state, list) {
+    state.audioList = list
+  },
+  /**
+   * 设置
+   */
+  [SET_AUDIO_INDEX] (state, index) {
+    state.audioIngIndex = index
   }
 }

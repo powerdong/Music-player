@@ -16,7 +16,7 @@
                 :key="index"
                 :imgUrl="item.picUrl || item.coverImgUrl"
                 :dec="item.name"
-                :playCount="item.playCount"
+                :playCount="item.playCount || item.playcount"
                 :albumId="item.id"></img-card>
       </div>
   </div>

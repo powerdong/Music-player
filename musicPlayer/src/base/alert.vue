@@ -1,13 +1,14 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-17 17:10:07
- * @Update: 2019-08-17 18:19:26
- * @Update log: 更新日志
+ * @Update: 2019-09-12 13:18:19
+ * @Update log: 错误信息提示组件
  -->
 <template>
   <div>
     <transition>
-      <div class="alert" v-show="isAlert">{{ alert }}</div>
+      <div class="alert"
+           v-show="isAlert">{{ alert }}</div>
     </transition>
   </div>
 </template>

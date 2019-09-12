@@ -15,3 +15,7 @@ export const ACCOUNT_UID = 'ACCOUNT_UID' // 存取用户id
 export const SET_LOAD = 'SET_LOAD' // 设置当前已经返回数据，显示界面
 export const RETURN_LOAD = 'RETURN_LOAD' // 将load返回默认的true
 export const SET_LINK_PAGE = 'SET_LINK_PAGE' // 将load返回默认的true
+export const SET_PLAY_SATE = 'SET_PLAY_SATE' // 设置当前的播放状态
+export const SET_FULL_SCREEN = 'SET_FULL_SCREEN' // 设置当前的播放器的状态，是大还是小
+export const SET_AUDIO_LIST = 'SET_AUDIO_LIST' // 设置当前的播放列表
+export const SET_AUDIO_INDEX = 'SET_AUDIO_INDEX' // 设置当前的播放歌曲是第几个，索引值
