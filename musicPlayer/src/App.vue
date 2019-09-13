@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import playSong from 'base/audioIndex'
+import playSong from '@/pages/audioIndex'
 import { mapGetters } from 'vuex'
 export default {
   name: 'App',

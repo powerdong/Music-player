@@ -1,12 +1,12 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:39:05
- * @Update: 2019-09-09 14:10:43
+ * @Update: 2019-09-13 14:53:37
  * @Update log: 更新日志
  -->
 <template>
  <div class="wrapper pd23">
-    <general-nav>
+    <general-nav @returnPage="returnPage">
       <span class="text">排行榜</span>
     </general-nav>
     <div class="title">官方榜</div>
@@ -70,6 +70,9 @@ export default {
             this.moreIdxList = data.list.slice(10)
           }
         })
+    },
+    returnPage () {
+      this.$router.go(-1)
     }
   }
 }

@@ -1,12 +1,12 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:38:30
- * @Update: 2019-09-08 16:15:30
+ * @Update: 2019-09-13 14:52:55
  * @Update log: 更新日志
  -->
 <template>
   <div class="wrapper">
-    <general-nav class="pd23">
+    <general-nav class="pd23" @returnPage="returnPage">
       <span class="text">歌单广场</span>
     </general-nav>
     <nav-list></nav-list>
@@ -24,6 +24,11 @@ export default {
   components: {
     navList,
     generalNav
+  },
+  methods: {
+    returnPage () {
+      this.$router.go(-1)
+    }
   }
 }
 </script>

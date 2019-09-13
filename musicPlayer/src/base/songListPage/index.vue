@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:33:42
- * @Update: 2019-09-12 13:18:36
+ * @Update: 2019-09-13 14:51:25
  * @Update log: 这是一个用来展示歌曲列表的基础组件
  -->
 <template>
@@ -14,14 +14,16 @@
          :style="{height}">
       <!-- 通过传值 isAlbum 的布尔值进行判断，因为在今日推荐页面的页面标题是通过滚动显示隐藏的 -->
       <global-nav class="fixed pd23"
-                  v-if="!isAlbum">
+                  v-if="!isAlbum"
+                  @returnPage="returnPage">
         <!-- 通过改变 listFixed 来控制 title 的显示与否-->
         <span class="text"
               v-show="listFixed">{{iTitle}}</span>
       </global-nav>
       <!-- 这里是在歌单页面时，页面标题是一直显示的 -->
       <global-nav class="fixed pd23"
-                  v-if="isAlbum">
+                  v-if="isAlbum"
+                  @returnPage="returnPage">
         <span class="text">{{iTitle}}</span>
       </global-nav>
       <!-- 这里包裹的是每日推荐页面额外显示的日期信息 -->
@@ -213,6 +215,12 @@ export default {
     }
   },
   methods: {
+    /**
+     * 返回上一页
+     */
+    returnPage () {
+      this.$router.go(-1)
+    },
     /**
      * 定义页面滚动事件，
      * 这里需要添加在滚动过程中样式的变化
