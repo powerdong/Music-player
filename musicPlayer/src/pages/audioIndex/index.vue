@@ -1,27 +1,35 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-12 13:02:20
- * @Update: 2019-09-14 14:20:57
+ * @Update: 2019-09-14 18:57:07
  * @Update log: 点击歌单中的某一项，将歌单列表信息传入vuex，用来展示歌曲列表，
  *              点击的index 用列表[index]来设置当前要播放的歌曲
  -->
 <template>
-  <div class="audioPage pd23">
-    <audio-nav class="color" @returnPage="returnPage">
-      <div>
-        <p class="title">{{audioSong ? audioSong.name : ''}}</p>
-        <p class="text">
-          <span class="art"
-                v-for="(item, index) in artist"
-                :key="index"
-                >{{item.name}}</span>
-        </p>
-      </div>
-    </audio-nav>
-    <playing :imgUrl="imgUrl"></playing>
-    <play-icons></play-icons>
-    <bar :allTime="allTime" :time="playTime" :width="progressWidth" @time="changeTime"></bar>
-    <function-button @play="toggle" @prev="prevSong" @next="nextSong"></function-button>
+  <div class="audioPage">
+    <div class="full pd23" v-show="isFull">
+      <audio-nav class="color" @returnPage="returnPage">
+        <div>
+          <p class="title">{{name}}</p>
+          <p class="text">
+            <span class="art"
+                  v-for="(item, index) in artist"
+                  :key="index"
+                  >{{item.name}}</span>
+          </p>
+        </div>
+      </audio-nav>
+      <playing :imgUrl="imgUrl"></playing>
+      <play-icons></play-icons>
+      <bar :allTime="allTime" :time="playTime" :width="progressWidth" @time="changeTime"></bar>
+      <function-button @play="toggle" @prev="prevSong" @next="nextSong"></function-button>
+    </div>
+    <small-audio  class="small border-top pd23"
+                  v-show="!isFull"
+                  :imgUrl="imgUrl"
+                  @click="returnFull"
+                  @play="toggle"
+                  :name="name"></small-audio>
     <audio :src="url" ref="audio" autoplay @canplay="ready" @error="error"></audio>
   </div>
 </template>
@@ -33,6 +41,7 @@ import playing from './components/playing'
 import playIcons from './components/playIcons'
 import bar from './components/bar'
 import functionButton from './components/functionButton'
+import smallAudio from './components/small'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
   name: '',
@@ -41,7 +50,8 @@ export default {
     playing,
     playIcons,
     bar,
-    functionButton
+    functionButton,
+    smallAudio
   },
   data () {
     return {
@@ -52,14 +62,16 @@ export default {
       artist: [],
       imgUrl: '',
       readySong: false,
-      canSong: true
+      canSong: true,
+      name: ''
     }
   },
   computed: {
     ...mapGetters({audioSong: 'AUDIO_ING_SONG',
       state: 'PLAY_STATE',
       index: 'AUDIO_ING_INDEX',
-      list: 'AUDIO_LIST'})
+      list: 'AUDIO_LIST',
+      isFull: 'FULL_SCREEN'})
   },
   watch: {
     /**
@@ -71,6 +83,7 @@ export default {
       this.allTime = val.duration
       this.artist = val.album.artists
       this.imgUrl = val.album.picUrl
+      this.name = val.name
     }
   },
   methods: {
@@ -113,7 +126,8 @@ export default {
         })
     },
     ...mapMutations({setState: 'SET_PLAY_SATE',
-      setIndex: 'SET_AUDIO_INDEX'}),
+      setIndex: 'SET_AUDIO_INDEX',
+      setFull: 'SET_FULL_SCREEN'}),
     /**
      * 播放暂停事件
      */
@@ -230,16 +244,19 @@ export default {
       this.progressWidth = val
     },
     returnPage () {
-      console.log(111)
+      this.setFull(false)
+    },
+    returnFull () {
+      this.setFull(true)
     }
   }
 }
 </script>
 
 <style lang='less' scoped>
-@import url('//at.alicdn.com/t/font_1410851_5avwhgnvef.css');
+@import url('//at.alicdn.com/t/font_1410851_1kpmn0o6bx5.css');
 @import url('~styles/global.less');
-.audioPage{
+.full{
   position: absolute;
   top: 0;
   left: 0;
@@ -266,5 +283,13 @@ export default {
       }
     }
   }
+}
+.small{
+  position: fixed;
+  width: 100vw;
+  height: 1rem;
+  bottom: 0;
+  z-index: 9999;
+  background-color: #fff;
 }
 </style>
