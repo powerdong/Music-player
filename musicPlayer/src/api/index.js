@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-09-07 11:29:20
+ * @Update: 2019-09-14 11:51:57
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -28,7 +28,8 @@ import {
   search,
   defaultSearch,
   suggestSearch,
-  songUrl
+  songUrl,
+  checkSong
 } from './config'
 
 export default {
@@ -278,6 +279,19 @@ export default {
    */
   songUrlFn (id, br) {
     return axios.get(songUrl, {
+      params: {
+        id,
+        br
+      }
+    })
+  },
+  /**
+   * 传入歌曲 id, 可获取音乐是否可用
+   * @param {*} id 歌曲 id
+   * @param {*} br 码率,默认设置了 999000 即最大码率,如果要 320k 则可设置为 320000,其他类推
+   */
+  checkSongFn (id, br) {
+    return axios.get(checkSong, {
       params: {
         id,
         br

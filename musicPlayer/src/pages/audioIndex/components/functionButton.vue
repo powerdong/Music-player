@@ -1,15 +1,15 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-13 13:33:12
- * @Update: 2019-09-13 16:23:25
+ * @Update: 2019-09-14 11:35:03
  * @Update log: 更新日志
  -->
 <template>
  <div class="wrapper">
    <i class="audio audioxunhuan"></i>
-   <i class="audio audioxiayishou1"></i>
+   <i class="audio audioxiayishou1" @click.self="prev"></i>
    <i class="audio" @click="play" :class="{audiobofang1: isPlay, audiobofang: !isPlay}"></i>
-   <i class="audio audioxiayishou"></i>
+   <i class="audio audioxiayishou" @click.self="next"></i>
    <i class="audio audioliebiao"></i>
  </div>
 </template>
@@ -24,6 +24,12 @@ export default {
   methods: {
     play () {
       this.$emit('play')
+    },
+    prev () {
+      this.$emit('prev')
+    },
+    next () {
+      this.$emit('next')
     }
   }
 }

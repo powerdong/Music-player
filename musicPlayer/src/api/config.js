@@ -18,6 +18,7 @@ export const dateRecSongList = '/api/recommend/resource' // 每日推荐歌单�
 export const newDish = '/api/top/album' // 发现页新碟
 // ======================播放歌曲
 export const songUrl = 'api/song/url' // 获取歌曲url
+export const checkSong = 'api/check/music' // 查看歌曲是否可用l
 // ===================登陆
 export const phoneLogin = '/api/login/cellphone' // 手机号登陆
 export const phoneRegistered = '/api/cellphone/existence/check' // 手机号是否被注册
