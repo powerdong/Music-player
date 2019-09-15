@@ -11,7 +11,7 @@
    </div>
    <div class="con-info">
      <p class="name">{{name}}</p>
-     <p class="lrc">这是一句歌词这是一句歌词这是一句歌词这是一句歌词这是一句歌词这是一句歌词这是一句歌词这是一句歌词这是一句歌词</p>
+     <p class="lrc">{{ lyric }}</p>
    </div>
    <div class="button">
       <span class="circle"><i class="audio" @click="play" :class="{audiozantingtingzhi: isPlay, audiobofang2: !isPlay}"></i></span>
@@ -29,6 +29,9 @@ export default {
       type: String
     },
     name: {
+      type: String
+    },
+    lyric: {
       type: String
     }
   },

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:47:11
- * @Update: 2019-09-12 13:19:24
+ * @Update: 2019-09-15 13:47:52
  * @Update log: 这个是歌单展示的通用组件
  -->
 <template>
@@ -24,12 +24,14 @@
                :songName="item.name"
                :artists="item.ar"
                :albumName="item.al.name"
-               :num="index + 1">
+               :num="index + 1"
+               @beginSong="setAudioList(item, index)">
     </song-list>
   </song-list-page>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import songList from 'base/song'
 import songListPage from 'base/songListPage'
 import api from 'api'
@@ -60,10 +62,8 @@ export default {
     // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
     // 可以访问组件实例 `this`
     this.load = true
-    // console.log(to, from)
     let id = this.$route.params.id
     this.getInfo(id)
-    // next()
   },
   methods: {
     /**
@@ -89,10 +89,18 @@ export default {
           if (data.code === 200) {
             // 将请求回来的数据使用，将load 样式关闭
             this.albumInfo = data.playlist
+            console.log(this.albumInfo)
             this.load = false
           }
         })
-    }
+    },
+    setAudioList (item, index) {
+      this.selectPlay({
+        list: this.albumInfo.tracks,
+        index
+      })
+    },
+    ...mapActions(['selectPlay'])
   }
 }
 </script>

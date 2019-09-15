@@ -5,7 +5,7 @@
  * @Update log: 更新日志
  -->
 <template>
-  <div class="list-item" >
+  <div class="list-item" @click="startSong">
     <div class="img-info" v-if="imgUrl">
       <img :src="imgUrl">
     </div>
@@ -49,6 +49,11 @@ export default {
     },
     num: {
       type: Number
+    }
+  },
+  methods: {
+    startSong () {
+      this.$emit('beginSong')
     }
   }
 }

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-13 14:01:18
- * @Update: 2019-09-14 17:46:29
+ * @Update: 2019-09-15 10:34:00
  * @Update log: 更新日志
  -->
 <template>
@@ -67,7 +67,7 @@ export default {
       this.touch.endX = e.changedTouches[0].pageX - left
       const offsetWidth = this.touch.endX / this.touch.width * 100
       this._changeWidth(offsetWidth)
-      this.$emit('time', this.touch.offsetWidth)
+      this.$emit('time', offsetWidth)
     },
     move (e) {
       if (!this.touch.state) {

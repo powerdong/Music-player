@@ -1,11 +1,15 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:33:42
- * @Update: 2019-09-12 14:27:32
+ * @Update: 2019-09-15 13:22:45
  * @Update log: 更新日志
  -->
 <template>
-<song-list-page title="每日推荐" :load="load" :isAlbum="false" height="3.6rem">
+<song-list-page title="每日推荐"
+                :load="load"
+                :isAlbum="false"
+                height="3.6rem"
+                @startPlayAll="startPlay">
     <song-list v-for="(item, index) in songLists"
               :key="index"
               :songName="item.name"
@@ -49,14 +53,18 @@ export default {
           }
         })
     },
+    startPlay () {
+      this.startPlayAll({
+        list: this.songLists
+      })
+    },
     setAudioList (item, index) {
-      console.log(111)
       this.selectPlay({
         list: this.songLists,
         index
       })
     },
-    ...mapActions(['selectPlay'])
+    ...mapActions(['selectPlay', 'startPlayAll'])
   }
 }
 </script>

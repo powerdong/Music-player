@@ -19,7 +19,9 @@ import {
   SET_PLAY_SATE,
   SET_FULL_SCREEN,
   SET_AUDIO_LIST,
-  SET_AUDIO_INDEX
+  SET_AUDIO_INDEX,
+  SET_PLAY_LIST,
+  SET_AUDIO_MODE
 } from './mutation-types'
 
 // 实现侧边栏显示时底部不跟随滚动
@@ -108,9 +110,23 @@ export default {
     state.audioList = list
   },
   /**
-   * 设置
+   * 设置索引
    */
   [SET_AUDIO_INDEX] (state, index) {
     state.audioIngIndex = index
+  },
+  /**
+   * 设置当前播放列表
+   */
+  [SET_PLAY_LIST] (state, list) {
+    state.playList = list
+  },
+  /**
+   * 设置当前播放模式
+   * @param {*} state state数据
+   * @param {*} mode 模式索引
+   */
+  [SET_AUDIO_MODE] (state, mode) {
+    state.mode = mode
   }
 }

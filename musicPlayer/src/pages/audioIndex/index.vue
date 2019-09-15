@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-12 13:02:20
- * @Update: 2019-09-14 18:57:07
+ * @Update: 2019-09-15 21:22:51
  * @Update log: 点击歌单中的某一项，将歌单列表信息传入vuex，用来展示歌曲列表，
  *              点击的index 用列表[index]来设置当前要播放的歌曲
  -->
@@ -22,15 +22,26 @@
       <playing :imgUrl="imgUrl"></playing>
       <play-icons></play-icons>
       <bar :allTime="allTime" :time="playTime" :width="progressWidth" @time="changeTime"></bar>
-      <function-button @play="toggle" @prev="prevSong" @next="nextSong"></function-button>
+      <function-button @play="toggle"
+                      @prev="prevSong"
+                      @next="nextSong"
+                      @changeMode="changeMode"
+                      :mode="mode"></function-button>
     </div>
     <small-audio  class="small border-top pd23"
                   v-show="!isFull"
                   :imgUrl="imgUrl"
-                  @click="returnFull"
+                  @click.native="returnFull"
                   @play="toggle"
-                  :name="name"></small-audio>
-    <audio :src="url" ref="audio" autoplay @canplay="ready" @error="error"></audio>
+                  :name="name"
+                  :lyric="nowLyric"></small-audio>
+    <audio :src="url"
+          ref="audio"
+          autoplay
+          @canplay="ready"
+          @error="error"
+          preload="auto"
+          @ended="end"></audio>
   </div>
 </template>
 
@@ -63,7 +74,12 @@ export default {
       imgUrl: '',
       readySong: false,
       canSong: true,
-      name: ''
+      name: '',
+      lyric: '',
+      tlyric: '',
+      nowLyric: '',
+      ruleLyric: [],
+      ruleTlyric: []
     }
   },
   computed: {
@@ -71,19 +87,27 @@ export default {
       state: 'PLAY_STATE',
       index: 'AUDIO_ING_INDEX',
       list: 'AUDIO_LIST',
-      isFull: 'FULL_SCREEN'})
+      isFull: 'FULL_SCREEN',
+      mode: 'MODE',
+      playList: 'PLAY_LIST',
+      offsetLyric: 'OFFSET_LYRIC'})
   },
   watch: {
     /**
      * 当前歌曲变化，首先查看能不能播放
      * 将一些歌曲信息设置
      */
-    audioSong: function (val) {
-      this.checkSong(val.id)
-      this.allTime = val.duration
-      this.artist = val.album.artists
-      this.imgUrl = val.album.picUrl
-      this.name = val.name
+    audioSong: function (val, oldVal) {
+      if (val.id === oldVal.id) {
+        return
+      }
+      this.$nextTick(() => {
+        this.checkSong(val.id)
+        this.allTime = val.duration
+        this.artist = val.album.artists
+        this.imgUrl = val.album.picUrl
+        this.name = val.name
+      })
     }
   },
   methods: {
@@ -102,6 +126,22 @@ export default {
         })
     },
     /**
+     * 获取歌曲歌词
+     */
+    getSongLyric (id) {
+      api.songLyricFn(id)
+        .then(res => {
+          const data = res.data
+          this.lyric = data.lrc.lyric
+          console.log(data)
+          if (data.tlyric.lyric) {
+            this.tlyric = data.tlyric.lyric
+            this.ruleTlyric = this.createLrcArray(this.tlyric)
+          }
+          this.ruleLyric = this.createLrcArray(this.lyric)
+        })
+    },
+    /**
      * 查看歌曲是否可以播放
      */
     checkSong (id) {
@@ -112,6 +152,7 @@ export default {
           if (data.success) {
             this.canSong = true
             this.getSongUrl(id)
+            this.getSongLyric(id)
           }
         })
         .catch(err => {
@@ -125,9 +166,46 @@ export default {
           }
         })
     },
+    /**
+     * 创建歌词数组
+     * 通过换行符分割字符串，形成数组，数组的每一项是一个对象，对象返回格式如下
+     * {time：， word：}
+     * @param {String} lrc 歌词字符串
+     */
+    createLrcArray (lrc) {
+      const parts = lrc.split('\n')
+      for (let index = 0; index < parts.length; index++) {
+        const element = parts[index]
+        parts[index] = this.changeToObject(element)
+      }
+      return parts
+    },
+    /**
+     * 根据一行歌词 转换为对象
+     * @param {string} str 一行歌词
+     */
+    changeToObject (str) {
+      const words = str.split(']')[1]
+      // 这个正则返回时间信息
+      const reg = /\w{0,}:\w{0,}.\w{0,}/g
+      let timeArray = reg.exec(str)
+      if (!timeArray) {
+        return
+      }
+      timeArray = timeArray[0].split(':')
+      const minute = parseInt(timeArray[0]) // 分钟数
+      const second = parseFloat(timeArray[1]) // 秒数
+      const time = minute * 60 + second
+      return {
+        time,
+        words
+      }
+    },
     ...mapMutations({setState: 'SET_PLAY_SATE',
       setIndex: 'SET_AUDIO_INDEX',
-      setFull: 'SET_FULL_SCREEN'}),
+      setFull: 'SET_FULL_SCREEN',
+      setMode: 'SET_AUDIO_MODE',
+      setPlayList: 'SET_PLAY_LIST'}),
     /**
      * 播放暂停事件
      */
@@ -138,6 +216,55 @@ export default {
         this.toPlay()
       }
     },
+    /**
+     * 改变歌曲播放模式
+     */
+    changeMode () {
+      const mode = (this.mode + 1) % 3
+      this.setMode(mode)
+      let shufflePlayList
+      console.log(this.list[0].id)
+      if (mode === 2) {
+        shufflePlayList = this.shuffle(this.list)
+      } else {
+        shufflePlayList = this.list
+      }
+      console.log(this.list[0].id)
+      this.resetCurrentIndex(shufflePlayList)
+      this.setPlayList(shufflePlayList)
+    },
+    /**
+     * 设置当前播放索引
+     * 当在切换随机播放时，通过寻找原来的歌曲id来实现不会切换歌曲index
+     */
+    resetCurrentIndex (list) {
+      const index = list.findIndex(item => {
+        return item.id === this.audioSong.id
+      })
+      this.setIndex(index)
+    },
+    /**
+     * 获取随机值
+     */
+    getRandomIndex (min, max) {
+      return Math.floor(Math.random() * (max - min + 1) + min)
+    },
+    /**
+     * 打乱一个数组
+     */
+    shuffle (arr) {
+      const _arr = arr.slice()
+      for (let i = 0; i < _arr.length; i++) {
+        const j = this.getRandomIndex(0, i)
+        const t = _arr[i]
+        _arr[i] = _arr[j]
+        _arr[j] = t
+      }
+      return _arr
+    },
+    /**
+     * 当改变进度条时改变歌曲播放时间
+     */
     changeTime (time) {
       const audio = this.$refs.audio
       const current = time * audio.duration / 100
@@ -164,12 +291,10 @@ export default {
       if (!this.readySong) {
         return
       }
-      console.log(this.index)
       let nowIndex = this.index + 1
       if (nowIndex === this.list.length) {
         nowIndex = 0
       }
-      console.log(nowIndex)
       this.setIndex(nowIndex)
       this.readySong = false
     },
@@ -198,6 +323,29 @@ export default {
      */
     error () {
       this.readySong = true
+    },
+    /**
+     * 当歌曲播放完成之后
+     */
+    end () {
+      switch (this.mode) {
+        case 0:
+          this.nextSong()
+          break
+        case 1:
+          this.loop()
+          break
+        case 2:
+          this.nextSong()
+          break
+      }
+    },
+    /**
+     * 单曲循环模式
+     */
+    loop () {
+      this.$refs.audio.currentTime = 0
+      this.toPlay()
     },
     /**
      * 添加歌曲时间更新事件
@@ -233,6 +381,30 @@ export default {
       // // 进度条的长度计算
       let barLength = audio.currentTime / audio.duration * 100
       this.setProgress(barLength)
+      // 设置歌词偏移
+      const playTime = audio.currentTime + this.offsetLyric
+      const index = this.getCurrentIndex(playTime, this.ruleLyric)
+      // 设置歌词显示
+      this.showLyric(index, this.ruleLyric)
+    },
+    getCurrentIndex (time, lyricArray) {
+      for (let i = lyricArray.length - 1; i >= 0; i--) {
+        const element = lyricArray[i].time
+        if (time > element) {
+          return i
+        }
+      }
+      return -1
+    },
+    /**
+     * 设置歌词显示
+     */
+    showLyric (index, array) {
+      console.log(index)
+      if (index !== -1) {
+        const words = this.array[index].words
+        console.log(words)
+      }
     },
     /**
      * 设置进度条长度
@@ -243,9 +415,15 @@ export default {
       }
       this.progressWidth = val
     },
+    /**
+     * 转换为小播放器
+     */
     returnPage () {
       this.setFull(false)
     },
+    /**
+     * 转换为大播放器
+     */
     returnFull () {
       this.setFull(true)
     }

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:33:42
- * @Update: 2019-09-13 14:51:25
+ * @Update: 2019-09-15 11:05:36
  * @Update log: 这是一个用来展示歌曲列表的基础组件
  -->
 <template>
@@ -78,8 +78,10 @@
     <div class="title pd23"
          :class="{listFixed}">
       <span>
-        <i class="date-song cbofang"></i>
-        播放全部
+        <span @click="beginAudio">
+          <i class="date-song cbofang"></i>
+          播放全部
+        </span>
         <!-- 当歌单组件时，需要显示当前歌单总共有多少首歌曲的信息 -->
         <span class="count"
               v-if="isAlbum">(共{{trackCount}}首)</span>
@@ -215,6 +217,9 @@ export default {
     }
   },
   methods: {
+    beginAudio () {
+      this.$emit('startPlayAll')
+    },
     /**
      * 返回上一页
      */
