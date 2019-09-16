@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:47:11
- * @Update: 2019-09-15 13:47:52
+ * @Update: 2019-09-16 17:34:12
  * @Update log: 这个是歌单展示的通用组件
  -->
 <template>
@@ -10,8 +10,8 @@
                   :load="load"
                   :imgUrl="albumInfo.coverImgUrl"
                   :albumTitle="albumInfo.name"
-                  :creatorImgUrl="albumInfo.creator.avatarUrl"
-                  :author="albumInfo.creator.nickname"
+                  :creatorImgUrl="albumInfo.creator ? albumInfo.creator.avatarUrl : ''"
+                  :author="albumInfo.creator ? albumInfo.creator.nickname : ''"
                   :description="albumInfo.description"
                   :commentCount="albumInfo.commentCount"
                   :shareCount="albumInfo.shareCount"
@@ -25,13 +25,14 @@
                :artists="item.ar"
                :albumName="item.al.name"
                :num="index + 1"
-               @beginSong="setAudioList(item, index)">
+               @beginSong="setAudioList(item, index)"
+               :nowSong="item.id === audioSong.id">
     </song-list>
   </song-list-page>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import songList from 'base/song'
 import songListPage from 'base/songListPage'
 import api from 'api'
@@ -64,6 +65,9 @@ export default {
     this.load = true
     let id = this.$route.params.id
     this.getInfo(id)
+  },
+  computed: {
+    ...mapGetters({audioSong: 'AUDIO_ING_SONG'})
   },
   methods: {
     /**

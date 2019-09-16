@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-09-09 18:00:01
+ * @Update: 2019-09-16 17:38:48
  * @Update log: 更新日志
  -->
 <template>
@@ -41,10 +41,8 @@ export default {
     },
     setDishListInfo (res) {
       if (res.status === 200 && res.statusText === 'OK') {
-        console.log(res)
         res = res.data.albums
         this.dishList = this.getRandomArrayElements(res, 3)
-        console.log(this.dishList)
       }
     },
     getRandomArrayElements (arr, count) {

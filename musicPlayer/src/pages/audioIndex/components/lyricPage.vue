@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-16 13:26:47
- * @Update: 2019-09-16 14:26:25
+ * @Update: 2019-09-16 17:37:40
  * @Update log: 更新日志
  -->
 <template>
@@ -53,7 +53,6 @@ export default {
       const midHeight = 4
       // 每次移动是移动一行歌词的高度，一行歌词高度是 0.6 rem
       let top = midHeight - index * 0.6
-      console.log(top, index)
       if (top > 0) {
         // top 不能为正数
         top = 0

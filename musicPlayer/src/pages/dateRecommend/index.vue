@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:33:42
- * @Update: 2019-09-15 13:22:45
+ * @Update: 2019-09-16 17:07:49
  * @Update log: 更新日志
  -->
 <template>
@@ -16,7 +16,8 @@
               :artists="item.artists"
               :albumName="item.album.name"
               :imgUrl="item.album.blurPicUrl"
-              @click.native="setAudioList(item, index)">
+              @click.native="setAudioList(item, index)"
+              :nowSong="item.id === audioSong.id">
   </song-list>
  </song-list-page>
 </template>
@@ -26,7 +27,7 @@ import api from 'api'
 import songList from 'base/song'
 import songListPage from 'base/songListPage'
 
-import { mapActions } from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 export default {
   name: '',
   components: {
@@ -41,6 +42,9 @@ export default {
   },
   created () {
     this.getRecSongs()
+  },
+  computed: {
+    ...mapGetters({audioSong: 'AUDIO_ING_SONG'})
   },
   methods: {
     getRecSongs () {

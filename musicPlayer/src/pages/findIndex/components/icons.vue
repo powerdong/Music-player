@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-09-06 11:10:20
+ * @Update: 2019-09-16 17:12:48
  * @Update log: 更新日志
  -->
 <template>
@@ -59,7 +59,7 @@ export default {
   .today{
     position: absolute;
     top: 0.1rem;
-    left: 0.35rem;
+    left: 0.3rem;
     font-size: 0.2rem;
   }
 }
