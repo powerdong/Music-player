@@ -21,7 +21,8 @@ import {
   SET_AUDIO_LIST,
   SET_AUDIO_INDEX,
   SET_PLAY_LIST,
-  SET_AUDIO_MODE
+  SET_AUDIO_MODE,
+  SET_PLAYING_SHOW
 } from './mutation-types'
 
 // 实现侧边栏显示时底部不跟随滚动
@@ -128,5 +129,11 @@ export default {
    */
   [SET_AUDIO_MODE] (state, mode) {
     state.mode = mode
+  },
+  /**
+   * 设置当前是否显示转盘播放页面
+   */
+  [SET_PLAYING_SHOW] (state, boolean) {
+    state.playingShow = boolean
   }
 }

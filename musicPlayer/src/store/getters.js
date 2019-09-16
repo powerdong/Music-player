@@ -20,6 +20,7 @@ const getters = {
   PLAY_LIST: state => state.playList,
   MODE: state => state.mode,
   OFFSET_LYRIC: state => state.offsetLyric,
+  PLAYING_SHOW: state => state.playingShow,
   AUDIO_ING_SONG: state => {
     // 返回当前播放歌曲对象的信息
     return state.playList[state.audioIngIndex] || {}

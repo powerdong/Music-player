@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-12 13:02:20
- * @Update: 2019-09-15 21:22:51
+ * @Update: 2019-09-16 14:32:22
  * @Update log: 点击歌单中的某一项，将歌单列表信息传入vuex，用来展示歌曲列表，
  *              点击的index 用列表[index]来设置当前要播放的歌曲
  -->
@@ -19,7 +19,15 @@
           </p>
         </div>
       </audio-nav>
-      <playing :imgUrl="imgUrl"></playing>
+      <playing :imgUrl="imgUrl"
+                v-show="playingShow"
+                @click.native="setPlayingShow(false)"></playing>
+      <lyric-page :lyricArray="ruleLyric"
+                  :nowLyricIndex="nowLyricIndex"
+                  ref="lyric"
+                  :noLyric="noLyric"
+                  v-show="!playingShow"
+                  @click.native="setPlayingShow(true)"></lyric-page>
       <play-icons></play-icons>
       <bar :allTime="allTime" :time="playTime" :width="progressWidth" @time="changeTime"></bar>
       <function-button @play="toggle"
@@ -31,7 +39,7 @@
     <small-audio  class="small border-top pd23"
                   v-show="!isFull"
                   :imgUrl="imgUrl"
-                  @click.native="returnFull"
+                  @returnFull="returnFull"
                   @play="toggle"
                   :name="name"
                   :lyric="nowLyric"></small-audio>
@@ -53,6 +61,7 @@ import playIcons from './components/playIcons'
 import bar from './components/bar'
 import functionButton from './components/functionButton'
 import smallAudio from './components/small'
+import lyricPage from './components/lyricPage'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
   name: '',
@@ -62,7 +71,8 @@ export default {
     playIcons,
     bar,
     functionButton,
-    smallAudio
+    smallAudio,
+    lyricPage
   },
   data () {
     return {
@@ -76,10 +86,10 @@ export default {
       canSong: true,
       name: '',
       lyric: '',
-      tlyric: '',
       nowLyric: '',
+      nowLyricIndex: -1,
       ruleLyric: [],
-      ruleTlyric: []
+      noLyric: false
     }
   },
   computed: {
@@ -90,7 +100,8 @@ export default {
       isFull: 'FULL_SCREEN',
       mode: 'MODE',
       playList: 'PLAY_LIST',
-      offsetLyric: 'OFFSET_LYRIC'})
+      offsetLyric: 'OFFSET_LYRIC',
+      playingShow: 'PLAYING_SHOW'})
   },
   watch: {
     /**
@@ -132,12 +143,15 @@ export default {
       api.songLyricFn(id)
         .then(res => {
           const data = res.data
-          this.lyric = data.lrc.lyric
-          console.log(data)
-          if (data.tlyric.lyric) {
-            this.tlyric = data.tlyric.lyric
-            this.ruleTlyric = this.createLrcArray(this.tlyric)
+          if (data.nolyric) {
+            // 当前歌曲没有歌词
+            this.ruleLyric = []
+            this.nowLyric = ''
+            this.noLyric = true
+            return
           }
+          this.noLyric = false
+          this.lyric = data.lrc.lyric
           this.ruleLyric = this.createLrcArray(this.lyric)
         })
     },
@@ -205,7 +219,8 @@ export default {
       setIndex: 'SET_AUDIO_INDEX',
       setFull: 'SET_FULL_SCREEN',
       setMode: 'SET_AUDIO_MODE',
-      setPlayList: 'SET_PLAY_LIST'}),
+      setPlayList: 'SET_PLAY_LIST',
+      setPlayingShow: 'SET_PLAYING_SHOW'}),
     /**
      * 播放暂停事件
      */
@@ -223,13 +238,11 @@ export default {
       const mode = (this.mode + 1) % 3
       this.setMode(mode)
       let shufflePlayList
-      console.log(this.list[0].id)
       if (mode === 2) {
         shufflePlayList = this.shuffle(this.list)
       } else {
         shufflePlayList = this.list
       }
-      console.log(this.list[0].id)
       this.resetCurrentIndex(shufflePlayList)
       this.setPlayList(shufflePlayList)
     },
@@ -384,26 +397,34 @@ export default {
       // 设置歌词偏移
       const playTime = audio.currentTime + this.offsetLyric
       const index = this.getCurrentIndex(playTime, this.ruleLyric)
+      this.nowLyricIndex = index
       // 设置歌词显示
       this.showLyric(index, this.ruleLyric)
+      // 设置歌词页面的显示规则,传入当前歌词索引信息
+      this.$refs.lyric.setCurrent(this.nowLyricIndex)
     },
+    /**
+     * 获取当前歌词索引
+     */
     getCurrentIndex (time, lyricArray) {
-      for (let i = lyricArray.length - 1; i >= 0; i--) {
+      for (let i = lyricArray.length - 2; i >= 0; i--) {
         const element = lyricArray[i].time
         if (time > element) {
           return i
+        }
+        if (!element) {
+          return -1
         }
       }
       return -1
     },
     /**
-     * 设置歌词显示
+     * 设置当前歌词显示信息
      */
     showLyric (index, array) {
-      console.log(index)
       if (index !== -1) {
-        const words = this.array[index].words
-        console.log(words)
+        const words = array[index].words
+        this.nowLyric = words
       }
     },
     /**

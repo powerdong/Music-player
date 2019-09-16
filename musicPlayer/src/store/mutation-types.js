@@ -21,3 +21,4 @@ export const SET_AUDIO_LIST = 'SET_AUDIO_LIST' // 设置当前的播放列表的
 export const SET_PLAY_LIST = 'SET_PLAY_LIST' // 设置当前的播放列表
 export const SET_AUDIO_INDEX = 'SET_AUDIO_INDEX' // 设置当前的播放歌曲是第几个，索引值
 export const SET_AUDIO_MODE = 'SET_AUDIO_MODE' // 设置当前的播放模式
+export const SET_PLAYING_SHOW = 'SET_PLAYING_SHOW' // 设置当前是否显示转盘播放页面

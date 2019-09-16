@@ -5,7 +5,7 @@
  * @Update log: 更新日志
  -->
 <template>
- <div class="bottom-audio">
+ <div class="bottom-audio" @click="returnFull">
    <div class="img-info" ref="circle">
       <img :src="imgUrl" alt="">
    </div>
@@ -14,7 +14,7 @@
      <p class="lrc">{{ lyric }}</p>
    </div>
    <div class="button">
-      <span class="circle"><i class="audio" @click="play" :class="{audiozantingtingzhi: isPlay, audiobofang2: !isPlay}"></i></span>
+      <span class="circle"><i class="audio" @click.stop="play" :class="{audiozantingtingzhi: isPlay, audiobofang2: !isPlay}"></i></span>
       <i class="audio audioliebiao"></i>
    </div>
  </div>
@@ -41,6 +41,9 @@ export default {
   methods: {
     play () {
       this.$emit('play')
+    },
+    returnFull () {
+      this.$emit('returnFull')
     }
   },
   watch: {
