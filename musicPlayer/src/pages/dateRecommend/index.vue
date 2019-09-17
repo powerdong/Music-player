@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:33:42
- * @Update: 2019-09-16 17:07:49
+ * @Update: 2019-09-17 11:01:22
  * @Update log: 更新日志
  -->
 <template>
@@ -16,7 +16,7 @@
               :artists="item.artists"
               :albumName="item.album.name"
               :imgUrl="item.album.blurPicUrl"
-              @click.native="setAudioList(item, index)"
+              @beginSong="setAudioList(item, index)"
               :nowSong="item.id === audioSong.id">
   </song-list>
  </song-list-page>

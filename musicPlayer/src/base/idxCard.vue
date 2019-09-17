@@ -1,12 +1,12 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-09 13:31:02
- * @Update: 2019-09-09 14:03:03
+ * @Update: 2019-09-17 19:54:08
  * @Update log: 更新日志
  -->
 <template>
  <div>
-   <div class="list">
+   <div class="list" @click="searchIdx(idx)">
      <div class="img-info">
       <img :src="imgUrl" alt="">
       <span class="time">{{ updateTime }}</span>
@@ -32,6 +32,61 @@ export default {
     },
     updateTime: {
       type: String
+    },
+    idx: {
+      type: String
+    }
+  },
+  methods: {
+    searchIdx (idx) {
+      switch (idx) {
+        case '云音乐新歌榜':
+          idx = 0
+          break
+        case '云音乐热歌榜':
+          idx = 1
+          break
+        case '网易原创歌曲榜':
+          idx = 2
+          break
+        case '云音乐飙升榜':
+          idx = 3
+          break
+        case '云音乐说唱榜':
+          idx = 23
+          break
+        case '云音乐ACG音乐榜':
+          idx = 22
+          break
+        case 'KTV唛榜':
+          idx = 7
+          break
+        case 'iTunes榜':
+          idx = 8
+          break
+        case '日本Oricon周榜':
+          idx = 10
+          break
+        case 'Hit FM Top榜':
+          idx = 9
+          break
+        case '台湾Hito排行榜':
+          idx = 20
+          break
+        case 'Beatport全球电子舞曲榜':
+          idx = 21
+          break
+        case '法国 NRJ Vos Hits 周榜':
+          idx = 20
+          break
+        case 'UK排行榜':
+          idx = 5
+          break
+        case '美国Billboard周榜':
+          idx = 6
+          break
+      }
+      this.$emit('showIdxPage', idx)
     }
   }
 }

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-07 12:09:22
- * @Update: 2019-09-16 17:10:59
+ * @Update: 2019-09-17 11:05:22
  * @Update log: 更新日志
  -->
 <template>
@@ -11,7 +11,8 @@
       <i class="result yinliang" v-show="nowSong"></i>
     </div>
     <div class="index" v-if="num">
-      {{ num }}
+      <span v-show="!nowSong">{{ num }}</span>
+      <i class="result yinliang" v-show="nowSong"></i>
     </div>
     <div class="song-info">
       <p class="song-name">{{songName}}</p>
@@ -75,6 +76,9 @@ height: 1rem;
 .index{
   color: #999;
 }
+.yinliang{
+  color:@bgcolor;
+}
 .img-info{
   width: 0.7rem;
   height: 0;
@@ -87,7 +91,6 @@ height: 1rem;
     height: 0.7rem;
   }
   .yinliang{
-    color:@bgcolor;
     position: absolute;
     left: 50%;
     top: 50%;

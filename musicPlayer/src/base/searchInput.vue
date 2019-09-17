@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-27 12:42:24
- * @Update: 2019-09-08 16:35:32
+ * @Update: 2019-09-17 10:24:03
  * @Update log: 更新日志
  -->
 <template>
@@ -10,17 +10,18 @@
     <input
           class="search"
           type="text"
-          placeholder=""
+          :placeholder="placeholder"
           ref="inp"
           autofocus="autofocus"
           v-model.trim="keywords"
           @focus="displayList">
-    <i v-show="keywords.length"
+    <i v-show="keywords"
       @click="clearInp"
       class="iconfont guanbi"
       :style="{right: Right}"
     ></i>
     <i class="iconfont geshou" v-if="page"></i>
+    <!-- 搜索建议列表信息 -->
     <div class="floatInfo" v-show="showList">
       <ul>
         <li  @click="searchKey(keywords)" class="blue border-bottom">搜索<span class="text">"{{ keywords }}"</span></li>
@@ -30,6 +31,7 @@
         </li>
       </ul>
     </div>
+    <!-- 蒙层，当搜索建议显示，蒙层显示，控制列表不能滚动 -->
     <div class="mask" v-show="showList" @click="hideList"></div>
   </div>
 </template>
@@ -54,13 +56,13 @@ export default {
   data () {
     return {
       searchList: [],
-      default: '',
       keywords: '',
       showList: false,
       // 将 history 存入 vuex
       history: [],
       // 防抖定时器
-      time: null
+      time: null,
+      placeholder: ''
     }
   },
   created () {
@@ -153,8 +155,7 @@ export default {
         .then(res => {
           const data = res.data
           if (data.code === 200) {
-            this.default = data.data.showKeyword
-            this.$refs.inp.setAttribute('placeholder', this.default)
+            this.placeholder = data.data.showKeyword
           }
         })
     },
@@ -216,7 +217,7 @@ export default {
      * 向导航标签传递key值
      */
     pushKey (key) {
-      this.$nextTick(function () {
+      this.$nextTick(() => {
         // DOM 现在更新了
         Bus.$emit('push', key)
       })

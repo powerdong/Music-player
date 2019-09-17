@@ -1,14 +1,13 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-13 13:33:12
- * @Update: 2019-09-13 15:22:20
+ * @Update: 2019-09-17 10:56:02
  * @Update log: 更新日志
  -->
 <template>
  <div class="wrapper">
    <i class="audio audioshoucang1"></i>
    <i class="audio audioxiazai"></i>
-   <span class="pinglun"><i class="audio audiopinglun"></i><i class="com-num">1w</i></span>
    <i class="audio audiocaidan"></i>
  </div>
 </template>

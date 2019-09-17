@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 10:19:23
- * @Update: 2019-09-16 17:25:12
+ * @Update: 2019-09-17 10:29:10
  * @Update log: 更新日志
  -->
 <template>
@@ -26,14 +26,10 @@ export default {
 @import url('~styles/global.less');
 .container{
   display: flex;
-  position: fixed;
-  top: 2rem;
-  left: 50%;
   justify-content: center;
   height: 1rem;
   line-height: 1rem;
   z-index: 999;
-  transform: translateX(-50%);
 }
 .page-loading {
   display: flex;

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:39:05
- * @Update: 2019-09-13 14:53:37
+ * @Update: 2019-09-17 20:25:56
  * @Update log: 更新日志
  -->
 <template>
@@ -14,15 +14,18 @@
               :key="index"
               :imgUrl="item.coverImgUrl"
               :tracks="item.tracks"
-              :updateTime="item.updateFrequency"></idx-card>
+              :idx="item.name"
+              :updateTime="item.updateFrequency"
+              @showIdxPage="showIdxPage"></idx-card>
     <div class="title">推荐榜</div>
     <div class="img-col">
     <img-card v-for="(item, index) in recommendedIdxList"
               :key="index"
               :imgUrl="item.coverImgUrl"
               :dec="item.name"
-              :albumId="item.id"
-              :updateTime="item.updateFrequency"></img-card>
+              :updateTime="item.updateFrequency"
+              :idx="item.name"
+              @showIdxPage="showIdxPage"></img-card>
     </div>
     <div class="title">更多榜单</div>
     <div class="img-col">
@@ -30,8 +33,9 @@
               :key="index"
               :imgUrl="item.coverImgUrl"
               :dec="item.name"
-              :albumId="item.id"
-              :updateTime="item.updateFrequency"></img-card>
+              :updateTime="item.updateFrequency"
+              :idx="item.name"
+              @showIdxPage="showIdxPage"></img-card>
     </div>
  </div>
 </template>
@@ -73,6 +77,9 @@ export default {
     },
     returnPage () {
       this.$router.go(-1)
+    },
+    showIdxPage (id) {
+      this.$router.push(`/albumPage/${id}`)
     }
   }
 }

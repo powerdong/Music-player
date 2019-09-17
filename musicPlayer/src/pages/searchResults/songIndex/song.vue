@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:24:50
- * @Update: 2019-09-07 20:06:44
+ * @Update: 2019-09-17 20:53:19
  * @Update log: 更新日志
  -->
 <template>
@@ -9,7 +9,7 @@
    <div v-show="!load">
     <div v-if="!info">
       <div class="title">
-        <span>
+        <span @click="startPlay">
           <i class="result cbofang"></i>
           播放全部
         </span>
@@ -19,7 +19,9 @@
                 :key="index"
                 :songName="item.name"
                 :artists="item.artists"
-                :albumName="item.album.name"></song-list>
+                :albumName="item.album.name"
+                @beginSong="setAudioList(item, index)"
+               :nowSong="item.id === audioSong.id"></song-list>
       </div>
       <page-loading v-show="scroll"></page-loading>
     </div>
@@ -34,6 +36,7 @@ import api from 'api'
 import info from 'base/pageErrorInfo'
 import pageLoading from 'base/pageLoading'
 import songList from 'base/song'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: '',
@@ -57,10 +60,14 @@ export default {
       type: String
     }
   },
+  computed: {
+    ...mapGetters({audioSong: 'AUDIO_ING_SONG'})
+  },
   created () {
     this.getAllSongList(this.keywords)
   },
   methods: {
+    ...mapActions(['selectPlay', 'startPlayAll']),
     getAllSongList (key, offset) {
       api.searchFn(key, undefined, offset, 1)
         .then((res) => {
@@ -93,6 +100,17 @@ export default {
       //   const offset = this.offset += 1
       //   this.getAllSongList(this.keywords, offset)
       // }
+    },
+    setAudioList (item, index) {
+      this.selectPlay({
+        list: this.allSongList,
+        index
+      })
+    },
+    startPlay () {
+      this.startPlayAll({
+        list: this.allSongList
+      })
     }
   }
 }

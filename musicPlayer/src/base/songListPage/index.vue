@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:33:42
- * @Update: 2019-09-15 11:05:36
+ * @Update: 2019-09-17 20:43:52
  * @Update log: 这是一个用来展示歌曲列表的基础组件
  -->
 <template>
@@ -57,11 +57,11 @@
         <div class="icons">
           <div class="comments">
             <i class="date-song pinglun"></i>
-            <span>{{commentCount}}</span>
+            <span>{{commentCount | setNum}}</span>
           </div>
           <div class="comments">
             <i class="date-song fenxiang"></i>
-            <span>{{shareCount}}</span>
+            <span>{{shareCount | setNum}}</span>
           </div>
           <div class="comments">
             <i class="date-song xiazai"></i>
@@ -96,7 +96,7 @@
       <!-- 这里需要添加判断用户是否已经收藏歌单！！！！来显示不同的样式 -->
       <span class="collection"
             v-if="isAlbum">
-        + 收藏({{subscribedCount}})
+        + 收藏({{subscribedCount | setNum}})
       </span>
     </div>
     <!-- 这里将列表进行包裹统一的通过 load 属性进行判断是否展示 -->
@@ -193,6 +193,19 @@ export default {
     load: {
       type: Boolean,
       default: true
+    }
+  },
+  filters: {
+    setNum: function (val) {
+      if (!val) {
+        return ''
+      }
+      if (val > 100000000) {
+        val = ((val / 100000000).toFixed(1)) + '亿'
+      } else if (val > 10000) {
+        val = ((val / 10000).toFixed(1)) + '万'
+      }
+      return val
     }
   },
   // 对日期信息提取展示
@@ -333,6 +346,8 @@ export default {
     .text {
       font-size: 0.4rem;
       vertical-align: 5px;
+      width: 8rem;
+      .ellipsis();
     }
     .album-info {
       padding-top: 1.5rem;

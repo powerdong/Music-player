@@ -30,7 +30,8 @@ import {
   suggestSearch,
   songUrl,
   checkSong,
-  songLyric
+  songLyric,
+  idxList
 } from './config'
 
 export default {
@@ -94,6 +95,17 @@ export default {
         limit,
         before,
         cat
+      }
+    })
+  },
+  /**
+   * 调用此接口 , 传入数字 idx, 可获取不同排行榜
+   * @param {*} idx 排行榜 idx
+   */
+  idxListFn (idx) {
+    return axios.get(idxList, {
+      params: {
+        idx
       }
     })
   },
