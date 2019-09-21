@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-09-12 14:11:33
- * @Update: 2019-09-15 13:15:53
+ * @Update: 2019-09-21 16:27:01
  * @Update log: 更新日志
  */
 import {
@@ -60,5 +60,28 @@ export default {
     commit(SET_PLAY_SATE, true)
     commit(SET_FULL_SCREEN, true)
     commit(SET_AUDIO_MODE, 0)
+  },
+  deleteSong ({commit, state}, song) {
+    let audioList = state.audioList.slice()
+    let playList = state.playList.slice()
+    let currentIndex = state.audioIngIndex
+    // 删除的歌曲是当前播放歌曲之前
+    let pIndex = findIndex(audioList, song)
+    audioList.splice(pIndex, 1)
+    // 删除的歌曲是当前歌曲之后
+    let sIndex = findIndex(playList, song)
+    playList.splice(sIndex, 1)
+
+    if (currentIndex > pIndex || currentIndex === audioList.length) {
+      currentIndex--
+    }
+
+    commit(SET_AUDIO_LIST, audioList)
+    commit(SET_PLAY_LIST, playList)
+    commit(SET_AUDIO_INDEX, currentIndex)
+
+    if (!audioList.length) {
+      commit(SET_PLAY_SATE, false)
+    }
   }
 }

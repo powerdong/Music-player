@@ -24,7 +24,7 @@
       <div class="mask" v-show="loginPage" @click="HIDE_LOGIN" @touchmove.prevent></div>
     </transition>
     <transition name="login-show" mode="out-in">
-      <login v-if="loginPage" @touchmove.prevent></login>
+      <login v-show="loginPage" @touchmove.prevent></login>
     </transition>
   </nav>
   <keep-alive>
@@ -121,16 +121,6 @@ export default {
     .iconsousuo{
       .navIcon()
     }
-  }
-  // 遮罩层
-  .mask {
-    position: fixed;
-    z-index: 10;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.7);
   }
 }
 </style>

@@ -1,13 +1,13 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-16 13:26:47
- * @Update: 2019-09-16 17:37:40
+ * @Update: 2019-09-21 17:36:43
  * @Update log: 更新日志
  -->
 <template>
  <div class="wrapper">
    <div class="full" v-if="noLyric">
-     纯音乐，请欣赏
+     {{noLyricText}}
    </div>
    <ul :style="{marginTop: marginTop}">
      <li v-for="(item, index) in lyricArray"
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+const midHeight = 3.5
 export default {
   name: '',
   props: {
@@ -32,6 +33,9 @@ export default {
     },
     noLyric: {
       type: Boolean
+    },
+    noLyricText: {
+      type: String
     }
   },
   data () {
@@ -50,7 +54,6 @@ export default {
     setCurrent (index) {
       // 这里求出中线的位置为 8.3 rem
       // 通过 歌词容器的高度 / 2 - 每个 li 的高度 / 2
-      const midHeight = 4
       // 每次移动是移动一行歌词的高度，一行歌词高度是 0.6 rem
       let top = midHeight - index * 0.6
       if (top > 0) {
@@ -67,8 +70,9 @@ export default {
 @import url('~styles/global.less');
 
 .wrapper{
-  height: 8.6rem;
-  margin-top: 8px;
+  height: 7.4rem;
+  // box-sizing: border-box;
+  margin: 0.6rem 0;
   color: #ccc;
   overflow: hidden;
   ul{

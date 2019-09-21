@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:33:42
- * @Update: 2019-09-17 20:43:52
+ * @Update: 2019-09-21 17:41:54
  * @Update log: 这是一个用来展示歌曲列表的基础组件
  -->
 <template>
@@ -41,6 +41,7 @@
           <div class="img-info">
             <img v-lazy="imgUrl"
                  alt="">
+            <span class="play-count"><i class="date-song bofang"></i> {{playCount | setPlay}}</span>
           </div>
           <div class="info-con">
             <p class="album-title">{{iAlbumTitle}}</p>
@@ -57,11 +58,11 @@
         <div class="icons">
           <div class="comments">
             <i class="date-song pinglun"></i>
-            <span>{{commentCount | setNum}}</span>
+            <span>{{commentCount | setCom}}</span>
           </div>
           <div class="comments">
             <i class="date-song fenxiang"></i>
-            <span>{{shareCount | setNum}}</span>
+            <span>{{shareCount | setShare}}</span>
           </div>
           <div class="comments">
             <i class="date-song xiazai"></i>
@@ -95,8 +96,9 @@
       <!-- 当时歌单组件时有收藏歌单的按钮选项 -->
       <!-- 这里需要添加判断用户是否已经收藏歌单！！！！来显示不同的样式 -->
       <span class="collection"
+            ref="collection"
             v-if="isAlbum">
-        + 收藏({{subscribedCount | setNum}})
+        + 收藏({{subscribedCount | setCol}})
       </span>
     </div>
     <!-- 这里将列表进行包裹统一的通过 load 属性进行判断是否展示 -->
@@ -113,6 +115,18 @@
 <script>
 import globalNav from 'base/generalNav'
 import pageLoading from 'base/pageLoading'
+
+const setNum = function (val) {
+  if (!val) {
+    return ''
+  }
+  if (val > 100000000) {
+    val = ((val / 100000000).toFixed(1)) + '亿'
+  } else if (val > 10000) {
+    val = ((val / 10000).toFixed(1)) + '万'
+  }
+  return val
+}
 
 export default {
   name: '',
@@ -142,12 +156,22 @@ export default {
     },
     albumTitle: function (val) {
       this.iAlbumTitle = val
+    },
+    subscribedCount: function (val) {
+      if (val === 0 || !val) {
+        this.$refs.collection.style.display = 'none'
+      } else {
+        this.$refs.collection.style.display = ''
+      }
     }
   },
   /**
    * 所有的 props 值信息
    */
   props: {
+    playCount: {
+      type: Number
+    },
     height: {
       // 顶部展示区域高度
       type: String,
@@ -196,16 +220,29 @@ export default {
     }
   },
   filters: {
-    setNum: function (val) {
+    setCom: function (val) {
+      if (!val) {
+        return '评论'
+      }
+      return setNum(val)
+    },
+    setShare: function (val) {
+      if (!val) {
+        return '分享'
+      }
+      return setNum(val)
+    },
+    setCol: function (val) {
       if (!val) {
         return ''
       }
-      if (val > 100000000) {
-        val = ((val / 100000000).toFixed(1)) + '亿'
-      } else if (val > 10000) {
-        val = ((val / 10000).toFixed(1)) + '万'
+      return setNum(val)
+    },
+    setPlay: function (val) {
+      if (!val) {
+        return ''
       }
-      return val
+      return setNum(val)
     }
   },
   // 对日期信息提取展示
@@ -285,7 +322,7 @@ export default {
   width: 100%;
   height: 0.8rem;
   background-color: #ee5253;
-  z-index: 999;
+  z-index: 9;
 }
 @textColor: #ccc;
 .fixed {
@@ -359,12 +396,21 @@ export default {
           @size: 2.6rem;
           width: @size;
           height: 0;
+          position: relative;
           padding-bottom: @size;
           border-radius: @imgBorderRadius;
           overflow: hidden;
           img {
             width: @size;
             height: @size;
+          }
+          .play-count{
+            position: absolute;
+            top: 0.1rem;
+            right: 0.1rem;
+            .bofang{
+              font-size: 0.24rem;
+            }
           }
         }
         .info-con {

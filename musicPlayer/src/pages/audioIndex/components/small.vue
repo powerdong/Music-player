@@ -1,11 +1,11 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-14 17:51:26
- * @Update: 2019-09-14 19:20:56
+ * @Update: 2019-09-21 18:52:34
  * @Update log: 更新日志
  -->
 <template>
- <div class="bottom-audio" @click="returnFull">
+ <div class="bottom-audio  border-top pd23" @click="returnFull">
    <div class="img-info" ref="circle">
       <img :src="imgUrl" alt="">
    </div>
@@ -15,14 +15,16 @@
    </div>
    <div class="button">
       <span class="circle"><i class="audio" @click.stop="play" :class="{audiozantingtingzhi: isPlay, audiobofang2: !isPlay}"></i></span>
-      <i class="audio audioliebiao"></i>
+      <i class="audio audioliebiao" @click.stop="showAudioList"></i>
    </div>
  </div>
 </template>
 
 <script>
+import {audio} from 'mixins/Mixins'
 import { mapGetters } from 'vuex'
 export default {
+  mixins: [audio],
   name: '',
   props: {
     imgUrl: {
@@ -33,6 +35,9 @@ export default {
     },
     lyric: {
       type: String
+    },
+    artist: {
+      type: Array
     }
   },
   computed: {
@@ -53,6 +58,17 @@ export default {
       } else {
         this.$refs.circle.style.animationPlayState = 'paused'
       }
+    },
+    lyric: function (val) {
+      let artistName
+      if (!val) {
+        this.artist.forEach(element => {
+          artistName += element.name
+        })
+        val = artistName
+
+        console.log(val)
+      }
     }
   }
 }
@@ -64,6 +80,12 @@ export default {
 .bottom-audio{
   display: flex;
   align-items: center;
+  position: fixed;
+  width: 100vw;
+  height: 1rem;
+  bottom: 0;
+  z-index: 9;
+  background-color: #fff;
   .img-info{
     width: 0.7rem;
     height: 0;
@@ -79,7 +101,7 @@ export default {
   }
   .con-info{
     margin-left: 0.16rem;
-    width: 4.3rem;
+    width: 4.6rem;
     .name{
       font-size: 0.26rem;
       line-height: 1.5

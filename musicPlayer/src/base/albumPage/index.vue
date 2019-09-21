@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:47:11
- * @Update: 2019-09-17 20:47:48
+ * @Update: 2019-09-19 14:38:16
  * @Update log: 这个是歌单展示的通用组件
  -->
 <template>
@@ -18,6 +18,7 @@
                   :trackCount="albumInfo.trackCount"
                   :subscribedCount="albumInfo.subscribedCount"
                   :subscribed="albumInfo.subscribed"
+                  :playCount="albumInfo.playCount"
                   @startPlayAll="startPlay">
     <!-- 这是一个通用的用来展示歌曲列表的组件，通过for循环组件进行渲染  这里使用 index+1 展示了页面的索引值 -->
     <song-list v-for="(item, index) in albumInfo.tracks"
@@ -67,9 +68,12 @@ export default {
       this.getInfo(id)
       return
     }
-    if (!Number(id)) {
-      this.$router.go(-1)
-      return
+    // !Number(0) === true
+    if (Number(id) !== 0) {
+      if (!Number(id)) {
+        this.$router.go(-1)
+        return
+      }
     }
     this.getIdxInfo(id)
   },

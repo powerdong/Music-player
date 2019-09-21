@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-08 14:37:08
- * @Update: 2019-09-17 20:40:56
+ * @Update: 2019-09-19 13:55:20
  * @Update log: 更新日志
  -->
 <template>
@@ -130,11 +130,44 @@ export default {
         case '法国 NRJ Vos Hits 周榜':
           idx = 20
           break
-        case 'UK排行榜':
+        case '云音乐国电榜':
+          idx = 4
+          break
+        case 'UK排行榜周榜':
           idx = 5
           break
         case '美国Billboard周榜':
           idx = 6
+          break
+        case '云音乐古典音乐榜':
+          idx = 24
+          break
+        case '云音乐电音榜':
+          idx = 25
+          break
+        case '抖音排行榜':
+          idx = 26
+          break
+        case '新声榜':
+          idx = 27
+          break
+        case '云音乐韩语榜':
+          idx = 28
+          break
+        case '英国Q杂志中文版周榜':
+          idx = 29
+          break
+        case '电竞音乐榜':
+          idx = 30
+          break
+        case '云音乐欧美热歌榜':
+          idx = 31
+          break
+        case '云音乐欧美新歌榜':
+          idx = 32
+          break
+        case '说唱TOP榜':
+          idx = 33
           break
       }
       this.$emit('showIdxPage', idx)

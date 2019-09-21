@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-12 13:02:20
- * @Update: 2019-09-17 10:54:12
+ * @Update: 2019-09-21 17:43:24
  * @Update log: 点击歌单中的某一项，将歌单列表信息传入vuex，用来展示歌曲列表，
  *              点击的index 用列表[index]来设置当前要播放的歌曲
  -->
@@ -26,6 +26,7 @@
                   :nowLyricIndex="nowLyricIndex"
                   ref="lyric"
                   :noLyric="noLyric"
+                  :noLyricText="noLyricText"
                   v-show="!playingShow"
                   @click.native="setPlayingShow(true)"></lyric-page>
       <play-icons></play-icons>
@@ -36,13 +37,22 @@
                       @changeMode="changeMode"
                       :mode="mode"></function-button>
     </div>
-    <small-audio  class="small border-top pd23"
-                  v-show="!isFull"
+    <small-audio  v-show="!isFull"
                   :imgUrl="imgUrl"
                   @returnFull="returnFull"
                   @play="toggle"
+                  @changeMode="changeMode"
+                  @showAudioList="showAudioList"
                   :name="name"
+                  :artist="artist"
+                  :mode="mode"
                   :lyric="nowLyric"></small-audio>
+    <audio-list   :isShowAudioList="isShowAudioList"
+                  @showAudioList="showAudioList"
+                  :num="playList.length"
+                  :mode="mode"
+                  @changeMode="changeMode"
+    ></audio-list>
     <audio :src="url"
           ref="audio"
           autoplay
@@ -62,6 +72,7 @@ import bar from './components/bar'
 import functionButton from './components/functionButton'
 import smallAudio from './components/small'
 import lyricPage from './components/lyricPage'
+import audioList from './components/audioList'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
   name: '',
@@ -72,7 +83,8 @@ export default {
     bar,
     functionButton,
     smallAudio,
-    lyricPage
+    lyricPage,
+    audioList
   },
   data () {
     return {
@@ -89,7 +101,9 @@ export default {
       nowLyric: '',
       nowLyricIndex: -1,
       ruleLyric: [],
-      noLyric: false
+      noLyric: false,
+      isShowAudioList: false,
+      noLyricText: ''
     }
   },
   computed: {
@@ -148,12 +162,27 @@ export default {
             this.ruleLyric = []
             this.nowLyric = ''
             this.noLyric = true
+            this.noLyricText = '纯音乐，请欣赏'
             return
           }
           this.noLyric = false
           this.lyric = data.lrc.lyric
+          if (!this.lyric.trim()) {
+            // 歌词为空
+            this.noLyricText = '暂时没有歌词'
+            this.ruleLyric = []
+            this.nowLyric = ''
+            this.noLyric = true
+            return
+          }
           this.ruleLyric = this.createLrcArray(this.lyric)
         })
+    },
+    /**
+     * 显示歌曲列表
+     */
+    showAudioList () {
+      this.isShowAudioList = !this.isShowAudioList
     },
     /**
      * 查看歌曲是否可以播放
@@ -453,7 +482,7 @@ export default {
 </script>
 
 <style lang='less' scoped>
-@import url('//at.alicdn.com/t/font_1410851_1kpmn0o6bx5.css');
+@import url('//at.alicdn.com/t/font_1410851_orgxdud5s8j.css');
 @import url('~styles/global.less');
 .full{
   position: absolute;
@@ -482,13 +511,5 @@ export default {
       }
     }
   }
-}
-.small{
-  position: fixed;
-  width: 100vw;
-  height: 1rem;
-  bottom: 0;
-  z-index: 9999;
-  background-color: #fff;
 }
 </style>

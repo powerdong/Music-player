@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-09-06 11:57:55
+ * @Update: 2019-09-21 16:30:32
  * @Update log: 更新日志
  -->
 <template>
@@ -35,7 +35,7 @@
       </li>
       <!-- 登录后的歌单项显示 -->
       <li class="song-list" v-for="(item, index) in myLoveList" :key="index">
-        <router-link class="cover" :to="'/songListPage/'+item.id"></router-link>
+        <router-link class="cover" :to="'/albumPage/'+item.id"></router-link>
         <div class="list-img">
           <img :src="item.coverImgUrl" />
         </div>
@@ -52,7 +52,7 @@
       <!-- Duplicate keys detected: '0'. This may cause an update error -->
       <!-- key 值重复 -->
       <li class="song-list" v-for="(item, index) in createList" :key="index + 1">
-        <router-link class="cover" :to="'/songListPage/'+item.id"></router-link>
+        <router-link class="cover" :to="'/albumPage/'+item.id"></router-link>
         <div class="list-img">
           <img :src="item.coverImgUrl" />
         </div>
@@ -78,7 +78,7 @@
     </div>
     <ul class="song-group">
       <li class="song-list" v-for="(item, index) in favoritesList" :key="index">
-        <router-link class="cover" :to="'/songListPage/'+item.id"></router-link>
+        <router-link class="cover" :to="'/albumPage/'+item.id"></router-link>
         <div class="list-img">
           <img :src="item.coverImgUrl" />
         </div>

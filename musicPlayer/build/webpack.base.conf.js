@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-08-26 13:38:36
+ * @Update: 2019-09-21 15:28:08
  * @Update log: 更新日志
  */
 'use strict'
@@ -43,6 +43,7 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
       'styles': resolve('src/assets/styles'),
+      'mixins': resolve('src/assets'),
       'getInfos': resolve('src/getInfos'),
       'base': resolve('src/base'),
       'api': resolve('src/api'),
