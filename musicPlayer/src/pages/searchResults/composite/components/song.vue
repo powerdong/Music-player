@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 10:56:42
- * @Update: 2019-09-03 20:44:11
+ * @Update: 2019-09-22 17:15:26
  * @Update log: 更新日志
  -->
 <template>
@@ -12,25 +12,23 @@
             linkPage="song"
             :keyW="keyword">
 <ul class="song-group">
-  <li class="list-item" v-for="(item, index) in songList.songs" :key="index">
-    <div class="song-info">
-      <p class="song-name">{{item.name}}</p>
-      <p class="song-art">
-        <span class="artist" v-for="(item, index) in item.ar" :key="index">
-          {{ item.name }}
-        </span>
-      </p>
-    </div>
-    <div class="icon">
-        <i class="result diandiandian"></i>
-    </div>
-  </li>
+  <song-list v-for="(item, index) in songList.songs"
+              :key="index"
+              tag="li"
+              class="list-item"
+              :songName="item.name"
+              :artists="item.ar"
+              :albumName="item.al.name"
+              @beginSong="setAudioList(item)"
+              :nowSong="item.id === audioSong.id"></song-list>
 </ul>
 </list-global>
 </template>
 
 <script>
 import listGlobal from 'base/titleFooter'
+import songList from 'base/song'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: '',
   props: {
@@ -41,6 +39,9 @@ export default {
       type: String
     }
   },
+  computed: {
+    ...mapGetters({audioSong: 'AUDIO_ING_SONG'})
+  },
   filters: {
     artName: function (value) {
       if (!value) return ''
@@ -48,8 +49,15 @@ export default {
       return value
     }
   },
+  methods: {
+    setAudioList (song) {
+      this.addToAudioList(song)
+    },
+    ...mapActions(['addToAudioList'])
+  },
   components: {
-    listGlobal
+    listGlobal,
+    songList
   }
 }
 </script>

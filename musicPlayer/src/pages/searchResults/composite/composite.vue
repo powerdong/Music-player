@@ -1,8 +1,8 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:17:07
- * @Update: 2019-09-05 17:26:59
- * @Update log: 更新日志
+ * @Update: 2019-09-22 12:26:03
+ * @Update log: 综合页面展示
  -->
 <template>
  <div class="wrapper pd23">

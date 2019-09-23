@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:47:11
- * @Update: 2019-09-19 14:38:16
+ * @Update: 2019-09-23 13:58:05
  * @Update log: 这个是歌单展示的通用组件
  -->
 <template>
@@ -10,6 +10,7 @@
                   :load="load"
                   :imgUrl="albumInfo.coverImgUrl"
                   :albumTitle="albumInfo.name"
+                  :listId="listId"
                   :creatorImgUrl="albumInfo.creator ? albumInfo.creator.avatarUrl : ''"
                   :author="albumInfo.creator ? albumInfo.creator.nickname : ''"
                   :description="albumInfo.description"
@@ -18,6 +19,7 @@
                   :trackCount="albumInfo.trackCount"
                   :subscribedCount="albumInfo.subscribedCount"
                   :subscribed="albumInfo.subscribed"
+                  :isSubIn="albumInfo.subscribed"
                   :playCount="albumInfo.playCount"
                   @startPlayAll="startPlay">
     <!-- 这是一个通用的用来展示歌曲列表的组件，通过for循环组件进行渲染  这里使用 index+1 展示了页面的索引值 -->
@@ -46,7 +48,8 @@ export default {
       // 存储信息的数组
       albumInfo: [],
       // 用来定义是否显示load加载组件
-      load: true
+      load: true,
+      listId: 0
     }
   },
   components: {
@@ -64,6 +67,7 @@ export default {
   activated () {
     this.load = true
     let id = this.$route.params.id
+    this.listId = +id
     if (id > 50) {
       this.getInfo(id)
       return
@@ -81,18 +85,6 @@ export default {
     ...mapGetters({audioSong: 'AUDIO_ING_SONG'})
   },
   methods: {
-    /**
-     * 获取页面的动态id信息
-     */
-    getInfoId () {
-      const id = this.$route.params.id
-      if (id > 50) {
-        console.log(id)
-        this.getInfo(id)
-      } else {
-        this.getIdxInfo(id)
-      }
-    },
     /**
      * 根据传入的id获取歌单信息
      *

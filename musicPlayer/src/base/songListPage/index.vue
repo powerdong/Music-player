@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:33:42
- * @Update: 2019-09-21 17:41:54
+ * @Update: 2019-09-23 14:02:04
  * @Update log: 这是一个用来展示歌曲列表的基础组件
  -->
 <template>
@@ -95,11 +95,17 @@
       </span>
       <!-- 当时歌单组件时有收藏歌单的按钮选项 -->
       <!-- 这里需要添加判断用户是否已经收藏歌单！！！！来显示不同的样式 -->
-      <span class="collection"
-            ref="collection"
-            v-if="isAlbum">
-        + 收藏({{subscribedCount | setCol}})
-      </span>
+      <div class="collection"
+            :class="{ 'bg': !isSubInItem }"
+              ref="collection"
+              v-if="isAlbum">
+        <span v-show="!isSubInItem" @click="addPlaylist(listId)">
+          + 收藏({{subscribedCountItem | setCol}})
+        </span>
+        <span v-show="isSubInItem"  @click="deletePlaylist(listId)">
+          <i class="date-song wenjianjia"></i> {{subscribedCountItem | setCol}}
+        </span>
+      </div>
     </div>
     <!-- 这里将列表进行包裹统一的通过 load 属性进行判断是否展示 -->
     <div class="list-info"
@@ -115,6 +121,7 @@
 <script>
 import globalNav from 'base/generalNav'
 import pageLoading from 'base/pageLoading'
+import api from 'api'
 
 const setNum = function (val) {
   if (!val) {
@@ -142,7 +149,9 @@ export default {
       iTitle: this.title,
       iAlbumTitle: this.albumTitle,
       listFixed: false,
-      top: '0.5rem'
+      top: '0.5rem',
+      isSubInItem: false,
+      subscribedCountItem: 0
     }
   },
   /**
@@ -158,17 +167,24 @@ export default {
       this.iAlbumTitle = val
     },
     subscribedCount: function (val) {
+      this.subscribedCountItem = val
       if (val === 0 || !val) {
         this.$refs.collection.style.display = 'none'
       } else {
         this.$refs.collection.style.display = ''
       }
+    },
+    isSubIn: function (val) {
+      this.isSubInItem = val
     }
   },
   /**
    * 所有的 props 值信息
    */
   props: {
+    listId: {
+      type: Number
+    },
     playCount: {
       type: Number
     },
@@ -217,6 +233,10 @@ export default {
     load: {
       type: Boolean,
       default: true
+    },
+    isSubIn: {
+      type: Boolean,
+      default: false
     }
   },
   filters: {
@@ -267,6 +287,26 @@ export default {
     }
   },
   methods: {
+    addPlaylist (listId) {
+      api.addOrDeletePlaylistFn(1, listId)
+        .then(res => {
+          const data = res.data
+          if (data.code === 200) {
+            this.isSubInItem = true
+            ++this.subscribedCountItem
+          }
+        })
+    },
+    deletePlaylist (listId) {
+      api.addOrDeletePlaylistFn(2, listId)
+        .then(res => {
+          const data = res.data
+          if (data.code === 200) {
+            this.isSubInItem = false
+            --this.subscribedCountItem
+          }
+        })
+    },
     beginAudio () {
       this.$emit('startPlayAll')
     },
@@ -315,7 +355,7 @@ export default {
 </script>
 
 <style lang='less' scoped>
-@import url("//at.alicdn.com/t/font_1394963_wydqsjlp9ms.css");
+@import url("//at.alicdn.com/t/font_1394963_t6jt71rtm9.css");
 @import url("~styles/global.less");
 .topFixed {
   position: fixed;
@@ -350,14 +390,17 @@ export default {
       font-size: small;
     }
     .collection {
-      background-color: @bgcolor;
       .pd23();
       font-size: smaller;
       margin-top: 3px;
       height: 0.7rem;
       line-height: 0.7rem;
-      color: #fff;
       border-radius: 0.4rem;
+      color: #999;
+      &.bg{
+        background-color: @bgcolor;
+        color: #fff;
+      }
     }
   }
   .container-top {

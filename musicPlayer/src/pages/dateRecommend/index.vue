@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:33:42
- * @Update: 2019-09-17 11:01:22
+ * @Update: 2019-09-22 17:40:12
  * @Update log: 更新日志
  -->
 <template>
@@ -26,7 +26,6 @@
 import api from 'api'
 import songList from 'base/song'
 import songListPage from 'base/songListPage'
-
 import {mapActions, mapGetters} from 'vuex'
 export default {
   name: '',

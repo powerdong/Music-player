@@ -36,3 +36,5 @@ export const search = '/api/search' // 搜索关键词
 export const defaultSearch = '/api/search/default' // 默认搜索关键词
 export const suggestSearch = '/api/search/suggest' // 搜索建议
 export const hotSearchList = '/api/search/hot/detail' // 热搜列表
+// =================歌单事件
+export const addOrDeletePlaylist = '/api/playlist/subscribe' // 收藏/取消收藏歌单

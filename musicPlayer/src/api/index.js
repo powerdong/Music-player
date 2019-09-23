@@ -31,7 +31,8 @@ import {
   songUrl,
   checkSong,
   songLyric,
-  idxList
+  idxList,
+  addOrDeletePlaylist
 } from './config'
 
 export default {
@@ -318,6 +319,19 @@ export default {
   songLyricFn (id) {
     return axios.get(songLyric, {
       params: {
+        id
+      }
+    })
+  },
+  /**
+   * 传入类型和歌单 id 可收藏歌单或者取消收藏歌单
+   * @param {*} t 1：收藏 2：取消收藏
+   * @param {*} id  歌单id
+   */
+  addOrDeletePlaylistFn (t, id) {
+    return axios.get(addOrDeletePlaylist, {
+      params: {
+        t,
         id
       }
     })

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:24:50
- * @Update: 2019-09-17 20:53:19
+ * @Update: 2019-09-22 12:12:06
  * @Update log: 更新日志
  -->
 <template>
@@ -20,7 +20,7 @@
                 :songName="item.name"
                 :artists="item.artists"
                 :albumName="item.album.name"
-                @beginSong="setAudioList(item, index)"
+                @beginSong="setAudioList(item)"
                :nowSong="item.id === audioSong.id"></song-list>
       </div>
       <page-loading v-show="scroll"></page-loading>
@@ -67,7 +67,7 @@ export default {
     this.getAllSongList(this.keywords)
   },
   methods: {
-    ...mapActions(['selectPlay', 'startPlayAll']),
+    ...mapActions(['addToAudioList', 'startPlayAll']),
     getAllSongList (key, offset) {
       api.searchFn(key, undefined, offset, 1)
         .then((res) => {
@@ -101,11 +101,8 @@ export default {
       //   this.getAllSongList(this.keywords, offset)
       // }
     },
-    setAudioList (item, index) {
-      this.selectPlay({
-        list: this.allSongList,
-        index
-      })
+    setAudioList (item) {
+      this.addToAudioList(item)
     },
     startPlay () {
       this.startPlayAll({

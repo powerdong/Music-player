@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-13 12:44:14
- * @Update: 2019-09-14 12:04:04
+ * @Update: 2019-09-22 11:50:00
  * @Update log: 更新日志
  -->
 <template>
@@ -9,7 +9,7 @@
    <div class="great" :class="{rotate: !isPlay}"></div>
    <div class="circle-bg" ref="circle">
      <div class="song-img">
-       <img v-lazy="imgUrl" alt="">
+       <img :src="imgUrl" alt="">
      </div>
    </div>
  </div>

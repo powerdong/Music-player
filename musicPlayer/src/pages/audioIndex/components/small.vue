@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-14 17:51:26
- * @Update: 2019-09-21 18:52:34
+ * @Update: 2019-09-22 17:18:10
  * @Update log: 更新日志
  -->
 <template>
@@ -104,7 +104,8 @@ export default {
     width: 4.6rem;
     .name{
       font-size: 0.26rem;
-      line-height: 1.5
+      line-height: 1.5;
+      .ellipsis();
     }
     .lrc{
       font-size: 0.2rem;
