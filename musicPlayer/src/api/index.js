@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-09-14 11:51:57
+ * @Update: 2019-09-26 13:02:44
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -32,7 +32,8 @@ import {
   checkSong,
   songLyric,
   idxList,
-  addOrDeletePlaylist
+  addOrDeletePlaylist,
+  addPlaylist
 } from './config'
 
 export default {
@@ -333,6 +334,19 @@ export default {
       params: {
         t,
         id
+      }
+    })
+  },
+  /**
+   * 调用此接口 , 传入歌单名字可新建歌单
+   * @param {*} name 歌单名
+   * @param {*} privacy 是否为隐私歌单 传'10'设置为隐私歌单
+   */
+  addPlaylistFn (name, privacy) {
+    return axios.get(addPlaylist, {
+      params: {
+        name,
+        privacy
       }
     })
   }

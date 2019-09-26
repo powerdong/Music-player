@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-14 15:44:26
- * @Update: 2019-09-13 12:52:20
+ * @Update: 2019-09-23 17:38:03
  * @Update log: 登录页通用顶部导航
  -->
 <template>
@@ -32,12 +32,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url('//at.alicdn.com/t/font_1351323_oxqdjg3rufq.css');
+@import url("//at.alicdn.com/t/font_1351323_oxqdjg3rufq.css");
 
-.phone-nav{
+.phone-nav {
   display: flex;
   align-items: center;
-  .phone{
+  .phone {
     font-size: 0.7rem;
     margin-right: 5px;
   }

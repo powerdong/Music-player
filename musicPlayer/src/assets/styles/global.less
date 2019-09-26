@@ -31,11 +31,12 @@
 }
 
 // 单行文字打点
-.ellipsis{
+.ellipsis {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 // 小标签
 .smallTag {
   box-sizing: border-box;
@@ -105,30 +106,60 @@
 }
 
 // 点击有波纹效果
-.ripple{
+.ripple {
   position: relative;
   overflow: hidden;
   user-select: none;
- &:after{
-  position: absolute;
-  content: '';
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-   //设置径向渐变
-  background-image: radial-gradient(circle, #666 10%, transparent 10.01%);
-  background-repeat: no-repeat;
-  background-position: 50%;
-  transform: scale(10, 10);
-  opacity: 0;
-  transition: transform .5s, opacity .6s;
+
+  &:after {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    //设置径向渐变
+    background-image: radial-gradient(circle, #666 10%, transparent 10.01%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transform: scale(10, 10);
+    opacity: 0;
+    transition: transform .5s, opacity .6s;
   }
-  &:active:after{
-  transform: scale(0, 0);
-  opacity: .3;
-  //设置初始状态
-  transition: 0s;
+
+  &:active:after {
+    transform: scale(0, 0);
+    opacity: .3;
+    //设置初始状态
+    transition: 0s;
   }
+}
+
+
+/*
+ 重置UI样式
+*/
+
+.el-checkbox__input.is-checked+.el-checkbox__label {
+  color: #999;
+}
+
+.el-checkbox__input.is-checked .el-checkbox__inner,
+.el-checkbox__input.is-indeterminate .el-checkbox__inner {
+  background-color: @bgcolor;
+  border-color: @bgcolor;
+}
+
+.el-checkbox__inner:hover {
+  border-color: #999;
+}
+
+.el-button--text {
+  color: @bgcolor;
+}
+
+.el-button.is-disabled {
+  color: @bgcolor;
+  opacity: 0.6;
 }

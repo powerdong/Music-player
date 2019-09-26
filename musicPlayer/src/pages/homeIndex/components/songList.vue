@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-09-21 16:30:32
+ * @Update: 2019-09-26 13:26:48
  * @Update log: 更新日志
  -->
 <template>
@@ -13,7 +13,8 @@
         <span class="num">({{index.createNum}})</span>
       </div>
       <div class="right-title">
-        <i class="home iconincrease"></i>
+        <!-- 点击添加按钮显示新建歌单 -->
+        <i class="home iconincrease" @click="showAddNewPlayList"></i>
         <i class="home icondiandiandian"></i>
       </div>
     </div>
@@ -61,7 +62,7 @@
           <p class="list-num">{{item.trackCount}}首</p>
         </div>
         <div class="heart">
-            <i class="home icondiandiandian"></i>
+          <i class="home icondiandiandian"></i>
         </div>
       </li>
     </ul>
@@ -84,20 +85,23 @@
         </div>
         <div class="list-info">
           <p class="list-title">{{ item.name}}</p>
-          <p class="list-num">{{item.trackCount}}首
+          <p class="list-num">
+            {{item.trackCount}}首
             <span class="nickname">by {{item.creator.nickname}}</span>
           </p>
         </div>
         <div class="heart">
-            <i class="home icondiandiandian"></i>
+          <i class="home icondiandiandian"></i>
         </div>
       </li>
     </ul>
+    <add-new-playlist ref="addNewPlaylist"></add-new-playlist>
   </div>
 </template>
 
 <script>
 import api from 'api'
+import addNewPlaylist from './addNewPlayList'
 export default {
   name: 'songList',
   data () {
@@ -139,6 +143,9 @@ export default {
     }
   },
   methods: {
+    showAddNewPlayList () {
+      this.$refs.addNewPlaylist.open()
+    },
     /**
      * 获取用户歌单
      */
@@ -163,6 +170,9 @@ export default {
       this.createList = this.createList.slice(1)
       this.favoritesList = arr.slice(from, len)
     }
+  },
+  components: {
+    addNewPlaylist
   }
 }
 </script>
@@ -199,7 +209,7 @@ export default {
     margin: 0.16rem 0;
     .flex-between();
     .ripple();
-    .list-cover{
+    .list-cover {
       border-radius: @imgBorderRadius;
       width: @listHeight;
       height: @listHeight;
@@ -207,10 +217,10 @@ export default {
       text-align: center;
       margin-right: 0.3rem;
       overflow: hidden;
-      background:rgba(0,0,0,0.8);
-      .iconxin{
+      background: rgba(0, 0, 0, 0.8);
+      .iconxin {
         font-size: 0.5rem;
-        color:#fff;
+        color: #fff;
       }
     }
     .list-img {
@@ -239,7 +249,7 @@ export default {
         margin-top: 0.13rem;
         font-size: 0.2rem;
         color: #ccc;
-        .nickname{
+        .nickname {
           margin-left: 0.2rem;
         }
       }
@@ -250,8 +260,8 @@ export default {
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      .icondiandiandian{
-      color: rgba(0,0,0,0.5);
+      .icondiandiandian {
+        color: rgba(0, 0, 0, 0.5);
       }
       .heart-text {
         .smallTag();

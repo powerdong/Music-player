@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-02 13:36:42
- * @Update: 2019-09-03 20:39:00
+ * @Update: 2019-09-23 17:37:31
  * @Update log: 这是一个公共的组件，用来展示搜索展示页面除单曲以外的项目
  * 通过props接收对应的结果，渲染。
  * 组件调用是通过 for 循环组件，来循环组件渲染的
@@ -10,20 +10,22 @@
   <div class="list-item">
     <!-- 左边的图片展示区域，用不同的类名展示不同的效果 -->
     <!-- 在歌单 视频 用户 等三种的图片展示样式不同 -->
-    <div class="img-info"
-        :class="{ bigImg: videoList,
-                  smallImg: songList,
-                  circle,
-                  album,
-                  dj
-                }">
+    <div
+      class="img-info"
+      :class="{ bigImg: videoList,
+                smallImg: songList,
+                circle,
+                album,
+                dj
+                }"
+    >
       <!-- 视频的播放量 -->
       <span class="count" v-if="playTime">
-        <i class="result bofang1" ></i>
+        <i class="result bofang1"></i>
         {{playTime | numRule}}
       </span>
       <!-- 图片链接 -->
-      <img :src="ImgUrl" alt="">
+      <img :src="ImgUrl" alt />
     </div>
     <!-- 右侧的相关文字信息 -->
     <div class="info-content">
@@ -31,48 +33,46 @@
       <div class="play-name">
         {{name}}
         <!-- 在用户区域用类名显示不同的用户性别图标 -->
-        <i class="result" :class="{
-                          nan: gender === 1,
-                          nv: gender === 2}"
-        v-if="gender"></i>
+        <i
+          class="result"
+          :class="{
+                  nan: gender === 1,
+                  nv: gender === 2
+                  }"
+          v-if="gender"
+        ></i>
       </div>
       <!-- 右侧信息说明文字 由于各项的展示方式不同，所以分开编写 -->
       <div class="play-tag">
         <!-- 作者 -->
-        <p class="user">{{nickname}}
-        </p>
+        <p class="user">{{nickname}}</p>
         <!-- 电台展示 -->
         <p class="dj" v-if="dj">
-          <span class="dj-art">
-            {{nicknames.nickname}}
-          </span>
+          <span class="dj-art">{{nicknames.nickname}}</span>
         </p>
         <!-- 专辑展示 -->
         <p class="album" v-if="artists">
           <span>
-            <span class="album-art"
-                  v-for="(item, index) in artists"
-                  :key="index">{{item.name}}
-            </span>
+            <span class="album-art" v-for="(item, index) in artists" :key="index">{{item.name}}</span>
           </span>
-          <span class="time">
-            {{durationms | setYear}}
-          </span>
+          <span class="time">{{durationms | setYear}}</span>
         </p>
         <!-- 视频展示 -->
         <p class="video" v-if="videoList">
-            <span class="time">
+          <span class="time">
             {{durationms | setTime}}
-            <span>by
-              <span class="video-art"
-                    v-for="(item, index) in nicknames"
-                    :key="index">{{item.userName}}
-              </span>
+            <span>
+              by
+              <span
+                class="video-art"
+                v-for="(item, index) in nicknames"
+                :key="index"
+              >{{item.userName}}</span>
             </span>
           </span>
         </p>
         <!-- 歌单列表展示 -->
-        <p class="song-list" v-if="songList" >
+        <p class="song-list" v-if="songList">
           <span class="song-num">{{trackCount}}首</span>
           <span class="song-art">by {{nickname}},</span>
           <span class="play-count">播放{{playCount | numRule}}次</span>
@@ -80,7 +80,9 @@
       </div>
     </div>
     <!-- 展示歌手是否已入驻 -->
-    <span class="artist-is-in" v-if="isIn" ><i class="result yonghufangkeshu"></i> 已入驻</span>
+    <span class="artist-is-in" v-if="isIn">
+      <i class="result yonghufangkeshu"></i> 已入驻
+    </span>
   </div>
 </template>
 
@@ -198,8 +200,8 @@ export default {
 </script>
 
 <style lang='less' scoped>
-@import url('~styles/global.less');
-.list-item{
+@import url("~styles/global.less");
+.list-item {
   margin-top: 0.26rem;
   width: 100%;
   height: 1.6rem;
@@ -207,105 +209,105 @@ export default {
   display: flex;
   align-items: center;
   overflow: hidden;
-  .img-info{
+  .img-info {
     position: relative;
     box-sizing: border-box;
     height: 0;
     background-color: #ccc;
     border-radius: 0.1rem;
-    img{
+    img {
       overflow: hidden;
       border-radius: 0.1rem;
     }
-    &.bigImg{
+    &.bigImg {
       width: 2.8rem;
       padding-bottom: 1.4rem;
-      img{
+      img {
         width: 2.8rem;
         height: 1.4rem;
       }
     }
-    &.smallImg{
+    &.smallImg {
       width: 1.6rem;
       padding-bottom: 1.6rem;
-      img{
+      img {
         width: 100%;
       }
     }
-    &.circle{
+    &.circle {
       width: 1.6rem;
       height: 1.6rem;
       border-radius: 50%;
       overflow: hidden;
-      img{
+      img {
         width: 100%;
       }
     }
-    &.album{
+    &.album {
       width: 1.6rem;
       padding-bottom: 1.6rem;
-      img{
+      img {
         width: 100%;
       }
     }
-    &.dj{
+    &.dj {
       width: 1.6rem;
       padding-bottom: 1.6rem;
-      img{
+      img {
         width: 100%;
       }
     }
-    .count{
+    .count {
       position: absolute;
       color: #fff;
       right: 5px;
       top: 5px;
       font-size: 0.13rem;
-      .bofang1{
+      .bofang1 {
         font-size: 0.13rem;
       }
     }
   }
-  .info-content{
+  .info-content {
     margin-left: 0.23rem;
-    .play-name{
+    .play-name {
       line-height: 0.4rem;
       .twoLinesEllipsis();
-      .nan{
+      .nan {
         color: #00cec9;
       }
-      .nv{
+      .nv {
         color: #fd79a8;
       }
     }
-    .play-tag{
+    .play-tag {
       height: 0.5rem;
       line-height: 0.5rem;
       font-size: 0.2rem;
       color: #666;
-      .album-art{
-        &::after{
+      .album-art {
+        &::after {
           content: "/";
         }
-        &:last-child::after{
+        &:last-child::after {
           content: "";
         }
       }
-      .time{
+      .time {
         margin-left: 0.13rem;
       }
-      .song-num{
+      .song-num {
         margin-right: 0.13rem;
       }
-      .song-art{
+      .song-art {
         margin-right: 0.13rem;
       }
     }
   }
-  .artist-is-in{
+  .artist-is-in {
     margin-left: auto;
-    .yonghufangkeshu{
-      color:@bgcolor;
+    .yonghufangkeshu {
+      color: @bgcolor;
     }
   }
 }

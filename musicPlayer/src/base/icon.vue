@@ -5,11 +5,9 @@
  * @Update log: 公共图标组件
  -->
 <template>
-  <router-link class="icon-list"
-              :class="{width}"
-              :to="linkTo">
+  <router-link class="icon-list" :class="{width}" :to="linkTo">
     <div class="icon" :class="{bgcolor}">
-      <i  :class="icons.icon"></i>
+      <i :class="icons.icon"></i>
       <slot></slot>
     </div>
     <span class="icon-text">{{icons.text}}</span>
@@ -39,9 +37,9 @@ export default {
 
 <style lang='less' scoped>
 // 这部分样式是对于 我的页面设置的
-.width{
+.width {
   min-width: 1.6rem;
-  &:last-of-type>.icon{
+  &:last-of-type > .icon {
     background: #ccc;
   }
 }
@@ -53,11 +51,11 @@ export default {
   flex-direction: column;
   align-items: center;
   color: #000;
-  .bgcolor{
+  .bgcolor {
     background: linear-gradient(to right, #ff5a4c, #ff1d11);
   }
   .icon {
-    width:  0.8rem;
+    width: 0.8rem;
     height: 0.8rem;
     line-height: 0.8rem;
     border-radius: 50%;
@@ -67,7 +65,7 @@ export default {
     .home {
       font-size: 0.4rem;
     }
-    .find{
+    .find {
       font-size: 0.5rem;
     }
     .login {

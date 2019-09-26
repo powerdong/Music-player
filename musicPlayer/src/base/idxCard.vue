@@ -1,23 +1,25 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-09 13:31:02
- * @Update: 2019-09-17 19:54:08
+ * @Update: 2019-09-23 17:37:52
  * @Update log: 更新日志
  -->
 <template>
- <div>
-   <div class="list" @click="searchIdx(idx)">
-     <div class="img-info">
-      <img :src="imgUrl" alt="">
-      <span class="time">{{ updateTime }}</span>
-     </div>
-     <div class="list-con">
-       <div class="info" v-for="(item, index) in tracks" :key="index">
-         {{index + 1 + '.'}}<span>{{item.first}}</span> - <span>{{item.second}}</span>
-       </div>
-     </div>
-   </div>
- </div>
+  <div>
+    <div class="list" @click="searchIdx(idx)">
+      <div class="img-info">
+        <img :src="imgUrl" alt />
+        <span class="time">{{ updateTime }}</span>
+      </div>
+      <div class="list-con">
+        <div class="info" v-for="(item, index) in tracks" :key="index">
+          {{index + 1 + '.'}}
+          <span>{{item.first}}</span> -
+          <span>{{item.second}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -93,24 +95,24 @@ export default {
 </script>
 
 <style lang='less' scoped>
-@import url('~styles/global.less');
+@import url("~styles/global.less");
 
-.list{
+.list {
   height: 2rem;
   display: flex;
   align-items: center;
-  .img-info{
+  .img-info {
     position: relative;
     width: 1.7rem;
     height: 0;
     padding-bottom: 1.7rem;
     border-radius: 0.13rem;
     overflow: hidden;
-    img{
+    img {
       width: 1.7rem;
       height: 1.7rem;
     }
-    .time{
+    .time {
       position: absolute;
       bottom: 3px;
       left: 3px;
@@ -118,9 +120,9 @@ export default {
       color: #fff;
     }
   }
-  .list-con{
+  .list-con {
     margin-left: 0.2rem;
-    .info{
+    .info {
       height: 0.5rem;
       line-height: 0.5rem;
       width: 4.5rem;

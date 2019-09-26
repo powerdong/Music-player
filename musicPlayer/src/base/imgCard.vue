@@ -1,24 +1,29 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-08 14:37:08
- * @Update: 2019-09-19 13:55:20
+ * @Update: 2019-09-23 17:37:46
  * @Update log: 更新日志
  -->
 <template>
- <div class="img-card" @click="searchIdx(idx)" :style="{width, marginTop:top}">
-   <span class="tag" v-if="playCount" ><i class="card cardbofang"></i>{{playCount | setPlayCount}}</span>
-   <span class="swiper-tag" v-if="swiper"><i class="card cardbofang1"></i></span>
-   <span class="fine-tag" v-if="fine"><i class="card cardhuangguan"></i></span>
-   <span class="time-tag" v-if="updateTime">{{ updateTime }}</span>
-   <div class="img-con" :style="{width,paddingBottom:width}">
-    <img v-lazy="imgUrl" class="image">
-    <!-- 跳转到专辑详情页 -->
-        <!-- <router-link class="cover"  @click="toAlbum(albumId)" :to="'/albumPage/'+albumId"></router-link> -->
-   </div>
-    <div class="dec">
-      {{ dec }}
+  <div class="img-card" @click="searchIdx(idx)" :style="{width, marginTop:top}">
+    <span class="tag" v-if="playCount">
+      <i class="card cardbofang"></i>
+      {{playCount | setPlayCount}}
+    </span>
+    <span class="swiper-tag" v-if="swiper">
+      <i class="card cardbofang1"></i>
+    </span>
+    <span class="fine-tag" v-if="fine">
+      <i class="card cardhuangguan"></i>
+    </span>
+    <span class="time-tag" v-if="updateTime">{{ updateTime }}</span>
+    <div class="img-con" :style="{width,paddingBottom:width}">
+      <img v-lazy="imgUrl" class="image" />
+      <!-- 跳转到专辑详情页 -->
+      <!-- <router-link class="cover"  @click="toAlbum(albumId)" :to="'/albumPage/'+albumId"></router-link> -->
     </div>
- </div>
+    <div class="dec">{{ dec }}</div>
+  </div>
 </template>
 
 <script>
@@ -177,19 +182,19 @@ export default {
 </script>
 
 <style lang='less' scoped>
-@import url('//at.alicdn.com/t/font_1396631_tp8pq8axas.css');
-@import url('~styles/global.less');
-.img-card{
+@import url("//at.alicdn.com/t/font_1396631_tp8pq8axas.css");
+@import url("~styles/global.less");
+.img-card {
   position: relative;
   background-color: #fff;
-  .time-tag{
+  .time-tag {
     position: absolute;
     bottom: 0.54rem;
     left: 3px;
     font-size: 12px;
     color: #fff;
   }
-  .tag{
+  .tag {
     position: absolute;
     top: 0.11rem;
     right: 0.11rem;
@@ -199,41 +204,41 @@ export default {
       font-size: 0.18rem;
     }
   }
-  .swiper-tag{
+  .swiper-tag {
     position: absolute;
     bottom: 1rem;
     right: 0.11rem;
-    .cardbofang1{
+    .cardbofang1 {
       font-size: 1rem;
       color: #fff;
       opacity: 0.6;
     }
   }
-  .fine-tag{
+  .fine-tag {
     position: absolute;
     transform: rotate(-45deg);
     top: 0;
     left: 0;
-    .cardhuangguan{
+    .cardhuangguan {
       color: #f39c12;
       font-size: 0.5rem;
     }
   }
-  .img-con{
+  .img-con {
     height: 0;
     background-color: #aaa;
     border-radius: 0.2rem;
     overflow: hidden;
-    img{
+    img {
       width: 100%;
     }
   }
-  .dec{
+  .dec {
     margin-top: 0.2rem;
     font-size: 0.23rem;
     line-height: 0.3rem;
     letter-spacing: 1px;
-    .twoLinesEllipsis()
+    .twoLinesEllipsis();
   }
 }
 </style>
