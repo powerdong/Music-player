@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-09-08 17:32:16
+ * @Update: 2019-09-27 13:17:18
  * @Update log: 更新日志
  */
 // The Vue build version to load with the `import` command
@@ -20,6 +20,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 import 'styles/reset.css'
 import 'styles/border.css'
+import 'styles/resetEleUI.less'
 
 fastclick.attach(document.body)
 // import ""

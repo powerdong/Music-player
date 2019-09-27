@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-08-30 08:14:15
+ * @Update: 2019-09-27 13:57:41
  * @Update log: 更新日志
  -->
 <template>
@@ -9,7 +9,8 @@
     <home-icons></home-icons>
     <home-list :num="homeListNum"></home-list>
     <div class="split"></div>
-    <song-list ref="songList" :index="songListNum"></song-list>
+    <song-list ref="songList" :index="songListNum" @showSlider="showSlider"></song-list>
+    <slider ref="slider"></slider>
   </div>
 </template>
 
@@ -18,6 +19,7 @@ import { mapGetters } from 'vuex'
 import homeIcons from './components/icons'
 import homeList from './components/homeList'
 import songList from './components/songList'
+import slider from 'base/slider'
 import api from 'api'
 
 export default {
@@ -42,9 +44,14 @@ export default {
   components: {
     homeIcons,
     homeList,
-    songList
+    songList,
+    slider
   },
   methods: {
+    showSlider () {
+      console.log('index')
+      this.$refs.slider.showSlider()
+    },
     /**
      * 获取用户播放记录
      * @param id 用户 uid
@@ -81,8 +88,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({loginState: 'LOGIN_STATE'}),
-    ...mapGetters({accountUid: 'ACCOUNT_UID'})
+    ...mapGetters({ loginState: 'LOGIN_STATE' }),
+    ...mapGetters({ accountUid: 'ACCOUNT_UID' })
   },
   activated () {
     /**
@@ -105,6 +112,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url('~styles/global.less');
-@import url("//at.alicdn.com/t/font_1322300_au86cqimtlb.css");
+@import url("~styles/global.less");
+@import url("//at.alicdn.com/t/font_1322300_t3s39ptd6ao.css");
 </style>

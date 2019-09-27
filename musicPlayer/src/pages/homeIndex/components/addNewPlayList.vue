@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-26 13:09:11
- * @Update: 2019-09-26 14:05:50
+ * @Update: 2019-09-27 12:46:45
  * @Update log: 更新日志
  -->
 <template>
@@ -25,14 +25,15 @@
         <span class="length">{{ playListName.length }}/40</span>
       </div>
       <div class="button">
-        <el-button type="text">取消</el-button>
-        <el-button type="text" disabled>提交</el-button>
+        <el-button type="text" @click="hide">取消</el-button>
+        <el-button type="text" :disabled="!playListName" @click="pushNewPlaylist">提交</el-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import api from 'api'
 export default {
   data () {
     return {
@@ -50,6 +51,28 @@ export default {
     },
     hide () {
       this.isShow = false
+    },
+    /**
+     * 添加歌单
+     * 如果隐私选框选中则checked为true，设置 privacy 值为 10
+     * 点击确定按钮提交数据
+     * 隐藏弹框
+     */
+    pushNewPlaylist () {
+      let privacy
+      if (this.checked) {
+        privacy = 10
+      }
+      api.addPlaylistFn(this.playListName, privacy)
+        .then(res => {
+          const data = res.data
+          if (data.code === 200) {
+            this.clearInp()
+            this.hide()
+          }
+        }).catch(err => {
+          console.log(err)
+        })
     },
     changeFocus () {
       this.$nextTick(x => {

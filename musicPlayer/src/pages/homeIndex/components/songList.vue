@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-09-26 13:26:48
+ * @Update: 2019-09-27 13:58:51
  * @Update log: 更新日志
  -->
 <template>
@@ -56,12 +56,13 @@
         <router-link class="cover" :to="'/albumPage/'+item.id"></router-link>
         <div class="list-img">
           <img :src="item.coverImgUrl" />
+          <i class="home iconsuo" v-show="item.privacy"></i>
         </div>
         <div class="list-info">
           <p class="list-title">{{ item.name}}</p>
           <p class="list-num">{{item.trackCount}}首</p>
         </div>
-        <div class="heart">
+        <div class="heart" @click.stop="showSlider">
           <i class="home icondiandiandian"></i>
         </div>
       </li>
@@ -77,6 +78,7 @@
         <i class="home icondiandiandian"></i>
       </div>
     </div>
+    <!-- 收藏的歌单 -->
     <ul class="song-group">
       <li class="song-list" v-for="(item, index) in favoritesList" :key="index">
         <router-link class="cover" :to="'/albumPage/'+item.id"></router-link>
@@ -145,6 +147,10 @@ export default {
   methods: {
     showAddNewPlayList () {
       this.$refs.addNewPlaylist.open()
+    },
+    showSlider () {
+      console.log(111)
+      // this.$emit('showSlider')
     },
     /**
      * 获取用户歌单
@@ -224,6 +230,7 @@ export default {
       }
     }
     .list-img {
+      position: relative;
       border-radius: @imgBorderRadius;
       width: @listHeight;
       height: @listHeight;
@@ -234,6 +241,14 @@ export default {
       img {
         width: 100%;
         height: 100%;
+      }
+      .iconsuo {
+        position: absolute;
+        right: 0.15rem;
+        bottom: 0.45rem;
+        color: #fff;
+        width: 0.13rem;
+        height: 0.13rem;
       }
     }
     .list-info {
