@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-27 12:49:09
- * @Update: 2019-09-27 21:19:18
+ * @Update: 2019-09-27 21:23:56
  * @Update log: 更新日志
  -->
 <template>
@@ -97,13 +97,31 @@ export default {
     deleteItem (id) {
       this.$confirm('确认删除此歌单吗？')
         .then(_ => {
-          api.deletePlaylistFn(id)
-            .then(res => {
-              const data = res.data
-              if (data.code === 200) {
-                this.open2()
-              }
-            })
+          if (this.type) {
+            // 取消收藏此歌单
+            api.addOrDeletePlaylistFn(2, id)
+              .then(res => {
+                const data = res.data
+                if (data.code === 200) {
+                  this.open2()
+                }
+              })
+              .catch(err => {
+                console.log(err)
+              })
+          } else {
+            // 删除创建的歌单
+            api.deletePlaylistFn(id)
+              .then(res => {
+                const data = res.data
+                if (data.code === 200) {
+                  this.open2()
+                }
+              })
+              .catch(err => {
+                console.log(err)
+              })
+          }
         })
         .catch(_ => {
         })
