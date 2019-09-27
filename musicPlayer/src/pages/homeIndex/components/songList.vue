@@ -1,11 +1,11 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-09-27 13:58:51
+ * @Update: 2019-09-27 20:53:58
  * @Update log: 更新日志
  -->
 <template>
-  <div class="container pd13">
+  <div class="container pd13" @click.stop>
     <div class="wrapper-title">
       <div class="left-title">
         <i class="home iconarrow"></i>
@@ -62,8 +62,11 @@
           <p class="list-title">{{ item.name}}</p>
           <p class="list-num">{{item.trackCount}}首</p>
         </div>
-        <div class="heart" @click.stop="showSlider">
-          <i class="home icondiandiandian"></i>
+        <div class="heart">
+          <i
+            class="home icondiandiandian"
+            @click.stop="showSlider(item.name, item.id, item.subscribed)"
+          ></i>
         </div>
       </li>
     </ul>
@@ -93,7 +96,10 @@
           </p>
         </div>
         <div class="heart">
-          <i class="home icondiandiandian"></i>
+          <i
+            class="home icondiandiandian"
+            @click.stop="showSlider(item.name, item.id, item.subscribed)"
+          ></i>
         </div>
       </li>
     </ul>
@@ -148,9 +154,8 @@ export default {
     showAddNewPlayList () {
       this.$refs.addNewPlaylist.open()
     },
-    showSlider () {
-      console.log(111)
-      // this.$emit('showSlider')
+    showSlider (name, id, type) {
+      this.$emit('showSlider', name, id, type)
     },
     /**
      * 获取用户歌单

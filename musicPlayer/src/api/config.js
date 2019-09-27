@@ -31,7 +31,6 @@ export const userRecord = '/api/user/record' // 用户播放记录
 export const userInfo = '/api/user/subcount' // 用户信息
 export const playlist = '/api/user/playlist' // 用户歌单
 export const userDj = '/api/user/dj' // 用户电台
-export const addPlaylist = '/api/playlist/create' // 添加歌单
 // ==================搜索页面相关
 export const search = '/api/search' // 搜索关键词
 export const defaultSearch = '/api/search/default' // 默认搜索关键词
@@ -39,3 +38,5 @@ export const suggestSearch = '/api/search/suggest' // 搜索建议
 export const hotSearchList = '/api/search/hot/detail' // 热搜列表
 // =================歌单事件
 export const addOrDeletePlaylist = '/api/playlist/subscribe' // 收藏/取消收藏歌单
+export const addPlaylist = '/api/playlist/create' // 添加歌单
+export const deletePlaylist = '/api/playlist/delete' // 删除歌单

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-26 13:09:11
- * @Update: 2019-09-27 12:46:45
+ * @Update: 2019-09-27 21:07:47
  * @Update log: 更新日志
  -->
 <template>
@@ -52,6 +52,12 @@ export default {
     hide () {
       this.isShow = false
     },
+    open2 () {
+      this.$message({
+        message: '成功添加歌单,请2分钟后刷新查看',
+        type: 'success'
+      })
+    },
     /**
      * 添加歌单
      * 如果隐私选框选中则checked为true，设置 privacy 值为 10
@@ -67,6 +73,7 @@ export default {
         .then(res => {
           const data = res.data
           if (data.code === 200) {
+            this.open2()
             this.clearInp()
             this.hide()
           }

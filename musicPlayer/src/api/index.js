@@ -33,7 +33,8 @@ import {
   songLyric,
   idxList,
   addOrDeletePlaylist,
-  addPlaylist
+  addPlaylist,
+  deletePlaylist
 } from './config'
 
 export default {
@@ -347,6 +348,17 @@ export default {
       params: {
         name,
         privacy
+      }
+    })
+  },
+  /**
+   * 调用此接口 , 传入歌单名字可新建歌单
+   * @param {*} id 歌单id
+   */
+  deletePlaylistFn (id) {
+    return axios.get(deletePlaylist, {
+      params: {
+        id
       }
     })
   }

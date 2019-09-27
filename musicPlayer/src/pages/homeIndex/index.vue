@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-09-27 13:57:41
+ * @Update: 2019-09-27 20:53:18
  * @Update log: 更新日志
  -->
 <template>
@@ -10,7 +10,13 @@
     <home-list :num="homeListNum"></home-list>
     <div class="split"></div>
     <song-list ref="songList" :index="songListNum" @showSlider="showSlider"></song-list>
-    <slider ref="slider"></slider>
+    <slider
+      ref="slider"
+      :title="title"
+      :id="id"
+      :homeFavoritelistSlider="homeFavoritelistSlider"
+      :homePlaylistSlider="homePlaylistSlider"
+    ></slider>
   </div>
 </template>
 
@@ -38,7 +44,11 @@ export default {
         createNum: 0,
         // 收藏的歌单
         favoritesNum: 0
-      }
+      },
+      title: '',
+      id: 0,
+      homePlaylistSlider: false,
+      homeFavoritelistSlider: false
     }
   },
   components: {
@@ -48,8 +58,17 @@ export default {
     slider
   },
   methods: {
-    showSlider () {
-      console.log('index')
+    showSlider (name, id, type) {
+      console.log(id)
+      this.title = '歌单：' + name
+      this.id = id
+      if (type) {
+        this.homeFavoritelistSlider = true
+        this.homePlaylistSlider = false
+      } else {
+        this.homeFavoritelistSlider = false
+        this.homePlaylistSlider = true
+      }
       this.$refs.slider.showSlider()
     },
     /**
