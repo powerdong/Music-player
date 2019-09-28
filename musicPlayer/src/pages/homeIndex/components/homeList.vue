@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-08-30 13:44:34
+ * @Update: 2019-09-27 21:56:34
  * @Update log: 我的页面的列表项
  -->
 <template>
@@ -9,7 +9,7 @@
     <ul>
       <li v-for="(item, index) in homeListContext" :key="index" class="list-item">
         <i class="home" :class="item.icon"></i>
-        <div class="border-bottom wrapper">
+        <div class="border-bottom wrapper" @click.stop="handleClick(item.text)">
           <span class="list-content">{{item.text}}</span>
           <span class="num" ref="homeNum">({{item.num}})</span>
         </div>
@@ -62,13 +62,24 @@ export default {
       this.$set(item[1], 'num', this.recordNum)
       this.$set(item[3], 'num', this.djNum)
       this.homeListContext = item
+    },
+    handleClick (name) {
+      console.log(name)
+      switch (name) {
+        case '最近播放':
+          console.log(111)
+          this.$router.push('/recently')
+          break
+        default:
+          break
+      }
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-@import url('~styles/global.less');
+@import url("~styles/global.less");
 .list-item {
   .flex-between();
   margin: 0.1rem 0;
@@ -81,7 +92,7 @@ export default {
   .wrapper {
     flex: 1;
     .num {
-      .num()
+      .num();
     }
   }
   .home {

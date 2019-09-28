@@ -1,65 +1,70 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-12 13:02:20
- * @Update: 2019-09-22 17:06:02
+ * @Update: 2019-09-27 21:40:45
  * @Update log: 点击歌单中的某一项，将歌单列表信息传入vuex，用来展示歌曲列表，
  *              点击的index 用列表[index]来设置当前要播放的歌曲
  -->
 <template>
   <div class="audioPage">
+    <div class="mask" v-show="isFull"></div>
     <div class="full pd23" v-show="isFull">
       <audio-nav class="color" @returnPage="returnPage">
         <div>
           <p class="title">{{name}}</p>
           <p class="text">
-            <span class="art"
-                  v-for="(item, index) in artist"
-                  :key="index"
-                  >{{item.name}}</span>
+            <span class="art" v-for="(item, index) in artist" :key="index">{{item.name}}</span>
           </p>
         </div>
       </audio-nav>
-      <playing :imgUrl="imgUrl"
-                v-show="playingShow"
-                @click.native="setPlayingShow(false)"></playing>
-      <lyric-page :lyricArray="ruleLyric"
-                  :nowLyricIndex="nowLyricIndex"
-                  ref="lyric"
-                  :noLyric="noLyric"
-                  :noLyricText="noLyricText"
-                  v-show="!playingShow"
-                  @click.native="setPlayingShow(true)"></lyric-page>
+      <playing :imgUrl="imgUrl" v-show="playingShow" @click.native="setPlayingShow(false)"></playing>
+      <lyric-page
+        :lyricArray="ruleLyric"
+        :nowLyricIndex="nowLyricIndex"
+        ref="lyric"
+        :noLyric="noLyric"
+        :noLyricText="noLyricText"
+        v-show="!playingShow"
+        @click.native="setPlayingShow(true)"
+      ></lyric-page>
       <play-icons></play-icons>
       <bar :allTime="allTime" :time="playTime" :width="progressWidth" @time="changeTime"></bar>
-      <function-button @play="toggle"
-                      @prev="prevSong"
-                      @next="nextSong"
-                      @changeMode="changeMode"
-                      :mode="mode"></function-button>
+      <function-button
+        @play="toggle"
+        @prev="prevSong"
+        @next="nextSong"
+        @changeMode="changeMode"
+        :mode="mode"
+      ></function-button>
     </div>
-    <small-audio  v-show="!isFull"
-                  :imgUrl="imgUrl"
-                  @returnFull="returnFull"
-                  @play="toggle"
-                  @changeMode="changeMode"
-                  @showAudioList="showAudioList"
-                  :name="name"
-                  :artist="artist"
-                  :mode="mode"
-                  :lyric="nowLyric"></small-audio>
-    <audio-list   :isShowAudioList="isShowAudioList"
-                  @showAudioList="showAudioList"
-                  :num="playList.length"
-                  :mode="mode"
-                  @changeMode="changeMode"
+    <small-audio
+      v-show="!isFull"
+      :imgUrl="imgUrl"
+      @returnFull="returnFull"
+      @play="toggle"
+      @changeMode="changeMode"
+      @showAudioList="showAudioList"
+      :name="name"
+      :artist="artist"
+      :mode="mode"
+      :lyric="nowLyric"
+    ></small-audio>
+    <audio-list
+      :isShowAudioList="isShowAudioList"
+      @showAudioList="showAudioList"
+      :num="playList.length"
+      :mode="mode"
+      @changeMode="changeMode"
     ></audio-list>
-    <audio :src="url"
-          ref="audio"
-          autoplay
-          @canplay="ready"
-          @error="error"
-          preload="auto"
-          @ended="end"></audio>
+    <audio
+      :src="url"
+      ref="audio"
+      autoplay
+      @canplay="ready"
+      @error="error"
+      preload="auto"
+      @ended="end"
+    ></audio>
   </div>
 </template>
 
@@ -107,7 +112,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({audioSong: 'AUDIO_ING_SONG',
+    ...mapGetters({ audioSong: 'AUDIO_ING_SONG',
       state: 'PLAY_STATE',
       index: 'AUDIO_ING_INDEX',
       list: 'AUDIO_LIST',
@@ -115,7 +120,7 @@ export default {
       mode: 'MODE',
       playList: 'PLAY_LIST',
       offsetLyric: 'OFFSET_LYRIC',
-      playingShow: 'PLAYING_SHOW'})
+      playingShow: 'PLAYING_SHOW' })
   },
   watch: {
     /**
@@ -249,12 +254,12 @@ export default {
         words
       }
     },
-    ...mapMutations({setState: 'SET_PLAY_SATE',
+    ...mapMutations({ setState: 'SET_PLAY_SATE',
       setIndex: 'SET_AUDIO_INDEX',
       setFull: 'SET_FULL_SCREEN',
       setMode: 'SET_AUDIO_MODE',
       setPlayList: 'SET_PLAY_LIST',
-      setPlayingShow: 'SET_PLAYING_SHOW'}),
+      setPlayingShow: 'SET_PLAYING_SHOW' }),
     /**
      * 播放暂停事件
      */
@@ -487,32 +492,32 @@ export default {
 </script>
 
 <style lang='less' scoped>
-@import url('//at.alicdn.com/t/font_1410851_orgxdud5s8j.css');
-@import url('~styles/global.less');
-.full{
+@import url("//at.alicdn.com/t/font_1410851_orgxdud5s8j.css");
+@import url("~styles/global.less");
+.full {
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: 9999;
+  z-index: 99;
   background-color: #7f8c8d;
-  .color{
+  .color {
     color: #fff;
   }
-  .title{
+  .title {
     color: #fff;
     line-height: 1.5;
   }
-  .text{
+  .text {
     font-size: 0.24rem;
     color: #bdc3c7;
-    .art{
-      &::after{
+    .art {
+      &::after {
         content: "/";
       }
-      &:last-child::after{
-        content:''
+      &:last-child::after {
+        content: "";
       }
     }
   }

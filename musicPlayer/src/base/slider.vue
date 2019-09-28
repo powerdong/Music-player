@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-27 12:49:09
- * @Update: 2019-09-27 21:23:56
+ * @Update: 2019-09-27 21:32:07
  * @Update log: 更新日志
  -->
 <template>
@@ -97,7 +97,7 @@ export default {
     deleteItem (id) {
       this.$confirm('确认删除此歌单吗？')
         .then(_ => {
-          if (this.type) {
+          if (this.homeFavoritelistSlider) {
             // 取消收藏此歌单
             api.addOrDeletePlaylistFn(2, id)
               .then(res => {

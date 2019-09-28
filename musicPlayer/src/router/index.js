@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-09-21 16:31:53
+ * @Update: 2019-09-28 12:39:58
  * @Update log: 更新日志
  */
 import Vue from 'vue'
@@ -34,6 +34,7 @@ const idx = () => import(/* webpackChunkName: "group-idxPage" */ '@/pages/idx')
 const dj = () => import(/* webpackChunkName: "group-djPage" */ '@/pages/dj')
 const personalFm = () => import(/* webpackChunkName: "group-personal-fmPage" */ '@/pages/personalFm')
 const albumPage = () => import(/* webpackChunkName: "group-albumPage" */ 'base/albumPage')
+const recentlyPlayed = () => import(/* webpackChunkName: "group-recentlyPlayed" */ '@/pages/recentlyPlayed')
 
 Vue.use(Router)
 
@@ -65,6 +66,9 @@ export default new Router({
       component: homeIndex
     }]
   }, {
+    path: '/recently',
+    component: recentlyPlayed
+  }, {
     path: '/login',
     name: 'login',
     component: loginIndex
@@ -72,7 +76,7 @@ export default new Router({
     // 登录的一系列路由
     path: '/phone',
     component: accountLogin,
-    children: [ {
+    children: [{
       path: '',
       component: phoneAccount
     }, {

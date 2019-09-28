@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-09-27 20:53:18
+ * @Update: 2019-09-28 13:39:56
  * @Update log: 更新日志
  -->
 <template>
@@ -58,8 +58,10 @@ export default {
     slider
   },
   methods: {
+    /**
+     * 显示下方的滑块
+     */
     showSlider (name, id, type) {
-      console.log(id)
       this.title = '歌单：' + name
       this.id = id
       if (type) {
@@ -82,7 +84,7 @@ export default {
       api
         .userRecordFn(id)
         .then(res => {
-          this.homeListNum.recordNum = res.data.allData.length
+          this.homeListNum.recordNum = res.data.weekData.length
         })
         .catch(err => {
           console.log(err)

@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-09-26 13:02:44
+ * @Update: 2019-09-28 12:53:36
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -193,7 +193,7 @@ export default {
    * @param {*} uid 用户id
    * @param {*} type type=1 时只返回 weekData, type=0 时返回 allData
    */
-  userRecordFn (uid, type = 0) {
+  userRecordFn (uid, type = 1) {
     return axios.get(userRecord, {
       params: {
         uid,
