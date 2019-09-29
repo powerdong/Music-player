@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-09-27 20:53:58
+ * @Update: 2019-09-29 13:14:06
  * @Update log: 更新日志
  -->
 <template>
@@ -36,7 +36,7 @@
       </li>
       <!-- 登录后的歌单项显示 -->
       <li class="song-list" v-for="(item, index) in myLoveList" :key="index">
-        <router-link class="cover" :to="'/albumPage/'+item.id"></router-link>
+        <router-link class="cover" style="width:70%;" :to="'/albumPage/'+item.id"></router-link>
         <div class="list-img">
           <img :src="item.coverImgUrl" />
         </div>
@@ -45,7 +45,7 @@
           <p class="list-num">{{item.trackCount}}首</p>
         </div>
         <div class="heart">
-          <span class="heart-text">
+          <span class="heart-text" @click.stop="heartMode(item.id)">
             <i class="home iconxintiao"></i>心动模式
           </span>
         </div>
@@ -156,6 +156,33 @@ export default {
     },
     showSlider (name, id, type) {
       this.$emit('showSlider', name, id, type)
+    },
+    /**
+     * 返回一个随机数
+     */
+    randomNum (min, max) {
+      return parseInt(Math.random() * (max - min + 1) + min, 10)
+    },
+    /**
+     * 开启心动模式
+     * 需要获取到歌单id
+     * 歌曲id
+     * 请求到歌单的歌曲信息，随机从中选择一项歌曲开始播放
+     */
+    heartMode (listId) {
+      const pid = listId
+      let id
+      api.albumDetailFn(pid)
+        .then(res => {
+          const data = res.data
+          if (data.code === 200) {
+            const arr = data.playlist.trackIds
+            const index = this.randomNum(0, arr.length)
+            const item = arr[index]
+            id = item.id
+            this.$emit('heartMode', id, pid)
+          }
+        })
     },
     /**
      * 获取用户歌单

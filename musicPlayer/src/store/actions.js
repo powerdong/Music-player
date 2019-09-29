@@ -40,7 +40,16 @@ function findIndex (list, song) {
 }
 
 export default {
-  selectPlay ({commit, state}, {list, index}) {
+  /**
+   * 点击歌曲项进行播放
+   */
+  selectPlay ({
+    commit,
+    state
+  }, {
+    list,
+    index
+  }) {
     commit(SET_AUDIO_LIST, list)
     if (state.mode === 2) {
       const randomList = shuffle(list)
@@ -53,7 +62,15 @@ export default {
     commit(SET_PLAY_SATE, true)
     commit(SET_FULL_SCREEN, true)
   },
-  startPlayAll ({commit}, {list}) {
+  /**
+   * 播放全部
+   * 传入播放列表
+   */
+  startPlayAll ({
+    commit
+  }, {
+    list
+  }) {
     commit(SET_AUDIO_LIST, list)
     commit(SET_AUDIO_INDEX, 0)
     commit(SET_PLAY_LIST, list)
@@ -65,7 +82,10 @@ export default {
    * 向播放列表添加歌曲
    * 当播放列表为空时添加后开始播放
    */
-  addToAudioList ({commit, state}, song) {
+  addToAudioList ({
+    commit,
+    state
+  }, song) {
     let audioList = state.audioList
     let playList = state.playList
     let currentIndex = state.audioIngIndex
@@ -104,7 +124,10 @@ export default {
     commit(SET_AUDIO_INDEX, currentIndex)
     commit(SET_PLAY_SATE, true)
   },
-  deleteSong ({commit, state}, song) {
+  deleteSong ({
+    commit,
+    state
+  }, song) {
     let audioList = state.audioList.slice()
     let playList = state.playList.slice()
     let currentIndex = state.audioIngIndex

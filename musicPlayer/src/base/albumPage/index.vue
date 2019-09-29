@@ -1,37 +1,40 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:47:11
- * @Update: 2019-09-23 13:58:05
+ * @Update: 2019-09-29 13:26:21
  * @Update log: 这个是歌单展示的通用组件
  -->
 <template>
   <!-- 通过传递参数给子组件，标题，加载样式，图片链接，歌单名称，作者头像，作者昵称，歌单介绍，评论数，分享数，歌单歌曲数，收藏数，是否收藏 -->
-  <song-list-page title="歌单"
-                  :load="load"
-                  :imgUrl="albumInfo.coverImgUrl"
-                  :albumTitle="albumInfo.name"
-                  :listId="listId"
-                  :creatorImgUrl="albumInfo.creator ? albumInfo.creator.avatarUrl : ''"
-                  :author="albumInfo.creator ? albumInfo.creator.nickname : ''"
-                  :description="albumInfo.description"
-                  :commentCount="albumInfo.commentCount"
-                  :shareCount="albumInfo.shareCount"
-                  :trackCount="albumInfo.trackCount"
-                  :subscribedCount="albumInfo.subscribedCount"
-                  :subscribed="albumInfo.subscribed"
-                  :isSubIn="albumInfo.subscribed"
-                  :playCount="albumInfo.playCount"
-                  @startPlayAll="startPlay">
+  <song-list-page
+    title="歌单"
+    :load="load"
+    :imgUrl="albumInfo.coverImgUrl"
+    :albumTitle="albumInfo.name"
+    :listId="listId"
+    :creatorImgUrl="albumInfo.creator ? albumInfo.creator.avatarUrl : ''"
+    :author="albumInfo.creator ? albumInfo.creator.nickname : ''"
+    :description="albumInfo.description"
+    :commentCount="albumInfo.commentCount"
+    :shareCount="albumInfo.shareCount"
+    :trackCount="albumInfo.trackCount"
+    :subscribedCount="albumInfo.subscribedCount"
+    :subscribed="albumInfo.subscribed"
+    :isSubIn="albumInfo.subscribed"
+    :playCount="albumInfo.playCount"
+    @startPlayAll="startPlay"
+  >
     <!-- 这是一个通用的用来展示歌曲列表的组件，通过for循环组件进行渲染  这里使用 index+1 展示了页面的索引值 -->
-    <song-list v-for="(item, index) in albumInfo.tracks"
-               :key="index"
-               :songName="item.name"
-               :artists="item.ar"
-               :albumName="item.al.name"
-               :num="index + 1"
-               @beginSong="setAudioList(item, index)"
-               :nowSong="item.id === audioSong.id">
-    </song-list>
+    <song-list
+      v-for="(item, index) in albumInfo.tracks"
+      :key="index"
+      :songName="item.name"
+      :artists="item.ar"
+      :albumName="item.al.name"
+      :num="index + 1"
+      @beginSong="setAudioList(item, index)"
+      :nowSong="item.id === audioSong.id"
+    ></song-list>
   </song-list-page>
 </template>
 
@@ -82,7 +85,7 @@ export default {
     this.getIdxInfo(id)
   },
   computed: {
-    ...mapGetters({audioSong: 'AUDIO_ING_SONG'})
+    ...mapGetters({ audioSong: 'AUDIO_ING_SONG' })
   },
   methods: {
     /**
@@ -128,6 +131,7 @@ export default {
       })
     },
     startPlay () {
+      console.log(this.albumInfo.tracks)
       this.startPlayAll({
         list: this.albumInfo.tracks
       })

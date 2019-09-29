@@ -34,7 +34,8 @@ import {
   idxList,
   addOrDeletePlaylist,
   addPlaylist,
-  deletePlaylist
+  deletePlaylist,
+  heartMode
 } from './config'
 
 export default {
@@ -359,6 +360,21 @@ export default {
     return axios.get(deletePlaylist, {
       params: {
         id
+      }
+    })
+  },
+  /**
+   * 登录后调用此接口 , 可获取心动模式/智能播放列表
+   * @param {*} id  歌曲 id
+   * @param {*} pid 歌单id
+   * @param {*} sid 要开始播放的歌曲id
+   */
+  heartModeFn (id, pid, sid) {
+    return axios.get(heartMode, {
+      params: {
+        id,
+        pid,
+        sid
       }
     })
   }

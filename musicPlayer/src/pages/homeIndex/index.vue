@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-09-28 13:39:56
+ * @Update: 2019-09-29 13:30:03
  * @Update log: 更新日志
  -->
 <template>
@@ -9,7 +9,7 @@
     <home-icons></home-icons>
     <home-list :num="homeListNum"></home-list>
     <div class="split"></div>
-    <song-list ref="songList" :index="songListNum" @showSlider="showSlider"></song-list>
+    <song-list ref="songList" :index="songListNum" @showSlider="showSlider" @heartMode="heartMode"></song-list>
     <slider
       ref="slider"
       :title="title"
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import homeIcons from './components/icons'
 import homeList from './components/homeList'
 import songList from './components/songList'
@@ -45,6 +45,7 @@ export default {
         // 收藏的歌单
         favoritesNum: 0
       },
+      heartModeList: [],
       title: '',
       id: 0,
       homePlaylistSlider: false,
@@ -58,6 +59,31 @@ export default {
     slider
   },
   methods: {
+    /**
+     * 开启心动模式
+     */
+    heartMode (id, pid) {
+      api.heartModeFn(id, pid)
+        .then(res => {
+          const data = res.data
+          if (data.code === 200) {
+            let arr = data.data
+            this.ruleModeList(arr, 'songInfo')
+            console.log(this.heartModeList)
+            this.startPlayAll({
+              list: this.heartModeList
+            })
+          }
+        })
+    },
+    /**
+     * 对请求到的心动模式数据进行修改，使得可以播放
+     */
+    ruleModeList (arr, item) {
+      arr.forEach(ele => {
+        this.heartModeList.push(ele[item])
+      })
+    },
     /**
      * 显示下方的滑块
      */
@@ -106,7 +132,8 @@ export default {
           this.songListNum.favoritesNum = data.subPlaylistCount
         }
       })
-    }
+    },
+    ...mapActions(['startPlayAll'])
   },
   computed: {
     ...mapGetters({ loginState: 'LOGIN_STATE' }),
