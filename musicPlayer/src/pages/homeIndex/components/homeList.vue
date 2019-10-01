@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-09-27 21:56:34
+ * @Update: 2019-10-01 15:12:52
  * @Update log: 我的页面的列表项
  -->
 <template>
@@ -67,8 +67,13 @@ export default {
       console.log(name)
       switch (name) {
         case '最近播放':
-          console.log(111)
           this.$router.push('/recently')
+          break
+        case '我的收藏':
+          this.$router.push('/favorite')
+          break
+        case '我的电台':
+          this.$router.push('/dj_sublist')
           break
         default:
           break

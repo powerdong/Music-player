@@ -1,25 +1,18 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 19:54:27
- * @Update: 2019-09-03 17:58:06
+ * @Update: 2019-10-01 14:33:04
  * @Update log: 因为存在 url地址自动将中文转换为编码
  *              在第一次加载时，默认组件不能正确添加active样式
  -->
 <template>
- <div class="wrapper pd23" ref="navs">
-    <!-- 使用 replace 它不会向 history 添加新记录 -->
-   <router-link  class="nav-list"
-                v-for="(item, index) in list"
-                :key="index"
-                :to="item.path"
-                replace
-  >{{ item.text }}</router-link>
- </div>
+  <slider-nav :list="list"></slider-nav>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import Bus from '../../../assets/Bus'
+import sliderNav from 'base/sliderNav'
 export default {
   name: '',
   mounted () {
@@ -29,7 +22,7 @@ export default {
     this.getKey()
   },
   computed: {
-    ...mapGetters({page: 'LINK_PAGE'})
+    ...mapGetters({ page: 'LINK_PAGE' })
   },
   methods: {
     /**
@@ -108,51 +101,12 @@ export default {
       list: [],
       toLink: ['composite', 'song', 'video', 'artist', 'album', 'playList', 'djRadio', 'user']
     }
+  },
+  components: {
+    sliderNav
   }
 }
 </script>
 
 <style lang='less' scoped>
-@import url('~styles/global.less');
-.wrapper{
-  display: flex;
-  margin-top: 0.16rem;
-  overflow-x: auto;
-  flex-wrap: nowrap;
-  border-bottom: 1px solid #ddd;
-  .nav-list{
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 1.2rem;
-    height: 0.7rem;
-    box-sizing: border-box;
-    padding: 0.03rem;
-    margin: 0 0.2rem;
-    color: #000;
-    &::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background-color: @bgcolor;
-      transform-origin: bottom right;
-      transform: scaleX(0);
-      transition: transform 0.5s ease;
-    }
-    &.ac{
-      color: @bgcolor;
-    }
-    &.ac::before{
-      transform-origin: bottom left;
-      transform: scaleX(1);
-    }
-  }
-}
-::-webkit-scrollbar {
-  display: none;
-}
 </style>

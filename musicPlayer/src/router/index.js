@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-09-28 12:39:58
+ * @Update: 2019-10-01 14:57:34
  * @Update log: 更新日志
  */
 import Vue from 'vue'
@@ -35,6 +35,13 @@ const dj = () => import(/* webpackChunkName: "group-djPage" */ '@/pages/dj')
 const personalFm = () => import(/* webpackChunkName: "group-personal-fmPage" */ '@/pages/personalFm')
 const albumPage = () => import(/* webpackChunkName: "group-albumPage" */ 'base/albumPage')
 const recentlyPlayed = () => import(/* webpackChunkName: "group-recentlyPlayed" */ '@/pages/recentlyPlayed')
+const djSublist = () => import(/* webpackChunkName: "group-djSublist" */ '@/pages/djSublist')
+const myFavorite = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/myFavorite')
+const albums = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/myFavorite/components/albums')
+const artists = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/myFavorite/components/artists')
+const column = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/myFavorite/components/column')
+const mlog = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/myFavorite/components/mlog')
+const videos = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/myFavorite/components/videos')
 
 Vue.use(Router)
 
@@ -68,6 +75,29 @@ export default new Router({
   }, {
     path: '/recently',
     component: recentlyPlayed
+  }, {
+    path: '/dj_sublist',
+    component: djSublist
+  }, {
+    path: '/favorite',
+    component: myFavorite,
+    redirect: '/albums',
+    children: [{
+      path: '/albums',
+      component: albums
+    }, {
+      path: '/artists',
+      component: artists
+    }, {
+      path: '/videos',
+      component: videos
+    }, {
+      path: '/column',
+      component: column
+    }, {
+      path: '/mlog',
+      component: mlog
+    }]
   }, {
     path: '/login',
     name: 'login',

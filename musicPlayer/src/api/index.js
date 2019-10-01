@@ -35,7 +35,11 @@ import {
   addOrDeletePlaylist,
   addPlaylist,
   deletePlaylist,
-  heartMode
+  heartMode,
+  favoriteAlbums,
+  favoriteArtists,
+  favoriteVideos,
+  djSublist
 } from './config'
 
 export default {
@@ -377,5 +381,43 @@ export default {
         sid
       }
     })
+  },
+  /**
+   * 调用此接口 , 可获得已收藏专辑列表
+   * @param {*} limit 取出数量 , 默认为 25
+   * @param {*} offset 偏移数量 , 用于分页 , 如 :( 页数 -1)*25, 其中 25 为 limit 的值 , 默认 为 0
+   */
+  favoriteAlbumsFn (limit, offset) {
+    return axios.get(favoriteAlbums, {
+      params: {
+        limit,
+        offset
+      }
+    })
+  },
+  /**
+   * 调用此接口,可获取收藏的歌手列表
+   */
+  favoriteArtistsFn () {
+    return axios.get(favoriteArtists)
+  },
+  /**
+   * 调用此接口,可收藏视频
+   * @param {*} id 视频 id
+   * @param {*} t  1 为收藏,其他为取消收藏
+   */
+  favoriteVideosFn (id, t) {
+    return axios.get(favoriteVideos, {
+      params: {
+        id,
+        t
+      }
+    })
+  },
+  /**
+   * 登陆后调用此接口 , 可获取订阅的电台列表
+   */
+  djSublistFn () {
+    return axios.get(djSublist)
   }
 }
