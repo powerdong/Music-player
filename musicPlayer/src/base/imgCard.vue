@@ -2,7 +2,7 @@
  * @Author: 李浩栋
  * @Begin: 2019-09-08 14:37:08
  * @Update: 2019-09-23 17:37:46
- * @Update log: 更新日志
+ * @Update log: 通用的方形展示组件
  -->
 <template>
   <div class="img-card" @click="searchIdx(idx)" :style="{width, marginTop:top}">
@@ -88,7 +88,6 @@ export default {
      */
     searchIdx (idx) {
       if (!idx) {
-        console.log(111)
         if (this.albumId) {
           this.$router.push(`/albumPage/${this.albumId}`)
           return

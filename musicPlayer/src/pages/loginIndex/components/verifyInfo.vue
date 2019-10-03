@@ -37,17 +37,22 @@ export default {
     /**
      * 发送验证码
      */
-    sendVerify () {
+    _sendVerify () {
       let phone = getPhone()
-      // 截取手机号码进行页面显示
-      this.phone1 = Array.from(phone).slice(0, 3).join('')
-      this.phone2 = Array.from(phone).slice(-4).join('')
+      this.showPhone(phone)
       // 发送验证码
       api.sendVerifyFn(phone)
         .then(res => {
           console.log(res)
         })
         .catch(error => console.log(error))
+    },
+    /**
+     * 截取手机号码进行页面显示
+     */
+    showPhone (phone) {
+      this.phone1 = Array.from(phone).slice(0, 3).join('')
+      this.phone2 = Array.from(phone).slice(-4).join('')
     },
     /**
      * 验证验证码
@@ -61,7 +66,7 @@ export default {
     }
   },
   created () {
-    this.sendVerify()
+    this._sendVerify()
   }
 }
 </script>
@@ -81,8 +86,8 @@ export default {
       vertical-align: -3px;
     }
   }
-  .renew{
-    color: #1A73E8;
+  .renew {
+    color: #1a73e8;
     cursor: pointer;
   }
 }

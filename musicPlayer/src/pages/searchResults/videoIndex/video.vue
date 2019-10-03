@@ -5,20 +5,22 @@
  * @Update log: 更新日志
  -->
 <template>
- <div class="wrapper pd23">
-   <div v-show="!load">
-    <video-list v-for="(item, index) in allVideoList" :key="index"
-            :videoList="true"
-            :ImgUrl="item.coverUrl"
-            :name="item.title"
-            :durationms="item.durationms"
-            :nicknames="item.creator"
-            :playTime="item.playTime"
+  <div class="wrapper pd23">
+    <div v-show="!load">
+      <video-list
+        v-for="(item, index) in allVideoList"
+        :key="index"
+        :videoList="true"
+        :ImgUrl="item.coverUrl"
+        :name="item.title"
+        :durationms="item.durationms"
+        :nicknames="item.creator"
+        :playTime="item.playTime"
       ></video-list>
       <info :info="info" :keywords="keywords"></info>
     </div>
     <page-loading v-show="load"></page-loading>
- </div>
+  </div>
 </template>
 
 <script>
@@ -29,11 +31,6 @@ import pageLoading from 'base/pageLoading'
 import api from 'api'
 export default {
   name: '',
-  components: {
-    info,
-    videoList,
-    pageLoading
-  },
   data () {
     return {
       allVideoList: [],
@@ -48,10 +45,10 @@ export default {
     }
   },
   created () {
-    this.getAllVideoList(this.keywords)
+    this._getAllVideoList(this.keywords)
   },
   methods: {
-    getAllVideoList (key) {
+    _getAllVideoList (key) {
       api.searchFn(key, undefined, undefined, 1014)
         .then((res) => {
           const data = res.data
@@ -74,11 +71,15 @@ export default {
           console.log(error)
         })
     }
+  },
+  components: {
+    info,
+    videoList,
+    pageLoading
   }
 }
 </script>
 
 <style lang='less' scoped>
-@import url('~styles/global.less');
-
+@import url("~styles/global.less");
 </style>

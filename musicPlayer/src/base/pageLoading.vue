@@ -2,18 +2,17 @@
  * @Author: 李浩栋
  * @Begin: 2019-08-31 10:19:23
  * @Update: 2019-09-17 10:29:10
- * @Update log: 更新日志
+ * @Update log: 展示页面加载动画
  -->
 <template>
-<div class="container">
-  <div class="page-loading">
-    <span class="span"></span>
-    <span class="span"></span>
-    <span class="span"></span>
-    <span class="span"></span>
+  <div class="container">
+    <div class="page-loading">
+      <span class="span"></span>
+      <span class="span"></span>
+      <span class="span"></span>
+      <span class="span"></span>
+    </div>努力加载中...
   </div>
-  努力加载中...
-</div>
 </template>
 
 <script>
@@ -23,8 +22,8 @@ export default {
 </script>
 
 <style lang='less' scoped>
-@import url('~styles/global.less');
-.container{
+@import url("~styles/global.less");
+.container {
   display: flex;
   justify-content: center;
   height: 1rem;

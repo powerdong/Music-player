@@ -2,7 +2,7 @@
  * @Author: 李浩栋
  * @Begin: 2019-08-17 17:10:07
  * @Update: 2019-08-17 18:46:40
- * @Update log: 更新日志
+ * @Update log: 页面加载样式
  -->
 <template>
   <div>
@@ -27,13 +27,13 @@ export default {
 
 <style lang="less" scoped>
 @keyframes rotate {
-    from {
-        transform: rotate(0deg)
-    }
+  from {
+    transform: rotate(0deg);
+  }
 
-    to {
-        transform: rotate(360deg)
-    }
+  to {
+    transform: rotate(360deg);
+  }
 }
 .loading {
   position: fixed;
@@ -51,7 +51,7 @@ export default {
     border-radius: 50%;
     margin: 0 auto;
     animation: rotate 1s linear infinite;
-}
+  }
 }
 .v-enter-active,
 .v-leave-active {

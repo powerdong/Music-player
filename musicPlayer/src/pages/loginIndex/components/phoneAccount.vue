@@ -111,7 +111,7 @@ export default {
         this.flag = false
         if (this.contextIsTrue(this.phone)) {
           // 如果输入内容合法 进行下一步操作
-          this.determineRegistered(this.phone)
+          this._determineRegistered(this.phone)
         } else {
           // 如果输入内容不合法
           this.alertEvent()
@@ -126,7 +126,7 @@ export default {
      * 判断手机号有没有被注册
      * @param {number} phone
      */
-    determineRegistered (phone) {
+    _determineRegistered (phone) {
       let self = this
       api.phoneRegisteredFn(phone)
         .then(res => {
@@ -150,7 +150,7 @@ export default {
     /**
      * 当内存中有账号信息时自动填写
      */
-    autoFill  () {
+    autoFill () {
       let phone = localStorage.getItem('account')
       if (phone) {
         this.phone = phone

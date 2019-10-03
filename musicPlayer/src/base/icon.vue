@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-30 20:21:12
- * @Update: 2019-09-06 11:28:58
+ * @Update: 2019-10-03 19:52:54
  * @Update log: 公共图标组件
  -->
 <template>
@@ -22,14 +22,14 @@ export default {
       type: [Object, Array]
     },
     width: {
-      type: String
+      type: Boolean
     },
     bgcolor: {
-      type: String
+      type: Boolean
     },
     linkTo: {
       type: String,
-      default: 'afa'
+      default: ''
     }
   }
 }

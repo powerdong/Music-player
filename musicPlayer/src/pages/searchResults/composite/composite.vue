@@ -62,19 +62,6 @@ import api from 'api'
 
 export default {
   name: '',
-  props: {
-    // 搜索关键字
-    keywords: {
-      type: String
-    }
-  },
-  watch: {
-    keywords: function (val) {
-      if (val) {
-        this.searchShow(val)
-      }
-    }
-  },
   data () {
     return {
       // 这个搜索结果都包含哪些部分
@@ -99,15 +86,28 @@ export default {
       load: true
     }
   },
+  props: {
+    // 搜索关键字
+    keywords: {
+      type: String
+    }
+  },
+  watch: {
+    keywords: function (val) {
+      if (val) {
+        this._searchShow(val)
+      }
+    }
+  },
   created () {
-    this.searchShow(this.keywords)
+    this._searchShow(this.keywords)
   },
   methods: {
     /**
      * 通过获取到的 动态的搜索关键字
      * 来获取数据，返回到页面
      */
-    searchShow (key) {
+    _searchShow (key) {
       api.searchFn(key)
         .then(res => {
           const data = res.data

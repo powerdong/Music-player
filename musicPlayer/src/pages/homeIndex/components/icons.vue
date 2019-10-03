@@ -1,26 +1,27 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-08-30 21:31:26
+ * @Update: 2019-10-03 19:52:18
  * @Update log: 我的页面图标展示
  *              可左右滑动
  -->
 <template>
   <div class="wrapper border-bottom">
-    <div class="container ">
+    <div class="container">
       <ul class="icons-group">
         <!-- <li class="icon-list" v-for="(item, index) in homeIcons" :key="index">
           <div class="icon">
             <el-button type="danger" :class="item.icon" class="home" size="small" circle></el-button>
           </div>
           <span class="icon-text">{{item.text}}</span>
-        </li> -->
-        <li v-for="(item, index) in homeIcons"
-            :icons="item"
-            :key="index"
-            is="icon"
-            :width="width"
-            :bgcolor="bgcolor"
+        </li>-->
+        <li
+          v-for="(item, index) in homeIcons"
+          :icons="item"
+          :key="index"
+          is="icon"
+          :width="true"
+          :bgcolor="true"
         ></li>
       </ul>
     </div>
@@ -40,9 +41,7 @@ export default {
           el: '.swiper-pagination'
         }
       },
-      homeIcons,
-      width: 'width',
-      bgcolor: 'bgcolor'
+      homeIcons
     }
   },
   mounted () {
@@ -61,7 +60,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url('~styles/global.less');
+@import url("~styles/global.less");
 .wrapper {
   box-sizing: border-box;
   padding: 0.2rem 0 0;

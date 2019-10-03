@@ -9,7 +9,7 @@
     <home-icons></home-icons>
     <home-list :num="homeListNum"></home-list>
     <div class="split"></div>
-    <song-list ref="songList" :index="songListNum" @showSlider="showSlider" @heartMode="heartMode"></song-list>
+    <song-list ref="songList" :index="songListNum" @showSlider="showSlider" @heartMode="_heartMode"></song-list>
     <slider
       ref="slider"
       :title="title"
@@ -62,7 +62,7 @@ export default {
     /**
      * 开启心动模式
      */
-    heartMode (id, pid) {
+    _heartMode (id, pid) {
       api.heartModeFn(id, pid)
         .then(res => {
           const data = res.data
@@ -120,7 +120,7 @@ export default {
      * 获取用户信息
      * 更新我的电台、创建的歌单、收藏的歌单数
      */
-    getInfo () {
+    _getInfo () {
       api.userInfoFn().then(res => {
         let data = res.data
         if (data.code === 200) {
@@ -150,7 +150,7 @@ export default {
     if (this.loginState || getFlag) {
       // 用户已经登录
       // 获取用户信息
-      this.getInfo()
+      this._getInfo()
       // 获取用户播放记录
       this.getRecord(this.accountUid)
       // this.$refs.songList.getPlaylist()

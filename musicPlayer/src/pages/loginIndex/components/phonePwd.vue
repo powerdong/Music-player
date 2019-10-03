@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-14 15:42:41
- * @Update: 2019-08-31 09:52:03
+ * @Update: 2019-10-03 20:46:51
  * @Update log: 手机号登录密码页面
  -->
 <template>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import {getPhone} from 'utils/getPhone'
+import { getPhone } from 'utils/getPhone'
 import loginBtn from 'base/button'
 import alert from 'base/alert'
 import loading from 'base/loading'
@@ -66,10 +66,10 @@ export default {
     /**
      * 登陆成功后存取登录状态及信息
      */
-    getLoginState () {
+    _getLoginState () {
       api.loginStatusFn()
         .then(res => {
-        // 存取用户 id
+          // 存取用户 id
           let userId = res.data.profile.userId
           if (res.data.code === 200) {
             // 存取用户信息
@@ -103,6 +103,9 @@ export default {
         this.alertEvent()
       }
       let phone = getPhone()
+      this._isSure(phone, pwd)
+    },
+    _isSure (phone, pwd) {
       api.phoneLoginFn(phone, pwd)
         .then(res => {
           // 密码正确
@@ -127,9 +130,9 @@ export default {
       // loading 样式隐藏
       this.LoadingEnd()
       // 存取登陆状态
-      this.getLoginState()
+      this._getLoginState()
       // 跳转到发现页面
-      this.$router.push({path: '/find'})
+      this.$router.push({ path: '/find' })
     },
     /**
      * 密码错误登录失败

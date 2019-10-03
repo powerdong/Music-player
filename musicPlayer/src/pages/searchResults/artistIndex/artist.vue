@@ -27,11 +27,6 @@ import pageLoading from 'base/pageLoading'
 
 export default {
   name: '',
-  components: {
-    artist,
-    info,
-    pageLoading
-  },
   data () {
     return {
       allArtistList: [],
@@ -46,10 +41,10 @@ export default {
     }
   },
   created () {
-    this.getAllArtistList(this.keywords)
+    this._getAllArtistList(this.keywords)
   },
   methods: {
-    getAllArtistList (key) {
+    _getAllArtistList (key) {
       api.searchFn(key, undefined, undefined, 100)
         .then((res) => {
           const data = res.data
@@ -71,6 +66,11 @@ export default {
           console.log(error)
         })
     }
+  },
+  components: {
+    artist,
+    info,
+    pageLoading
   }
 }
 </script>

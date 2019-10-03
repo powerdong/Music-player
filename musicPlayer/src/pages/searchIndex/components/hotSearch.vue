@@ -8,16 +8,18 @@
   <div class="song-hot-search">
     <p class="hot-search-title">热搜榜</p>
     <ul>
-      <li class="hot-search-list"
-          v-for="(item, index) in hotSearchList"
-          :key="index"
-          @click="returnKey(item.searchWord)">
+      <li
+        class="hot-search-list"
+        v-for="(item, index) in hotSearchList"
+        :key="index"
+        @click="returnKey(item.searchWord)"
+      >
         <span class="num">{{ index + 1 }}</span>
         <div class="song-info">
           <div class="song-info-title">
             <p class="song-name">{{ item.searchWord }}</p>
             <span class="num">{{ item.score }}</span>
-            <img v-if="item.iconUrl" class="search-png" :src="item.iconUrl"/>
+            <img v-if="item.iconUrl" class="search-png" :src="item.iconUrl" />
           </div>
           <!-- 歌曲介绍 -->
           <div class="song-Introduced">{{ item.content }}</div>
@@ -37,11 +39,13 @@ export default {
     }
   },
   created () {
-    this.getList()
+    this._getList()
   },
   methods: {
-    // 获取热搜榜单
-    getList () {
+    /**
+     * 获取热搜榜单
+     */
+    _getList () {
       api.hotSearchListFn()
         .then(res => {
           const data = res.data
@@ -72,14 +76,14 @@ export default {
   .hot-search-list {
     display: flex;
     margin: 0.2rem 0;
-    &:nth-of-type(1)> .num{
-      color:@bgcolor;
+    &:nth-of-type(1) > .num {
+      color: @bgcolor;
     }
-    &:nth-of-type(2)> .num{
-      color:@bgcolor;
+    &:nth-of-type(2) > .num {
+      color: @bgcolor;
     }
-    &:nth-of-type(3)> .num{
-      color:@bgcolor;
+    &:nth-of-type(3) > .num {
+      color: @bgcolor;
     }
     > .num {
       line-height: 1rem;

@@ -2,12 +2,14 @@
  * @Author: 李浩栋
  * @Begin: 2019-08-14 16:21:48
  * @Update: 2019-08-18 13:43:11
- * @Update log: 通用 button 登录页
+ * @Update log: 通用 button 登录页按钮
+ *
+ * 使用时传入 button 内容
  -->
 <template>
   <div class="btn">
     <button id="btn"></button>
-    <label for="btn" ref="btnText">{{ title }}</label>
+    <label class="label" for="btn" ref="btnText">{{ title }}</label>
   </div>
 </template>
 
@@ -27,15 +29,13 @@ export default {
 <style lang="less" scoped>
 @import url("~styles/global.less");
 .btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  .flex-center();
   text-align: center;
   #btn {
     position: absolute;
     clip: rect(0, 0, 0, 0);
   }
-  label {
+  .label {
     box-sizing: border-box;
     margin-top: 30px;
     padding: 8px;

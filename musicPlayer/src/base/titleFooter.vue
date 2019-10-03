@@ -2,22 +2,23 @@
  * @Author: 李浩栋
  * @Begin: 2019-09-02 18:07:09
  * @Update: 2019-09-03 18:00:27
- * @Update log: 展示页面公共的标题和底部组件
+ * @Update log: 搜索展示页面公共的标题和底部组件
  -->
 <template>
- <div class="list-global">
-   <div class="title">
-     <span class="title-content">{{title}}</span>
-     <span class="smallTag" v-if="songList">
-       <i class="result cbofang"></i>
-       播放全部
-     </span>
-   </div>
+  <div class="list-global">
+    <div class="title">
+      <span class="title-content">{{title}}</span>
+      <span class="smallTag" v-if="songList">
+        <i class="result cbofang"></i>
+        播放全部
+      </span>
+    </div>
     <slot></slot>
     <div class="more" v-if="more" @click="toLInk">
-    {{moreText}}<i class="result youjiantou"></i>
+      {{moreText}}
+      <i class="result youjiantou"></i>
     </div>
- </div>
+  </div>
 </template>
 
 <script>
@@ -60,28 +61,28 @@ export default {
 </script>
 
 <style lang='less' scoped>
-@import url('~styles/global.less');
+@import url("~styles/global.less");
 
-.list-global{
+.list-global {
   margin-top: 0.36rem;
-  .title{
+  .title {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .title-content{
+    .title-content {
       font-weight: 700;
       height: 0.3rem;
       line-height: 0.3rem;
     }
   }
-  .more{
+  .more {
     height: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 0.26rem;
     color: #ccc;
-    .youjiantou{
+    .youjiantou {
       color: #aaa;
     }
   }

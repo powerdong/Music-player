@@ -5,30 +5,32 @@
  * @Update log: 更新日志
  -->
 <template>
- <div class="wrapper pd23" @scroll="handleScroll">
-   <div v-show="!load">
-    <div v-if="!info">
-      <div class="title">
-        <span @click="startPlay">
-          <i class="result cbofang"></i>
-          播放全部
-        </span>
+  <div class="wrapper pd23" @scroll="handleScroll">
+    <div v-show="!load">
+      <div v-if="!info">
+        <div class="title">
+          <span @click="startPlay">
+            <i class="result cbofang"></i>
+            播放全部
+          </span>
+        </div>
+        <div class="song-group">
+          <song-list
+            v-for="(item, index) in allSongList"
+            :key="index"
+            :songName="item.name"
+            :artists="item.artists"
+            :albumName="item.album.name"
+            @beginSong="setAudioList(item)"
+            :nowSong="item.id === audioSong.id"
+          ></song-list>
+        </div>
+        <page-loading v-show="scroll"></page-loading>
       </div>
-      <div class="song-group">
-        <song-list v-for="(item, index) in allSongList"
-                :key="index"
-                :songName="item.name"
-                :artists="item.artists"
-                :albumName="item.album.name"
-                @beginSong="setAudioList(item)"
-               :nowSong="item.id === audioSong.id"></song-list>
-      </div>
-      <page-loading v-show="scroll"></page-loading>
+      <info :info="info" :keywords="keywords"></info>
     </div>
-    <info :info="info" :keywords="keywords"></info>
+    <page-loading v-show="load"></page-loading>
   </div>
-  <page-loading v-show="load"></page-loading>
- </div>
 </template>
 
 <script>
@@ -40,11 +42,6 @@ import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: '',
-  components: {
-    pageLoading,
-    info,
-    songList
-  },
   data () {
     return {
       allSongList: [],
@@ -61,14 +58,14 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({audioSong: 'AUDIO_ING_SONG'})
+    ...mapGetters({ audioSong: 'AUDIO_ING_SONG' })
   },
   created () {
-    this.getAllSongList(this.keywords)
+    this._getAllSongList(this.keywords)
   },
   methods: {
     ...mapActions(['addToAudioList', 'startPlayAll']),
-    getAllSongList (key, offset) {
+    _getAllSongList (key, offset) {
       api.searchFn(key, undefined, offset, 1)
         .then((res) => {
           const data = res.data
@@ -98,7 +95,7 @@ export default {
       // if (this.$el.scrollTop + this.$el.offsetHeight > this.$el.scrollHeight) {
       //   this.scroll = true
       //   const offset = this.offset += 1
-      //   this.getAllSongList(this.keywords, offset)
+      //   this._getAllSongList(this.keywords, offset)
       // }
     },
     setAudioList (item) {
@@ -109,54 +106,59 @@ export default {
         list: this.allSongList
       })
     }
+  },
+  components: {
+    pageLoading,
+    info,
+    songList
   }
 }
 </script>
 
 <style lang='less' scoped>
-@import url('~styles/global.less');
+@import url("~styles/global.less");
 
-.wrapper{
-  .title{
-    margin: 0.23rem 0 ;
+.wrapper {
+  .title {
+    margin: 0.23rem 0;
     font-size: 0.3rem;
   }
-  .song-group{
+  .song-group {
     margin-top: 0.16rem;
-    .list-item{
+    .list-item {
       .flex-between();
       align-items: center;
       height: 1rem;
-      .song-info{
+      .song-info {
         display: flex;
         flex-direction: column;
-        .song-name{
+        .song-name {
           width: 6rem;
           height: 0.4rem;
           line-height: 0.4rem;
           .ellipsis();
         }
-        .song-art{
+        .song-art {
           height: 0.4rem;
           line-height: 0.4rem;
           font-size: 0.23rem;
           color: #dacdcd;
-          .artist{
-            &::after{
-            content: "/";
+          .artist {
+            &::after {
+              content: "/";
             }
-            &:last-child::after{
+            &:last-child::after {
               content: "";
             }
           }
-          .album-name{
-            &::before{
-              content: "-"
+          .album-name {
+            &::before {
+              content: "-";
             }
           }
         }
       }
-      .icon{
+      .icon {
         color: #ccc;
       }
     }

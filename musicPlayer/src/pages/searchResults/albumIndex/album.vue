@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:26:25
- * @Update: 2019-09-08 16:34:16
+ * @Update: 2019-10-03 20:55:36
  * @Update log: 更新日志
  -->
 <template>
@@ -28,11 +28,6 @@ import pageLoading from 'base/pageLoading'
 
 export default {
   name: '',
-  components: {
-    album,
-    info,
-    pageLoading
-  },
   data () {
     return {
       allAlbumList: [],
@@ -47,10 +42,10 @@ export default {
     }
   },
   created () {
-    this.getAllAlbumList(this.keywords)
+    this._getAllAlbumList(this.keywords)
   },
   methods: {
-    getAllAlbumList (key) {
+    _getAllAlbumList (key) {
       api.searchFn(key, undefined, undefined, 10)
         .then((res) => {
           const data = res.data
@@ -72,6 +67,11 @@ export default {
           console.log(error)
         })
     }
+  },
+  components: {
+    album,
+    info,
+    pageLoading
   }
 }
 </script>

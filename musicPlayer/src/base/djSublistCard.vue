@@ -2,7 +2,7 @@
  * @Author: 李浩栋
  * @Begin: 2019-10-01 15:14:42
  * @Update: 2019-10-01 15:31:17
- * @Update log: 更新日志
+ * @Update log: 长卡片组件
  -->
 <template>
   <div class="dj_sublist_card pd23">
@@ -10,15 +10,21 @@
       我订阅的电台
       <span class="num">({{count}})</span>
     </h1>
+    <!-- 要遍历的数组 -->
     <div class="card" v-for="(item, index) in djSublist" :key="index">
       <div class="img-info">
+        <!-- 列表项图片信息 -->
         <img :src="item.picUrl" alt />
       </div>
       <div class="info">
+        <!-- 列表项名字 -->
         <p class="name">{{ item.name }}</p>
+        <!-- 作者名字 -->
         <p class="artist">by {{item.dj.nickname}}</p>
+        <!-- 其他信息 -->
         <p class="text">{{item.lastProgramName}}</p>
       </div>
+      <!-- 右边的三个点按钮 -->
       <div class="icon">
         <i class="dj_sublist dj_sublist_diandian"></i>
       </div>

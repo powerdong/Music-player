@@ -8,7 +8,7 @@
   <div class="container border-bottom">
     <icon v-for="(item, index) in findIcons"
           :icons="item"
-          :bgcolor="bgcolor"
+          :bgcolor="true"
           :key="index"
           :linkTo="item.linkTo">
       <span class="today" v-if="item.text === '每日推荐'" >{{today}}</span>
@@ -24,8 +24,7 @@ export default {
   name: 'findIcon',
   data () {
     return {
-      findIcons,
-      bgcolor: 'bgcolor'
+      findIcons
     }
   },
   components: {

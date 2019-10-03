@@ -5,20 +5,22 @@
  * @Update log: 更新日志
  -->
 <template>
- <div class="wrapper pd23">
-   <div v-show="!load">
-     <song-list v-for="(item, index) in allSongListList" :key="index"
-              :songList="true"
-              :ImgUrl="item.coverImgUrl"
-              :name="item.name"
-              :trackCount="item.trackCount"
-              :nickname="item.creator.nickname"
-              :playCount="item.playCount"
-              ></song-list>
-    <info :info="info" :keywords="keywords"></info>
+  <div class="wrapper pd23">
+    <div v-show="!load">
+      <song-list
+        v-for="(item, index) in allSongListList"
+        :key="index"
+        :songList="true"
+        :ImgUrl="item.coverImgUrl"
+        :name="item.name"
+        :trackCount="item.trackCount"
+        :nickname="item.creator.nickname"
+        :playCount="item.playCount"
+      ></song-list>
+      <info :info="info" :keywords="keywords"></info>
     </div>
     <page-loading v-show="load"></page-loading>
- </div>
+  </div>
 </template>
 
 <script>
@@ -29,11 +31,6 @@ import info from 'base/pageErrorInfo'
 
 export default {
   name: '',
-  components: {
-    songList,
-    info,
-    pageLoading
-  },
   data () {
     return {
       allSongListList: [],
@@ -48,10 +45,10 @@ export default {
     }
   },
   created () {
-    this.getAllSongListList(this.keywords)
+    this._getAllSongListList(this.keywords)
   },
   methods: {
-    getAllSongListList (key) {
+    _getAllSongListList (key) {
       api.searchFn(key, undefined, undefined, 1000)
         .then((res) => {
           const data = res.data
@@ -73,11 +70,15 @@ export default {
           console.log(error)
         })
     }
+  },
+  components: {
+    songList,
+    info,
+    pageLoading
   }
 }
 </script>
 
 <style lang='less' scoped>
-@import url('~styles/global.less');
-
+@import url("~styles/global.less");
 </style>

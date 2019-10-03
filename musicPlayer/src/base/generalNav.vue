@@ -7,8 +7,8 @@
 <template>
   <nav class="phone-nav">
     <i class="phone iconzuojiantou" @click="returnPage"></i>
+    <!-- slot 插槽将不同页面的标题信息显示 -->
     <slot></slot>
-    <!-- <span class="text">{{ nav }}</span> -->
   </nav>
 </template>
 

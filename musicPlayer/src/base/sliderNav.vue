@@ -2,7 +2,7 @@
  * @Author: 李浩栋
  * @Begin: 2019-10-01 14:30:50
  * @Update: 2019-10-01 14:38:37
- * @Update log: 更新日志
+ * @Update log: 可左右滑动的标签导航
  -->
 <template>
   <div class="wrapper pd23" ref="navs">

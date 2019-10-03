@@ -42,7 +42,7 @@ export default {
     ...mapGetters({ audioSong: 'AUDIO_ING_SONG' })
   },
   created () {
-    this.getRecord()
+    this._getRecord()
   },
   methods: {
     setRuleArr (data) {
@@ -52,11 +52,10 @@ export default {
       })
       return songArr
     },
-    getRecord () {
+    _getRecord () {
       // 当用户刷新页面时 vuex 状态失效，采用本地存储
       let uid = localStorage.getItem('accountUid')
-      api
-        .userRecordFn(uid)
+      api.userRecordFn(uid)
         .then(res => {
           this.recordList = this.setRuleArr(res.data.weekData)
           this.trackCount = this.recordList.length

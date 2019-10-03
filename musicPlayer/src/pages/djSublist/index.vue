@@ -27,10 +27,10 @@ export default {
     }
   },
   created () {
-    this.get_djSublist()
+    this._getDjSublist()
   },
   methods: {
-    get_djSublist () {
+    _getDjSublist () {
       api.djSublistFn()
         .then(res => {
           const data = res.data

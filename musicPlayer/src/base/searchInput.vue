@@ -1,31 +1,41 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-27 12:42:24
- * @Update: 2019-09-17 10:24:03
- * @Update log: 更新日志
+ * @Update: 2019-10-03 20:10:27
+ * @Update log: 搜索框
  -->
 <template>
   <div class="wrapper pd23">
-    <i class="iconfont zuojiantou"  @click="returnPage"></i>
+    <!-- 左边的返回箭头 -->
+    <i class="iconfont zuojiantou" @click="returnPage"></i>
+    <!-- input 框，设置使得 input 页面加载input自动聚焦 -->
+    <!-- 聚焦后显示搜索建议 -->
     <input
-          class="search"
-          type="text"
-          :placeholder="placeholder"
-          ref="inp"
-          autofocus="autofocus"
-          v-model.trim="keywords"
-          @focus="displayList">
-    <i v-show="keywords"
-      @click="clearInp"
-      class="iconfont guanbi"
-      :style="{right: Right}"
-    ></i>
+      class="search"
+      type="text"
+      :placeholder="placeholder"
+      ref="inp"
+      autofocus="autofocus"
+      v-model.trim="keywords"
+      @focus="displayList"
+    />
+    <!-- 通过观测输入框中是否有内容用来控制右侧的叉按钮是否显示 -->
+    <!-- 为叉按钮定义点击事件，点击清空输入框 -->
+    <i v-show="keywords" @click="clearInp" class="iconfont guanbi" :style="{right: Right}"></i>
     <i class="iconfont geshou" v-if="page"></i>
     <!-- 搜索建议列表信息 -->
     <div class="floatInfo" v-show="showList">
       <ul>
-        <li  @click="searchKey(keywords)" class="blue border-bottom">搜索<span class="text">"{{ keywords }}"</span></li>
-        <li @click="searchKey(item.keyword)" class="border-bottom" v-for="(item, index) in searchList" :key="index">
+        <li @click="searchKey(keywords)" class="blue border-bottom">
+          搜索
+          <span class="text">"{{ keywords }}"</span>
+        </li>
+        <li
+          @click="searchKey(item.keyword)"
+          class="border-bottom"
+          v-for="(item, index) in searchList"
+          :key="index"
+        >
           <i class="iconfont sousuo"></i>
           {{ item.keyword }}
         </li>
@@ -69,7 +79,7 @@ export default {
     // 获取焦点
     this.changFocus()
     // 先将默认搜索建议显示
-    this.setDefault()
+    this._getPlaceholder()
     // 历史记录项点击搜索
     this.historySearch()
     // 页面首次加载，由于 keyword 没有被watch监听，所以使用函数方法进行赋值
@@ -150,7 +160,7 @@ export default {
     /**
      * 设置输入框的默认显示
      */
-    setDefault () {
+    _getPlaceholder () {
       api.defaultSearchFn()
         .then(res => {
           const data = res.data
@@ -177,6 +187,18 @@ export default {
       this.setSearchList(this.keywords)
     },
     /**
+     * 请求搜索建议数据
+     */
+    _getSuggestList (keyword) {
+      api.suggestSearchFn(keyword)
+        .then(res => {
+          const data = res.data
+          if (data.code === 200) {
+            this.searchList = data.result.allMatch
+          }
+        })
+    },
+    /**
      * 根据搜索内容展示搜索建议列表
      * 使用防抖
      */
@@ -186,13 +208,7 @@ export default {
         this.time = null
       }
       this.time = setTimeout(() => {
-        api.suggestSearchFn(keywords)
-          .then(res => {
-            const data = res.data
-            if (data.code === 200) {
-              this.searchList = data.result.allMatch
-            }
-          })
+        this._getSuggestList(keywords)
       }, 50)
     },
     /**
@@ -252,7 +268,7 @@ export default {
       })
     },
     beforeDestroy () {
-    // 销毁监听事件
+      // 销毁监听事件
       this.$Bus.$off('push', 'history')
     }
   }
@@ -261,27 +277,27 @@ export default {
 
 <style lang="less" scoped>
 @import url("~styles/global.less");
-@import url('//at.alicdn.com/t/font_1379594_vh7eh105cbo.css');
-.wrapper{
+@import url("//at.alicdn.com/t/font_1379594_vh7eh105cbo.css");
+.wrapper {
   .flex-between();
   height: 0.7rem;
   line-height: 0.7rem;
-  .guanbi{
+  .guanbi {
     position: absolute;
     right: 0.23rem;
   }
-  .geshou{
+  .geshou {
     margin-left: 0.3rem;
   }
-  .iconfont{
-    font-size: 0.5rem
+  .iconfont {
+    font-size: 0.5rem;
   }
-  .search{
+  .search {
     flex: 1;
     margin-left: 0.3rem;
     border-bottom: 1px solid #aaa;
   }
-  .floatInfo{
+  .floatInfo {
     width: 5.7rem;
     position: absolute;
     top: 0.8rem;
@@ -289,23 +305,23 @@ export default {
     background-color: #fff;
     z-index: 2;
     .pd23();
-    li{
+    li {
       height: 0.8rem;
       line-height: 0.8rem;
       color: #888;
-      .text{
+      .text {
         margin-left: 8px;
       }
-      .iconfont{
+      .iconfont {
         font-size: 0.4rem;
         vertical-align: -0.04rem;
       }
     }
-    .blue{
-      color: #38f
+    .blue {
+      color: #38f;
     }
   }
-  .mask{
+  .mask {
     position: fixed;
     top: 0.7rem;
     left: 0;

@@ -5,17 +5,19 @@
  * @Update log: 更新日志
  -->
 <template>
-<div class="wrapper pd23">
-  <div class="img-col" v-show="!load">
-    <img-card v-for="(item, index) in list"
-              :key="index"
-              :playCount="item.playCount"
-              :imgUrl="item.coverImgUrl"
-              :dec="item.name"
-              :albumId="item.id"></img-card>
+  <div class="wrapper pd23">
+    <div class="img-col" v-show="!load">
+      <img-card
+        v-for="(item, index) in list"
+        :key="index"
+        :playCount="item.playCount"
+        :imgUrl="item.coverImgUrl"
+        :dec="item.name"
+        :albumId="item.id"
+      ></img-card>
+    </div>
+    <page-loading v-show="load"></page-loading>
   </div>
-   <page-loading v-show="load"></page-loading>
-</div>
 </template>
 
 <script>
@@ -44,7 +46,7 @@ export default {
     this.load = true
     console.log(to, from)
     this.cat = to.params.id
-    this.getCatInfo(this.cat)
+    this._getCatInfo(this.cat)
     next()
   },
   created () {
@@ -53,9 +55,9 @@ export default {
   methods: {
     getCat () {
       this.cat = this.$route.params.id
-      this.getCatInfo(this.cat)
+      this._getCatInfo(this.cat)
     },
-    getCatInfo (key) {
+    _getCatInfo (key) {
       api.recSongListFn(undefined, undefined, key)
         .then(res => {
           const data = res.data
@@ -70,9 +72,9 @@ export default {
 </script>
 
 <style lang='less' scoped>
-@import url('~styles/global.less');
+@import url("~styles/global.less");
 
-.img-col{
+.img-col {
   .flex-between();
   flex-wrap: wrap;
 }

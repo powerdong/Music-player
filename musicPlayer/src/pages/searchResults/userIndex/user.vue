@@ -5,19 +5,21 @@
  * @Update log: 更新日志
  -->
 <template>
- <div class="wrapper pd23">
-   <div v-show="!load">
-    <user v-for="(item, index) in allUserList" :key="index"
-              :circle="true"
-              :ImgUrl="item.avatarUrl"
-              :name="item.nickname"
-              :gender="item.gender"
-              :nickname="item.signature"
-                ></user>
-    <info :info="info" :keywords="keywords"></info>
+  <div class="wrapper pd23">
+    <div v-show="!load">
+      <user
+        v-for="(item, index) in allUserList"
+        :key="index"
+        :circle="true"
+        :ImgUrl="item.avatarUrl"
+        :name="item.nickname"
+        :gender="item.gender"
+        :nickname="item.signature"
+      ></user>
+      <info :info="info" :keywords="keywords"></info>
+    </div>
+    <page-loading v-show="load"></page-loading>
   </div>
-  <page-loading v-show="load"></page-loading>
- </div>
 </template>
 
 <script>
@@ -28,11 +30,6 @@ import pageLoading from 'base/pageLoading'
 
 export default {
   name: '',
-  components: {
-    user,
-    info,
-    pageLoading
-  },
   data () {
     return {
       allUserList: [],
@@ -47,10 +44,10 @@ export default {
     }
   },
   created () {
-    this.getAllUserList(this.keywords)
+    this._getAllUserList(this.keywords)
   },
   methods: {
-    getAllUserList (key) {
+    _getAllUserList (key) {
       api.searchFn(key, undefined, undefined, 1002)
         .then((res) => {
           const data = res.data
@@ -68,11 +65,15 @@ export default {
           console.log(error)
         })
     }
+  },
+  components: {
+    user,
+    info,
+    pageLoading
   }
 }
 </script>
 
 <style lang='less' scoped>
-@import url('~styles/global.less');
-
+@import url("~styles/global.less");
 </style>

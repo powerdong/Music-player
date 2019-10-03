@@ -5,18 +5,20 @@
  * @Update log: 更新日志
  -->
 <template>
- <div class="wrapper pd23">
-   <div v-show="!load">
-    <dj-radio v-for="(item, index) in allDjRadioList" :key="index"
-              :dj="true"
-              :ImgUrl="item.picUrl"
-              :name="item.name"
-              :nicknames="item.dj"
-                ></dj-radio>
-    <info :info="info" :keywords="keywords"></info>
+  <div class="wrapper pd23">
+    <div v-show="!load">
+      <dj-radio
+        v-for="(item, index) in allDjRadioList"
+        :key="index"
+        :dj="true"
+        :ImgUrl="item.picUrl"
+        :name="item.name"
+        :nicknames="item.dj"
+      ></dj-radio>
+      <info :info="info" :keywords="keywords"></info>
+    </div>
+    <page-loading v-show="load"></page-loading>
   </div>
-  <page-loading v-show="load"></page-loading>
- </div>
 </template>
 
 <script>
@@ -27,11 +29,6 @@ import pageLoading from 'base/pageLoading'
 
 export default {
   name: '',
-  components: {
-    djRadio,
-    info,
-    pageLoading
-  },
   data () {
     return {
       allDjRadioList: [],
@@ -46,10 +43,10 @@ export default {
     }
   },
   created () {
-    this.getAllDjRadioList(this.keywords)
+    this._getAllDjRadioList(this.keywords)
   },
   methods: {
-    getAllDjRadioList (key) {
+    _getAllDjRadioList (key) {
       api.searchFn(key, undefined, undefined, 1009)
         .then((res) => {
           const data = res.data
@@ -74,11 +71,15 @@ export default {
           console.log(error)
         })
     }
+  },
+  components: {
+    djRadio,
+    info,
+    pageLoading
   }
 }
 </script>
 
 <style lang='less' scoped>
-@import url('~styles/global.less');
-
+@import url("~styles/global.less");
 </style>

@@ -2,7 +2,7 @@
  * @Author: 李浩栋
  * @Begin: 2019-09-09 13:31:02
  * @Update: 2019-09-23 17:37:52
- * @Update log: 更新日志
+ * @Update log: 排行榜中官方榜展示组件
  -->
 <template>
   <div>

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-27 12:49:09
- * @Update: 2019-09-27 21:32:07
+ * @Update: 2019-10-03 20:14:38
  * @Update log: 更新日志
  -->
 <template>
@@ -99,31 +99,37 @@ export default {
         .then(_ => {
           if (this.homeFavoritelistSlider) {
             // 取消收藏此歌单
-            api.addOrDeletePlaylistFn(2, id)
-              .then(res => {
-                const data = res.data
-                if (data.code === 200) {
-                  this.open2()
-                }
-              })
-              .catch(err => {
-                console.log(err)
-              })
+            this._cancelPlayList(id)
           } else {
             // 删除创建的歌单
-            api.deletePlaylistFn(id)
-              .then(res => {
-                const data = res.data
-                if (data.code === 200) {
-                  this.open2()
-                }
-              })
-              .catch(err => {
-                console.log(err)
-              })
+            this._deleteCreatedList(id)
           }
         })
         .catch(_ => {
+        })
+    },
+    _cancelPlayList (id) {
+      api.addOrDeletePlaylistFn(2, id)
+        .then(res => {
+          const data = res.data
+          if (data.code === 200) {
+            this.open2()
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    _deleteCreatedList (id) {
+      api.deletePlaylistFn(id)
+        .then(res => {
+          const data = res.data
+          if (data.code === 200) {
+            this.open2()
+          }
+        })
+        .catch(err => {
+          console.log(err)
         })
     },
     showSlider () {

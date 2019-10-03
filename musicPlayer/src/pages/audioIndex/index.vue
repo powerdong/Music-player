@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-12 13:02:20
- * @Update: 2019-09-27 21:40:45
+ * @Update: 2019-10-03 20:30:51
  * @Update log: 点击歌单中的某一项，将歌单列表信息传入vuex，用来展示歌曲列表，
  *              点击的index 用列表[index]来设置当前要播放的歌曲
  -->
@@ -81,16 +81,6 @@ import audioList from './components/audioList'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
   name: '',
-  components: {
-    audioNav,
-    playing,
-    playIcons,
-    bar,
-    functionButton,
-    smallAudio,
-    lyricPage,
-    audioList
-  },
   data () {
     return {
       url: '',
@@ -132,7 +122,7 @@ export default {
         return
       }
       this.$nextTick(() => {
-        this.checkSong(val.id)
+        this._checkSong(val.id)
         this.allTime = val.duration ? val.duration : val.dt ? val.dt : ''
         this.artist = val.album ? val.album.artists : val.ar ? val.ar : ''
         this.imgUrl = val.album
@@ -149,7 +139,7 @@ export default {
     /**
      * 获取音乐url
      */
-    getSongUrl (id) {
+    _getSongUrl (id) {
       api.songUrlFn(id)
         .then(res => {
           const data = res.data
@@ -163,7 +153,7 @@ export default {
     /**
      * 获取歌曲歌词
      */
-    getSongLyric (id) {
+    _getSongLyric (id) {
       api.songLyricFn(id)
         .then(res => {
           const data = res.data
@@ -197,15 +187,15 @@ export default {
     /**
      * 查看歌曲是否可以播放
      */
-    checkSong (id) {
+    _checkSong (id) {
       api.checkSongFn(id)
         .then(res => {
           const data = res.data
           // 当可以播放的时候请求歌曲url
           if (data.success) {
             this.canSong = true
-            this.getSongUrl(id)
-            this.getSongLyric(id)
+            this._getSongUrl(id)
+            this._getSongLyric(id)
           }
         })
         .catch(err => {
@@ -254,12 +244,6 @@ export default {
         words
       }
     },
-    ...mapMutations({ setState: 'SET_PLAY_SATE',
-      setIndex: 'SET_AUDIO_INDEX',
-      setFull: 'SET_FULL_SCREEN',
-      setMode: 'SET_AUDIO_MODE',
-      setPlayList: 'SET_PLAY_LIST',
-      setPlayingShow: 'SET_PLAYING_SHOW' }),
     /**
      * 播放暂停事件
      */
@@ -378,6 +362,7 @@ export default {
     },
     /**
      * 当歌曲播放完成之后
+     * 根据不同的播放模式进行不同的事件
      */
     end () {
       switch (this.mode) {
@@ -486,7 +471,24 @@ export default {
      */
     returnFull () {
       this.setFull(true)
-    }
+    },
+    ...mapMutations({
+      setState: 'SET_PLAY_SATE',
+      setIndex: 'SET_AUDIO_INDEX',
+      setFull: 'SET_FULL_SCREEN',
+      setMode: 'SET_AUDIO_MODE',
+      setPlayList: 'SET_PLAY_LIST',
+      setPlayingShow: 'SET_PLAYING_SHOW' })
+  },
+  components: {
+    audioNav,
+    playing,
+    playIcons,
+    bar,
+    functionButton,
+    smallAudio,
+    lyricPage,
+    audioList
   }
 }
 </script>

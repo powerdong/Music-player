@@ -2,11 +2,12 @@
  * @Author: 李浩栋
  * @Begin: 2019-08-17 17:10:07
  * @Update: 2019-09-23 17:38:12
- * @Update log: 错误信息提示组件
+ * @Update log: 底部错误信息提示组件
  -->
 <template>
   <div>
     <transition>
+      <!-- 调用时传入要显示的内容 -->
       <div class="alert" v-show="isAlert">{{ alert }}</div>
     </transition>
   </div>

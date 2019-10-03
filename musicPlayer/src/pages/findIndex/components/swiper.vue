@@ -6,7 +6,7 @@
  -->
 <template>
   <div class="banner-container">
-    <swiper :options="swiperOption" >
+    <swiper :options="swiperOption">
       <!-- slides a标签跳转 url携带歌曲id信息 -->
       <swiper-slide v-for="(item, index) in swiperList" :key="index">
         <router-link :to="'/song/?id='+ item.targetId">
@@ -50,7 +50,7 @@ export default {
     swiperSlide
   },
   methods: {
-    getFindInfo () {
+    _getFindInfo () {
       api.bannerSwiperFn()
         .then(this.getFindInfoSuc)
     },
@@ -72,7 +72,7 @@ export default {
     // 可以使用swiper这个对象去使用swiper官网中的那些方法
     // console.log('this is current swiper instance object', this.swiper)
 
-    this.getFindInfo()
+    this._getFindInfo()
   }
 }
 </script>
