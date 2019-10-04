@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:42:17
- * @Update: 2019-09-07 21:20:38
+ * @Update: 2019-10-04 12:26:53
  * @Update log: 更新日志
  */
 // ===================发现页面
@@ -34,7 +34,7 @@ export const playlist = '/api/user/playlist' // 用户歌单
 export const userDj = '/api/user/dj' // 用户电台
 export const favoriteAlbums = '/api/album/sublist' // 获取收藏的专辑
 export const favoriteArtists = '/api/artist/sublist' // 获取收藏的歌手
-export const favoriteVideos = '/api/video/sub' // 获取收藏的视频
+export const favoriteVideos = '/api/mv/sublist' // 获取收藏的视频
 export const djSublist = '/api/dj/sublist' // 获取订阅的电台
 // ==================搜索页面相关
 export const search = '/api/search' // 搜索关键词

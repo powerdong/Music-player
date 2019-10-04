@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-10-01 14:30:50
- * @Update: 2019-10-01 14:38:37
+ * @Update: 2019-10-04 12:41:11
  * @Update log: 可左右滑动的标签导航
  -->
 <template>
@@ -14,7 +14,7 @@
       :key="index"
       :to="item.path"
       replace
-    >{{ item.text }}</router-link>
+    >{{ item.text }}{{item.num | empty}}</router-link>
   </div>
 </template>
 
@@ -28,6 +28,15 @@ export default {
     minWidth: {
       type: String,
       default: '1.2rem'
+    }
+  },
+  filters: {
+    empty: function (val) {
+      if (val) {
+        return ' ' + val
+      } else {
+        return ''
+      }
     }
   }
 }

@@ -4,7 +4,15 @@
 
 <script>
 export default {
-  name: ''
+  name: '',
+  props: {
+    columnInfo: {
+      type: Array
+    },
+    columnNum: {
+      type: Number
+    }
+  }
 }
 </script>
 

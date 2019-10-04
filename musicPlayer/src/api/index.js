@@ -403,16 +403,9 @@ export default {
   },
   /**
    * 调用此接口,可收藏视频
-   * @param {*} id 视频 id
-   * @param {*} t  1 为收藏,其他为取消收藏
    */
-  favoriteVideosFn (id, t) {
-    return axios.get(favoriteVideos, {
-      params: {
-        id,
-        t
-      }
-    })
+  favoriteVideosFn () {
+    return axios.get(favoriteVideos)
   },
   /**
    * 登陆后调用此接口 , 可获取订阅的电台列表
