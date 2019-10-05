@@ -39,7 +39,8 @@ import {
   favoriteAlbums,
   favoriteArtists,
   favoriteVideos,
-  djSublist
+  djSublist,
+  newSongs
 } from './config'
 
 export default {
@@ -412,5 +413,17 @@ export default {
    */
   djSublistFn () {
     return axios.get(djSublist)
+  },
+  /**
+   * 调用此接口 , 可获取新歌速递
+   * @param {*} type 地区类型 id,对应以下:
+   * 全部:0 华语:7 欧美:96 日本:8 韩国:16
+   */
+  newSongsFn (type = 0) {
+    return axios.get(newSongs, {
+      params: {
+        type
+      }
+    })
   }
 }

@@ -1,23 +1,41 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-09-16 17:38:48
+ * @Update: 2019-10-05 13:08:28
  * @Update log: 更新日志
  -->
 <template>
   <div class="wrapper pd23">
     <div class="title">
-      <div class="recommended">新碟</div>
-      <div class="square">更多新碟</div>
-    </div>
-    <div class="img-col">
-      <img-card v-for="(item, index) in dishList"
-                :key="index"
-                :imgUrl="item.picUrl"
-                :dec="item.name"
-                :albumId="item.id"></img-card>
+      <div class="recommended">
+        <span :class="{active:type==='dish'}" @click="type='dish'">新碟</span>
+        <i style="color:#ddd">|</i>
+        <span :class="{active:type==='newSong'}" @click="type='newSong'">新歌</span>
+      </div>
+      <div class="square">
+        <span v-show="type==='dish'">更多新碟</span>
+        <span v-show="type==='newSong'">新歌推荐</span>
       </div>
     </div>
+    <div class="img-col" v-show="type==='dish'">
+      <img-card
+        v-for="(item, index) in dishList"
+        :key="index"
+        :imgUrl="item.picUrl"
+        :dec="item.name"
+        :albumId="item.id"
+      ></img-card>
+    </div>
+    <div class="img-col" v-show="type==='newSong'">
+      <img-card
+        v-for="(item, index) in newSongsList"
+        :key="index"
+        :imgUrl="item.album.blurPicUrl"
+        :dec="item.name"
+        :albumId="item.id"
+      ></img-card>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -31,19 +49,31 @@ export default {
   },
   data () {
     return {
-      dishList: []
+      dishList: [],
+      newSongsList: [],
+      type: 'dish'
     }
   },
   methods: {
-    getDishListInfo () {
+    _getDishListInfo () {
       api.newDishFn()
-        .then(this.setDishListInfo)
+        .then(res => {
+          const data = res.data
+          if (data.code === 200) {
+            const arr = data.albums
+            this.dishList = this.getRandomArrayElements(arr, 3)
+          }
+        })
     },
-    setDishListInfo (res) {
-      if (res.status === 200 && res.statusText === 'OK') {
-        res = res.data.albums
-        this.dishList = this.getRandomArrayElements(res, 3)
-      }
+    _getNewSongsInfo () {
+      api.newSongsFn()
+        .then(res => {
+          const data = res.data
+          if (data.code === 200) {
+            const arr = data.data
+            this.newSongsList = this.getRandomArrayElements(arr, 3)
+          }
+        })
     },
     getRandomArrayElements (arr, count) {
       // eslint-disable-next-line one-var
@@ -67,14 +97,15 @@ export default {
       return shuffled.slice(min)
     }
   },
-  mounted () {
-    this.getDishListInfo()
+  created () {
+    this._getDishListInfo()
+    this._getNewSongsInfo()
   }
 }
 </script>
 
 <style lang="less" scoped>
-@import url('~styles/global.less');
+@import url("~styles/global.less");
 
 .wrapper {
   .title {
@@ -85,15 +116,18 @@ export default {
     flex-direction: row;
     align-items: center;
     .recommended {
-      font-size: 0.3rem;
-      font-weight: 700;
+      font-size: 0.24rem;
+      .active {
+        font-size: 0.3rem;
+        font-weight: 700;
+      }
     }
     .square {
       .smallTag();
       margin-left: auto;
     }
   }
-  .img-col{
+  .img-col {
     .flex-between();
     flex-wrap: wrap;
   }

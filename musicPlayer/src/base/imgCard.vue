@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-08 14:37:08
- * @Update: 2019-09-23 17:37:46
+ * @Update: 2019-10-05 13:41:43
  * @Update log: 通用的方形展示组件
  -->
 <template>
@@ -18,7 +18,9 @@
     </span>
     <span class="time-tag" v-if="updateTime">{{ updateTime }}</span>
     <div class="img-con" :style="{width,paddingBottom:width}">
-      <img v-lazy="imgUrl" class="image" />
+      <div class="shadow"></div>
+      <!-- 增加key属性，是可以动态切换图片，解决了在none到block时不能正确显示 -->
+      <img v-lazy="imgUrl" :key="imgUrl" class="image" />
       <!-- 跳转到专辑详情页 -->
       <!-- <router-link class="cover"  @click="toAlbum(albumId)" :to="'/albumPage/'+albumId"></router-link> -->
     </div>
@@ -195,6 +197,7 @@ export default {
   }
   .tag {
     position: absolute;
+    z-index: 1;
     top: 0.11rem;
     right: 0.11rem;
     font-size: 0.2rem;
@@ -224,10 +227,17 @@ export default {
     }
   }
   .img-con {
+    position: relative;
     height: 0;
     background-color: #aaa;
     border-radius: 0.2rem;
     overflow: hidden;
+    .shadow {
+      position: absolute;
+      height: 1.4rem;
+      width: 100%;
+      box-shadow: 0 15px 21px -9px #777 inset;
+    }
     img {
       width: 100%;
     }
@@ -237,6 +247,7 @@ export default {
     font-size: 0.23rem;
     line-height: 0.3rem;
     letter-spacing: 1px;
+    height: 0.6rem;
     .twoLinesEllipsis();
   }
 }

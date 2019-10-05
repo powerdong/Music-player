@@ -16,6 +16,7 @@ export const albumDetail = '/api/playlist/detail' // 获取歌单详情
 export const recSongs = '/api/recommend/songs' // 每日推荐歌曲
 export const dateRecSongList = '/api/recommend/resource' // 每日推荐歌单，发现页展示的那六个
 export const newDish = '/api/top/album' // 发现页新碟
+export const newSongs = '/api/top/song' // 发现页新歌
 // ======================播放歌曲
 export const songUrl = 'api/song/url' // 获取歌曲url
 export const checkSong = 'api/check/music' // 查看歌曲是否可用
