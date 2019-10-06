@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-09-28 12:53:36
+ * @Update: 2019-10-06 13:27:52
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -130,7 +130,7 @@ export default {
    * @param {*} offset 偏移数量 , 用于分页
    *  如 :( 页数 -1)*50, 其中 50 为 limit 的值 , 默认 为 0
    */
-  newDishFn (limit = 20, offset) {
+  newDishFn (limit = 10, offset) {
     return axios.get(newDish, {
       params: {
         limit,

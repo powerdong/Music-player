@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-08 14:37:08
- * @Update: 2019-10-05 13:41:43
+ * @Update: 2019-10-06 14:20:25
  * @Update log: 通用的方形展示组件
  -->
 <template>
@@ -24,7 +24,10 @@
       <!-- 跳转到专辑详情页 -->
       <!-- <router-link class="cover"  @click="toAlbum(albumId)" :to="'/albumPage/'+albumId"></router-link> -->
     </div>
-    <div class="dec">{{ dec }}</div>
+    <div class="dec" :class="{lines:lines === 'one',twoLines:lines === 'two'}">{{ dec }}</div>
+    <div class="artists">
+      <span v-for="(item, index) in artists" :key="index" class="artist">{{ item.name }}</span>
+    </div>
   </div>
 </template>
 
@@ -47,6 +50,13 @@ export default {
     width: {
       type: String,
       default: '2.1rem'
+    },
+    lines: {
+      type: String,
+      default: 'two'
+    },
+    artists: {
+      type: Array
     },
     top: {
       type: String,
@@ -234,7 +244,7 @@ export default {
     overflow: hidden;
     .shadow {
       position: absolute;
-      height: 1.4rem;
+      height: 2.1rem;
       width: 100%;
       box-shadow: 0 15px 21px -9px #777 inset;
     }
@@ -247,8 +257,27 @@ export default {
     font-size: 0.23rem;
     line-height: 0.3rem;
     letter-spacing: 1px;
-    height: 0.6rem;
-    .twoLinesEllipsis();
+    &.lines {
+      .ellipsis();
+      height: 0.3rem;
+    }
+    &.twoLines {
+      height: 0.6rem;
+      .twoLinesEllipsis();
+    }
+  }
+  .artists {
+    .ellipsis();
+    .artist {
+      font-size: 0.2rem;
+      color: #aaa;
+      &::after {
+        content: "/";
+      }
+      &:last-child::after {
+        content: "";
+      }
+    }
   }
 }
 </style>

@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-10-01 14:57:34
+ * @Update: 2019-10-06 13:02:17
  * @Update log: 更新日志
  */
 import Vue from 'vue'
@@ -42,6 +42,7 @@ const artists = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages
 const column = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/myFavorite/components/column')
 const mlog = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/myFavorite/components/mlog')
 const videos = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/myFavorite/components/videos')
+const moreNewDish = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/findIndex/components/moreNewDish')
 
 Vue.use(Router)
 
@@ -73,6 +74,11 @@ export default new Router({
       component: homeIndex
     }]
   }, {
+    // 更多新碟
+    path: '/moreNewDish',
+    component: moreNewDish
+  }, {
+    // 最近播放
     path: '/recently',
     component: recentlyPlayed
   }, {
