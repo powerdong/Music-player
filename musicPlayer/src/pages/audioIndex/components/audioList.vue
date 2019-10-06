@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-21 14:37:20
- * @Update: 2019-10-06 14:21:05
+ * @Update: 2019-10-06 14:22:36
  * @Update log: 更新日志
  -->
 <template>
@@ -137,7 +137,7 @@ export default {
 .audio-list {
   width: 100%;
   margin-right: 0.23rem;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   z-index: 11;
   background-color: #fff;
