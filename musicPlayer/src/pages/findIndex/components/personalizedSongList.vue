@@ -1,24 +1,26 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-09-08 17:48:59
+ * @Update: 2019-10-07 13:52:49
  * @Update log: 更新日志
  -->
 <template>
   <div class="wrapper pd23">
     <div class="title">
       <div class="recommended">推荐歌单</div>
-      <div class="square">歌单广场</div>
+      <router-link to="recommend" tag="div" class="square">歌单广场</router-link>
     </div>
     <div class="img-col">
       <!-- 因为两个接口的属性名不同，这里使用了或 -->
-      <img-card v-for="(item, index) in songList"
-                :key="index"
-                :imgUrl="item.picUrl || item.coverImgUrl"
-                :dec="item.name"
-                :playCount="item.playCount || item.playcount"
-                :albumId="item.id"></img-card>
-      </div>
+      <img-card
+        v-for="(item, index) in songList"
+        :key="index"
+        :imgUrl="item.picUrl || item.coverImgUrl"
+        :dec="item.name"
+        :playCount="item.playCount || item.playcount"
+        :albumId="item.id"
+      ></img-card>
+    </div>
   </div>
 </template>
 
@@ -38,7 +40,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({loginState: 'LOGIN_STATE'})
+    ...mapGetters({ loginState: 'LOGIN_STATE' })
   },
   methods: {
     /**
@@ -106,7 +108,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url('~styles/global.less');
+@import url("~styles/global.less");
 
 .wrapper {
   .title {
@@ -125,9 +127,9 @@ export default {
       margin-left: auto;
     }
   }
-  .img-col{
-  .flex-between();
-  flex-wrap: wrap;
-}
+  .img-col {
+    .flex-between();
+    flex-wrap: wrap;
+  }
 }
 </style>
