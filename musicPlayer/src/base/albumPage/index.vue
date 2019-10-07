@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:47:11
- * @Update: 2019-10-07 13:27:57
+ * @Update: 2019-10-07 14:24:27
  * @Update log: 这个是歌单展示的通用组件
  -->
 <template>
@@ -9,15 +9,15 @@
   <song-list-page
     title="歌单"
     :load="load"
-    :imgUrl="albumInfo.coverImgUrl || albumInfo.album.picUrl"
-    :albumTitle="albumInfo.name || albumInfo.album.name"
+    :imgUrl="albumInfo.coverImgUrl ? albumInfo.coverImgUrl : albumInfo.album ? albumInfo.album.picUrl : ''"
+    :albumTitle="albumInfo.name ? albumInfo.name : albumInfo.album ? albumInfo.album.name : ''"
     :listId="listId"
     :creatorImgUrl="albumInfo.creator ? albumInfo.creator.avatarUrl : albumInfo.album ? albumInfo.album.artist.picUrl:''"
-    :author="albumInfo.creator ? albumInfo.creator.nickname : albumInfo.album.artist ? albumInfo.album.artist.name : []"
-    :description="albumInfo.description || albumInfo.album.description"
+    :author="albumInfo.creator ? albumInfo.creator.nickname : albumInfo.album ? albumInfo.album.artist.name : ''"
+    :description="albumInfo.description ? albumInfo.description : albumInfo.album ? albumInfo.album.description : ''"
     :commentCount="albumInfo.commentCount ? albumInfo.commentCount : albumInfo.album ? albumInfo.album.info.commentCount : 0"
-    :shareCount="albumInfo.shareCount || albumInfo.album.info.shareCount"
-    :trackCount="albumInfo.trackCount || albumInfo.album.size"
+    :shareCount="albumInfo.shareCount ? albumInfo.shareCount : albumInfo.album ? albumInfo.album.info.shareCount : 0"
+    :trackCount="albumInfo.trackCount ? albumInfo.trackCount : albumInfo.album ? albumInfo.album.size : 0"
     :subscribedCount="albumInfo.subscribedCount"
     :subscribed="albumInfo.subscribed"
     :isSubIn="albumInfo.subscribed"
