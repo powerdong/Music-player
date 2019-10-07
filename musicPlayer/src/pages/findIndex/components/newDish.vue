@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-10-06 12:56:12
+ * @Update: 2019-10-07 13:33:04
  * @Update log: 更新日志
  -->
 <template>
@@ -23,7 +23,7 @@
         :key="index"
         :imgUrl="item.picUrl"
         :dec="item.name"
-        :albumId="item.id"
+        :dishId="item.id"
       ></img-card>
     </div>
     <div class="img-col" v-show="type==='newSong'">

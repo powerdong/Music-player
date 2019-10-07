@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:47:11
- * @Update: 2019-09-29 13:26:21
+ * @Update: 2019-10-07 13:27:57
  * @Update log: 这个是歌单展示的通用组件
  -->
 <template>
@@ -9,15 +9,15 @@
   <song-list-page
     title="歌单"
     :load="load"
-    :imgUrl="albumInfo.coverImgUrl"
-    :albumTitle="albumInfo.name"
+    :imgUrl="albumInfo.coverImgUrl || albumInfo.album.picUrl"
+    :albumTitle="albumInfo.name || albumInfo.album.name"
     :listId="listId"
-    :creatorImgUrl="albumInfo.creator ? albumInfo.creator.avatarUrl : ''"
-    :author="albumInfo.creator ? albumInfo.creator.nickname : ''"
-    :description="albumInfo.description"
-    :commentCount="albumInfo.commentCount"
-    :shareCount="albumInfo.shareCount"
-    :trackCount="albumInfo.trackCount"
+    :creatorImgUrl="albumInfo.creator ? albumInfo.creator.avatarUrl : albumInfo.album ? albumInfo.album.artist.picUrl:''"
+    :author="albumInfo.creator ? albumInfo.creator.nickname : albumInfo.album.artist ? albumInfo.album.artist.name : []"
+    :description="albumInfo.description || albumInfo.album.description"
+    :commentCount="albumInfo.commentCount ? albumInfo.commentCount : albumInfo.album ? albumInfo.album.info.commentCount : 0"
+    :shareCount="albumInfo.shareCount || albumInfo.album.info.shareCount"
+    :trackCount="albumInfo.trackCount || albumInfo.album.size"
     :subscribedCount="albumInfo.subscribedCount"
     :subscribed="albumInfo.subscribed"
     :isSubIn="albumInfo.subscribed"
@@ -26,7 +26,7 @@
   >
     <!-- 这是一个通用的用来展示歌曲列表的组件，通过for循环组件进行渲染  这里使用 index+1 展示了页面的索引值 -->
     <song-list
-      v-for="(item, index) in albumInfo.tracks"
+      v-for="(item, index) in albumInfo.tracks || albumInfo.songs"
       :key="index"
       :songName="item.name"
       :artists="item.ar"
@@ -69,20 +69,29 @@ export default {
   },
   activated () {
     this.load = true
-    let id = this.$route.params.id
-    this.listId = +id
-    if (id > 50) {
-      this.getInfo(id)
+    let albumId = this.$route.params.albumId
+    let idxId = this.$route.params.idxId
+    let dishId = this.$route.params.dishId
+    console.log(this.$route.params)
+    this.listId = +albumId
+    if (albumId) {
+      this._getInfo(albumId)
+      return
+    }
+    if (idxId) {
+      this._getIdxInfo(idxId)
+      return
+    }
+    if (dishId) {
+      this._getDishInfo(dishId)
       return
     }
     // !Number(0) === true
-    if (Number(id) !== 0) {
-      if (!Number(id)) {
+    if (Number(albumId) !== 0) {
+      if (!Number(albumId)) {
         this.$router.go(-1)
-        return
       }
     }
-    this.getIdxInfo(id)
   },
   computed: {
     ...mapGetters({ audioSong: 'AUDIO_ING_SONG' })
@@ -93,7 +102,7 @@ export default {
      *
      * 这里需要增加 catch 方法！！！
      */
-    getInfo (id) {
+    _getInfo (id) {
       // 这里使用的是定义的接口信息，详情查看 api 文件夹
       api.albumDetailFn(id)
         // 请求成功后返回数据
@@ -114,12 +123,25 @@ export default {
     /**
      * 获取排行榜信息
      */
-    getIdxInfo (id) {
+    _getIdxInfo (id) {
       api.idxListFn(id)
         .then(res => {
           const data = res.data
           if (data.code === 200) {
             this.albumInfo = data.playlist
+            this.load = false
+          }
+        })
+    },
+    /**
+     * 获取专辑内容
+     */
+    _getDishInfo (id) {
+      api.getDishInfoFn(id)
+        .then(res => {
+          const data = res.data
+          if (data.code === 200) {
+            this.albumInfo = data
             this.load = false
           }
         })

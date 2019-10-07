@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-10-06 13:02:17
+ * @Update: 2019-10-07 12:47:11
  * @Update log: 更新日志
  */
 import Vue from 'vue'
@@ -201,7 +201,8 @@ export default new Router({
     component: personalFm
   }, {
     // 通用专辑展示页面
-    path: '/albumPage/:id',
+    path: '/albumPage',
+    name: 'albumPage',
     component: albumPage
   }]
 })

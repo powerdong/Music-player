@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-10-06 12:57:04
- * @Update: 2019-10-06 14:11:44
+ * @Update: 2019-10-07 13:48:35
  * @Update log: 更新日志
  -->
 <template>
@@ -18,7 +18,43 @@
           width="2.4rem"
           :imgUrl="item.picUrl"
           :dec="item.name"
-          :albumId="item.id"
+          :dishId="item.id"
+          :artists="item.artists"
+          lines="one"
+        ></img-card>
+      </div>
+    </div>
+    <div class="nowWeekNewDish" v-show="nowMonth">
+      <h1>
+        <span class="month">{{month}}月</span>
+        <span class="year">/{{year}}</span>
+      </h1>
+      <div class="img-card-wrapper">
+        <img-card
+          v-for="(item, index) in nowMonth"
+          :key="index"
+          width="2.4rem"
+          :imgUrl="item.picUrl"
+          :dec="item.name"
+          :dishId="item.id"
+          :artists="item.artists"
+          lines="one"
+        ></img-card>
+      </div>
+    </div>
+    <div class="nowWeekNewDish" v-show="lastMonth.length">
+      <h1>
+        <span class="month">{{prevMonth}}月</span>
+        <span class="year">/{{prevYear}}</span>
+      </h1>
+      <div class="img-card-wrapper">
+        <img-card
+          v-for="(item, index) in lastMonth"
+          :key="index"
+          width="2.4rem"
+          :imgUrl="item.picUrl"
+          :dec="item.name"
+          :dishId="item.id"
           :artists="item.artists"
           lines="one"
         ></img-card>
@@ -36,16 +72,39 @@ export default {
   data () {
     return {
       // 本周新碟
+      // 将新碟数据的前四个设置为本周新碟
       nowWeekNewDish: [],
       // 当前月的合集
       nowMonth: [],
       // 上一个月的合集
-      prevMonth: [],
-      offset: 0
+      lastMonth: [],
+      offset: 0,
+      albums: []
     }
   },
   created () {
     this._getAllInfo(this.offset)
+  },
+  computed: {
+    year: function () {
+      return new Date().getFullYear()
+    },
+    month: function () {
+      return new Date().getMonth() + 1
+    },
+    prevYear: function () {
+      if (this.prevMonth === 12) {
+        return this.year - 1
+      }
+      return this.year
+    },
+    prevMonth: function () {
+      let prev = this.month - 1
+      if (prev === 0) {
+        prev = 12
+      }
+      return prev
+    }
   },
   methods: {
     returnPage () {
@@ -53,13 +112,44 @@ export default {
     },
     _getAllInfo (offset) {
       console.log(offset)
-      api.newDishFn(30, offset)
+      api.newDishFn(80, offset)
         .then(res => {
           const data = res.data
           if (data.code === 200) {
-            this.nowWeekNewDish = data.albums
+            if (this.albums.length === 0) {
+              console.log('===0')
+              this.albums = data.albums
+              this.nowWeekNewDish = this.albums.splice(0, 4)
+            } else {
+              this.albums.push(...data.albums)
+            }
+            // 存下来所有的数据
+            // 对数据中的时间进行筛选出当月数据和上一个月的数据
+            this.filterTime(this.albums)
           }
         })
+    },
+    /**
+     * 对数据进行时间上的筛选
+     */
+    filterTime (arr) {
+      const months = {}
+      const nowMonth = new Date().getMonth() + 1
+      const lastMonth = new Date().getMonth()
+      // 将当前月和上一个月初始化为空数组
+      months[nowMonth] = []
+      months[lastMonth] = []
+      // 遍历数据，筛选出当前月和上一个月的数据信息
+      arr.forEach(element => {
+        if (new Date(element.publishTime).getMonth() + 1 === nowMonth) {
+          months[nowMonth].push(element)
+        }
+        if (new Date(element.publishTime).getMonth() + 1 === lastMonth) {
+          months[lastMonth].push(element)
+        }
+      })
+      this.nowMonth = months[nowMonth]
+      this.lastMonth = months[lastMonth]
     }
   },
   components: {
@@ -77,6 +167,13 @@ export default {
     vertical-align: 5px;
     width: 8rem;
     .ellipsis();
+  }
+  .month {
+    font-size: 0.26rem;
+    font-weight: 700;
+  }
+  .year {
+    font-size: 0.23rem;
   }
   .nowWeekNewDish {
     margin-top: 0.2rem;

@@ -85,7 +85,7 @@ export default {
       this.$router.go(-1)
     },
     showIdxPage (id) {
-      this.$router.push(`/albumPage/${id}`)
+      this.$router.push({ name: 'albumPage', params: { idxId: id } })
     }
   }
 }

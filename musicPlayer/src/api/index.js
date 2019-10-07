@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-10-06 13:27:52
+ * @Update: 2019-10-07 13:01:42
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -40,7 +40,8 @@ import {
   favoriteArtists,
   favoriteVideos,
   djSublist,
-  newSongs
+  newSongs,
+  getDishInfo
 } from './config'
 
 export default {
@@ -135,6 +136,17 @@ export default {
       params: {
         limit,
         offset
+      }
+    })
+  },
+  /**
+   * 调用此接口 , 传入专辑 id, 可获得专辑内容
+   * @param {*} id 专辑id
+   */
+  getDishInfoFn (id) {
+    return axios.get(getDishInfo, {
+      params: {
+        id
       }
     })
   },
