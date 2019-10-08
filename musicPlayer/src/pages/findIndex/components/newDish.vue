@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-10-07 13:33:04
+ * @Update: 2019-10-08 11:16:52
  * @Update log: 更新日志
  -->
 <template>
@@ -13,8 +13,8 @@
         <span :class="{active:type==='newSong'}" @click="type='newSong'">新歌</span>
       </div>
       <div class="square">
-        <span v-show="type==='dish'" @click="moreNewDish">更多新碟</span>
-        <span v-show="type==='newSong'" @click="moreNewSongs">新歌推荐</span>
+        <span v-show="type==='dish'" @click.stop="moreNewDish">更多新碟</span>
+        <span v-show="type==='newSong'" @click.stop="moreNewSongs">新歌推荐</span>
       </div>
     </div>
     <div class="img-col" v-show="type==='dish'">
@@ -84,7 +84,9 @@ export default {
     /**
      * 新歌推荐
      */
-    moreNewSongs () { },
+    moreNewSongs () {
+      this.$router.push('/moreNewSongs')
+    },
     getRandomArrayElements (arr, count) {
       // eslint-disable-next-line one-var
       let shuffled = arr.slice(0),

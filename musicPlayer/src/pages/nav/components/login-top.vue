@@ -1,12 +1,11 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-08-30 13:17:54
+ * @Update: 2019-10-08 13:07:37
  * @Update log: 更新日志
  -->
 <template>
-  <div class="wrapper"
-      :class="{loginBg:!loginState}">
+  <div class="wrapper" :class="{loginBg:!loginState}">
     <!-- 没有登录状态样式 -->
     <div class="no-login" v-if="!loginState">
       <div class="content">
@@ -19,12 +18,14 @@
     <!-- 已经登陆状态样式 -->
     <div class="login-ed" v-if="loginState">
       <div class="img-info">
-        <el-avatar class="account-bg" :src="avatarUrl"></el-avatar>
+        <el-avatar class="account-bg" :src="avatarUrl + '?param=200y200'"></el-avatar>
         <!-- <img class="account-bg" :src="avatarUrl" alt=""> -->
         <p class="account-nickname">{{nickname}}</p>
       </div>
       <div class="daily_sign-in">
-          <el-button  type="danger" size="mini"  round><i class="login icontubiaozhizuo-"></i>签到</el-button>
+        <el-button type="danger" size="mini" round>
+          <i class="login icontubiaozhizuo-"></i>签到
+        </el-button>
       </div>
     </div>
   </div>
@@ -59,8 +60,8 @@ export default {
 <style lang="less" scoped>
 @import url("~styles/global.less");
 @color: rgba(0, 0, 0, 0.4);
-@fontSize : 0.2rem;
-.loginBg{
+@font-size : 0.2rem;
+.loginBg {
   // 如果没有登陆，背景是灰色
   background-color: rgba(204, 204, 204, 0.3);
 }
@@ -72,23 +73,23 @@ export default {
   padding: 0.6rem 0.23rem 0.9rem;
   width: 100%;
   height: 3rem;
-  .login-ed{
+  .login-ed {
     display: flex;
     width: 100%;
     height: 100%;
     justify-content: space-between;
-    .img-info{
+    .img-info {
       // 用户信息 包括头像和昵称
       text-align: center;
       width: 1.3rem;
       height: 1.3rem;
-      .account-bg{
+      .account-bg {
         width: 100%;
         height: 100%;
         border-radius: 50%;
       }
     }
-    .daily_sign-in{
+    .daily_sign-in {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -113,8 +114,8 @@ export default {
       text-align: center;
       p {
         // 两句话
-        font-size: @fontSize;
-        line-height: @fontSize*1.5;
+        font-size: @font-size;
+        line-height: @font-size*1.5;
         color: @color;
       }
     }
@@ -125,9 +126,9 @@ export default {
       padding: 0.1rem 0.5rem;
       border: 1px solid @color;
       border-radius: 0.5rem;
-      font-size: @fontSize;
+      font-size: @font-size;
       color: @color;
     }
-      }
+  }
 }
 </style>

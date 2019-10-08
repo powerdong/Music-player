@@ -1,14 +1,14 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-09 13:31:02
- * @Update: 2019-09-23 17:37:52
+ * @Update: 2019-10-08 12:45:15
  * @Update log: 排行榜中官方榜展示组件
  -->
 <template>
   <div>
     <div class="list" @click="searchIdx(idx)">
       <div class="img-info">
-        <img :src="imgUrl" alt />
+        <img :src="imgUrl + '?param=200y200'" alt />
         <span class="time">{{ updateTime }}</span>
       </div>
       <div class="list-con">

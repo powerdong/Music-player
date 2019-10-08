@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-02 13:36:42
- * @Update: 2019-09-23 17:37:31
+ * @Update: 2019-10-08 12:54:00
  * @Update log: 这是一个公共的组件，用来展示搜索展示页面除单曲以外的项目
  * 通过props接收对应的结果，渲染。
  * 组件调用是通过 for 循环组件，来循环组件渲染的
@@ -25,7 +25,7 @@
         {{playTime | numRule}}
       </span>
       <!-- 图片链接 -->
-      <img :src="ImgUrl" alt />
+      <img :src="ImgUrl + `?param=${videoList ? 200 : 100}y${videoList ? 120 : 100}`" alt />
     </div>
     <!-- 右侧的相关文字信息 -->
     <div class="info-content">

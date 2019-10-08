@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-09-29 13:14:06
+ * @Update: 2019-10-08 13:05:20
  * @Update log: 更新日志
  -->
 <template>
@@ -38,7 +38,7 @@
       <li class="song-list" v-for="(item, index) in myLoveList" :key="index">
         <router-link class="cover" style="width:70%;" :to="'/albumPage/'+item.id"></router-link>
         <div class="list-img">
-          <img :src="item.coverImgUrl" />
+          <img :src="item.coverImgUrl + '?param=100y100'" />
         </div>
         <div class="list-info">
           <p class="list-title">{{ item.name | setName}}</p>
@@ -55,7 +55,7 @@
       <li class="song-list" v-for="(item, index) in createList" :key="index + 1">
         <router-link class="cover" :to="'/albumPage/'+item.id"></router-link>
         <div class="list-img">
-          <img :src="item.coverImgUrl" />
+          <img :src="item.coverImgUrl + '?param=100y100'" />
           <i class="home iconsuo" v-show="item.privacy"></i>
         </div>
         <div class="list-info">
@@ -86,7 +86,7 @@
       <li class="song-list" v-for="(item, index) in favoritesList" :key="index">
         <router-link class="cover" :to="'/albumPage/'+item.id"></router-link>
         <div class="list-img">
-          <img :src="item.coverImgUrl" />
+          <img :src="item.coverImgUrl + '?param=100y100'" />
         </div>
         <div class="list-info">
           <p class="list-title">{{ item.name}}</p>

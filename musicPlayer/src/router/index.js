@@ -43,6 +43,11 @@ const column = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/
 const mlog = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/myFavorite/components/mlog')
 const videos = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/myFavorite/components/videos')
 const moreNewDish = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/findIndex/components/moreNewDish')
+const moreNewSongs = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/findIndex/components/moreNewSongs')
+const chinese = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/findIndex/components/chinese')
+const europe = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/findIndex/components/europe')
+const korea = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/findIndex/components/korea')
+const japan = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/findIndex/components/japan')
 
 Vue.use(Router)
 
@@ -77,6 +82,24 @@ export default new Router({
     // 更多新碟
     path: '/moreNewDish',
     component: moreNewDish
+  }, {
+    // 新歌推荐
+    path: '/moreNewSongs',
+    component: moreNewSongs,
+    redirect: '/chinese',
+    children: [{
+      path: '/chinese',
+      component: chinese
+    }, {
+      path: '/europe',
+      component: europe
+    }, {
+      path: '/korea',
+      component: korea
+    }, {
+      path: '/japan',
+      component: japan
+    }]
   }, {
     // 最近播放
     path: '/recently',
