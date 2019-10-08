@@ -128,7 +128,6 @@ npm run dev
     +-- mutation // 根级别的 mutation
     +-- state // 根级别的 state
 ```
-
 ## 作者
 
 👤 **Lambda**
