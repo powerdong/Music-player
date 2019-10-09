@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:47:11
- * @Update: 2019-10-07 14:24:27
+ * @Update: 2019-10-09 11:47:44
  * @Update log: 这个是歌单展示的通用组件
  -->
 <template>
@@ -153,7 +153,6 @@ export default {
       })
     },
     startPlay () {
-      console.log(this.albumInfo.tracks)
       this.startPlayAll({
         list: this.albumInfo.tracks
       })

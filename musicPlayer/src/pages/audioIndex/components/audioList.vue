@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-21 14:37:20
- * @Update: 2019-10-06 14:22:36
+ * @Update: 2019-10-09 11:58:35
  * @Update log: 更新日志
  -->
 <template>
@@ -13,7 +13,7 @@
           <div class="left">
             <span @click="changeMode">
               <i class="audio" :class="[modeClass]"></i>
-              <span v-once>{{ modeText }}</span>
+              <span>{{ modeText }}</span>
               <span class="list-num">({{ num }})</span>
             </span>
           </div>

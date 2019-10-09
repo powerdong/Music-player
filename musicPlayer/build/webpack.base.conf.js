@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-09-21 15:28:08
+ * @Update: 2019-10-09 11:31:42
  * @Update log: 更新日志
  */
 'use strict'
@@ -34,8 +34,7 @@ module.exports = {
     path: config.build.assetsRoot,
     filename: '[name].js',
     publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+      ? config.build.assetsPublicPath : config.dev.assetsPublicPath
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-10-05 13:17:03
+ * @Update: 2019-10-09 12:16:40
  * @Update log: 更新日志
  -->
 <template>
@@ -11,7 +11,7 @@
       :icons="item"
       :bgcolor="true"
       :key="index"
-      :linkTo="item.linkTo"
+      @goPage="goPage(item.linkTo)"
     >
       <span class="today" v-if="item.text === '每日推荐'">{{today}}</span>
     </icon>
@@ -19,8 +19,10 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import { findIcons } from 'getInfos/getData'
 import icon from 'base/icon'
+import api from 'api'
 
 export default {
   name: 'findIcon',
@@ -41,9 +43,39 @@ export default {
     this.iniData()
   },
   methods: {
-    async iniData () {
+    iniData () {
       this.findIcons = findIcons()
-    }
+    },
+    goPage (link) {
+      if (link === 'personalFm') {
+        // 当如果是点击私人Fm时需要做的操作
+        // 获取私人FM信息
+        this._getPersonalFm()
+      } else {
+        // 正常的是点击图标跳转
+        this.$router.push(link)
+      }
+    },
+    /**
+     * 播放全部
+     */
+    startPlay (list) {
+      this.startPlayAll({
+        list
+      })
+    },
+    _getPersonalFm () {
+      api.personalFmFn()
+        .then(res => {
+          const data = res.data
+          if (data.code === 200) {
+            const list = data.data
+            // 将信息传到播放页面进行播放
+            this.startPlay(list)
+          }
+        })
+    },
+    ...mapActions(['startPlayAll'])
   }
 }
 </script>

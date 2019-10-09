@@ -5,13 +5,13 @@
  * @Update log: 公共图标组件
  -->
 <template>
-  <router-link class="icon-list" :class="{width}" :to="linkTo">
+  <div class="icon-list" :class="{width}" @click="linkTo">
     <div class="icon" :class="{bgcolor}">
       <i :class="icons.icon"></i>
       <slot></slot>
     </div>
     <span class="icon-text">{{icons.text}}</span>
-  </router-link>
+  </div>
 </template>
 
 <script>
@@ -26,10 +26,11 @@ export default {
     },
     bgcolor: {
       type: Boolean
-    },
-    linkTo: {
-      type: String,
-      default: ''
+    }
+  },
+  methods: {
+    linkTo () {
+      this.$emit('goPage')
     }
   }
 }

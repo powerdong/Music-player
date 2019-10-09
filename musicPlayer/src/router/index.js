@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-10-07 12:47:11
+ * @Update: 2019-10-09 12:00:49
  * @Update log: 更新日志
  */
 import Vue from 'vue'
@@ -32,7 +32,6 @@ const fine = () => import(/* webpackChunkName: "group-recommendedPage" */ '@/pag
 const general = () => import(/* webpackChunkName: "group-recommendedPage" */ '@/pages/recommend/general')
 const idx = () => import(/* webpackChunkName: "group-idxPage" */ '@/pages/idx')
 const dj = () => import(/* webpackChunkName: "group-djPage" */ '@/pages/dj')
-const personalFm = () => import(/* webpackChunkName: "group-personal-fmPage" */ '@/pages/personalFm')
 const albumPage = () => import(/* webpackChunkName: "group-albumPage" */ 'base/albumPage')
 const recentlyPlayed = () => import(/* webpackChunkName: "group-recentlyPlayed" */ '@/pages/recentlyPlayed')
 const djSublist = () => import(/* webpackChunkName: "group-djSublist" */ '@/pages/djSublist')
@@ -218,10 +217,6 @@ export default new Router({
     // 电台页面
     path: '/dj',
     component: dj
-  }, {
-    // 私人 FM 页面
-    path: '/personalFm',
-    component: personalFm
   }, {
     // 通用专辑展示页面
     path: '/albumPage',

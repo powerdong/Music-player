@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-10-07 13:01:42
+ * @Update: 2019-10-09 11:29:49
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -41,7 +41,8 @@ import {
   favoriteVideos,
   djSublist,
   newSongs,
-  getDishInfo
+  getDishInfo,
+  personalFm
 } from './config'
 
 export default {
@@ -437,5 +438,12 @@ export default {
         type
       }
     })
+  },
+  /**
+   * 获取私人 FM
+   * 需要登录
+   */
+  personalFmFn () {
+    return axios.get(personalFm)
   }
 }

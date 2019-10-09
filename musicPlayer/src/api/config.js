@@ -18,6 +18,7 @@ export const dateRecSongList = '/api/recommend/resource' // 每日推荐歌单�
 export const newDish = '/api/top/album' // 发现页新碟
 export const getDishInfo = '/api/album' // 获取专辑内容
 export const newSongs = '/api/top/song' // 发现页新歌
+export const personalFm = '/api/personal_fm' // 发现页私人FM
 // ======================播放歌曲
 export const songUrl = 'api/song/url' // 获取歌曲url
 export const checkSong = 'api/check/music' // 查看歌曲是否可用
