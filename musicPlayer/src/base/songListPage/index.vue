@@ -1,58 +1,57 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:33:42
- * @Update: 2019-09-23 14:02:04
+ * @Update: 2019-10-10 08:32:02
  * @Update log: 这是一个用来展示歌曲列表的基础组件
  -->
 <template>
   <!-- 页面需要监听滚动事件，滚动到某个位置时标题栏要固定 -->
   <!-- 这里需要增加动态的改变样式信息，不是只有显示隐藏！！！！！！！！！ -->
-  <div class="wrapper"
-       @scroll="scrollList">
+  <div class="wrapper" @scroll="scrollList">
     <!-- 由于歌单页和今日推荐页面的顶部展示区域高度不同，所以通过动态的 height 进行设置 -->
-    <div class="container-top"
-         :style="{height}">
+    <div class="container-top" :style="{height}">
       <!-- 通过传值 isAlbum 的布尔值进行判断，因为在今日推荐页面的页面标题是通过滚动显示隐藏的 -->
-      <global-nav class="fixed pd23"
-                  v-if="!isAlbum"
-                  @returnPage="returnPage">
+      <global-nav class="fixed pd23" v-if="!isAlbum" @returnPage="returnPage">
         <!-- 通过改变 listFixed 来控制 title 的显示与否-->
-        <span class="text"
-              v-show="listFixed">{{iTitle}}</span>
+        <span class="text" v-show="listFixed">{{iTitle}}</span>
       </global-nav>
       <!-- 这里是在歌单页面时，页面标题是一直显示的 -->
-      <global-nav class="fixed pd23"
-                  v-if="isAlbum"
-                  @returnPage="returnPage">
+      <global-nav class="fixed pd23" v-if="isAlbum" @returnPage="returnPage">
         <span class="text">{{iTitle}}</span>
       </global-nav>
       <!-- 这里包裹的是每日推荐页面额外显示的日期信息 -->
-      <div class="pd23"
-           v-if="!isAlbum">
+      <div class="pd23" v-if="!isAlbum">
         <div class="date">
-          <span class="day">{{day}}</span><span class="month">{{month}}</span>
+          <span class="day">{{day}}</span>
+          <span class="month">{{month}}</span>
         </div>
         <div class="info">查收属于您的今日推荐</div>
       </div>
       <!-- 这里包裹的是歌单页面的图片，作者，介绍等信息 -->
-      <div class="album-info pd23"
-           v-if="isAlbum">
+      <div class="album-info pd23" v-if="isAlbum">
         <div class="info-top">
           <div class="img-info">
-            <img v-lazy="imgUrl"
-                 alt="">
-            <span class="play-count"><i class="date-song bofang"></i> {{playCount | setPlay}}</span>
+            <img v-lazy="imgUrl + '?param=200y200'" alt />
+            <span class="play-count">
+              <i class="date-song bofang"></i>
+              {{playCount | setPlay}}
+            </span>
           </div>
           <div class="info-con">
             <p class="album-title">{{iAlbumTitle}}</p>
             <div class="creator">
               <div class="img-info">
-                <img v-lazy="creatorImgUrl"
-                     alt="">
+                <img v-lazy="creatorImgUrl + '?param=200y200'" alt />
               </div>
-              <span>{{author}}<i class="date-song iconfontjiantou5"></i></span>
+              <span>
+                {{author}}
+                <i class="date-song iconfontjiantou5"></i>
+              </span>
             </div>
-            <div class="desc-wrapper"><span class="desc">{{description}}</span><i class="date-song iconfontjiantou5"></i></div>
+            <div class="desc-wrapper">
+              <span class="desc">{{description}}</span>
+              <i class="date-song iconfontjiantou5"></i>
+            </div>
           </div>
         </div>
         <div class="icons">
@@ -76,16 +75,14 @@
       </div>
     </div>
     <!-- 这里是 播放全部 那一行的信息，因为要操作是否固定，所以需要单独设置 -->
-    <div class="title pd23"
-         :class="{listFixed}">
+    <div class="title pd23" :class="{listFixed}">
       <span>
         <span @click="beginAudio">
           <i class="date-song cbofang"></i>
           播放全部
         </span>
         <!-- 当歌单组件时，需要显示当前歌单总共有多少首歌曲的信息 -->
-        <span class="count"
-              v-if="isAlbum">(共{{trackCount}}首)</span>
+        <span class="count" v-if="isAlbum">(共{{trackCount}}首)</span>
       </span>
       <!-- 当在每日推荐界面时，这里显示的是一个多选按钮 -->
       <!-- 这里的多选需要设置一个多选页面的组件！！！！！！！！！ -->
@@ -95,22 +92,19 @@
       </span>
       <!-- 当时歌单组件时有收藏歌单的按钮选项 -->
       <!-- 这里需要添加判断用户是否已经收藏歌单！！！！来显示不同的样式 -->
-      <div class="collection"
-            :class="{ 'bg': !isSubInItem }"
-              ref="collection"
-              v-if="isAlbum">
-        <span v-show="!isSubInItem" @click="addPlaylist(listId)">
-          + 收藏({{subscribedCountItem | setCol}})
-        </span>
-        <span v-show="isSubInItem"  @click="deletePlaylist(listId)">
-          <i class="date-song wenjianjia"></i> {{subscribedCountItem | setCol}}
+      <div class="collection" :class="{ 'bg': !isSubInItem }" ref="collection" v-if="isAlbum">
+        <span
+          v-show="!isSubInItem"
+          @click="addPlaylist(listId)"
+        >+ 收藏({{subscribedCountItem | setCol}})</span>
+        <span v-show="isSubInItem" @click="deletePlaylist(listId)">
+          <i class="date-song wenjianjia"></i>
+          {{subscribedCountItem | setCol}}
         </span>
       </div>
     </div>
     <!-- 这里将列表进行包裹统一的通过 load 属性进行判断是否展示 -->
-    <div class="list-info"
-         v-show="!load"
-         :style="{ marginTop: top}">
+    <div class="list-info" v-show="!load" :style="{ marginTop: top}">
       <slot></slot>
     </div>
     <!-- 页面 loading 组件 -->
@@ -397,7 +391,7 @@ export default {
       line-height: 0.7rem;
       border-radius: 0.4rem;
       color: #999;
-      &.bg{
+      &.bg {
         background-color: @bgcolor;
         color: #fff;
       }
@@ -447,11 +441,11 @@ export default {
             width: @size;
             height: @size;
           }
-          .play-count{
+          .play-count {
             position: absolute;
             top: 0.1rem;
             right: 0.1rem;
-            .bofang{
+            .bofang {
               font-size: 0.24rem;
             }
           }

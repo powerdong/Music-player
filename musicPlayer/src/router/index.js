@@ -17,6 +17,7 @@ const phonePwd = () => import(/* webpackChunkName: "group-login-pwdPage" */ '@/p
 const phoneVerify = () => import(/* webpackChunkName: "group-login-verifyPage" */ '@/pages/loginIndex/components/phoneVerify')
 const search = () => import(/* webpackChunkName: "group-searchPage" */ '@/pages/searchIndex/index')
 const searchResults = () => import(/* webpackChunkName: "group-resultPage" */ '@/pages/searchResults/index')
+const singer = () => import(/* webpackChunkName: "group-resultPage" */ '@/pages/searchResults/singerIndex/singer')
 const composite = () => import(/* webpackChunkName: "group-result-comPage" */ '@/pages/searchResults/composite/composite')
 const song = () => import(/* webpackChunkName: "group-result-songPage" */ '@/pages/searchResults/songIndex/song')
 const video = () => import(/* webpackChunkName: "group-result-videoPage" */ '@/pages/searchResults/videoIndex/video')
@@ -187,6 +188,10 @@ export default new Router({
       path: '/user/:id',
       component: user
     }]
+  }, {
+    // 歌手分类页面
+    path: '/singer',
+    component: singer
   }, {
     // 每日推荐页面
     path: '/dateRecommend',

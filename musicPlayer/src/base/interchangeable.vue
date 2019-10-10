@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-02 13:36:42
- * @Update: 2019-10-08 12:54:00
+ * @Update: 2019-10-10 13:36:01
  * @Update log: 这是一个公共的组件，用来展示搜索展示页面除单曲以外的项目
  * 通过props接收对应的结果，渲染。
  * 组件调用是通过 for 循环组件，来循环组件渲染的
@@ -235,8 +235,8 @@ export default {
       }
     }
     &.circle {
-      width: 1.6rem;
-      height: 1.6rem;
+      width: 1.3rem;
+      height: 1.3rem;
       border-radius: 50%;
       overflow: hidden;
       img {

@@ -22,7 +22,7 @@
     <!-- 通过观测输入框中是否有内容用来控制右侧的叉按钮是否显示 -->
     <!-- 为叉按钮定义点击事件，点击清空输入框 -->
     <i v-show="keywords" @click="clearInp" class="iconfont guanbi" :style="{right: Right}"></i>
-    <i class="iconfont geshou" v-if="page"></i>
+    <i class="iconfont geshou" v-if="page" @click="goSingerPage" ></i>
     <!-- 搜索建议列表信息 -->
     <div class="floatInfo" v-show="showList">
       <ul>
@@ -125,6 +125,12 @@ export default {
       if (this.keyword) {
         this.keywords = this.keyword
       }
+    },
+    /**
+     * 点击歌手分类图标，跳转到歌手分类页面
+     */
+    goSingerPage () {
+      this.$router.push('/singer')
     },
     /**
      * 历史记录项目点击搜索
