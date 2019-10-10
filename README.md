@@ -112,18 +112,31 @@ npm run dev
 ## :computer: 部分截图
 
 侧边账户中心
+
 ![uDnX80.png](https://user-gold-cdn.xitu.io/2019/10/4/16d95706581a456f?w=472&h=837&f=png&s=45997)
+
 发现页面&每日推荐
+
 ![uDuYM8.gif](https://user-gold-cdn.xitu.io/2019/10/4/16d9572548c6aaf3?w=491&h=838&f=gif&s=3519632)
+
 歌单&歌单详情
+
 ![uDuGxf.gif](https://user-gold-cdn.xitu.io/2019/10/4/16d9572540c179b1?w=491&h=838&f=gif&s=2610859)
+
 排行榜&排行榜信息
+
 ![uDu3Gt.gif](https://user-gold-cdn.xitu.io/2019/10/4/16d95725335944d7?w=491&h=838&f=gif&s=934318)
+
 我的页面&最近播放
+
 ![uDu1PI.gif](https://user-gold-cdn.xitu.io/2019/10/4/16d95725267c98e0?w=491&h=838&f=gif&s=290121)
+
 我的歌单&播放歌曲
+
 ![uDutsS.gif](https://user-gold-cdn.xitu.io/2019/10/4/16d9572557bd8143?w=491&h=838&f=gif&s=7018012)
+
 搜索展示
+
 ![uDu8RP.gif](https://user-gold-cdn.xitu.io/2019/10/4/16d9572538e2c261?w=491&h=838&f=gif&s=1094604)
 
 ## :page_with_curl: 项目布局
