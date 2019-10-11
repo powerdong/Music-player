@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-08 14:37:08
- * @Update: 2019-10-08 12:44:32
+ * @Update: 2019-10-11 13:33:33
  * @Update log: 通用的方形展示组件
  -->
 <template>
@@ -21,6 +21,7 @@
       <div class="shadow"></div>
       <!-- 增加key属性，是可以动态切换图片，解决了在none到block时不能正确显示 -->
       <img v-lazy="imgUrl + '?param=200y200'" :key="imgUrl" class="image" />
+      <span class="dj-name" v-show="type === 'dj'">{{name}}</span>
       <!-- 跳转到专辑详情页 -->
       <!-- <router-link class="cover"  @click="toAlbum(albumId)" :to="'/albumPage/'+albumId"></router-link> -->
     </div>
@@ -45,6 +46,12 @@ export default {
       type: String
     },
     dec: {
+      type: String
+    },
+    type: {
+      type: String
+    },
+    name: {
       type: String
     },
     width: {
@@ -259,6 +266,15 @@ export default {
       height: 2.1rem;
       width: 100%;
       box-shadow: 0 15px 21px -9px #777 inset;
+    }
+    .dj-name {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      color: #fff;
+      font-size: 0.2rem;
+      width: 100%;
+      .ellipsis();
     }
     img {
       width: 100%;

@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-10-10 21:31:12
+ * @Update: 2019-10-11 13:41:32
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -44,7 +44,9 @@ import {
   getDishInfo,
   personalFm,
   singerClass,
-  logout
+  logout,
+  radioRecommendations,
+  boutiqueRecommendations
 } from './config'
 
 export default {
@@ -473,7 +475,29 @@ export default {
       }
     })
   },
+  /**
+   * 退出账号
+   */
   logoutFn () {
     return axios.get(logout)
+  },
+  /**
+   * 获取电台页面的电台推荐数据
+   */
+  radioRecomFn () {
+    return axios.get(radioRecommendations)
+  },
+  /**
+   * 可以获取付费精选的电台列表
+   * @param {*} limit 返回数量 , 默认为 30
+   * @param {*} offset  偏移数量, 默认为 0
+   */
+  boutiqueRecomFn (limit = 3, offset = 0) {
+    return axios.get(boutiqueRecommendations, {
+      params: {
+        limit,
+        offset
+      }
+    })
   }
 }

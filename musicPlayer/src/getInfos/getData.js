@@ -47,3 +47,10 @@ export const loginIconsTop = () => {
 export const loginIconsBottom = () => {
   return Icons.loginIconsBottom
 }
+
+/**
+ * 获取电台页面图标数据
+ */
+export const djIcons = () => {
+  return Icons.djIcons
+}

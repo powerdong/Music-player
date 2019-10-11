@@ -64,6 +64,24 @@ let findIcons = [{
   linkTo: 'personalFm'
 }]
 
+let djIcons = [{
+  text: '电台分类',
+  icon: 'dj dj-caidan1',
+  linkTo: 'classification'
+}, {
+  text: '电台排行',
+  icon: 'dj dj-paixing',
+  linkTo: 'ranking'
+}, {
+  text: '付费精品',
+  icon: 'dj dj-gerenzhongxin_wodeguizu',
+  linkTo: 'pay_fine'
+}, {
+  text: '主播学院',
+  icon: 'dj dj-shucopy',
+  linkTo: 'Anchor'
+}]
+
 let homeList = [{
   icon: 'iconyinyue',
   text: '本地音乐',
@@ -146,5 +164,6 @@ export default {
   homeList,
   loginIcons,
   loginIconsTop,
-  loginIconsBottom
+  loginIconsBottom,
+  djIcons
 }

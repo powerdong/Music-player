@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-30 20:21:12
- * @Update: 2019-10-05 13:15:14
+ * @Update: 2019-10-11 13:10:30
  * @Update log: 公共图标组件
  -->
 <template>
@@ -68,6 +68,9 @@ export default {
     }
     .find {
       font-size: 0.5rem;
+    }
+    .dj {
+      font-size: 0.4rem;
     }
     .login {
       font-size: 0.4rem;
