@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-09-29 13:30:03
+ * @Update: 2019-10-10 21:48:00
  * @Update log: 更新日志
  -->
 <template>
@@ -146,7 +146,7 @@ export default {
      *
      */
     // 获取用户登录成功后储存的登录标志
-    let getFlag = localStorage.getItem('loginState')
+    let getFlag = +localStorage.getItem('loginState')
     if (this.loginState || getFlag) {
       // 用户已经登录
       // 获取用户信息

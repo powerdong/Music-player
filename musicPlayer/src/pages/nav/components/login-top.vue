@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-10-08 13:07:37
+ * @Update: 2019-10-10 22:09:30
  * @Update log: 更新日志
  -->
 <template>
@@ -32,26 +32,46 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapMutations } from 'vuex'
 export default {
   name: 'loginTop',
   data () {
     return {
       avatarUrl: '',
-      nickname: '',
-      loginState: ''
+      nickname: ''
+
+    }
+  },
+  props: {
+    loginState: {
+      type: Number,
+      default: 0
     }
   },
   created () {
-    // 通过本地存储获取用户头像和昵称
-    this.avatarUrl = localStorage.getItem('avatarUrl')
-    this.nickname = localStorage.getItem('nickname')
-    this.loginState = this.LOGIN_STATE ? this.LOGIN_STATE : localStorage.getItem('accountUid')
+    this.$nextTick(() => {
+      this.getUserInfo(this.loginState)
+    })
   },
   computed: {
-    ...mapGetters(['LOGIN_STATE'])
+    _loginState: {
+      get () {
+        return this.loginState
+      },
+      set (val) {
+        this.$emit('update_state', val)
+      }
+    }
   },
   methods: {
+    getUserInfo (bool) {
+      console.log(bool)
+      if (bool) {
+        // 通过本地存储获取用户头像和昵称
+        this.avatarUrl = localStorage.getItem('avatarUrl')
+        this.nickname = localStorage.getItem('nickname')
+      }
+    },
     ...mapMutations(['HIDE_LOGIN'])
   }
 }

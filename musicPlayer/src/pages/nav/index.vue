@@ -1,51 +1,43 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-08-30 21:59:59
+ * @Update: 2019-10-11 08:01:29
  * @Update log: 更新日志
  -->
 <template>
-<div>
-  <!-- 顶部导航条 -->
-  <nav class="nav-wrapper">
-    <div class="nav-left">
-      <i class="nav iconnav ripple" @click="SHOW_LOGIN"></i>
-    </div>
-    <ul class="nav-center">
-      <router-link tag="li" class="nav-title ripple" to="/home">我的</router-link>
-      <router-link tag="li" class="nav-title ripple" to="/find">发现</router-link>
-      <router-link tag="li" class="nav-title ripple" to="/friend">朋友</router-link>
-      <router-link tag="li" class="nav-title ripple" to="/video">视频</router-link>
-    </ul>
-    <div class="nav-right">
-      <router-link to="search" tag="i" class="nav iconsousuo ripple"></router-link>
-    </div>
-    <transition name="mask-show">
-      <div class="mask" v-show="loginPage" @click="HIDE_LOGIN" @touchmove.prevent></div>
-    </transition>
-    <transition name="login-show" mode="out-in">
-      <login v-show="loginPage" @touchmove.prevent></login>
-    </transition>
-  </nav>
-  <keep-alive>
-    <router-view></router-view>
-  </keep-alive>
-</div>
+  <div>
+    <!-- 顶部导航条 -->
+    <nav class="nav-wrapper">
+      <div class="nav-left">
+        <i class="nav iconnav ripple" @click="SHOW_LOGIN"></i>
+      </div>
+      <ul class="nav-center">
+        <router-link tag="li" class="nav-title ripple" to="/home">我的</router-link>
+        <router-link tag="li" class="nav-title ripple" to="/find">发现</router-link>
+        <router-link tag="li" class="nav-title ripple" to="/friend">朋友</router-link>
+        <router-link tag="li" class="nav-title ripple" to="/video">视频</router-link>
+      </ul>
+      <div class="nav-right">
+        <router-link to="search" tag="i" class="nav iconsousuo ripple"></router-link>
+      </div>
+      <login-page-is-show></login-page-is-show>
+    </nav>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
+  </div>
 </template>
 
 <script>
-import login from './components/login'
-import { mapGetters, mapMutations } from 'vuex'
+import loginPageIsShow from 'base/loginPageIsShow'
+import { mapMutations } from 'vuex'
 export default {
   name: 'defaultNav',
-  components: {
-    login
-  },
-  computed: {
-    ...mapGetters({loginPage: 'LOGIN_PAGE'})
-  },
   methods: {
-    ...mapMutations(['SHOW_LOGIN', 'HIDE_LOGIN'])
+    ...mapMutations(['SHOW_LOGIN'])
+  },
+  components: {
+    loginPageIsShow
   }
 }
 </script>
@@ -53,8 +45,8 @@ export default {
 <style lang="less" scoped>
 @import url("~styles/global.less");
 @import url("//at.alicdn.com/t/font_1298894_8b2aso7zegl.css");
-@height:0.8rem;
-.navIcon{
+@height: 0.8rem;
+.navIcon {
   width: @height;
   height: @height;
   border-radius: 50%;
@@ -98,8 +90,8 @@ export default {
     display: flex;
     justify-content: left;
     align-items: center;
-    .iconnav{
-      .navIcon()
+    .iconnav {
+      .navIcon();
     }
   }
   .nav-center {
@@ -109,7 +101,7 @@ export default {
     align-items: center;
     color: #999;
     font-size: 0.24rem;
-    .nav-title{
+    .nav-title {
       .navIcon();
     }
   }
@@ -118,8 +110,8 @@ export default {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    .iconsousuo{
-      .navIcon()
+    .iconsousuo {
+      .navIcon();
     }
   }
 }

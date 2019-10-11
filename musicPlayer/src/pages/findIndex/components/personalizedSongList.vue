@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-10-07 13:52:49
+ * @Update: 2019-10-11 08:16:08
  * @Update log: 更新日志
  -->
 <template>
@@ -95,12 +95,11 @@ export default {
     }
   },
   activated () {
-    let getFlag = localStorage.getItem('loginState')
+    let getFlag = +localStorage.getItem('loginState')
     if (this.loginState || getFlag) {
       // 用户已经登录
       this.loadGetSongListInfo()
     } else {
-      console.log(111)
       this.getSongListInfo()
     }
   }

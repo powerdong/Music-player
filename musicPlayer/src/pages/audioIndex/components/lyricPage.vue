@@ -1,22 +1,20 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-16 13:26:47
- * @Update: 2019-09-21 17:36:43
+ * @Update: 2019-10-11 11:39:10
  * @Update log: 更新日志
  -->
 <template>
- <div class="wrapper">
-   <div class="full" v-if="noLyric">
-     {{noLyricText}}
-   </div>
-   <ul :style="{marginTop: marginTop}">
-     <li v-for="(item, index) in lyricArray"
+  <div class="wrapper">
+    <div class="full" v-if="noLyric">{{noLyricText}}</div>
+    <ul :style="{marginTop: marginTop}">
+      <li
+        v-for="(item, index) in lyricArray"
         :key="index"
-        :class="{active: index === nowLyricIndex}">
-        {{ item | setWords }}
-      </li>
-   </ul>
- </div>
+        :class="{active: index === nowLyricIndex}"
+      >{{ item | setWords }}</li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -67,37 +65,36 @@ export default {
 </script>
 
 <style lang='less' scoped>
-@import url('~styles/global.less');
+@import url("~styles/global.less");
 
-.wrapper{
-  height: 7.4rem;
+.wrapper {
+  height: 7.6rem;
   // box-sizing: border-box;
   margin: 0.6rem 0;
   color: #ccc;
   overflow: hidden;
-  ul{
+  ul {
     margin: 0;
     padding: 0;
     list-style: none;
     text-align: center;
     /* ul元素的margin-top值变化，在0.7秒内完成 */
     transition: margin-top 0.7s;
-    li{
+    li {
       height: 0.6rem;
       line-height: 1.5;
       .ellipsis();
-      &.active{
+      &.active {
         color: #fff;
       }
     }
   }
-  .full{
+  .full {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-
 }
 </style>

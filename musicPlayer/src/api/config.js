@@ -30,6 +30,7 @@ export const phoneRegistered = '/api/cellphone/existence/check' // 手机号是�
 export const sendVerify = '/api/captcha/sent' // 发送验证码
 export const verify = '/api//captcha/verify' // 验证验证码
 export const loginStatus = '/api/login/status' // 登录状态
+export const logout = '/api/logout' // 退出登录
 // ===================我的页面相关
 export const userRecord = '/api/user/record' // 用户播放记录
 export const userInfo = '/api/user/subcount' // 用户信息

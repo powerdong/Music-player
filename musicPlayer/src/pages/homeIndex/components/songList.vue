@@ -36,7 +36,7 @@
       </li>
       <!-- 登录后的歌单项显示 -->
       <li class="song-list" v-for="(item, index) in myLoveList" :key="index">
-        <router-link class="cover" style="width:70%;" :to="'/albumPage/'+item.id"></router-link>
+        <a class="cover" style="width:70%;" @click="goAlbumPage(item.id)"></a>
         <div class="list-img">
           <img :src="item.coverImgUrl + '?param=100y100'" />
         </div>
@@ -53,7 +53,7 @@
       <!-- Duplicate keys detected: '0'. This may cause an update error -->
       <!-- key 值重复 -->
       <li class="song-list" v-for="(item, index) in createList" :key="index + 1">
-        <router-link class="cover" :to="'/albumPage/'+item.id"></router-link>
+        <a class="cover" @click="goAlbumPage(item.id)"></a>
         <div class="list-img">
           <img :src="item.coverImgUrl + '?param=100y100'" />
           <i class="home iconsuo" v-show="item.privacy"></i>
@@ -84,7 +84,7 @@
     <!-- 收藏的歌单 -->
     <ul class="song-group">
       <li class="song-list" v-for="(item, index) in favoritesList" :key="index">
-        <router-link class="cover" :to="'/albumPage/'+item.id"></router-link>
+        <a class="cover" @click="goAlbumPage(item.id)"></a>
         <div class="list-img">
           <img :src="item.coverImgUrl + '?param=100y100'" />
         </div>
@@ -156,6 +156,12 @@ export default {
     },
     showSlider (name, id, type) {
       this.$emit('showSlider', name, id, type)
+    },
+    /**
+     * 跳转到歌单详情页面
+     */
+    goAlbumPage (id) {
+      this.$router.push({ name: 'albumPage', params: { albumId: id } })
     },
     /**
      * 返回一个随机数

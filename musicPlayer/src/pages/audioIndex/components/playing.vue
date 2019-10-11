@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-13 12:44:14
- * @Update: 2019-10-10 08:30:36
+ * @Update: 2019-10-11 11:40:19
  * @Update log: 更新日志
  -->
 <template>
@@ -41,8 +41,8 @@ export default {
 
 <style lang='less' scoped>
 .wrapper {
-  height: 68vh;
-  margin-top: 8px;
+  height: 7.6rem;
+  margin: 0.6rem 0;
   position: relative;
   overflow: hidden;
   .great {

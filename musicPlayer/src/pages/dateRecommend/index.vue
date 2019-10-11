@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:33:42
- * @Update: 2019-09-22 17:40:12
+ * @Update: 2019-10-11 08:07:48
  * @Update log: 更新日志
  -->
 <template>
@@ -22,6 +22,7 @@
       @beginSong="setAudioList(item, index)"
       :nowSong="item.id === audioSong.id"
     ></song-list>
+    <should-login></should-login>
   </song-list-page>
 </template>
 
@@ -29,13 +30,10 @@
 import api from 'api'
 import songList from 'base/song'
 import songListPage from 'base/songListPage'
+import shouldLogin from 'base/shouldLogin'
 import { mapActions, mapGetters } from 'vuex'
 export default {
   name: '',
-  components: {
-    songList,
-    songListPage
-  },
   data () {
     return {
       songLists: [],
@@ -58,6 +56,11 @@ export default {
             this.load = false
           }
         })
+        .catch(err => {
+          if (err) {
+            this.load = false
+          }
+        })
     },
     startPlay () {
       this.startPlayAll({
@@ -71,6 +74,11 @@ export default {
       })
     },
     ...mapActions(['selectPlay', 'startPlayAll'])
+  },
+  components: {
+    songList,
+    songListPage,
+    shouldLogin
   }
 }
 </script>

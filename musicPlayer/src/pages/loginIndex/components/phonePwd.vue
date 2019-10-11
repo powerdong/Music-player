@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-14 15:42:41
- * @Update: 2019-10-03 20:46:51
+ * @Update: 2019-10-11 08:15:10
  * @Update log: 手机号登录密码页面
  -->
 <template>
@@ -80,7 +80,7 @@ export default {
             // Vuex在用户刷新的时候loginState会回到默认值false
             // 所以我们需要用到HTML5储存
             // 我们设置一个名为loginState
-            localStorage.setItem('loginState', true)
+            localStorage.setItem('loginState', 1)
             // 存入用户头像 昵称
             localStorage.setItem('avatarUrl', accountInfo.avatarUrl)
             localStorage.setItem('nickname', accountInfo.nickname)
@@ -127,12 +127,14 @@ export default {
     success () {
       // 修改状态为 1
       this.$store.commit('LOGIN_STATE')
+      localStorage.setItem('loginState', 1)
       // loading 样式隐藏
       this.LoadingEnd()
       // 存取登陆状态
       this._getLoginState()
       // 跳转到发现页面
       this.$router.push({ path: '/find' })
+      location.reload()
     },
     /**
      * 密码错误登录失败

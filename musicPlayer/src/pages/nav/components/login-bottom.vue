@@ -15,7 +15,7 @@
       <i class="login iconshezhi"></i>
       <span>设置</span>
     </span>
-    <span>
+    <span @click="logout">
       <i class="login icondianyuan"></i>
       <span>退出</span>
     </span>
@@ -27,18 +27,21 @@ import { mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'loginBottom',
   computed: {
-    ...mapGetters({iconyueliang1: 'ICON_NIGHT',
+    ...mapGetters({ iconyueliang1: 'ICON_NIGHT',
       icontaiyang: 'ICON_SUN',
-      modeText: 'MODE_TEXT'})
+      modeText: 'MODE_TEXT' })
   },
   methods: {
+    logout () {
+      this.$emit('logout')
+    },
     ...mapMutations(['TOGGLE_MODE'])
   }
 }
 </script>
 
 <style lang="less" scoped>
-.wrapper{
+.wrapper {
   width: 6rem;
   height: 0.9rem;
   background-color: #fff;
@@ -50,7 +53,7 @@ export default {
   display: flex;
   justify-content: space-between;
   font-size: 0.3rem;
-  .login{
+  .login {
     font-size: 0.4rem;
     vertical-align: -2px;
     margin-right: 0.08rem;

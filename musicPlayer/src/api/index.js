@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-10-10 08:26:19
+ * @Update: 2019-10-10 21:31:12
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -43,7 +43,8 @@ import {
   newSongs,
   getDishInfo,
   personalFm,
-  singerClass
+  singerClass,
+  logout
 } from './config'
 
 export default {
@@ -471,5 +472,8 @@ export default {
         initial
       }
     })
+  },
+  logoutFn () {
+    return axios.get(logout)
   }
 }
