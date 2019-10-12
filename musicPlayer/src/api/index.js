@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-10-11 13:41:32
+ * @Update: 2019-10-11 22:15:19
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -46,7 +46,9 @@ import {
   singerClass,
   logout,
   radioRecommendations,
-  boutiqueRecommendations
+  boutiqueRecommendations,
+  djClassification,
+  djClassificationInfo
 } from './config'
 
 export default {
@@ -236,18 +238,25 @@ export default {
    * newProgramCount: 0
    * programCount: 0
    * subPlaylistCount: 3 收藏的歌单数
+   * @param {*} timestamp 时间戳，使得每次请求的URL不同，除掉了默认的2分钟缓存
    */
-  userInfoFn () {
-    return axios.get(userInfo)
+  userInfoFn (timestamp) {
+    return axios.get(userInfo, {
+      params: {
+        timestamp
+      }
+    })
   },
   /**
    * 登陆后调用此接口 , 传入用户 id, 可以获取用户歌单
    * @param {*} uid 用户id
+   * @param {*} timestamp 时间戳，使得每次请求的URL不同，除掉了默认的2分钟缓存
    */
-  playlistFn (uid) {
+  playlistFn (uid, timestamp) {
     return axios.get(playlist, {
       params: {
-        uid
+        uid,
+        timestamp
       }
     })
   },
@@ -497,6 +506,24 @@ export default {
       params: {
         limit,
         offset
+      }
+    })
+  },
+  /**
+   * 登陆后调用此接口 , 可获得电台类型
+   */
+  djClassificationFn () {
+    return axios.get(djClassification)
+  },
+  /**
+   * 登陆后调用此接口 , 可获得推荐电台
+   * @param {*} type 电台类型
+   * 可通过/dj/catelist获取 , 对应关系为 id 对应 此接口的 type, name 对应类型意义
+   */
+  djClassificationInfoFn (type) {
+    return axios.get(djClassificationInfo, {
+      params: {
+        type
       }
     })
   }

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-10-11 13:11:46
- * @Update: 2019-10-11 13:47:13
+ * @Update: 2019-10-12 13:29:48
  * @Update log: 更新日志
  -->
 <template>
@@ -58,7 +58,6 @@ export default {
 
 <style lang='less' scoped>
 @import url("~styles/global.less");
-@import url("//at.alicdn.com/t/font_1452410_mfmq9eqag4.css");
 .wrapper {
   margin-top: 0.5rem;
   .title {

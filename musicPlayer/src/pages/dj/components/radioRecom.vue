@@ -61,7 +61,6 @@ export default {
 
 <style lang='less' scoped>
 @import url("~styles/global.less");
-@import url("//at.alicdn.com/t/font_1452410_mfmq9eqag4.css");
 .wrapper {
   margin-top: 0.5rem;
   .title {

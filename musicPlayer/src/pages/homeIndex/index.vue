@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-10-10 21:48:00
+ * @Update: 2019-10-12 13:17:54
  * @Update log: 更新日志
  -->
 <template>
@@ -121,7 +121,8 @@ export default {
      * 更新我的电台、创建的歌单、收藏的歌单数
      */
     _getInfo () {
-      api.userInfoFn().then(res => {
+      const data = +new Date()
+      api.userInfoFn(data).then(res => {
         let data = res.data
         if (data.code === 200) {
           // 更新我的电台数

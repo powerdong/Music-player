@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:42:17
- * @Update: 2019-10-04 12:26:53
+ * @Update: 2019-10-11 22:13:35
  * @Update log: 更新日志
  */
 // ===================发现页面
@@ -53,3 +53,5 @@ export const deletePlaylist = '/api/playlist/delete' // 删除歌单
 // ================发现页面的电台页面
 export const radioRecommendations = '/api/dj/today/perfered' // 电台推荐数据
 export const boutiqueRecommendations = '/api/dj/paygift' // 电台精品推荐
+export const djClassification = '/api/dj/catelist' // 电台分类
+export const djClassificationInfo = '/api/dj/recommend/type' // 电台分类推荐

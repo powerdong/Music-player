@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-10-08 13:05:20
+ * @Update: 2019-10-12 14:23:32
  * @Update log: 更新日志
  -->
 <template>
@@ -192,9 +192,12 @@ export default {
     },
     /**
      * 获取用户歌单
+     * 增加时间戳
      */
     getPlaylist (id) {
-      api.playlistFn(id).then(res => {
+      // 时间戳
+      const data = +new Date()
+      api.playlistFn(id, data).then(res => {
         let data = res.data
         if (data.code === 200) {
           this.sliceInfo(data.playlist)

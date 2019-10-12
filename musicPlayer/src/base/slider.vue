@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-27 12:49:09
- * @Update: 2019-10-03 20:14:38
+ * @Update: 2019-10-12 13:12:52
  * @Update log: 更新日志
  -->
 <template>
@@ -87,7 +87,7 @@ export default {
     },
     open2 () {
       this.$message({
-        message: '成功删除此歌单，请2分钟后刷新查看',
+        message: '成功删除此歌单，请刷新查看',
         type: 'success'
       })
     },
@@ -108,6 +108,9 @@ export default {
         .catch(_ => {
         })
     },
+    /**
+     * 取消收藏
+     */
     _cancelPlayList (id) {
       api.addOrDeletePlaylistFn(2, id)
         .then(res => {
@@ -120,6 +123,9 @@ export default {
           console.log(err)
         })
     },
+    /**
+     * 删除歌单
+     */
     _deleteCreatedList (id) {
       api.deletePlaylistFn(id)
         .then(res => {
