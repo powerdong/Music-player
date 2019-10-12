@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:39:29
- * @Update: 2019-10-12 14:39:50
+ * @Update: 2019-10-12 18:54:47
  * @Update log: 更新日志
  -->
 <template>
@@ -13,6 +13,23 @@
     <icons></icons>
     <radio-recom></radio-recom>
     <boutique-recom></boutique-recom>
+    <public-con title="创作|翻唱" :data="createData.slice(0,4)"></public-con>
+    <public-img-wrap title="有声书" :data="soundBookData.slice(0,3)"></public-img-wrap>
+    <public-con title="情感调频" :data="emotionData.slice(0,4)"></public-con>
+    <public-img-wrap title="广播剧" :data="broadcastingData.slice(0,3)"></public-img-wrap>
+    <public-con title="音乐故事" :data="musicData.slice(0,4)"></public-con>
+    <public-img-wrap title="娱乐|影视" :data="entertainmentData.slice(0,3)"></public-img-wrap>
+    <public-con title="3D|电子" :data="electronicData.slice(0,4)"></public-con>
+    <public-img-wrap title="美文读物" :data="mevinData.slice(0,3)"></public-img-wrap>
+    <public-con title="二次元" :data="secondaryData.slice(0,4)"></public-con>
+    <public-img-wrap title="脱口秀" :data="talkData.slice(0,3)"></public-img-wrap>
+    <public-img-wrap title="知识技能" :data="knowledgeData.slice(0,3)"></public-img-wrap>
+    <public-img-wrap title="商业财经" :data="businessData.slice(0,3)"></public-img-wrap>
+    <public-img-wrap title="人文历史" :data="historyData.slice(0,3)"></public-img-wrap>
+    <public-img-wrap title="外文世界" :data="englishData.slice(0,3)"></public-img-wrap>
+    <public-img-wrap title="亲子宝贝" :data="babyData.slice(0,3)"></public-img-wrap>
+    <public-img-wrap title="相声曲艺" :data="crosstalkData.slice(0,3)"></public-img-wrap>
+    <public-img-wrap title="旅途|城市" :data="journeyData.slice(0,3)"></public-img-wrap>
     <public-class title="热门分类" :data="hotClass"></public-class>
     <public-class title="更多分类" :data="moreClass"></public-class>
   </div>
@@ -25,6 +42,7 @@ import icons from './components/icons'
 import radioRecom from './components/radioRecom'
 import boutiqueRecom from './components/boutiqueRecom'
 import publicCon from './public'
+import publicImgWrap from './publicImgWrap'
 import publicClass from './publicClass'
 
 import api from 'api'
@@ -34,7 +52,41 @@ export default {
     return {
       jsonTarget: [],
       hotClass: [],
-      moreClass: []
+      moreClass: [],
+      // 创作|翻唱
+      createData: [],
+      // 有声书
+      soundBookData: [],
+      // 情感调频
+      emotionData: [],
+      // 广播剧
+      broadcastingData: [],
+      // 音乐故事
+      musicData: [],
+      // 娱乐影视
+      entertainmentData: [],
+      // 3d电子
+      electronicData: [],
+      // 美文读物
+      mevinData: [],
+      // 二次元
+      secondaryData: [],
+      // 脱口秀
+      talkData: [],
+      // 知识技能
+      knowledgeData: [],
+      // 商业经济
+      businessData: [],
+      // 人文历史
+      historyData: [],
+      // 外语世界
+      englishData: [],
+      // 亲子宝贝
+      babyData: [],
+      // 相声曲艺
+      crosstalkData: [],
+      // 旅途城市
+      journeyData: []
     }
   },
   created () {
@@ -51,10 +103,10 @@ export default {
           if (data.code === 200) {
             const categories = data.categories
             this.jsonTarget = this.getJsonData(categories)
-            console.log(this.jsonTarget)
-            this.hotClass = this.jsonTarget.splice(0, 6)
-            this.moreClass = this.jsonTarget
-            // this._getAllClassInfo(this.jsonTarget)
+            this.hotClass = this.jsonTarget.slice(0, 6)
+            this.moreClass = this.jsonTarget.slice(6)
+            const info = this._getAllClassInfo(this.jsonTarget)
+            console.log(info)
           }
         })
     },
@@ -63,19 +115,51 @@ export default {
      */
     _getAllClassInfo (data) {
       let item = []
+      console.log(data)
+      const length = data.length
       data.forEach(element => {
         api.djClassificationInfoFn(element.id)
           .then(res => {
             const { data } = res
             if (data.code === 200) {
               const { djRadios } = data
-              item.push(djRadios)
+              item.push({
+                name: element.name,
+                data: djRadios
+              })
+              if (item.length === length) {
+                this.setData(item)
+              }
             }
           })
       })
-      console.log(item)
-
-      return item
+    },
+    setData (arr) {
+      this.createData = this.ruleData(arr, '创作|翻唱')
+      this.soundBookData = this.ruleData(arr, '有声书')
+      this.emotionData = this.ruleData(arr, '情感调频')
+      this.broadcastingData = this.ruleData(arr, '广播剧')
+      this.musicData = this.ruleData(arr, '音乐故事')
+      this.entertainmentData = this.ruleData(arr, '娱乐|影视')
+      this.electronicData = this.ruleData(arr, '3D|电子')
+      this.mevinData = this.ruleData(arr, '美文读物')
+      this.secondaryData = this.ruleData(arr, '二次元')
+      this.talkData = this.ruleData(arr, '脱口秀')
+      this.knowledgeData = this.ruleData(arr, '知识技能')
+      this.businessData = this.ruleData(arr, '商业财经')
+      this.historyData = this.ruleData(arr, '人文历史')
+      this.englishData = this.ruleData(arr, '外语世界')
+      this.babyData = this.ruleData(arr, '亲子宝贝')
+      this.crosstalkData = this.ruleData(arr, '相声曲艺')
+      this.journeyData = this.ruleData(arr, '旅途|城市')
+    },
+    ruleData (arr, name) {
+      const ruleArr = arr.filter(item => {
+        if (item.name === name) {
+          return true
+        }
+      })
+      return ruleArr[0].data
     },
     returnPage () {
       this.$router.go(-1)
@@ -103,7 +187,8 @@ export default {
     radioRecom,
     boutiqueRecom,
     publicCon,
-    publicClass
+    publicClass,
+    publicImgWrap
   }
 }
 </script>

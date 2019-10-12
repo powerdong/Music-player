@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-10-12 13:19:59
- * @Update: 2019-10-12 13:54:58
+ * @Update: 2019-10-12 15:27:22
  * @Update log: 更新日志
  -->
 <template>
@@ -19,21 +19,21 @@
     <ul>
       <li class="list-item" v-for="(item, index) in data" :key="index">
         <div class="img-info">
-          <img :src="songImg + '?param=100y100'" alt />
+          <img :src="item.picUrl + '?param=100y100'" alt />
         </div>
         <div class="content">
-          <p class="name">{{name}}</p>
+          <p class="name">{{item.name}}</p>
           <div class="dec">
             <div class="name">
               <div class="img-info">
-                <img :src="artistImg + '?param=50y50'" alt />
+                <img :src="item.dj.avatarUrl + '?param=50y50'" alt />
               </div>
-              <span class="name-con">{{artistName}}</span>
+              <span class="name-con">{{item.dj.nickname}}</span>
             </div>
             <div class="hot-num">
               <span class="num">
                 <i class="dj dj-huo"></i>
-                {{ hotNum }}
+                {{ item.subCount }}
               </span>
             </div>
           </div>
@@ -73,7 +73,7 @@ export default {
   .list-item {
     display: flex;
     align-items: center;
-    height: 1.2rem;
+    height: 1.5rem;
     .img-info {
       width: 1rem;
       height: 0;

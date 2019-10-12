@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-10-11 22:15:19
+ * @Update: 2019-10-12 19:12:59
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -48,7 +48,9 @@ import {
   radioRecommendations,
   boutiqueRecommendations,
   djClassification,
-  djClassificationInfo
+  djClassificationInfo,
+  djProgram,
+  djDetail
 } from './config'
 
 export default {
@@ -524,6 +526,33 @@ export default {
     return axios.get(djClassificationInfo, {
       params: {
         type
+      }
+    })
+  },
+  /**
+   * 登陆后调用此接口 , 传入rid, 可查看对应电台的电台节目以及对应的 id
+   * 需要 注意的是这个接口返回的 mp3Url 已经无效 , 都为 null
+   * 但是通过调用 /song/url 这 个接口 , 传入节目 id 仍然能获取到节目音频 ,
+   * 如 /song/url?id=478446370 获取代 码时间的一个节目的音频
+   * @param {*} rid 电台 的 id
+   * @param {*} limit 返回数量 , 默认为 30
+   * @param {*} offset 偏移数量，用于分页
+   * @param {*} asc 排序方式,默认为 false (新 => 老 ) 设置 true 可改为 老 => 新
+   */
+  djProgramFn (rid, limit = 30, offset = 0, asc) {
+    return axios.get(djProgram, {
+      params: {
+        rid,
+        limit,
+        offset,
+        asc
+      }
+    })
+  },
+  djDetailFn (rid) {
+    return axios.get(djDetail, {
+      params: {
+        rid
       }
     })
   }
