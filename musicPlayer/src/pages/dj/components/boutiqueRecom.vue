@@ -1,14 +1,14 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-10-11 13:11:46
- * @Update: 2019-10-12 13:29:48
+ * @Update: 2019-10-13 12:06:47
  * @Update log: 更新日志
  -->
 <template>
   <div class="wrapper">
     <div class="title">
       <h1 class="text">精品推荐</h1>
-      <span class="smallTag">全部精品</span>
+      <span class="smallTag" @click="goPage">全部精品</span>
     </div>
     <div class="img-col">
       <img-card
@@ -18,7 +18,7 @@
         :name="item.name"
         :imgUrl="item.picUrl"
         :dec="item.rcmdText"
-        :albumId="item.id"
+        :ridId="item.id"
       ></img-card>
     </div>
   </div>
@@ -48,6 +48,9 @@ export default {
             console.log(data)
           }
         })
+    },
+    goPage () {
+      this.$router.push('/pay_fine')
     }
   },
   components: {

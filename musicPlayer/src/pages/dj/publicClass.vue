@@ -1,12 +1,12 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-10-12 14:24:51
- * @Update: 2019-10-12 14:38:01
+ * @Update: 2019-10-13 10:49:50
  * @Update log: 更新日志
  -->
 <template>
   <div class="wrapper">
-    <div class="title">{{title}}</div>
+    <div class="title border-bottom" :class="{center: type ==='class'}">{{title}}</div>
     <ul class="list-wrap">
       <li class="list-item" v-for="(item, index) in data" :key="index">
         <div class="img-info">
@@ -27,6 +27,9 @@ export default {
     },
     data: {
       type: Array
+    },
+    type: {
+      type: String
     }
   }
 }
@@ -37,7 +40,11 @@ export default {
   margin-top: 0.5rem;
   .title {
     font-weight: 700;
+    padding-bottom: 0.3rem;
     margin: 0.3rem;
+    &.center {
+      text-align: center;
+    }
   }
   .list-wrap {
     display: flex;

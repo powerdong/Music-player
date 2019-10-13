@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-10-12 13:19:59
- * @Update: 2019-10-12 15:27:22
+ * @Update: 2019-10-13 10:50:36
  * @Update log: 更新日志
  -->
 <template>
@@ -63,7 +63,7 @@ export default {
 <style lang='less' scoped>
 @import url("~styles/global.less");
 .wrapper {
-  margin-top: 0.3rem;
+  margin-top: 0.5rem;
   .title {
     .flex-between();
     .text {

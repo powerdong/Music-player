@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-08 14:37:08
- * @Update: 2019-10-11 13:33:33
+ * @Update: 2019-10-13 12:01:37
  * @Update log: 通用的方形展示组件
  -->
 <template>
@@ -84,6 +84,9 @@ export default {
     dishId: {
       type: Number
     },
+    ridId: {
+      type: Number
+    },
     idx: {
       type: String
     }
@@ -111,7 +114,6 @@ export default {
     searchIdx (idx) {
       if (!idx) {
         if (this.albumId) {
-          console.log('go')
           // [vue-router] Route with name 'albumPage' does not exist
           // 需要给路由设置name
           // 并且这个路由在配置的时候不能加 /:id
@@ -121,6 +123,12 @@ export default {
         }
         if (this.dishId) {
           this.$router.push({ name: 'albumPage', params: { dishId: this.dishId } })
+          return
+        }
+        if (this.ridId) {
+          console.log('go')
+
+          this.$router.push({ name: 'djDetailPage', params: { ridId: this.ridId } })
           return
         }
         return

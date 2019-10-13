@@ -57,3 +57,4 @@ export const djClassification = '/api/dj/catelist' // 电台分类
 export const djClassificationInfo = '/api/dj/recommend/type' // 电台分类推荐
 export const djProgram = '/api/dj/program' // 电台节目
 export const djDetail = '/api/dj/detail' // 电台详情
+export const djPayGift = '/api/dj/paygift' // 电台付费精选

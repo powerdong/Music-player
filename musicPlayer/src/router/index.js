@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-10-09 12:00:49
+ * @Update: 2019-10-13 11:02:26
  * @Update log: 更新日志
  */
 import Vue from 'vue'
@@ -33,7 +33,10 @@ const fine = () => import(/* webpackChunkName: "group-recommendedPage" */ '@/pag
 const general = () => import(/* webpackChunkName: "group-recommendedPage" */ '@/pages/recommend/general')
 const idx = () => import(/* webpackChunkName: "group-idxPage" */ '@/pages/idx')
 const dj = () => import(/* webpackChunkName: "group-djPage" */ '@/pages/dj')
+const classification = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/dj/childrenPage/class')
+const djPayGift = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/dj/childrenPage/djPayGift')
 const albumPage = () => import(/* webpackChunkName: "group-albumPage" */ 'base/albumPage')
+const djDetailPage = () => import(/* webpackChunkName: "group-djDetailPage" */ 'base/djDetailPage')
 const recentlyPlayed = () => import(/* webpackChunkName: "group-recentlyPlayed" */ '@/pages/recentlyPlayed')
 const djSublist = () => import(/* webpackChunkName: "group-djSublist" */ '@/pages/djSublist')
 const myFavorite = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/myFavorite')
@@ -223,9 +226,20 @@ export default new Router({
     path: '/dj',
     component: dj
   }, {
+    path: '/classification',
+    component: classification
+  }, {
+    path: '/pay_fine',
+    component: djPayGift
+  }, {
     // 通用专辑展示页面
     path: '/albumPage',
     name: 'albumPage',
     component: albumPage
+  }, {
+    // 通用专辑展示页面
+    path: '/djDetailPage',
+    name: 'djDetailPage',
+    component: djDetailPage
   }]
 })

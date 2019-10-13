@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:39:29
- * @Update: 2019-10-12 18:54:47
+ * @Update: 2019-10-13 12:59:52
  * @Update log: 更新日志
  -->
 <template>
@@ -105,8 +105,7 @@ export default {
             this.jsonTarget = this.getJsonData(categories)
             this.hotClass = this.jsonTarget.slice(0, 6)
             this.moreClass = this.jsonTarget.slice(6)
-            const info = this._getAllClassInfo(this.jsonTarget)
-            console.log(info)
+            this._getAllClassInfo(this.jsonTarget)
           }
         })
     },
@@ -115,7 +114,6 @@ export default {
      */
     _getAllClassInfo (data) {
       let item = []
-      console.log(data)
       const length = data.length
       data.forEach(element => {
         api.djClassificationInfoFn(element.id)
@@ -134,6 +132,9 @@ export default {
           })
       })
     },
+    /**
+     * 将data中的数据进行填充
+     */
     setData (arr) {
       this.createData = this.ruleData(arr, '创作|翻唱')
       this.soundBookData = this.ruleData(arr, '有声书')
@@ -153,6 +154,9 @@ export default {
       this.crosstalkData = this.ruleData(arr, '相声曲艺')
       this.journeyData = this.ruleData(arr, '旅途|城市')
     },
+    /**
+     * 定义一个方法，用来筛选数据，将所有数据分类筛选出对应的数据
+     */
     ruleData (arr, name) {
       const ruleArr = arr.filter(item => {
         if (item.name === name) {

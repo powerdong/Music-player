@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-10-12 18:39:19
- * @Update: 2019-10-12 18:55:57
+ * @Update: 2019-10-13 11:59:19
  * @Update log: 更新日志
  -->
 <template>
@@ -20,6 +20,7 @@
         :name="item.name"
         :imgUrl="item.picUrl"
         :dec="item.desc || item.rcmdtext"
+        :ridId="item.id"
       ></img-card>
     </div>
   </div>
@@ -46,7 +47,7 @@ export default {
 <style lang='less' scoped>
 @import url("~styles/global.less");
 .wrapper {
-  margin-top: 0.3rem;
+  margin-top: 0.5rem;
   .title {
     .flex-between();
     .text {

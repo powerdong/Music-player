@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-10-08 11:16:52
+ * @Update: 2019-10-13 12:31:00
  * @Update log: 更新日志
  -->
 <template>
@@ -32,7 +32,7 @@
         :key="index"
         :imgUrl="item.album.blurPicUrl"
         :dec="item.name"
-        :albumId="item.id"
+        @click.native="beginAudio(item)"
       ></img-card>
     </div>
   </div>
@@ -41,6 +41,7 @@
 <script>
 import api from 'api'
 import imgCard from 'base/imgCard'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'newDish',
@@ -64,6 +65,9 @@ export default {
             this.dishList = this.getRandomArrayElements(arr, 3)
           }
         })
+    },
+    beginAudio (list) {
+      this.addToAudioList(list)
     },
     _getNewSongsInfo () {
       api.newSongsFn()
@@ -107,7 +111,8 @@ export default {
         shuffled[i] = temp
       }
       return shuffled.slice(min)
-    }
+    },
+    ...mapActions(['addToAudioList'])
   },
   created () {
     this._getDishListInfo()

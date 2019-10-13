@@ -50,7 +50,8 @@ import {
   djClassification,
   djClassificationInfo,
   djProgram,
-  djDetail
+  djDetail,
+  djPayGift
 } from './config'
 
 export default {
@@ -549,10 +550,27 @@ export default {
       }
     })
   },
+  /**
+   * 登陆后调用此接口 , 传入rid, 可获得对应电台的详情介绍
+   * @param {*} rid 电台 的 id
+   */
   djDetailFn (rid) {
     return axios.get(djDetail, {
       params: {
         rid
+      }
+    })
+  },
+  /**
+   * 可以获取付费精选的电台列表 , 传入 limit 和 offset 可以进行分页
+   * @param {*} limit 返回数量 , 默认为 30
+   * @param {*} offset 偏移数量，用于分页
+   */
+  djPayGiftFn (limit = 30, offset = 0) {
+    return axios.get(djPayGift, {
+      params: {
+        limit,
+        offset
       }
     })
   }
