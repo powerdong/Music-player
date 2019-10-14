@@ -72,7 +72,6 @@ export default {
     let albumId = this.$route.params.albumId
     let idxId = this.$route.params.idxId
     let dishId = this.$route.params.dishId
-    console.log(this.$route.params)
     this.listId = +albumId
     if (albumId) {
       this._getInfo(albumId)

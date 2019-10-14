@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-07 12:09:22
- * @Update: 2019-10-08 12:43:30
+ * @Update: 2019-10-14 14:29:08
  * @Update log: 更新日志
  -->
 <template>
@@ -15,12 +15,23 @@
       <i class="result yinliang" v-show="nowSong"></i>
     </div>
     <div class="song-info">
-      <p class="song-name">{{songName}}</p>
-      <p class="song-art">
+      <p class="song-name" :class="{twoLine}">{{songName}}</p>
+      <p class="song-art" v-if="type==='songList'">
         <span>
           <span class="artist" v-for="(item, index) in artists" :key="index">{{ item.name }}</span>
         </span>
         <span class="album-name">{{ albumName }}</span>
+      </p>
+      <p class="dj-info" v-if="type==='djList'">
+        <span class="data">{{createTime | setMonth}}</span>
+        <span class="count">
+          <i class="result bofang1"></i>
+          {{listenerCount | setNum}}
+        </span>
+        <span class="time">
+          <i class="result shijian"></i>
+          {{duration | setTime}}
+        </span>
       </p>
     </div>
     <div class="icon">
@@ -30,6 +41,8 @@
 </template>
 
 <script>
+import { filterSetMonth, filterSetPlayCount, filterSetTime } from 'utils/filters'
+
 export default {
   name: '',
   props: {
@@ -48,9 +61,36 @@ export default {
     num: {
       type: Number
     },
+    type: {
+      type: String,
+      default: 'songList'
+    },
+    createTime: {
+      type: Number
+    },
+    listenerCount: {
+      type: Number
+    },
+    duration: {
+      type: Number
+    },
     nowSong: {
       type: Boolean,
       default: false
+    },
+    twoLine: {
+      type: Boolean
+    }
+  },
+  filters: {
+    setMonth: function (value) {
+      return filterSetMonth(value)
+    },
+    setNum: function (value) {
+      return filterSetPlayCount(value)
+    },
+    setTime: function (value) {
+      return filterSetTime(value)
     }
   },
   methods: {
@@ -63,12 +103,12 @@ export default {
 
 <style lang='less' scoped>
 @import url("~styles/global.less");
-@import url("//at.alicdn.com/t/font_1380711_qksi58kw6ae.css");
+@import url("//at.alicdn.com/t/font_1380711_rx84nrh8dtd.css");
 
 .list-item {
   .flex-between();
   align-items: center;
-  height: 1rem;
+  height: 1.2rem;
   .index {
     color: #999;
   }
@@ -101,6 +141,11 @@ export default {
       height: 0.4rem;
       line-height: 0.4rem;
       .ellipsis();
+      &.twoLine {
+        height: 0.8rem;
+        white-space: normal;
+        .twoLinesEllipsis();
+      }
     }
     .song-art {
       height: 0.4rem;
@@ -121,6 +166,18 @@ export default {
         &::before {
           content: "-";
         }
+      }
+    }
+    .dj-info {
+      font-size: 0.2rem;
+      line-height: 1.5;
+      color: #ccc;
+      .result {
+        font-size: 0.2rem;
+      }
+      .data,
+      .count {
+        margin-right: 0.2rem;
       }
     }
   }
