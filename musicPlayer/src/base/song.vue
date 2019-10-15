@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-07 12:09:22
- * @Update: 2019-10-14 14:29:08
+ * @Update: 2019-10-15 11:58:23
  * @Update log: 更新日志
  -->
 <template>
@@ -138,11 +138,11 @@ export default {
     flex-direction: column;
     .song-name {
       width: 75vw;
-      height: 0.4rem;
+      max-height: 0.4rem;
       line-height: 0.4rem;
       .ellipsis();
       &.twoLine {
-        height: 0.8rem;
+        max-height: 0.8rem;
         white-space: normal;
         .twoLinesEllipsis();
       }

@@ -1,16 +1,17 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-10-14 13:34:16
- * @Update: 2019-10-14 13:43:04
+ * @Update: 2019-10-15 13:18:23
  * @Update log: 更新日志
  -->
 <template>
   <div class="title">
-    <div class="content">
+    <div class="content" @click="changeToDetail">
       <span class="under-line" :class="{active: active === 'detail'}">详情</span>
     </div>
-    <div class="content">
+    <div class="content" @click="changeToProgram">
       <span class="under-line" :class="{active: active === 'program'}">节目</span>
+      <span class="num">{{count}}</span>
     </div>
   </div>
 </template>
@@ -22,12 +23,24 @@ export default {
     active: {
       type: String,
       default: 'program'
+    },
+    count: {
+      type: Number
+    }
+  },
+  methods: {
+    changeToProgram () {
+      this.$emit('changeToProgram')
+    },
+    changeToDetail () {
+      this.$emit('changeToDetail')
     }
   }
 }
 </script>
 
 <style lang='less' scoped>
+@import url("~styles/global.less");
 .under-line {
   position: relative;
   padding-bottom: 0.25rem;
@@ -56,6 +69,7 @@ export default {
   border-top-left-radius: 0.4rem;
   border-top-right-radius: 0.4rem;
   display: flex;
+  transform: translateY(-0.7rem);
   .content {
     flex: 1;
     text-align: center;

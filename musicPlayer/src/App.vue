@@ -1,20 +1,19 @@
 <!--
- * @Author: 李浩栋
- * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-09-12 14:02:08
+ * @Author: Lambda
+ * @Begin: 2019-08-30 19:47:55
+ * @Update: 2019-08-30 19:47:55
  * @Update log: 更新日志
  -->
 <template>
   <div id="app">
-    <transition name="router-fade"
-                mode="out-in">
+    <transition name="router-fade" mode="out-in">
       <keep-alive>
         <router-view></router-view>
         <!-- <router-view v-if="$route.meta.keepAlive"></router-view> -->
       </keep-alive>
       <!-- </transition>
       <transition name="router-fade" mode="out-in">
-      <router-view v-if="!$route.meta.keepAlive"></router-view> -->
+      <router-view v-if="!$route.meta.keepAlive"></router-view>-->
     </transition>
     <!-- 通过查看播放列表的length来看看播放页面是否可以显示 -->
     <play-song v-show="AUDIO_LIST.length"></play-song>
