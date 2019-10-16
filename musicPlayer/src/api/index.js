@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-10-16 13:28:25
+ * @Update: 2019-10-16 19:35:09
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -52,7 +52,8 @@ import {
   djProgram,
   djDetail,
   djPayGift,
-  djSub
+  djSub,
+  djBanner
 } from './config'
 
 export default {
@@ -497,6 +498,12 @@ export default {
    */
   logoutFn () {
     return axios.get(logout)
+  },
+  /**
+   * 调用此接口,可获取电台banner
+   */
+  djBannerFn () {
+    return axios.get(djBanner)
   },
   /**
    * 获取电台页面的电台推荐数据

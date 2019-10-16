@@ -51,6 +51,7 @@ export const addOrDeletePlaylist = '/api/playlist/subscribe' // 收藏/取消收
 export const addPlaylist = '/api/playlist/create' // 添加歌单
 export const deletePlaylist = '/api/playlist/delete' // 删除歌单
 // ================发现页面的电台页面
+export const djBanner = '/api/dj/banner' // 电台页面的轮播图
 export const radioRecommendations = '/api/dj/today/perfered' // 电台推荐数据
 export const boutiqueRecommendations = '/api/dj/paygift' // 电台精品推荐
 export const djClassification = '/api/dj/catelist' // 电台分类
