@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-12 13:02:20
- * @Update: 2019-10-03 20:30:51
+ * @Update: 2019-10-16 11:46:52
  * @Update log: 点击歌单中的某一项，将歌单列表信息传入vuex，用来展示歌曲列表，
  *              点击的index 用列表[index]来设置当前要播放的歌曲
  -->
@@ -118,19 +118,24 @@ export default {
      * 将一些歌曲信息设置
      */
     audioSong: function (val, oldVal) {
+      console.log(val)
       if (val.id === oldVal.id) {
         return
       }
       this.$nextTick(() => {
-        this._checkSong(val.id)
+        if (val.dj) {
+          this._checkSong(val.mainTrackId)
+        } else {
+          this._checkSong(val.id)
+        }
         this.allTime = val.duration ? val.duration : val.dt ? val.dt : ''
         this.artist = val.album ? val.album.artists : val.ar ? val.ar : ''
         this.imgUrl = val.album
           ? val.album.picUrl
           : val.al
             ? val.al.picUrl
-            : val.album.artist
-              ? val.album.artist.img1v1Url : ''
+            : val.album
+              ? val.album.artist.img1v1Url : val.coverUrl ? val.coverUrl : ''
         this.name = val.name
       })
     }

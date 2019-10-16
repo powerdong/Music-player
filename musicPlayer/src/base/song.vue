@@ -103,7 +103,7 @@ export default {
 
 <style lang='less' scoped>
 @import url("~styles/global.less");
-@import url("//at.alicdn.com/t/font_1380711_rx84nrh8dtd.css");
+@import url("//at.alicdn.com/t/font_1380711_cftenqb5flc.css");
 
 .list-item {
   .flex-between();

@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-13 12:03:28
- * @Update: 2019-10-15 13:35:35
+ * @Update: 2019-10-16 13:25:53
  * @Update log: 更新日志
  -->
 <template>
@@ -16,8 +16,46 @@
     >
       <div class="cover" :style="{backgroundColor: `rgba(0, 0, 0, ${cover})`}"></div>
       <div class="data" v-show="!listFixed">
-        <div class="name">{{name}}</div>
-        <div class="dj-num">{{subscription}}人已订阅</div>
+        <div>
+          <div class="name">{{name}}</div>
+          <div class="dj-num">{{subscription}}人已订阅</div>
+        </div>
+        <div class="subscription" v-show="!subed" @click.prevent="addDj">
+          <svg
+            t="1571198266501"
+            class="icon"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="1753"
+            width="14"
+            height="14"
+          >
+            <path
+              d="M737.792 910.6944a57.2416 57.2416 0 0 1-26.7264-6.656l-197.5296-103.8336-197.5296 103.8336a57.2416 57.2416 0 0 1-83.0464-60.3648l37.6832-220.16L110.848 467.968a57.2928 57.2928 0 0 1 31.744-97.6896L363.52 338.2272 462.1824 138.24a56.832 56.832 0 0 1 51.2-31.8976 56.9344 56.9344 0 0 1 51.2 31.8976l98.7648 200.1408 220.8256 32.0512A57.2928 57.2928 0 0 1 916.48 467.968l-159.7952 155.7504 37.7344 220.16a57.3952 57.3952 0 0 1-56.32 67.0208zM159.8464 430.08l155.2896 151.3984a57.2416 57.2416 0 0 1 16.4352 50.688l-36.6592 213.5552 192-100.9152a57.088 57.088 0 0 1 53.2992 0L732.16 845.7216l-36.6592-213.76a57.344 57.344 0 0 1 16.4352-50.688L867.2768 430.08l-214.6304-31.1808a57.2928 57.2928 0 0 1-43.1104-31.3344l-96-194.56-96 194.56a57.2416 57.2416 0 0 1-43.1104 31.3344z m715.6736 1.024zM509.7984 165.2736z"
+              fill="#ffffff"
+              p-id="1754"
+            />
+          </svg>订阅
+        </div>
+        <div class="subscription1" v-show="subed" @click.prevent="deleteDj">
+          <svg
+            t="1571203188806"
+            class="icon"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="2523"
+            width="14"
+            height="14"
+          >
+            <path
+              d="M926.037333 224.256c-22.016-22.016-57.685333-22.016-79.701333 0L384.853333 685.738667 179.370667 480.256c-22.016-22.016-57.685333-22.016-79.701334 0-22.016 22.016-22.016 57.685333 0 79.701333l239.786667 239.786667c12.458667 12.458667 29.184 17.749333 45.397333 16.213333 16.213333 1.536 32.938667-3.754667 45.397334-16.213333l495.786666-495.786667c22.016-22.016 22.016-57.685333 0-79.701333z"
+              fill="#ffffff"
+              p-id="2524"
+            />
+          </svg>已订阅
+        </div>
       </div>
     </div>
     <change-nav
@@ -97,9 +135,11 @@ export default {
       iTitle: '电台',
       title: '电台',
       listFixed: false,
-      item: false,
+      coverFixed: false,
       position: true,
-      top: '0rem'
+      top: '0rem',
+      subed: false,
+      ridId: 0
     }
   },
   computed: {
@@ -111,7 +151,8 @@ export default {
     this.count = 0
     this.name = ''
     this.active = 'program'
-    let ridId = this.$route.params.ridId
+    this.ridId = this.$route.params.ridId
+    let ridId = this.ridId
     if (!ridId) {
       this.$router.go(-1)
     }
@@ -145,6 +186,27 @@ export default {
             this.desc = data.djRadio.desc
             this.detailName = data.djRadio.dj.nickname
             this.category = data.djRadio.category
+            this.subed = data.djRadio.subed
+          }
+        })
+    },
+    addDj () {
+      api.djSubFn(this.ridId, 1)
+        .then(res => {
+          const { data } = res
+          if (data.code === 200) {
+            this.subed = true
+            console.log(data)
+          }
+        })
+    },
+    deleteDj () {
+      api.djSubFn(this.ridId, 0)
+        .then(res => {
+          const { data } = res
+          if (data.code === 200) {
+            console.log(data)
+            this.subed = false
           }
         })
     },
@@ -227,9 +289,11 @@ export default {
   transform: translateY(-5.4rem);
 }
 .wrapper {
+  width: 100vw;
   height: 100vh;
   position: relative;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   .text {
     font-size: 0.4rem;
     vertical-align: 5px;
@@ -241,7 +305,6 @@ export default {
     background-size: 100%;
     background-repeat: no-repeat;
     &.position {
-      z-index: -1;
       position: relative;
     }
     .cover {
@@ -257,6 +320,10 @@ export default {
       position: absolute;
       bottom: 1rem;
       left: 0.3rem;
+      .flex-between();
+      width: 100%;
+      box-sizing: border-box;
+      padding-right: 0.8rem;
       .name {
         color: #fff;
         font-size: 0.3rem;
@@ -266,6 +333,32 @@ export default {
         color: #eee;
         font-size: 0.2rem;
         line-height: 1.5;
+      }
+      .subscription {
+        box-sizing: border-box;
+        display: flex;
+        padding: 0 0.23rem;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        background-color: @bgcolor;
+        border-radius: 0.4rem;
+        .icon {
+          margin-right: 0.2rem;
+        }
+      }
+      .subscription1 {
+        box-sizing: border-box;
+        display: flex;
+        padding: 0 0.23rem;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        border-radius: 0.4rem;
+        border: 1px solid #fff;
+        .icon {
+          margin-right: 0.2rem;
+        }
       }
     }
   }

@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-10-12 19:12:59
+ * @Update: 2019-10-16 13:28:25
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -51,7 +51,8 @@ import {
   djClassificationInfo,
   djProgram,
   djDetail,
-  djPayGift
+  djPayGift,
+  djSub
 } from './config'
 
 export default {
@@ -440,8 +441,12 @@ export default {
   /**
    * 登陆后调用此接口 , 可获取订阅的电台列表
    */
-  djSublistFn () {
-    return axios.get(djSublist)
+  djSublistFn (timestamp) {
+    return axios.get(djSublist, {
+      params: {
+        timestamp
+      }
+    })
   },
   /**
    * 调用此接口 , 可获取新歌速递
@@ -571,6 +576,19 @@ export default {
       params: {
         limit,
         offset
+      }
+    })
+  },
+  /**
+   * 登陆后调用此接口 , 传入rid, 可订阅 dj
+   * @param {*} rid 电台 的 id
+   * @param {*} t t=1 对应关注 t=0 对应取消关注
+   */
+  djSubFn (rid, t) {
+    return axios.get(djSub, {
+      params: {
+        rid,
+        t
       }
     })
   }

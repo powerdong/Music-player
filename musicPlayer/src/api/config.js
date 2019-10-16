@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:42:17
- * @Update: 2019-10-11 22:13:35
+ * @Update: 2019-10-15 22:02:59
  * @Update log: 更新日志
  */
 // ===================发现页面
@@ -35,7 +35,7 @@ export const logout = '/api/logout' // 退出登录
 export const userRecord = '/api/user/record' // 用户播放记录
 export const userInfo = '/api/user/subcount' // 用户信息
 export const playlist = '/api/user/playlist' // 用户歌单
-export const userDj = '/api/user/dj' // 用户电台
+export const userDj = '/api/user/dj' // 用户电台 申请做主播那一行
 export const favoriteAlbums = '/api/album/sublist' // 获取收藏的专辑
 export const favoriteArtists = '/api/artist/sublist' // 获取收藏的歌手
 export const favoriteVideos = '/api/mv/sublist' // 获取收藏的视频
@@ -58,3 +58,4 @@ export const djClassificationInfo = '/api/dj/recommend/type' // 电台分类推�
 export const djProgram = '/api/dj/program' // 电台节目
 export const djDetail = '/api/dj/detail' // 电台详情
 export const djPayGift = '/api/dj/paygift' // 电台付费精选
+export const djSub = '/api/dj/sub' // 订阅/取消订阅电台

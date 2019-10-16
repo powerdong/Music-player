@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-10-01 15:08:21
- * @Update: 2019-10-04 13:10:24
+ * @Update: 2019-10-16 13:29:19
  * @Update log: 更新日志
  -->
 <template>
@@ -26,12 +26,13 @@ export default {
       count: 0
     }
   },
-  created () {
+  activated () {
     this._getDjSublist()
   },
   methods: {
     _getDjSublist () {
-      api.djSublistFn()
+      const data = +new Date()
+      api.djSublistFn(data)
         .then(res => {
           const data = res.data
           if (data.code === 200) {
