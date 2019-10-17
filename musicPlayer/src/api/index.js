@@ -53,7 +53,8 @@ import {
   djDetail,
   djPayGift,
   djSub,
-  djBanner
+  djBanner,
+  djToplist
 } from './config'
 
 export default {
@@ -596,6 +597,19 @@ export default {
       params: {
         rid,
         t
+      }
+    })
+  },
+  /**
+   * 登陆后调用此接口 , 可获得电台节目榜
+   * @param {*} limit  返回数量 , 默认为 100
+   * @param {*} offset 偏移数量，用于分页
+   */
+  djToplistFn (limit = 100, offset = 0) {
+    return axios.get(djToplist, {
+      params: {
+        limit,
+        offset
       }
     })
   }

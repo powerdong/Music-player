@@ -35,6 +35,10 @@ const idx = () => import(/* webpackChunkName: "group-idxPage" */ '@/pages/idx')
 const dj = () => import(/* webpackChunkName: "group-djPage" */ '@/pages/dj')
 const classification = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/dj/childrenPage/class')
 const djPayGift = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/dj/childrenPage/djPayGift')
+const djRanking = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/dj/childrenPage/ranking')
+const djRankingAnchor = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/dj/childrenPage/ranking-anchor')
+const djRankingProgram = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/dj/childrenPage/ranking-program')
+const djRankingRadio = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/dj/childrenPage/ranking-radio')
 const albumPage = () => import(/* webpackChunkName: "group-albumPage" */ 'base/albumPage')
 const djDetailPage = () => import(/* webpackChunkName: "group-djDetailPage" */ 'base/djDetailPage')
 const recentlyPlayed = () => import(/* webpackChunkName: "group-recentlyPlayed" */ '@/pages/recentlyPlayed')
@@ -231,6 +235,20 @@ export default new Router({
   }, {
     path: '/pay_fine',
     component: djPayGift
+  }, {
+    path: '/ranking',
+    component: djRanking,
+    redirect: '/program',
+    children: [{
+      path: '/anchor',
+      component: djRankingAnchor
+    }, {
+      path: '/program',
+      component: djRankingProgram
+    }, {
+      path: '/radio',
+      component: djRankingRadio
+    }]
   }, {
     // 通用专辑展示页面
     path: '/albumPage',

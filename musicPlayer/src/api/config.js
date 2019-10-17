@@ -60,3 +60,4 @@ export const djProgram = '/api/dj/program' // 电台节目
 export const djDetail = '/api/dj/detail' // 电台详情
 export const djPayGift = '/api/dj/paygift' // 电台付费精选
 export const djSub = '/api/dj/sub' // 订阅/取消订阅电台
+export const djToplist = '/api/dj/program/toplist' // 获取最热节目

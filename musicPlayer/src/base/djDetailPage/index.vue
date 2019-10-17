@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-13 12:03:28
- * @Update: 2019-10-16 13:25:53
+ * @Update: 2019-10-17 07:53:43
  * @Update log: 更新日志
  -->
 <template>
@@ -236,7 +236,7 @@ export default {
       if (this.cover > 0.6) {
         this.cover = 0.6
       }
-      if (top >= 148) {
+      if (top >= 250) {
         this.iTitle = this.name
       } else {
         this.iTitle = this.title
@@ -246,7 +246,7 @@ export default {
         this.listFixed = true
         this.coverFixed = true
         this.position = false
-        this.top = '7.8rem'
+        this.top = '6.6rem'
       } else {
         this.listFixed = false
         this.coverFixed = false
