@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-13 12:03:28
- * @Update: 2019-10-17 07:53:43
+ * @Update: 2019-10-17 14:49:02
  * @Update log: 更新日志
  -->
 <template>
@@ -15,7 +15,7 @@
       :style="{backgroundImage: 'url(' + coverImgUrl + ')'}"
     >
       <div class="cover" :style="{backgroundColor: `rgba(0, 0, 0, ${cover})`}"></div>
-      <div class="data" v-show="!listFixed">
+      <div class="data" v-show="!listFixed" :style="{opacity}">
         <div>
           <div class="name">{{name}}</div>
           <div class="dj-num">{{subscription}}人已订阅</div>
@@ -139,7 +139,8 @@ export default {
       position: true,
       top: '0rem',
       subed: false,
-      ridId: 0
+      ridId: 0,
+      opacity: 1
     }
   },
   computed: {
@@ -233,21 +234,22 @@ export default {
       // 获取到 top 值
       let top = this.$el.scrollTop
       this.cover = top / 1000 + 0.3
+      this.opacity = 1 - top / 500
       if (this.cover > 0.6) {
         this.cover = 0.6
-      }
-      if (top >= 250) {
-        this.iTitle = this.name
+        this.opacity = 0.4
       } else {
-        this.iTitle = this.title
+        this.cover = top / 1000 + 0.3
+        this.opacity = 1 - top / 500
       }
-      // 当 top 到了 282 的时候会改变标题行的是否固定样式
       if (top >= 282) {
+        this.iTitle = this.name
         this.listFixed = true
         this.coverFixed = true
         this.position = false
         this.top = '6.6rem'
       } else {
+        this.iTitle = this.title
         this.listFixed = false
         this.coverFixed = false
         this.position = true

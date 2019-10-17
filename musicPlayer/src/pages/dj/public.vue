@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-10-12 13:19:59
- * @Update: 2019-10-17 14:26:20
+ * @Update: 2019-10-17 14:47:03
  * @Update log: 更新日志
  -->
 <template>
@@ -78,7 +78,6 @@ export default {
       return filterSetPlayCount(val)
     },
     setNum1: function (val) {
-      console.log(val)
       if (val < 0) {
         return -val
       }
