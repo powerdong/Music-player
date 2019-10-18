@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-10-13 10:59:26
- * @Update: 2019-10-13 11:22:34
+ * @Update: 2019-10-18 11:19:53
  * @Update log: 更新日志
  -->
 <template>
@@ -9,31 +9,36 @@
     <general-nav @returnPage="returnPage">
       <span class="text">付费精品</span>
     </general-nav>
-    <div class="card" v-for="(item, index) in djPayGiftData" :key="index">
-      <div class="img-info">
-        <img :src="item.picUrl + '?param=200y200'" alt />
-      </div>
-      <div class="content">
-        <h1 class="name">{{item.name}}</h1>
-        <div class="detail">
-          <p class="dec-text">{{item.rcmdText}}</p>
-          <p class="new">最新上架</p>
+    <div v-show="!loading">
+      <div class="card" v-for="(item, index) in djPayGiftData" :key="index">
+        <div class="img-info">
+          <img :src="item.picUrl + '?param=200y200'" alt />
         </div>
-        <p class="price">￥ {{item.originalPrice | price}}</p>
+        <div class="content">
+          <h1 class="name">{{item.name}}</h1>
+          <div class="detail">
+            <p class="dec-text">{{item.rcmdText}}</p>
+            <p class="new">最新上架</p>
+          </div>
+          <p class="price">￥ {{item.originalPrice | price}}</p>
+        </div>
       </div>
     </div>
+    <page-loading v-show="loading"></page-loading>
   </div>
 </template>
 
 <script>
 import generalNav from 'base/generalNav'
+import pageLoading from 'base/pageLoading'
 
 import api from 'api'
 export default {
   name: '',
   data () {
     return {
-      djPayGiftData: []
+      djPayGiftData: [],
+      loading: true
     }
   },
   filters: {
@@ -52,8 +57,8 @@ export default {
         .then(res => {
           const { data } = res
           if (data.code === 200) {
-            console.log(data)
             this.djPayGiftData = data.data.list
+            this.loading = false
           }
         })
     },
@@ -62,7 +67,8 @@ export default {
     }
   },
   components: {
-    generalNav
+    generalNav,
+    pageLoading
   }
 }
 </script>

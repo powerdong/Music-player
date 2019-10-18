@@ -10,7 +10,9 @@
       <span class="text">主播电台排行榜</span>
     </dj-ranking>
     <slider-nav :list="list" minWidth="1.7rem"></slider-nav>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 

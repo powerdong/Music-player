@@ -1,23 +1,27 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-17 13:04:59
- * @Update: 2019-10-17 13:32:21
+ * @Update: 2019-10-18 10:36:29
  * @Update log: 更新日志
  -->
 <template>
   <div class="pd23">
-    <public-con title="最热节目" :data="djToplist" type="rank"></public-con>
+    <public-con v-show="!loading" title="最热节目" :data="djToplist" type="rank"></public-con>
+    <page-loading v-show="loading"></page-loading>
   </div>
 </template>
 
 <script>
 import publicCon from '../public'
 import api from 'api'
+import pageLoading from 'base/pageLoading'
+
 export default {
   name: '',
   data () {
     return {
-      djToplist: []
+      djToplist: [],
+      loading: true
     }
   },
   created () {
@@ -31,12 +35,14 @@ export default {
           const { data } = res
           if (data.code === 200) {
             this.djToplist = data.toplist
+            this.loading = false
           }
         })
     }
   },
   components: {
-    publicCon
+    publicCon,
+    pageLoading
   }
 }
 </script>

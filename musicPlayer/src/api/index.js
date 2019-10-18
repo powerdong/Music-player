@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-10-16 19:35:09
+ * @Update: 2019-10-18 10:48:22
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -54,7 +54,8 @@ import {
   djPayGift,
   djSub,
   djBanner,
-  djToplist
+  djToplist,
+  djHotToplist
 } from './config'
 
 export default {
@@ -610,6 +611,21 @@ export default {
       params: {
         limit,
         offset
+      }
+    })
+  },
+  /**
+   * 登陆后调用此接口 , 可获得新晋电台榜/热门电台榜
+   * @param {*} limit 返回数量 , 默认为 100
+   * @param {*} offset 偏移数量，用于分页
+   * @param {*} type 榜单类型, new 为新晋电台榜, hot为热门电台榜
+   */
+  djHotToplistFn (limit = 100, offset = 0, type = 'hot') {
+    return axios.get(djHotToplist, {
+      params: {
+        limit,
+        offset,
+        type
       }
     })
   }

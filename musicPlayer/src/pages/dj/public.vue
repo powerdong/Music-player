@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-10-12 13:19:59
- * @Update: 2019-10-17 14:47:03
+ * @Update: 2019-10-18 11:18:03
  * @Update log: 更新日志
  -->
 <template>
@@ -17,18 +17,21 @@
       </span>
     </div>
     <ul>
-      <li class="list-item" v-for="(item, index) in data" :key="index">
+      <li class="list-item" :class="{hotRank}" v-for="(item, index) in data" :key="index">
         <div class="index" v-show="type === 'rank'">
           <span>{{index + 1}}</span>
           <span>
             <i
               class="dj-public"
-              :class="{publicjiantou : item.lastRank !== -1 && item.lastRank - item.rank > 0, publicjiantou1: item.lastRank !== -1 && item.lastRank - item.rank < 0, publicico17: item.lastRank === -1}"
+              :class="{publicjiantou : item.lastRank !== -1 && item.lastRank - item.rank > 0,
+              publicjiantou1: item.lastRank !== -1 && item.lastRank - item.rank < 0,
+              publicico17: item.lastRank === -1,
+              publichengxian: item.lastRank !== -1 && item.lastRank - item.rank === 0}"
             ></i>
             <i class="num" v-show="item.lastRank !== -1">{{(item.lastRank - item.rank) | setNum1}}</i>
           </span>
         </div>
-        <div class="img-info">
+        <div class="img-info" :class="{hotRank}">
           <img
             :src="item.picUrl ? item.picUrl  + '?param=100y100' : item.program ? item.program.coverUrl  + '?param=100y100' : ''"
             alt
@@ -36,7 +39,7 @@
         </div>
         <div class="content">
           <p class="name">{{item.name ? item.name : item.program.name}}</p>
-          <div class="dec">
+          <div class="dec" :class="{hotRank}">
             <div class="name">
               <div class="img-info">
                 <img
@@ -49,12 +52,12 @@
             <div class="hot-num">
               <span class="num">
                 <i class="dj-public publichuo"></i>
-                {{ item.subCount ? item.subCount : item.score ? item.score : '' | setNum }}
+                {{ hotRank ? item.score : item.subCount ? item.subCount : item.score ? item.score : '' | setNum }}
               </span>
             </div>
           </div>
         </div>
-        <span class="icon">
+        <span class="icon" v-show="!hotRank">
           <i class="dj-public publicbofang1"></i>
         </span>
       </li>
@@ -93,6 +96,9 @@ export default {
     },
     type: {
       type: String
+    },
+    hotRank: {
+      type: Boolean
     }
   }
 }
@@ -100,7 +106,7 @@ export default {
 
 <style lang='less' scoped>
 @import url("~styles/global.less");
-@import url("//at.alicdn.com/t/font_1463228_2ciob1m9yug.css");
+@import url("//at.alicdn.com/t/font_1463228_r8h4j6n64o.css");
 .wrapper {
   margin-top: 0.5rem;
   .title {
@@ -113,6 +119,9 @@ export default {
     display: flex;
     align-items: center;
     height: 1.5rem;
+    &.hotRank {
+      height: 1.8rem;
+    }
     &:nth-of-type(1) .index {
       color: @bgcolor;
     }
@@ -147,6 +156,9 @@ export default {
           color: #278230;
           font-size: 0.4rem;
         }
+        &.publichengxian {
+          color: #999;
+        }
       }
     }
     .img-info {
@@ -154,6 +166,14 @@ export default {
       height: 0;
       padding-bottom: 1rem;
       margin-right: 0.2rem;
+      &.hotRank {
+        width: 1.3rem;
+        padding-bottom: 1.3rem;
+        img {
+          width: 1.3rem;
+          height: 1.3rem;
+        }
+      }
       img {
         border-radius: @imgBorderRadius;
         width: 1rem;
@@ -174,6 +194,17 @@ export default {
         display: flex;
         align-items: center;
         color: #aaa;
+        &.hotRank {
+          flex-direction: column;
+          align-items: baseline;
+          justify-content: center;
+          line-height: 1.5;
+          .name {
+            &::after {
+              content: "";
+            }
+          }
+        }
         .name {
           display: flex;
           align-items: center;

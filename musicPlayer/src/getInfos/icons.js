@@ -1,7 +1,7 @@
 /*
  * @Author: Lambda
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-07-30 16:42:30
+ * @Update: 2019-10-18 11:25:41
  * @Update log: 更新日志
  */
 let homeIcons = [{
@@ -79,7 +79,7 @@ let djIcons = [{
 }, {
   text: '主播学院',
   icon: 'dj dj-shucopy',
-  linkTo: 'Anchor'
+  linkTo: 'anchor_college'
 }]
 
 let homeList = [{
