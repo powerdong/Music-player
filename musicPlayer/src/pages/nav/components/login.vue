@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-10-24 10:41:15
+ * @Update: 2019-10-24 10:58:34
  * @Update log: 更新日志
  -->
 <template>
@@ -64,7 +64,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url("//at.alicdn.com/t/font_1322263_fy4q7rzis3b.css");
+@import url("//at.alicdn.com/t/font_1322263_rqiqhmq0u9o.css");
 .login-menu {
   // 左侧侧边栏 宽度设置为6rem
   position: absolute;

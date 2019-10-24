@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-10-24 10:38:33
+ * @Update: 2019-10-24 11:15:15
  * @Update log: 更新日志
  -->
 <template>
@@ -26,8 +26,12 @@
         <span class="level">Lv.{{level}}</span>
       </div>
       <div class="daily_sign-in">
-        <el-button type="danger" size="mini" round>
+        <el-button type="danger" size="mini" @click="sign" round v-show="!isSign">
           <i class="login icontubiaozhizuo-"></i>签到
+        </el-button>
+        <el-button size="mini" round v-show="isSign">
+          已签到
+          <i class="login iconyoujiantou"></i>
         </el-button>
       </div>
     </div>
@@ -36,6 +40,8 @@
 
 <script>
 import { mapMutations } from 'vuex'
+import { getCookie, setCookie } from 'utils/cookie'
+import api from 'api'
 export default {
   name: 'loginTop',
   data () {
@@ -64,6 +70,11 @@ export default {
       set (val) {
         this.$emit('update_state', val)
       }
+    },
+    isSign: {
+      get () {
+        return getCookie('sign').slice(1)
+      }
     }
   },
   methods: {
@@ -74,6 +85,31 @@ export default {
         this.avatarUrl = localStorage.getItem('avatarUrl')
         this.nickname = localStorage.getItem('nickname')
       }
+    },
+    setSignCookie () {
+      var curDate = new Date()
+      // 当前时间戳
+      var curTamp = curDate.getTime()
+      // 当日凌晨的时间戳,减去一毫秒是为了防止后续得到的时间不会达到00:00:00的状态
+      var curWeeHours = new Date(curDate.toLocaleDateString()).getTime() - 1
+      // 当日已经过去的时间（毫秒）
+      var passedTamp = curTamp - curWeeHours
+      // 当日剩余时间
+      var leftTamp = 24 * 60 * 60 * 1000 - passedTamp
+      var leftTime = new Date()
+      leftTime.setTime(leftTamp + curTamp)
+      setCookie('sign', true, leftTime)
+    },
+    sign () {
+      api.signInFn()
+        .then(res => {
+          const { data } = res
+          if (data.code === 200) {
+            // 签到成功
+            console.log('签到成功')
+            this.setSignCookie()
+          }
+        })
     },
     ...mapMutations(['HIDE_LOGIN'])
   }
@@ -107,7 +143,7 @@ export default {
       .level {
         box-sizing: border-box;
         padding: 0.04rem 0.1rem;
-        background-color: #999;
+        background-color: #ccc;
         border-radius: 0.4rem;
         font-size: 0.2rem;
       }
@@ -136,6 +172,9 @@ export default {
       height: 0.44rem;
       border-radius: 0.2rem;
       background: @bgcolor;
+      .iconyoujiantou {
+        font-size: 0.24rem;
+      }
     }
   }
   .no-login {
