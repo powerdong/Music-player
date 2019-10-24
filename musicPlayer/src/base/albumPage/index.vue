@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:47:11
- * @Update: 2019-10-09 11:47:44
+ * @Update: 2019-10-24 08:55:56
  * @Update log: 这个是歌单展示的通用组件
  -->
 <template>
@@ -69,6 +69,8 @@ export default {
   },
   activated () {
     this.load = true
+    this.albumInfo = []
+    this.listId = 0
     let albumId = this.$route.params.albumId
     let idxId = this.$route.params.idxId
     let dishId = this.$route.params.dishId

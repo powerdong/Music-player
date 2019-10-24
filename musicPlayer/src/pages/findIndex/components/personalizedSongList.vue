@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-10-11 13:19:24
+ * @Update: 2019-10-24 08:54:17
  * @Update log: 更新日志
  -->
 <template>
@@ -10,7 +10,8 @@
       <div class="recommended">推荐歌单</div>
       <router-link to="recommend" tag="div" class="square">歌单广场</router-link>
     </div>
-    <div class="img-col">
+    <page-loading style="height:5rem" v-show="load"></page-loading>
+    <div class="img-col" v-show="!load">
       <!-- 因为两个接口的属性名不同，这里使用了或 -->
       <img-card
         v-for="(item, index) in songList"
@@ -27,16 +28,20 @@
 <script>
 import api from 'api'
 import imgCard from 'base/imgCard'
+import pageLoading from 'base/pageLoading'
+
 import { getRandomArrayElements } from 'utils/getRandomArrayElements'
 
 import { mapGetters } from 'vuex'
 export default {
   name: 'songList',
   components: {
-    imgCard
+    imgCard,
+    pageLoading
   },
   data () {
     return {
+      load: true,
       songList: []
     }
   },
@@ -53,6 +58,7 @@ export default {
           const data = res.data
           if (data.code === 200) {
             this.songList = getRandomArrayElements(data.playlists, 6)
+            this.load = false
           }
         })
         .catch(error => console.log(error))
@@ -67,6 +73,7 @@ export default {
           if (data.code === 200) {
             const arr = data.recommend
             this.songList = getRandomArrayElements(arr, 6)
+            this.load = false
           }
         })
     }

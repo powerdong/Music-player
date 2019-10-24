@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 10:19:23
- * @Update: 2019-09-17 10:29:10
+ * @Update: 2019-10-24 08:50:52
  * @Update log: 展示页面加载动画
  -->
 <template>
@@ -26,6 +26,7 @@ export default {
 .container {
   display: flex;
   justify-content: center;
+  align-items: center;
   height: 1rem;
   line-height: 1rem;
   z-index: 999;

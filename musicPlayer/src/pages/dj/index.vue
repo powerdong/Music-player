@@ -1,37 +1,40 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:39:29
- * @Update: 2019-10-13 12:59:52
+ * @Update: 2019-10-24 08:41:43
  * @Update log: 更新日志
  -->
 <template>
   <div class="wrapper pd23">
-    <dj-nav @returnPage="returnPage">
+    <dj-nav @returnPage="returnPage" class="titleFixed">
       <span class="text">电台</span>
     </dj-nav>
     <swiper></swiper>
     <icons></icons>
     <radio-recom></radio-recom>
     <boutique-recom></boutique-recom>
-    <public-con title="创作|翻唱" :data="createData.slice(0,4)"></public-con>
-    <public-img-wrap title="有声书" :data="soundBookData.slice(0,3)"></public-img-wrap>
-    <public-con title="情感调频" :data="emotionData.slice(0,4)"></public-con>
-    <public-img-wrap title="广播剧" :data="broadcastingData.slice(0,3)"></public-img-wrap>
-    <public-con title="音乐故事" :data="musicData.slice(0,4)"></public-con>
-    <public-img-wrap title="娱乐|影视" :data="entertainmentData.slice(0,3)"></public-img-wrap>
-    <public-con title="3D|电子" :data="electronicData.slice(0,4)"></public-con>
-    <public-img-wrap title="美文读物" :data="mevinData.slice(0,3)"></public-img-wrap>
-    <public-con title="二次元" :data="secondaryData.slice(0,4)"></public-con>
-    <public-img-wrap title="脱口秀" :data="talkData.slice(0,3)"></public-img-wrap>
-    <public-img-wrap title="知识技能" :data="knowledgeData.slice(0,3)"></public-img-wrap>
-    <public-img-wrap title="商业财经" :data="businessData.slice(0,3)"></public-img-wrap>
-    <public-img-wrap title="人文历史" :data="historyData.slice(0,3)"></public-img-wrap>
-    <public-img-wrap title="外文世界" :data="englishData.slice(0,3)"></public-img-wrap>
-    <public-img-wrap title="亲子宝贝" :data="babyData.slice(0,3)"></public-img-wrap>
-    <public-img-wrap title="相声曲艺" :data="crosstalkData.slice(0,3)"></public-img-wrap>
-    <public-img-wrap title="旅途|城市" :data="journeyData.slice(0,3)"></public-img-wrap>
-    <public-class title="热门分类" :data="hotClass"></public-class>
-    <public-class title="更多分类" :data="moreClass"></public-class>
+    <div v-show="!load">
+      <public-con title="创作|翻唱" :data="createData.slice(0,4)"></public-con>
+      <public-img-wrap title="有声书" :data="soundBookData.slice(0,3)"></public-img-wrap>
+      <public-con title="情感调频" :data="emotionData.slice(0,4)"></public-con>
+      <public-img-wrap title="广播剧" :data="broadcastingData.slice(0,3)"></public-img-wrap>
+      <public-con title="音乐故事" :data="musicData.slice(0,4)"></public-con>
+      <public-img-wrap title="娱乐|影视" :data="entertainmentData.slice(0,3)"></public-img-wrap>
+      <public-con title="3D|电子" :data="electronicData.slice(0,4)"></public-con>
+      <public-img-wrap title="美文读物" :data="mevinData.slice(0,3)"></public-img-wrap>
+      <public-con title="二次元" :data="secondaryData.slice(0,4)"></public-con>
+      <public-img-wrap title="脱口秀" :data="talkData.slice(0,3)"></public-img-wrap>
+      <public-img-wrap title="知识技能" :data="knowledgeData.slice(0,3)"></public-img-wrap>
+      <public-img-wrap title="商业财经" :data="businessData.slice(0,3)"></public-img-wrap>
+      <public-img-wrap title="人文历史" :data="historyData.slice(0,3)"></public-img-wrap>
+      <public-img-wrap title="外文世界" :data="englishData.slice(0,3)"></public-img-wrap>
+      <public-img-wrap title="亲子宝贝" :data="babyData.slice(0,3)"></public-img-wrap>
+      <public-img-wrap title="相声曲艺" :data="crosstalkData.slice(0,3)"></public-img-wrap>
+      <public-img-wrap title="旅途|城市" :data="journeyData.slice(0,3)"></public-img-wrap>
+      <public-class title="热门分类" :data="hotClass"></public-class>
+      <public-class title="更多分类" :data="moreClass"></public-class>
+    </div>
+    <page-loading v-show="load"></page-loading>
   </div>
 </template>
 
@@ -44,12 +47,14 @@ import boutiqueRecom from './components/boutiqueRecom'
 import publicCon from './public'
 import publicImgWrap from './publicImgWrap'
 import publicClass from './publicClass'
+import pageLoading from 'base/pageLoading'
 
 import api from 'api'
 export default {
   name: '',
   data () {
     return {
+      load: true,
       jsonTarget: [],
       hotClass: [],
       moreClass: [],
@@ -153,6 +158,7 @@ export default {
       this.babyData = this.ruleData(arr, '亲子宝贝')
       this.crosstalkData = this.ruleData(arr, '相声曲艺')
       this.journeyData = this.ruleData(arr, '旅途|城市')
+      this.load = false
     },
     /**
      * 定义一个方法，用来筛选数据，将所有数据分类筛选出对应的数据
@@ -192,7 +198,8 @@ export default {
     boutiqueRecom,
     publicCon,
     publicClass,
-    publicImgWrap
+    publicImgWrap,
+    pageLoading
   }
 }
 </script>
@@ -200,6 +207,7 @@ export default {
 <style lang='less' scoped>
 @import url("~styles/global.less");
 @import url("//at.alicdn.com/t/font_1452410_k59z7sgowgp.css");
+
 .wrapper {
   .text {
     font-size: 0.4rem;
