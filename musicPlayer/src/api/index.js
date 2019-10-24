@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-10-18 10:48:22
+ * @Update: 2019-10-24 09:43:59
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -55,7 +55,9 @@ import {
   djSub,
   djBanner,
   djToplist,
-  djHotToplist
+  djHotToplist,
+  likeMusicList,
+  likeMusic
 } from './config'
 
 export default {
@@ -413,6 +415,32 @@ export default {
         id,
         pid,
         sid
+      }
+    })
+  },
+  /**
+   * 调用此接口 , 传入音乐 id, 可喜欢该音乐
+   * @param {*} id 音乐id
+   * @param {*} like 布尔值 , 默认为 true 即喜欢 , 若传 false, 则取消喜欢
+   */
+  likeMusicFn (id, like) {
+    return axios.get(likeMusic, {
+      params: {
+        id,
+        like
+      }
+    })
+  },
+  /**
+   * 调用此接口 , 传入用户 id, 可获取已喜欢音乐id列表(id数组)
+   * @param {*} uid 用户id
+   */
+  likeMusicListFn (uid) {
+    const timestamp = +new Date()
+    return axios.get(likeMusicList, {
+      params: {
+        uid,
+        timestamp
       }
     })
   },

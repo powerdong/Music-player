@@ -24,6 +24,8 @@ export const songUrl = 'api/song/url' // 获取歌曲url
 export const checkSong = 'api/check/music' // 查看歌曲是否可用
 export const songLyric = 'api/lyric' // 获取歌词
 export const heartMode = 'api/playmode/intelligence/list' // 心动模式播放
+export const likeMusicList = 'api/likelist' // 喜欢歌曲列表
+export const likeMusic = 'api/like' // 喜欢歌曲
 // ===================登陆
 export const phoneLogin = '/api/login/cellphone' // 手机号登陆
 export const phoneRegistered = '/api/cellphone/existence/check' // 手机号是否被注册

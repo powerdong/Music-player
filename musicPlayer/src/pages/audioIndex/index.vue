@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-12 13:02:20
- * @Update: 2019-10-16 11:46:52
+ * @Update: 2019-10-24 09:42:49
  * @Update log: 点击歌单中的某一项，将歌单列表信息传入vuex，用来展示歌曲列表，
  *              点击的index 用列表[index]来设置当前要播放的歌曲
  -->
@@ -27,7 +27,7 @@
         v-show="!playingShow"
         @click.native="setPlayingShow(true)"
       ></lyric-page>
-      <play-icons></play-icons>
+      <play-icons :isLike="isLike" @update_isLike="update_isLike"></play-icons>
       <bar :allTime="allTime" :time="playTime" :width="progressWidth" @time="changeTime"></bar>
       <function-button
         @play="toggle"
@@ -98,7 +98,8 @@ export default {
       ruleLyric: [],
       noLyric: false,
       isShowAudioList: false,
-      noLyricText: ''
+      noLyricText: '',
+      isLike: false
     }
   },
   computed: {
@@ -118,7 +119,8 @@ export default {
      * 将一些歌曲信息设置
      */
     audioSong: function (val, oldVal) {
-      console.log(val)
+      // 查看当前播放歌曲是否已喜欢
+      this._getLikeMusicList(val.id)
       if (val.id === oldVal.id) {
         return
       }
@@ -154,6 +156,38 @@ export default {
             this.toPlay()
           }
         })
+    },
+    /**
+     * 获取已喜欢的歌曲列表
+     * 得到列表数组后遍历查看当前歌曲是否在已喜欢列表中
+     */
+    _getLikeMusicList (id) {
+      const uid = localStorage.getItem('accountUid')
+      api.likeMusicListFn(uid)
+        .then(res => {
+          const { data } = res
+          if (data.code === 200) {
+            this.filterAudio(data.ids, id)
+          }
+        })
+    },
+    /**
+     * 判断当前歌曲是否在已喜欢数组中
+     */
+    filterAudio (arr, id) {
+      if (arr.indexOf(id) > -1) {
+        console.log('已喜欢')
+        this.isLike = true
+      } else {
+        console.log('未喜欢')
+        this.isLike = false
+      }
+    },
+    /**
+     * 更新当前歌曲喜欢状态
+     */
+    update_isLike (val) {
+      this.isLike = val
     },
     /**
      * 获取歌曲歌词
