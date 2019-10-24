@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-14 15:42:41
- * @Update: 2019-10-12 13:02:46
+ * @Update: 2019-10-24 10:42:53
  * @Update log: 手机号登录密码页面
  -->
 <template>
@@ -76,7 +76,7 @@ export default {
             let accountInfo = res.data.profile
             // 成功登陆
             // 修改状态为 1
-            this.$store.commit('LOGIN_STATE')
+            this.$store.commit('LOGIN_STATE', 1)
             // Vuex在用户刷新的时候loginState会回到默认值false
             // 所以我们需要用到HTML5储存
             // 我们设置一个名为loginState
@@ -87,10 +87,25 @@ export default {
             // 存取用户 uid信息
             this.$store.commit('ACCOUNT_UID', userId)
             localStorage.setItem('accountUid', userId)
+            this._getUserDetail(userId)
           }
         })
         .catch(err => {
           console.log(err)
+        })
+    },
+    /**
+     * 获取用户详情
+     * 等级数据
+     */
+    _getUserDetail (uid) {
+      api.userDetailFn(uid)
+        .then(res => {
+          const { data } = res
+          if (data.code === 200) {
+            this.$store.commit('SET_LEVEL', data.level)
+            localStorage.setItem('level', data.level)
+          }
         })
     },
     /**
@@ -105,6 +120,9 @@ export default {
       let phone = getPhone()
       this._isSure(phone, pwd)
     },
+    /**
+     * 判断密码是否正确
+     */
     _isSure (phone, pwd) {
       api.phoneLoginFn(phone, pwd)
         .then(res => {
@@ -125,9 +143,6 @@ export default {
      * 登录成功
      */
     success () {
-      // 修改状态为 1
-      this.$store.commit('LOGIN_STATE')
-      localStorage.setItem('loginState', 1)
       // loading 样式隐藏
       this.LoadingEnd()
       // 存取登陆状态

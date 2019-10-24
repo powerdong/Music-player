@@ -22,7 +22,8 @@ import {
   SET_AUDIO_INDEX,
   SET_PLAY_LIST,
   SET_AUDIO_MODE,
-  SET_PLAYING_SHOW
+  SET_PLAYING_SHOW,
+  SET_LEVEL
 } from './mutation-types'
 
 // 实现侧边栏显示时底部不跟随滚动
@@ -70,8 +71,11 @@ export default {
     }
   },
   // 设置用户登陆状态
-  [LOGIN_STATE] (state) {
-    state.loginState = 1
+  [LOGIN_STATE] (state, num) {
+    state.loginState = num
+  },
+  [SET_LEVEL] (state, num) {
+    state.level = num
   },
   // 存取用户 uid
   [ACCOUNT_UID] (state, id) {

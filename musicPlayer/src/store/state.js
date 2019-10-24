@@ -20,5 +20,6 @@ export default {
   mode: 0, // 用来记录当前播放模式 0：列表循环，1：单曲循环 2：随机播放
   audioIngIndex: -1, // 正在播放的这一首歌曲索引
   playingShow: true, // 是否显示转盘播放页面
-  offsetLyric: 0 // 设置歌词偏移
+  offsetLyric: 0, // 设置歌词偏移
+  level: 0 // 用户等级
 }

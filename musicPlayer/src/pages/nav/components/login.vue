@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-10-11 07:48:39
+ * @Update: 2019-10-24 10:41:15
  * @Update log: 更新日志
  -->
 <template>
@@ -20,6 +20,7 @@ import loginIcons from './login-icons'
 import loginIconsTop from './login-icons-top'
 import loginIconsBottom from './login-icons-bottom'
 import loginBottom from './login-bottom'
+import { mapGetters, mapMutations } from 'vuex'
 import api from 'api'
 export default {
   name: 'login',
@@ -28,6 +29,9 @@ export default {
       // 显式的将获取到的登陆标签设置为Number类型
       loginState: +localStorage.getItem('loginState')
     }
+  },
+  computed: {
+    ...mapGetters(['LEVEL'])
   },
   methods: {
     /**
@@ -42,10 +46,12 @@ export default {
           if (data.code === 200) {
             console.log(data)
             localStorage.setItem('loginState', 0)
+            this.LOGIN_STATE(0)
             location.reload()
           }
         })
-    }
+    },
+    ...mapMutations(['LOGIN_STATE'])
   },
   components: {
     loginTop,

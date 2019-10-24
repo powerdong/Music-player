@@ -57,7 +57,8 @@ import {
   djToplist,
   djHotToplist,
   likeMusicList,
-  likeMusic
+  likeMusic,
+  userDetail
 } from './config'
 
 export default {
@@ -253,6 +254,17 @@ export default {
     return axios.get(userInfo, {
       params: {
         timestamp
+      }
+    })
+  },
+  /**
+   * 登陆后调用此接口 , 传入用户 id, 可以获取用户详情
+   * @param {*} uid 用户id
+   */
+  userDetailFn (uid) {
+    return axios.get(userDetail, {
+      params: {
+        uid
       }
     })
   },

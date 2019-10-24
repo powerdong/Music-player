@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-10-10 22:09:30
+ * @Update: 2019-10-24 10:38:33
  * @Update log: 更新日志
  -->
 <template>
@@ -20,7 +20,10 @@
       <div class="img-info">
         <el-avatar class="account-bg" :src="avatarUrl + '?param=200y200'"></el-avatar>
         <!-- <img class="account-bg" :src="avatarUrl" alt=""> -->
-        <p class="account-nickname">{{nickname}}</p>
+      </div>
+      <div class="nickname">
+        <span class="account-nickname">{{nickname}}</span>
+        <span class="level">Lv.{{level}}</span>
       </div>
       <div class="daily_sign-in">
         <el-button type="danger" size="mini" round>
@@ -38,8 +41,8 @@ export default {
   data () {
     return {
       avatarUrl: '',
-      nickname: ''
-
+      nickname: '',
+      level: 0
     }
   },
   props: {
@@ -65,9 +68,9 @@ export default {
   },
   methods: {
     getUserInfo (bool) {
-      console.log(bool)
       if (bool) {
         // 通过本地存储获取用户头像和昵称
+        this.level = localStorage.getItem('level')
         this.avatarUrl = localStorage.getItem('avatarUrl')
         this.nickname = localStorage.getItem('nickname')
       }
@@ -98,6 +101,17 @@ export default {
     width: 100%;
     height: 100%;
     justify-content: space-between;
+    .nickname {
+      position: absolute;
+      bottom: 0;
+      .level {
+        box-sizing: border-box;
+        padding: 0.04rem 0.1rem;
+        background-color: #999;
+        border-radius: 0.4rem;
+        font-size: 0.2rem;
+      }
+    }
     .img-info {
       // 用户信息 包括头像和昵称
       text-align: center;
