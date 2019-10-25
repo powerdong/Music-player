@@ -107,6 +107,7 @@ export default {
           if (data.code === 200) {
             // 签到成功
             console.log('签到成功')
+            this.isSign = true
             this.setSignCookie()
           }
         })

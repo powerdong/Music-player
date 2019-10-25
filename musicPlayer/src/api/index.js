@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-10-24 09:43:59
+ * @Update: 2019-10-24 14:51:55
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -59,7 +59,10 @@ import {
   likeMusicList,
   likeMusic,
   userDetail,
-  signIn
+  signIn,
+  friend,
+  getVideoTag,
+  getVideoGroup
 } from './config'
 
 export default {
@@ -679,6 +682,39 @@ export default {
         limit,
         offset,
         type
+      }
+    })
+  },
+  /**
+   * 调用此接口 , 可获取各种动态
+   * 对应网页版网易云，朋友界面里的各种动态消息
+   * 如分享的视频，音乐，照片等！
+   * @param {*} pagesize  每页数据,默认20
+   * @param {*} lasttime  返回数据的 lasttime ,默认-1
+   * 传入上一次返回结果的 lasttime,将会返回下一页的数据
+   */
+  friendFn (pagesize = 20, lasttime = -1) {
+    return axios.get(friend, {
+      params: {
+        pagesize,
+        lasttime
+      }
+    })
+  },
+  /**
+   * 调用此接口 , 可获取视频标签列表
+   */
+  getVideoTagFn () {
+    return axios.get(getVideoTag)
+  },
+  /**
+   * 调用此接口 , 传入id,可获取到相关的视频
+   * @param {*} id videoGroup 的 id
+   */
+  getVideoGroupFn (id) {
+    return axios.get(getVideoGroup, {
+      params: {
+        id
       }
     })
   }

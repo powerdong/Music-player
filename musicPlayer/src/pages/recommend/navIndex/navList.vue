@@ -1,20 +1,21 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 19:54:27
- * @Update: 2019-09-08 17:52:01
+ * @Update: 2019-10-25 19:25:14
  * @Update log: 因为存在 url地址自动将中文转换为编码
  *              在第一次加载时，默认组件不能正确添加active样式
  -->
 <template>
- <div class="wrapper pd23" ref="navs">
+  <div class="wrapper pd23" ref="navs">
     <!-- 使用 replace 它不会向 history 添加新记录 -->
-    <router-link :to="item.text | setPage"
-                class="nav-list"
-                v-for="(item, index) in list"
-                :key="index"
-                replace>
-    {{ item.text }}
-    </router-link>
+    <router-link
+      :to="item.text | setPage"
+      class="nav-list"
+      v-for="(item, index) in list"
+      :key="index"
+      exact
+      replace
+    >{{ item.text }}</router-link>
     <span class="more">
       <i class="recommend ziyuanxhdpi"></i>
     </span>
@@ -73,8 +74,8 @@ export default {
 </script>
 
 <style lang='less' scoped>
-@import url('~styles/global.less');
-.wrapper{
+@import url("~styles/global.less");
+.wrapper {
   display: flex;
   flex-wrap: nowrap;
   box-sizing: border-box;
@@ -82,7 +83,7 @@ export default {
   overflow-x: auto;
   border-bottom: 1px solid #ddd;
   margin-right: 0.6rem;
-  .nav-list{
+  .nav-list {
     position: relative;
     display: flex;
     justify-content: center;
@@ -94,7 +95,7 @@ export default {
     margin: 0 0.2rem;
     color: #000;
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       bottom: 0;
       left: 0;
@@ -105,20 +106,20 @@ export default {
       transform: scaleX(0);
       transition: transform 0.5s ease;
     }
-    &.ac{
+    &.ac {
       color: @bgcolor;
     }
-    &.ac::before{
+    &.ac::before {
       transform-origin: bottom left;
       transform: scaleX(1);
     }
   }
-  .more{
+  .more {
     position: fixed;
     right: 8px;
     top: 0.95rem;
     // transform: translateY(-50%);
-    .recommend{
+    .recommend {
       font-size: 0.4rem;
     }
   }

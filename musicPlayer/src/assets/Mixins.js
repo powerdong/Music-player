@@ -1,13 +1,14 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-09-21 15:14:40
- * @Update: 2019-09-22 17:39:22
+ * @Update: 2019-10-25 19:48:56
  * @Update log: 更新日志
  */
 
 import {
   mapGetters
 } from 'vuex'
+import api from 'api'
 /**
  * 这里包含对于不同模式下的icon展示
  * 对于更改mode
@@ -37,6 +38,25 @@ export const audio = {
     },
     showAudioList () {
       this.$emit('showAudioList')
+    }
+  }
+}
+
+export const videoPage = {
+  created () {
+    this._getVideoDetail(this.$route.params.id)
+  },
+  methods: {
+    _getVideoDetail (id) {
+      api.getVideoGroupFn(id)
+        .then(res => {
+          const {
+            data
+          } = res
+          if (data.code === 200) {
+            console.log(data)
+          }
+        })
     }
   }
 }

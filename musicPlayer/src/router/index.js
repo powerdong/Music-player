@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-10-13 11:02:26
+ * @Update: 2019-10-25 19:41:47
  * @Update log: 更新日志
  */
 import Vue from 'vue'
@@ -10,6 +10,16 @@ import Router from 'vue-router'
 const navIndex = () => import(/* webpackChunkName: "group-nav" */ '@/pages/nav/index')
 const findIndex = () => import(/* webpackChunkName: "group-findPage" */ '@/pages/findIndex/index')
 const homeIndex = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/homeIndex/index')
+const videoIndex = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/index')
+const musicFestival = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/musicFestival')
+const scene = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/scene')
+const listenBGM = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/listenBGM')
+const mv = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/mv')
+const dance = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/dance')
+const acg = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/acg')
+const rock = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/rock')
+const game = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/game')
+const animation = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/animation')
 const loginIndex = () => import(/* webpackChunkName: "group-loginPage" */ '@/pages/loginIndex/index')
 const accountLogin = () => import(/* webpackChunkName: "group-login-accountPage" */ '@/pages/loginIndex/components/accountLogin')
 const phoneAccount = () => import(/* webpackChunkName: "group-login-phonePage" */ '@/pages/loginIndex/components/phoneAccount')
@@ -84,6 +94,39 @@ export default new Router({
       path: '/home',
       name: 'home',
       component: homeIndex
+    }, {
+      path: '/videoPage',
+      name: 'videoPage',
+      component: videoIndex,
+      redirect: '/videoPage/musicFestival',
+      children: [{
+        path: '/videoPage/musicFestival',
+        component: musicFestival
+      }, {
+        path: '/videoPage/scene/:id',
+        component: scene
+      }, {
+        path: '/videoPage/listenBGM/:id',
+        component: listenBGM
+      }, {
+        path: '/videoPage/MV/:id',
+        component: mv
+      }, {
+        path: '/videoPage/dance/:id',
+        component: dance
+      }, {
+        path: '/videoPage/ACG/:id',
+        component: acg
+      }, {
+        path: '/videoPage/rock/:id',
+        component: rock
+      }, {
+        path: '/videoPage/game/:id',
+        component: game
+      }, {
+        path: '/videoPage/animation/:id',
+        component: animation
+      }]
     }]
   }, {
     // 更多新碟

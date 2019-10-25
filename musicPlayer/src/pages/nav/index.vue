@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-10-11 08:01:29
+ * @Update: 2019-10-25 19:27:07
  * @Update log: 更新日志
  -->
 <template>
@@ -15,7 +15,7 @@
         <router-link tag="li" class="nav-title ripple" to="/home">我的</router-link>
         <router-link tag="li" class="nav-title ripple" to="/find">发现</router-link>
         <router-link tag="li" class="nav-title ripple" to="/friend">朋友</router-link>
-        <router-link tag="li" class="nav-title ripple" to="/video">视频</router-link>
+        <router-link tag="li" class="nav-title ripple" to="/videoPage">视频</router-link>
       </ul>
       <div class="nav-right">
         <router-link to="search" tag="i" class="nav iconsousuo ripple"></router-link>
