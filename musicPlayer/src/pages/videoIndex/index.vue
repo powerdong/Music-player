@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-25 12:55:37
- * @Update: 2019-10-25 19:36:57
+ * @Update: 2019-10-26 10:13:39
  * @Update log: 更新日志
  -->
 <template>
@@ -27,16 +27,16 @@ export default {
           text: '音乐节'
         }, {
           path: '/videoPage/scene',
-          text: '现场'
+          text: '广告'
         }, {
           path: '/videoPage/listenBGM',
           text: '听BGM'
         }, {
-          path: '/videoPage/MV',
-          text: 'MV'
+          path: '/videoPage/singing',
+          text: '娱乐'
         }, {
           path: '/videoPage/dance',
-          text: '舞蹈'
+          text: '流行'
         }, {
           path: '/videoPage/ACG',
           text: 'ACG'

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-10-24 10:38:46
+ * @Update: 2019-10-26 08:05:08
  * @Update log: 更新日志
  -->
 <template>
@@ -23,6 +23,13 @@ import { paddingBottom } from 'mixins/Mixins'
 export default {
   mixins: [paddingBottom],
   name: 'findIndex',
+  beforeRouteEnter (to, from, next) {
+    console.log(from, to)
+    next()
+    if (from.path === '/pwd') {
+      location.reload()
+    }
+  },
   components: {
     swiper,
     icon,

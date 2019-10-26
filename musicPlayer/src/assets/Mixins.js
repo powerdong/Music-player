@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-09-21 15:14:40
- * @Update: 2019-10-25 19:48:56
+ * @Update: 2019-10-26 10:00:32
  * @Update log: 更新日志
  */
 
@@ -43,6 +43,12 @@ export const audio = {
 }
 
 export const videoPage = {
+  data () {
+    return {
+      data: [],
+      load: true
+    }
+  },
   created () {
     this._getVideoDetail(this.$route.params.id)
   },
@@ -54,7 +60,9 @@ export const videoPage = {
             data
           } = res
           if (data.code === 200) {
-            console.log(data)
+            console.log(data.datas)
+            this.data = data.datas
+            this.load = false
           }
         })
     }

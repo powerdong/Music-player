@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-10-25 19:41:47
+ * @Update: 2019-10-26 10:32:40
  * @Update log: 更新日志
  */
 import Vue from 'vue'
@@ -14,12 +14,13 @@ const videoIndex = () => import(/* webpackChunkName: "group-homePage" */ '@/page
 const musicFestival = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/musicFestival')
 const scene = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/scene')
 const listenBGM = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/listenBGM')
-const mv = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/mv')
+const singing = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/singing')
 const dance = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/dance')
 const acg = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/acg')
 const rock = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/rock')
 const game = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/game')
 const animation = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/animation')
+const friend = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/friendIndex/index')
 const loginIndex = () => import(/* webpackChunkName: "group-loginPage" */ '@/pages/loginIndex/index')
 const accountLogin = () => import(/* webpackChunkName: "group-login-accountPage" */ '@/pages/loginIndex/components/accountLogin')
 const phoneAccount = () => import(/* webpackChunkName: "group-login-phonePage" */ '@/pages/loginIndex/components/phoneAccount')
@@ -95,6 +96,9 @@ export default new Router({
       name: 'home',
       component: homeIndex
     }, {
+      path: '/friend',
+      component: friend
+    }, {
       path: '/videoPage',
       name: 'videoPage',
       component: videoIndex,
@@ -109,8 +113,8 @@ export default new Router({
         path: '/videoPage/listenBGM/:id',
         component: listenBGM
       }, {
-        path: '/videoPage/MV/:id',
-        component: mv
+        path: '/videoPage/singing/:id',
+        component: singing
       }, {
         path: '/videoPage/dance/:id',
         component: dance

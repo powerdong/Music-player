@@ -1,15 +1,17 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-17 12:44:36
- * @Update: 2019-10-17 13:35:10
+ * @Update: 2019-10-26 08:16:59
  * @Update log: 更新日志
  -->
 <template>
   <div class="wrapper">
-    <dj-ranking class="pd23" @returnPage="returnPage">
-      <span class="text">主播电台排行榜</span>
-    </dj-ranking>
-    <slider-nav :list="list" minWidth="1.7rem"></slider-nav>
+    <div class="titleFixed">
+      <dj-ranking class="pd23" @returnPage="returnPage">
+        <span class="text">主播电台排行榜</span>
+      </dj-ranking>
+      <slider-nav :list="list" minWidth="1.7rem"></slider-nav>
+    </div>
     <keep-alive>
       <router-view></router-view>
     </keep-alive>

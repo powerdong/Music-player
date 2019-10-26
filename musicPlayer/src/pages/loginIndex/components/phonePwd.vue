@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-14 15:42:41
- * @Update: 2019-10-24 10:42:53
+ * @Update: 2019-10-26 07:58:25
  * @Update log: 手机号登录密码页面
  -->
 <template>
@@ -97,6 +97,8 @@ export default {
     /**
      * 获取用户详情
      * 等级数据
+     * 到获取完成之后跳转到发现页面
+     * 刷新页面
      */
     _getUserDetail (uid) {
       api.userDetailFn(uid)
@@ -105,6 +107,10 @@ export default {
           if (data.code === 200) {
             this.$store.commit('SET_LEVEL', data.level)
             localStorage.setItem('level', data.level)
+            // 跳转到发现页面
+            this.$router.push({ path: '/find' })
+            console.log('跳转了')
+            // location.reload()
           }
         })
     },
@@ -147,9 +153,6 @@ export default {
       this.LoadingEnd()
       // 存取登陆状态
       this._getLoginState()
-      // 跳转到发现页面
-      this.$router.push({ path: '/find' })
-      location.reload()
     },
     /**
      * 密码错误登录失败

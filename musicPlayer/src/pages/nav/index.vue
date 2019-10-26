@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-10-25 19:27:07
+ * @Update: 2019-10-26 08:08:10
  * @Update log: 更新日志
  -->
 <template>
@@ -45,7 +45,7 @@ export default {
 <style lang="less" scoped>
 @import url("~styles/global.less");
 @import url("//at.alicdn.com/t/font_1298894_8b2aso7zegl.css");
-@height: 0.8rem;
+@height: 1rem;
 .navIcon {
   width: @height;
   height: @height;

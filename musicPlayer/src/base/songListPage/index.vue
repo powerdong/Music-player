@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:33:42
- * @Update: 2019-10-10 08:32:02
+ * @Update: 2019-10-26 08:11:48
  * @Update log: 这是一个用来展示歌曲列表的基础组件
  -->
 <template>
@@ -354,7 +354,7 @@ export default {
 .topFixed {
   position: fixed;
   width: 100%;
-  height: 0.8rem;
+  height: 1rem;
   background-color: #ee5253;
   z-index: 9;
 }
@@ -365,7 +365,7 @@ export default {
 }
 .listFixed {
   .topFixed();
-  top: 0.8rem;
+  top: 1rem;
 }
 
 .wrapper {
@@ -375,8 +375,8 @@ export default {
   // 组件的title
   .title {
     font-size: 0.3rem;
-    height: 0.8rem;
-    line-height: 0.8rem;
+    height: 1rem;
+    line-height: 1rem;
     .flex-between();
     background-color: #fff;
     .count {

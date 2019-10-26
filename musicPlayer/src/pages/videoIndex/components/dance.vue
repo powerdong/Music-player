@@ -1,12 +1,22 @@
 <template>
-  <div></div>
+  <div>
+    <page-loading v-show="load"></page-loading>
+    <public-img-card :data="data" v-show="!load"></public-img-card>
+  </div>
 </template>
 
 <script>
 import { videoPage } from 'mixins/Mixins'
+import publicImgCard from '../public'
+import pageLoading from 'base/pageLoading'
+
 export default {
   mixins: [videoPage],
-  name: ''
+  name: '',
+  components: {
+    publicImgCard,
+    pageLoading
+  }
 }
 </script>
 

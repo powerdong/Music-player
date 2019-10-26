@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-10-24 11:15:15
+ * @Update: 2019-10-26 08:47:15
  * @Update log: 更新日志
  -->
 <template>
@@ -48,7 +48,8 @@ export default {
     return {
       avatarUrl: '',
       nickname: '',
-      level: 0
+      level: 0,
+      is_Sign: false
     }
   },
   props: {
@@ -73,7 +74,23 @@ export default {
     },
     isSign: {
       get () {
-        return getCookie('sign').slice(1)
+        /**
+         * 如果在其他地方签到，这里没有设置上签到的cookie
+         * 在点击签到后会设置上data值，设置为签到，改变页面样式
+         * 当在刷新页面时，data值会清空，这时已经有cookie
+         * get到cookie
+         */
+        if (this.is_Sign) {
+          return this.is_Sign
+        } else {
+          return getCookie('sign').slice(1)
+        }
+      },
+      /**
+       * 因为要get值，所以通过一个中间变量设置从而改变
+       */
+      set (val) {
+        this.is_Sign = val
       }
     }
   },
@@ -86,6 +103,11 @@ export default {
         this.nickname = localStorage.getItem('nickname')
       }
     },
+    /**
+     * 签到成功后设置cookie，标记用户已经签到
+     * cookie有效期是从当前时间点到当日的23:59:59
+     * 当第二天打开时cookie失效，页面会显示未签到的样子
+     */
     setSignCookie () {
       var curDate = new Date()
       // 当前时间戳
@@ -108,6 +130,13 @@ export default {
             // 签到成功
             console.log('签到成功')
             this.isSign = true
+            this.setSignCookie()
+          }
+        })
+        .catch(err => {
+          if (err) {
+            console.log('用户已经签到')
+            this.is_Sign = true
             this.setSignCookie()
           }
         })
