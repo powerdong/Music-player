@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-10-26 08:08:10
+ * @Update: 2019-10-26 11:16:11
  * @Update log: 更新日志
  -->
 <template>
@@ -18,7 +18,8 @@
         <router-link tag="li" class="nav-title ripple" to="/videoPage">视频</router-link>
       </ul>
       <div class="nav-right">
-        <router-link to="search" tag="i" class="nav iconsousuo ripple"></router-link>
+        <!-- 注意link时要加上/ 要不然会出现异常情况 -->
+        <router-link to="/search" tag="i" class="nav iconsousuo ripple"></router-link>
       </div>
       <login-page-is-show></login-page-is-show>
     </nav>
