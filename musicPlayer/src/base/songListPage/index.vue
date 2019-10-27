@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:33:42
- * @Update: 2019-10-26 08:11:48
+ * @Update: 2019-10-27 10:54:08
  * @Update log: 这是一个用来展示歌曲列表的基础组件
  -->
 <template>
@@ -55,7 +55,7 @@
           </div>
         </div>
         <div class="icons">
-          <div class="comments">
+          <div class="comments" @click="goComments">
             <i class="date-song pinglun"></i>
             <span>{{commentCount | setCom}}</span>
           </div>
@@ -93,11 +93,8 @@
       <!-- 当时歌单组件时有收藏歌单的按钮选项 -->
       <!-- 这里需要添加判断用户是否已经收藏歌单！！！！来显示不同的样式 -->
       <div class="collection" :class="{ 'bg': !isSubInItem }" ref="collection" v-if="isAlbum">
-        <span
-          v-show="!isSubInItem"
-          @click="addPlaylist(listId)"
-        >+ 收藏({{subscribedCountItem | setCol}})</span>
-        <span v-show="isSubInItem" @click="deletePlaylist(listId)">
+        <span v-show="!isSubInItem" @click="addPlaylist">+ 收藏({{subscribedCountItem | setCol}})</span>
+        <span v-show="isSubInItem" @click="deletePlaylist">
           <i class="date-song wenjianjia"></i>
           {{subscribedCountItem | setCol}}
         </span>
@@ -176,7 +173,13 @@ export default {
    * 所有的 props 值信息
    */
   props: {
-    listId: {
+    albumId: {
+      type: Number
+    },
+    idxId: {
+      type: Number
+    },
+    dishId: {
       type: Number
     },
     playCount: {
@@ -281,8 +284,12 @@ export default {
     }
   },
   methods: {
-    addPlaylist (listId) {
-      api.addOrDeletePlaylistFn(1, listId)
+    /**
+     * 收藏歌单
+     */
+    addPlaylist () {
+      const id = this.albumId || this.dishId || this.idxId
+      api.addOrDeletePlaylistFn(1, id)
         .then(res => {
           const data = res.data
           if (data.code === 200) {
@@ -291,8 +298,12 @@ export default {
           }
         })
     },
-    deletePlaylist (listId) {
-      api.addOrDeletePlaylistFn(2, listId)
+    /**
+     * 取消收藏歌单
+     */
+    deletePlaylist () {
+      const id = this.albumId || this.dishId || this.idxId
+      api.addOrDeletePlaylistFn(2, id)
         .then(res => {
           const data = res.data
           if (data.code === 200) {
@@ -301,8 +312,18 @@ export default {
           }
         })
     },
+    /**
+     * 播放全部，向父组件传递事件
+     */
     beginAudio () {
       this.$emit('startPlayAll')
+    },
+    /**
+     * 去评论页面
+     * 通过传不同的params的属性来判断资源是歌单还是专辑
+     */
+    goComments () {
+      this.$router.push({ name: 'comments', params: { playlistId: this.albumId, albumId: this.dishId, idxId: this.idxId, imgUrl: this.imgUrl, title: this.albumTitle, author: this.author } })
     },
     /**
      * 返回上一页

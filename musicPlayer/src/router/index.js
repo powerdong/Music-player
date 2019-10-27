@@ -66,6 +66,7 @@ const chinese = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages
 const europe = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/findIndex/components/europe')
 const korea = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/findIndex/components/korea')
 const japan = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/findIndex/components/japan')
+const comments = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/commentsIndex/index')
 
 Vue.use(Router)
 
@@ -306,5 +307,10 @@ export default new Router({
     path: '/djDetailPage',
     name: 'djDetailPage',
     component: djDetailPage
+  }, {
+    // 通用评论展示页面
+    path: '/comments',
+    name: 'comments',
+    component: comments
   }]
 })

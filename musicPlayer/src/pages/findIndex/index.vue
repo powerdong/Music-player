@@ -24,7 +24,6 @@ export default {
   mixins: [paddingBottom],
   name: 'findIndex',
   beforeRouteEnter (to, from, next) {
-    console.log(from, to)
     next()
     if (from.path === '/pwd') {
       location.reload()

@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-10-14 14:08:38
- * @Update: 2019-10-14 14:18:35
+ * @Update: 2019-10-27 09:44:05
  * @Update log: 更新日志
  */
 export const filterSetPlayCount = value => {
@@ -34,19 +34,19 @@ export const filterSetTime = value => {
 /**
  * 将毫秒转换为 年.月.日
  */
-export const filterSetYear = value => {
+export const filterSetYear = (value, splitY = '.', splitM = '.', splitD = '') => {
   const oDate = new Date(value)
   const oYear = oDate.getFullYear()
   const oMonth = oDate.getMonth() + 1
   const oDay = oDate.getDate()
-  value = `${oYear}.${oMonth}.${oDay}`
+  value = `${oYear}${splitY}${oMonth}${splitM}${oDay}${splitD}`
   return value
 }
 
 /**
  * 将毫秒设置为 月-日 格式
  */
-export const filterSetMonth = value => {
+export const filterSetMonth = (value, splitM = '-', splitD = '') => {
   const oDate = new Date(value)
   let oMonth = oDate.getMonth() + 1
   let oDay = oDate.getDate()
@@ -56,6 +56,6 @@ export const filterSetMonth = value => {
   if (oDay < 10) {
     oDay = '0' + oDay
   }
-  value = `${oMonth}-${oDay}`
+  value = `${oMonth}${splitM}${oDay}${splitD}`
   return value
 }

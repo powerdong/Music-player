@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:47:11
- * @Update: 2019-10-24 11:29:46
+ * @Update: 2019-10-27 10:39:02
  * @Update log: 这个是歌单展示的通用组件
  -->
 <template>
@@ -11,7 +11,9 @@
     :load="load"
     :imgUrl="albumInfo.coverImgUrl ? albumInfo.coverImgUrl : albumInfo.album ? albumInfo.album.picUrl : ''"
     :albumTitle="albumInfo.name ? albumInfo.name : albumInfo.album ? albumInfo.album.name : ''"
-    :listId="listId"
+    :albumId="albumId"
+    :idxId="idxId"
+    :dishId="dishId"
     :creatorImgUrl="albumInfo.creator ? albumInfo.creator.avatarUrl : albumInfo.album ? albumInfo.album.artist.picUrl:''"
     :author="albumInfo.creator ? albumInfo.creator.nickname : albumInfo.album ? albumInfo.album.artist.name : ''"
     :description="albumInfo.description ? albumInfo.description : albumInfo.album ? albumInfo.album.description : ''"
@@ -52,7 +54,9 @@ export default {
       albumInfo: [],
       // 用来定义是否显示load加载组件
       load: true,
-      listId: 0
+      albumId: 0,
+      dishId: 0,
+      idxId: 0
     }
   },
   components: {
@@ -70,22 +74,21 @@ export default {
   activated () {
     this.load = true
     this.albumInfo = []
-    this.listId = 0
     let albumId = this.$route.params.albumId
     let idxId = this.$route.params.idxId
     let dishId = this.$route.params.dishId
     if (albumId) {
-      this.listId = +albumId
+      this.albumId = +albumId
       this._getInfo(albumId)
       return
     }
     if (idxId) {
-      this.listId = +idxId
+      this.idxId = +idxId
       this._getIdxInfo(idxId)
       return
     }
     if (dishId) {
-      this.listId = +dishId
+      this.dishId = +dishId
       this._getDishInfo(dishId)
       return
     }

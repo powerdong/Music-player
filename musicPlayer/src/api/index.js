@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-10-24 14:51:55
+ * @Update: 2019-10-27 10:43:17
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -62,7 +62,10 @@ import {
   signIn,
   friend,
   getVideoTag,
-  getVideoGroup
+  getVideoGroup,
+  commentPlaylist,
+  commentLike,
+  commentAlbum
 } from './config'
 
 export default {
@@ -715,6 +718,62 @@ export default {
     return axios.get(getVideoGroup, {
       params: {
         id
+      }
+    })
+  },
+  /**
+   * 调用此接口 , 传入音乐 id 和 limit 参数 , 可获得该歌单的所有评论 ( 不需要 登录 )
+   * @param {*} id 歌单id
+   * @param {*} limit 取出评论数量 , 默认为 20
+   * @param {*} offset 偏移数量 , 用于分页
+   * @param {*} before 分页参数,取上一页最后一项的 time
+   * 获取下一页数据(获取超过5000条评论的时候需要用到)
+   */
+  commentPlaylistFn (id, limit = 20, offset, before) {
+    return axios.get(commentPlaylist, {
+      params: {
+        id,
+        limit,
+        offset,
+        before
+      }
+    })
+  },
+  /**
+   * 调用此接口 , 传入音乐 id 和 limit 参数 , 可获得该专辑的所有评论 ( 不需要 登录 )
+   * @param {*} id 专辑id
+   * @param {*} limit 取出评论数量 , 默认为 20
+   * @param {*} offset 偏移数量 , 用于分页
+   * @param {*} before 分页参数,取上一页最后一项的 time
+   * 获取下一页数据(获取超过5000条评论的时候需要用到)
+   */
+  commentAlbumFn (id, limit = 20, offset, before) {
+    return axios.get(commentAlbum, {
+      params: {
+        id,
+        limit,
+        offset,
+        before
+      }
+    })
+  },
+  /**
+   * 调用此接口 , 传入 type,
+   * 资源 id, 和评论 id cid
+   * 是否点赞参数 t 即可给对 应评论点赞 ( 需要登录 )
+   * @param {*} id 资源 id, 如歌曲 id,mv id
+   * @param {*} cid 评论 id
+   * @param {*} t 是否点赞 ,1 为点赞 ,0 为取消点赞
+   * @param {*} type  数字 , 资源类型 , 对应歌曲 , mv, 专辑 , 歌单 , 电台, 视频对应以下类型
+   * 0: 歌曲 1: mv 2: 歌单 3: 专辑 4: 电台 5: 视频  6: 动态
+   */
+  commentLikeFn (id, cid, t, type) {
+    return axios.get(commentLike, {
+      params: {
+        id,
+        cid,
+        t,
+        type
       }
     })
   }

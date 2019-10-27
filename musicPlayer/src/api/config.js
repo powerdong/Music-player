@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:42:17
- * @Update: 2019-10-26 11:23:28
+ * @Update: 2019-10-27 07:59:21
  * @Update log: 更新日志
  */
 // 开发环境
@@ -75,3 +75,7 @@ export const djPayGift = api + '/dj/paygift' // 电台付费精选
 export const djSub = api + '/dj/sub' // 订阅/取消订阅电台
 export const djToplist = api + '/dj/program/toplist' // 获取最热节目
 export const djHotToplist = api + '/dj/toplist' // 获取电台榜
+// ================评论页面相关
+export const commentPlaylist = api + '/comment/playlist' // 获取歌单的评论
+export const commentAlbum = api + '/comment/album' // 获取专辑的评论
+export const commentLike = api + '/comment/like' // 给评论点赞
