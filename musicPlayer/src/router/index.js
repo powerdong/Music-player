@@ -11,6 +11,7 @@ const navIndex = () => import(/* webpackChunkName: "group-nav" */ '@/pages/nav/i
 const findIndex = () => import(/* webpackChunkName: "group-findPage" */ '@/pages/findIndex/index')
 const homeIndex = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/homeIndex/index')
 const videoIndex = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/index')
+const userInfoIndex = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/userInfoIndex/index')
 const musicFestival = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/musicFestival')
 const scene = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/scene')
 const listenBGM = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/listenBGM')
@@ -247,6 +248,10 @@ export default new Router({
     // 歌手分类页面
     path: '/singer',
     component: singer
+  }, {
+    // 用户信息展示页面
+    path: '/user_info',
+    component: userInfoIndex
   }, {
     // 每日推荐页面
     path: '/dateRecommend',

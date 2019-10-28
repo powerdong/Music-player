@@ -65,7 +65,8 @@ import {
   getVideoGroup,
   commentPlaylist,
   commentLike,
-  commentAlbum
+  commentAlbum,
+  userEvent
 } from './config'
 
 export default {
@@ -272,6 +273,21 @@ export default {
     return axios.get(userDetail, {
       params: {
         uid
+      }
+    })
+  },
+  /**
+   * 登陆后调用此接口 , 传入用户 id, 可以获取用户动态
+   * @param {*} uid 用户 id
+   * @param {*} limit  返回数量 , 默认为 30
+   * @param {*} lasttime 返回数据的 lasttime ,默认-1,传入上一次返回结果的 lasttime,将会返回下一页的数据
+   */
+  userEventFn (uid, limit = 20, lasttime) {
+    return axios.get(userEvent, {
+      params: {
+        uid,
+        limit,
+        lasttime
       }
     })
   },

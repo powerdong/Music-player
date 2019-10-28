@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-02 13:36:42
- * @Update: 2019-10-14 14:15:47
+ * @Update: 2019-10-28 12:55:26
  * @Update log: 这是一个公共的组件，用来展示搜索展示页面除单曲以外的项目
  * 通过props接收对应的结果，渲染。
  * 组件调用是通过 for 循环组件，来循环组件渲染的
@@ -261,10 +261,14 @@ export default {
       }
     }
     .play-tag {
+      max-width: 5rem;
       height: 0.5rem;
       line-height: 0.5rem;
       font-size: 0.2rem;
       color: #666;
+      .user {
+        .ellipsis();
+      }
       .album-art {
         &::after {
           content: "/";

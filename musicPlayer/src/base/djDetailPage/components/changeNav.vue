@@ -1,16 +1,16 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-10-14 13:34:16
- * @Update: 2019-10-15 13:18:23
+ * @Update: 2019-10-28 09:17:00
  * @Update log: 更新日志
  -->
 <template>
   <div class="title">
-    <div class="content" @click="changeToDetail">
-      <span class="under-line" :class="{active: active === 'detail'}">详情</span>
+    <div class="content" @click="changeToFirst">
+      <span class="under-line" :class="{active: active === 'first'}">{{firstNav}}</span>
     </div>
-    <div class="content" @click="changeToProgram">
-      <span class="under-line" :class="{active: active === 'program'}">节目</span>
+    <div class="content" @click="changeToSecond">
+      <span class="under-line" :class="{active: active === 'second'}">{{secondNav}}</span>
       <span class="num">{{count}}</span>
     </div>
   </div>
@@ -22,18 +22,24 @@ export default {
   props: {
     active: {
       type: String,
-      default: 'program'
+      default: 'second'
     },
     count: {
       type: Number
+    },
+    firstNav: {
+      type: String
+    },
+    secondNav: {
+      type: String
     }
   },
   methods: {
-    changeToProgram () {
-      this.$emit('changeToProgram')
+    changeToFirst () {
+      this.$emit('changeToFirst')
     },
-    changeToDetail () {
-      this.$emit('changeToDetail')
+    changeToSecond () {
+      this.$emit('changeToSecond')
     }
   }
 }

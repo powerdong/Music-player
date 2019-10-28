@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-10-14 14:08:38
- * @Update: 2019-10-27 09:44:05
+ * @Update: 2019-10-28 11:33:26
  * @Update log: 更新日志
  */
 export const filterSetPlayCount = value => {
@@ -58,4 +58,30 @@ export const filterSetMonth = (value, splitM = '-', splitD = '') => {
   }
   value = `${oMonth}${splitM}${oDay}${splitD}`
   return value
+}
+
+export const filterAge = time => {
+  if (!time) {
+    // 这里是因为默认值为0的话会返回1970
+    // 当传入默认值退出
+    return
+  }
+  let year = new Date(time).getFullYear()
+  const nowYear = new Date().getFullYear()
+  let age = ''
+  // 存下从1950年到现在时间每5年一个间隔的数值
+  let ages = []
+  for (let i = 1950; i < nowYear; i += 5) {
+    ages.push(i)
+  }
+  // 这里不能使用 forEach 因为forEach无法跳出循环！！！
+  for (let i = 0; i < ages.length; i++) {
+    const ele = ages[i]
+    if (year <= ele + 5) {
+      // 找到第一个满足条件的年份，拆分成数组，截取最后两位，组合返回
+      age = ele.toString().split('').splice(-2).join('')
+      break
+    }
+  }
+  return age
 }

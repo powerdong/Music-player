@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-13 12:03:28
- * @Update: 2019-10-26 08:14:27
+ * @Update: 2019-10-28 09:21:52
  * @Update log: 更新日志
  -->
 <template>
@@ -62,11 +62,13 @@
       :class="{listFixed}"
       :active="active"
       :count="count"
-      @changeToProgram="changeToProgram"
-      @changeToDetail="changeToDetail"
+      firstNav="详情"
+      secondNav="节目"
+      @changeToSecond="changeToSecond"
+      @changeToFirst="changeToFirst"
     ></change-nav>
     <div class="container-bottom" :style="{ marginTop: top}">
-      <div class="song-list" v-show="active==='program'">
+      <div class="song-list" v-show="active==='second'">
         <page-loading v-show="loading"></page-loading>
         <div v-show="!loading">
           <h1 class="sum-num pd23">共{{count}}期</h1>
@@ -86,7 +88,7 @@
           ></song-list>
         </div>
       </div>
-      <div class="detail pd23" v-show="active==='detail'">
+      <div class="detail pd23" v-show="active==='first'">
         <h1 class="anchor">主播</h1>
         <div class="content">
           <div class="img-info">
@@ -125,7 +127,7 @@ export default {
       count: 0,
       name: '',
       subscription: 0,
-      active: 'program',
+      active: 'second',
       avatarUrl: '',
       detailName: '',
       category: '',
@@ -151,7 +153,7 @@ export default {
     this.coverImgUrl = ''
     this.count = 0
     this.name = ''
-    this.active = 'program'
+    this.active = 'second'
     this.ridId = this.$route.params.ridId
     let ridId = this.ridId
     if (!ridId) {
@@ -211,11 +213,11 @@ export default {
           }
         })
     },
-    changeToDetail () {
-      this.active = 'detail'
+    changeToFirst () {
+      this.active = 'first'
     },
-    changeToProgram () {
-      this.active = 'program'
+    changeToSecond () {
+      this.active = 'second'
     },
     setAudioList (item, index) {
       this.selectPlay({

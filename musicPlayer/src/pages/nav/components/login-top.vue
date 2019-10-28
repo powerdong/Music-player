@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-10-26 08:47:15
+ * @Update: 2019-10-28 09:02:29
  * @Update log: 更新日志
  -->
 <template>
@@ -16,7 +16,7 @@
       <router-link to="login" tag="button" class="to-login" @click.native="HIDE_LOGIN">立即登录</router-link>
     </div>
     <!-- 已经登陆状态样式 -->
-    <div class="login-ed" v-if="loginState">
+    <div class="login-ed" @click="goUserInfo" v-if="loginState">
       <div class="img-info">
         <el-avatar class="account-bg" :src="avatarUrl + '?param=200y200'"></el-avatar>
         <!-- <img class="account-bg" :src="avatarUrl" alt=""> -->
@@ -102,6 +102,12 @@ export default {
         this.avatarUrl = localStorage.getItem('avatarUrl')
         this.nickname = localStorage.getItem('nickname')
       }
+    },
+    /**
+     * 跳转到展示用户详情信息的页面
+     */
+    goUserInfo () {
+      this.$router.push('/user_info')
     },
     /**
      * 签到成功后设置cookie，标记用户已经签到

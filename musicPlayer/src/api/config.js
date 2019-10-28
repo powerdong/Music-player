@@ -42,6 +42,7 @@ export const signIn = api + '/daily_signin' // 签到
 export const userRecord = api + '/user/record' // 用户播放记录
 export const userInfo = api + '/user/subcount' // 用户信息
 export const userDetail = api + '/user/detail' // 用户详情
+export const userEvent = api + '/user/event' // 用户动态
 export const playlist = api + '/user/playlist' // 用户歌单
 export const userDj = api + '/user/dj' // 用户电台 申请做主播那一行
 export const favoriteAlbums = api + '/album/sublist' // 获取收藏的专辑
