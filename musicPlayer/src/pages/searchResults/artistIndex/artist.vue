@@ -5,18 +5,21 @@
  * @Update log: 更新日志
  -->
 <template>
- <div class="wrapper pd23">
-   <div v-show="!load">
-    <artist v-for="(item, index) in allArtistList" :key="index"
-                :circle="true"
-                :ImgUrl="item.img1v1Url"
-                :name="item.name"
-                :isIn="item.accountId"
-                ></artist>
-    <info :info="info" :keywords="keywords"></info>
+  <div class="wrapper pd23">
+    <div v-show="!load">
+      <artist
+        v-for="(item, index) in allArtistList"
+        :key="index"
+        :circle="true"
+        :ImgUrl="item.img1v1Url"
+        line="one"
+        :name="item.name"
+        :isIn="item.accountId"
+      ></artist>
+      <info :info="info" :keywords="keywords"></info>
+    </div>
+    <page-loading v-show="load"></page-loading>
   </div>
-  <page-loading v-show="load"></page-loading>
- </div>
 </template>
 
 <script>
@@ -76,6 +79,5 @@ export default {
 </script>
 
 <style lang='less' scoped>
-@import url('~styles/global.less');
-
+@import url("~styles/global.less");
 </style>

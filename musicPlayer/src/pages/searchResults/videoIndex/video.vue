@@ -11,6 +11,7 @@
         v-for="(item, index) in allVideoList"
         :key="index"
         :videoList="true"
+        line="two"
         :ImgUrl="item.coverUrl"
         :name="item.title"
         :durationms="item.durationms"

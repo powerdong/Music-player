@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-27 09:13:12
- * @Update: 2019-10-27 10:21:21
+ * @Update: 2019-10-29 13:31:22
  * @Update log: 更新日志
  -->
 <template>
@@ -105,7 +105,7 @@ export default {
       }
     }
     .content {
-      line-height: 1.3;
+      line-height: 1.5;
     }
   }
 }

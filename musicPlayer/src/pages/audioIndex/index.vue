@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-12 13:02:20
- * @Update: 2019-10-24 09:42:49
+ * @Update: 2019-10-29 13:44:39
  * @Update log: 点击歌单中的某一项，将歌单列表信息传入vuex，用来展示歌曲列表，
  *              点击的index 用列表[index]来设置当前要播放的歌曲
  -->
@@ -9,7 +9,7 @@
   <div class="audioPage">
     <div class="mask" v-show="isFull"></div>
     <div class="full pd23" v-show="isFull">
-      <audio-nav class="color" @returnPage="returnPage">
+      <audio-nav class="color" height="0" @returnPage="returnPage">
         <div>
           <p class="title">{{name}}</p>
           <p class="text">

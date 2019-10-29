@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:33:42
- * @Update: 2019-10-27 10:54:08
+ * @Update: 2019-10-29 13:29:48
  * @Update log: 这是一个用来展示歌曲列表的基础组件
  -->
 <template>
@@ -31,7 +31,7 @@
       <div class="album-info pd23" v-if="isAlbum">
         <div class="info-top">
           <div class="img-info">
-            <img v-lazy="imgUrl + '?param=200y200'" alt />
+            <img v-lazy="imgUrl + '?param=200y200'" :key="imgUrl" alt />
             <span class="play-count">
               <i class="date-song bofang"></i>
               {{playCount | setPlay}}
@@ -41,7 +41,7 @@
             <p class="album-title">{{iAlbumTitle}}</p>
             <div class="creator">
               <div class="img-info">
-                <img v-lazy="creatorImgUrl + '?param=200y200'" alt />
+                <img v-lazy="creatorImgUrl + '?param=200y200'" :key="imgUrl" alt />
               </div>
               <span>
                 {{author}}
@@ -177,6 +177,10 @@ export default {
       type: Number
     },
     idxId: {
+      type: Number
+    },
+    // 排行榜id，用来正确获取评论信息
+    idxComId: {
       type: Number
     },
     dishId: {
@@ -323,7 +327,12 @@ export default {
      * 通过传不同的params的属性来判断资源是歌单还是专辑
      */
     goComments () {
-      this.$router.push({ name: 'comments', params: { playlistId: this.albumId, albumId: this.dishId, idxId: this.idxId, imgUrl: this.imgUrl, title: this.albumTitle, author: this.author } })
+      const playlistId = this.albumId ? this.albumId : this.idxComId
+      const albumId = this.dishId
+      const imgUrl = this.imgUrl
+      const title = this.albumTitle
+      const author = this.author
+      this.$router.push({ name: 'comments', params: { playlistId, albumId, imgUrl, title, author } })
     },
     /**
      * 返回上一页

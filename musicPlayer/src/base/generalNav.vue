@@ -1,11 +1,11 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-14 15:44:26
- * @Update: 2019-10-26 08:08:52
+ * @Update: 2019-10-29 13:47:02
  * @Update log: 登录页通用顶部导航
  -->
 <template>
-  <nav class="phone-nav">
+  <nav class="phone-nav" :class="{height: height === 'all'}">
     <i class="phone iconzuojiantou" @click="returnPage"></i>
     <!-- slot 插槽将不同页面的标题信息显示 -->
     <slot></slot>
@@ -19,6 +19,10 @@ export default {
     nav: {
       type: String,
       default: ''
+    },
+    height: {
+      type: String,
+      default: 'all'
     }
   },
   methods: {
@@ -37,8 +41,10 @@ export default {
 .phone-nav {
   display: flex;
   align-items: center;
-  height: 1rem;
-  line-height: 1rem;
+  &.height {
+    height: 1rem;
+    line-height: 1rem;
+  }
   .phone {
     font-size: 0.7rem;
     margin-right: 5px;

@@ -11,6 +11,7 @@
         v-for="(item, index) in allSongListList"
         :key="index"
         :songList="true"
+        line="one"
         :ImgUrl="item.coverImgUrl"
         :name="item.name"
         :trackCount="item.trackCount"

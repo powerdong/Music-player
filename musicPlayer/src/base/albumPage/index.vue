@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:47:11
- * @Update: 2019-10-27 10:39:02
+ * @Update: 2019-10-29 13:27:00
  * @Update log: 这个是歌单展示的通用组件
  -->
 <template>
@@ -13,6 +13,7 @@
     :albumTitle="albumInfo.name ? albumInfo.name : albumInfo.album ? albumInfo.album.name : ''"
     :albumId="albumId"
     :idxId="idxId"
+    :idxComId="idxComId"
     :dishId="dishId"
     :creatorImgUrl="albumInfo.creator ? albumInfo.creator.avatarUrl : albumInfo.album ? albumInfo.album.artist.picUrl:''"
     :author="albumInfo.creator ? albumInfo.creator.nickname : albumInfo.album ? albumInfo.album.artist.name : ''"
@@ -56,7 +57,8 @@ export default {
       load: true,
       albumId: 0,
       dishId: 0,
-      idxId: 0
+      idxId: 0,
+      idxComId: 0
     }
   },
   components: {
@@ -82,7 +84,7 @@ export default {
       this._getInfo(albumId)
       return
     }
-    if (idxId) {
+    if (idxId || idxId === 0) {
       this.idxId = +idxId
       this._getIdxInfo(idxId)
       return
@@ -93,10 +95,12 @@ export default {
       return
     }
     // !Number(0) === true
-    if (Number(albumId) !== 0) {
-      if (!Number(albumId)) {
-        this.$router.go(-1)
-      }
+    /**
+     * 判断当在歌单页面刷新时无法获取到歌单内容
+     * 获取到的id值为undefined
+     */
+    if (!idxId || !albumId || !dishId) {
+      this.$router.go(-1)
     }
   },
   computed: {
@@ -135,6 +139,7 @@ export default {
           const data = res.data
           if (data.code === 200) {
             this.albumInfo = data.playlist
+            this.idxComId = data.playlist.id
             this.load = false
           }
         })

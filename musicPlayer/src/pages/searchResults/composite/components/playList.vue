@@ -5,20 +5,24 @@
  * @Update log: 更新日志
  -->
 <template>
-  <list-global title="歌单"
-                :more="playList.more"
-                :moreText="playList.moreText"
-                linkPage="playList"
-                :keyW="keyword">
-    <list-con  :songList="true"
-              v-for="(item, index) in playList.playLists"
-              :key="index"
-              :ImgUrl="item.coverImgUrl"
-              :name="item.name"
-              :trackCount="item.trackCount"
-              :nickname="item.creator.nickname"
-              :playCount="item.playCount"
-              ></list-con>
+  <list-global
+    title="歌单"
+    :more="playList.more"
+    :moreText="playList.moreText"
+    linkPage="playList"
+    :keyW="keyword"
+  >
+    <list-con
+      :songList="true"
+      v-for="(item, index) in playList.playLists"
+      :key="index"
+      :ImgUrl="item.coverImgUrl"
+      line="one"
+      :name="item.name"
+      :trackCount="item.trackCount"
+      :nickname="item.creator.nickname"
+      :playCount="item.playCount"
+    ></list-con>
   </list-global>
 </template>
 
@@ -48,5 +52,4 @@ export default {
 </script>
 
 <style lang='less' scoped>
-
 </style>

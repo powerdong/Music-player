@@ -5,18 +5,23 @@
  * @Update log: 更新日志
  -->
 <template>
- <list-global title="电台"
-              :more="djRadio.more"
-              :moreText="djRadio.moreText"
-              linkPage="djRadio"
-            :keyW="keyword">
-  <list-con v-for="(item, index) in djRadio.djRadios"
-            :key="index"
-            :dj="true"
-            :ImgUrl="item.picUrl"
-            :name="item.name"
-            :nicknames="item.dj"></list-con>
- </list-global>
+  <list-global
+    title="电台"
+    :more="djRadio.more"
+    :moreText="djRadio.moreText"
+    linkPage="djRadio"
+    :keyW="keyword"
+  >
+    <list-con
+      v-for="(item, index) in djRadio.djRadios"
+      :key="index"
+      :dj="true"
+      line="one"
+      :ImgUrl="item.picUrl"
+      :name="item.name"
+      :nicknames="item.dj"
+    ></list-con>
+  </list-global>
 </template>
 
 <script>
@@ -41,5 +46,4 @@ export default {
 </script>
 
 <style lang='less' scoped>
-
 </style>

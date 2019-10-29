@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:25:40
- * @Update: 2019-09-08 16:27:32
+ * @Update: 2019-10-29 12:42:22
  * @Update log: 更新日志
  -->
 <template>
@@ -11,6 +11,7 @@
         v-for="(item, index) in allDjRadioList"
         :key="index"
         :dj="true"
+        line="one"
         :ImgUrl="item.picUrl"
         :name="item.name"
         :nicknames="item.dj"
@@ -51,10 +52,11 @@ export default {
         .then((res) => {
           const data = res.data
           if (data.code === 200) {
+            console.log(data)
             if (this.allDjRadioList.length) {
               this.allDjRadioList = [this.allDjRadioList, ...data.result.albums]
             } else {
-              this.allDjRadioList = data.result.albums
+              this.allDjRadioList = data.result.djRadios
             }
             this.load = false
             /**

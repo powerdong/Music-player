@@ -5,20 +5,24 @@
  * @Update log: 更新日志
  -->
 <template>
-<list-global title="专辑"
-              :more="album.more"
-              :moreText="album.moreText"
-              linkPage="album"
-            :keyW="keyword">
-<list-con v-for="(item, index) in album.albums "
-          :key="index"
-          :album="true"
-          :ImgUrl="item.blurPicUrl"
-          :name="item.name"
-          :artists="item.artists"
-          :durationms="item.publishTime"
-          ></list-con>
-</list-global>
+  <list-global
+    title="专辑"
+    :more="album.more"
+    :moreText="album.moreText"
+    linkPage="album"
+    :keyW="keyword"
+  >
+    <list-con
+      v-for="(item, index) in album.albums "
+      :key="index"
+      :album="true"
+      line="one"
+      :ImgUrl="item.blurPicUrl"
+      :name="item.name"
+      :artists="item.artists"
+      :durationms="item.publishTime"
+    ></list-con>
+  </list-global>
 </template>
 
 <script>
@@ -43,5 +47,4 @@ export default {
 </script>
 
 <style lang='less' scoped>
-
 </style>

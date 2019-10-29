@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-10-01 14:30:50
- * @Update: 2019-10-25 19:18:42
+ * @Update: 2019-10-29 13:07:19
  * @Update log: 可左右滑动的标签导航
  -->
 <template>
@@ -37,6 +37,15 @@ export default {
       } else {
         return ''
       }
+    }
+  },
+  methods: {
+    /**
+     * 该方法用来滚动跳转到对应的标签项，
+     * 传入要跳转标签项的index值和每个标签项的宽度来使得标签行滚动
+     */
+    handleScroll (index, num) {
+      this.$refs.navs.scrollLeft = index * num
     }
   }
 }

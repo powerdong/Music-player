@@ -1,12 +1,12 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 19:54:27
- * @Update: 2019-10-01 14:33:04
+ * @Update: 2019-10-29 13:04:54
  * @Update log: 因为存在 url地址自动将中文转换为编码
  *              在第一次加载时，默认组件不能正确添加active样式
  -->
 <template>
-  <slider-nav :list="list"></slider-nav>
+  <slider-nav :list="list" ref="navs"></slider-nav>
 </template>
 
 <script>
@@ -40,12 +40,9 @@ export default {
         this.linkPage = key
       })
     },
-    handleScroll (index) {
-      this.$refs.navs.scrollLeft = index * 85
-    },
     getPage (val) {
       let index = this.toLink.indexOf(val)
-      this.handleScroll(index)
+      this.$refs.navs.handleScroll(index, 85)
     }
   },
   /**
