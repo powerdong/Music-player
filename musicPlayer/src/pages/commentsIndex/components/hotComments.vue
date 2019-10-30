@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-27 09:13:12
- * @Update: 2019-10-29 13:31:22
+ * @Update: 2019-10-29 21:43:17
  * @Update log: 更新日志
  -->
 <template>
@@ -29,7 +29,7 @@
             ></i>
           </div>
         </div>
-        <div class="content">{{item.content}}</div>
+        <div class="content" v-html="setCon(item.content)"></div>
       </div>
     </div>
   </div>
@@ -50,6 +50,10 @@ export default {
     }
   },
   methods: {
+    setCon (val) {
+      val = val.replace(/(\n)|(\r\n)/g, '<br />')
+      return val
+    },
     likeThisComment (cid, isLike) {
       let like = 1
       // 默认为点赞

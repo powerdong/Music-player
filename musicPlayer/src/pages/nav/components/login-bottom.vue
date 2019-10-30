@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-08-29 13:07:04
+ * @Update: 2019-10-30 13:05:17
  * @Update log: 更新日志
  -->
 <template>
@@ -51,6 +51,7 @@ export default {
   bottom: 0;
   z-index: 2;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   font-size: 0.3rem;
   .login {

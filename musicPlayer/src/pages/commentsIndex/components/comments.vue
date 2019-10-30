@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-27 09:14:42
- * @Update: 2019-10-29 14:03:44
+ * @Update: 2019-10-29 21:45:12
  * @Update log: 更新日志
  -->
 <template>
@@ -29,7 +29,8 @@
             <i class="comment" :class="{ commentzan: !item.liked, commentzan1:item.liked}"></i>
           </div>
         </div>
-        <div class="content">{{item.content}}</div>
+        <!-- 这里使用 v-html 用来解析 当出现 \n 换行的时候插入 <br />标签 -->
+        <div class="content" v-html="setCon(item.content)"></div>
       </div>
     </div>
   </div>
@@ -61,6 +62,15 @@ export default {
         like = 0
       }
       this.$emit('likeComment', cid, like)
+    },
+    /**
+     * 将返回来的数据进行格式化处理
+     * 将 换行符\n 替换成 <br /> 实现换行
+     * 将 回车符\r\n 替换成 <br /> 实现换行
+     */
+    setCon (val) {
+      val = val.replace(/(\n)|(\r\n)/g, '<br />')
+      return val
     }
   }
 }

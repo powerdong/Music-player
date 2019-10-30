@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-27 08:29:46
- * @Update: 2019-10-27 09:41:00
+ * @Update: 2019-10-29 21:38:43
  * @Update log: 更新日志
  -->
 <template>
@@ -51,6 +51,7 @@ export default {
     }
   }
   .right-info {
+    flex: 1;
     display: flex;
     flex-direction: column;
     .title {

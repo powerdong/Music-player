@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-10-28 09:02:29
+ * @Update: 2019-10-30 13:10:41
  * @Update log: 更新日志
  -->
 <template>
@@ -26,10 +26,10 @@
         <span class="level">Lv.{{level}}</span>
       </div>
       <div class="daily_sign-in">
-        <el-button type="danger" size="mini" @click="sign" round v-show="!isSign">
+        <el-button type="danger" size="mini" @click.self="sign" round v-show="!isSign">
           <i class="login icontubiaozhizuo-"></i>签到
         </el-button>
-        <el-button size="mini" round v-show="isSign">
+        <el-button size="mini" round v-show="isSign" @click.stop="log">
           已签到
           <i class="login iconyoujiantou"></i>
         </el-button>
@@ -102,6 +102,9 @@ export default {
         this.avatarUrl = localStorage.getItem('avatarUrl')
         this.nickname = localStorage.getItem('nickname')
       }
+    },
+    log () {
+      console.log('111')
     },
     /**
      * 跳转到展示用户详情信息的页面
