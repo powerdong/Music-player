@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:26:07
- * @Update: 2019-09-05 17:37:52
+ * @Update: 2019-11-01 13:45:29
  * @Update log: 更新日志
  -->
 <template>
@@ -12,6 +12,7 @@
         :key="index"
         :circle="true"
         :ImgUrl="item.img1v1Url"
+        :alia="item.alias.length > 0 ? item.alias[0] : ''"
         line="one"
         :name="item.name"
         :isIn="item.accountId"
@@ -27,6 +28,7 @@ import api from 'api'
 import info from 'base/pageErrorInfo'
 import artist from 'base/interchangeable'
 import pageLoading from 'base/pageLoading'
+import { filterSetKeyWords } from 'utils/setKeyWords'
 
 export default {
   name: '',
@@ -57,6 +59,7 @@ export default {
             } else {
               this.allArtistList = data.result.artists
             }
+            this.allArtistList = filterSetKeyWords(this.keywords, this.allArtistList, 'name')
             this.load = false
             if (data.result.artistCount === 0) {
               this.info = true

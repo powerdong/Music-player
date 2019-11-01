@@ -5,20 +5,25 @@
  * @Update log: 更新日志
  -->
 <template>
- <div>
-   <list-global title="歌手"
-                :more="artist.more"
-                :moreText="artist.moreText"
-                linkPage="artist"
-                :keyW="keyword">
-    <list-con v-for="(item, index) in artist.artists" :key="index"
-              :circle="true"
-              :ImgUrl="item.img1v1Url"
-              :name="item.name"
-              :isIn="item.accountId"
-              ></list-con>
-  </list-global>
- </div>
+  <div>
+    <list-global
+      title="歌手"
+      :more="artist.more"
+      :moreText="artist.moreText"
+      linkPage="artist"
+      :keyW="keyword"
+    >
+      <list-con
+        v-for="(item, index) in artist"
+        :key="index"
+        :circle="true"
+        :ImgUrl="item.img1v1Url"
+        :alia="item.alias.length > 0 ? item.alias[0] : ''"
+        :name="item.name"
+        :isIn="item.accountId"
+      ></list-con>
+    </list-global>
+  </div>
 </template>
 
 <script>
@@ -29,7 +34,7 @@ export default {
   name: '',
   props: {
     artist: {
-      type: Object
+      type: Array
     },
     keyword: {
       type: String
@@ -43,5 +48,4 @@ export default {
 </script>
 
 <style lang='less' scoped>
-
 </style>

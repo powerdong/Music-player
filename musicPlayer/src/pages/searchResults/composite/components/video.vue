@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 10:57:13
- * @Update: 2019-10-29 12:56:22
+ * @Update: 2019-11-01 13:30:26
  * @Update log: 更新日志
  -->
 <template>
@@ -14,7 +14,7 @@
   >
     <list-con
       :videoList="true"
-      v-for="(item, index) in videoList.videos"
+      v-for="(item, index) in videoList"
       :key="index"
       line="two"
       :ImgUrl="item.coverUrl"
@@ -38,7 +38,7 @@ export default {
   },
   props: {
     videoList: {
-      type: Object
+      type: Array
     },
     keyword: {
       type: String

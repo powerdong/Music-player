@@ -5,19 +5,23 @@
  * @Update log: 更新日志
  -->
 <template>
- <list-global title="用户"
-              :more="user.more"
-              :moreText="user.moreText"
-              linkPage="user"
-            :keyW="keyword">
-  <list-con v-for="(item, index) in user.users"
-            :key="index"
-            :circle="true"
-            :ImgUrl="item.avatarUrl"
-            :name="item.nickname"
-            :gender="item.gender"
-            :nickname="item.signature"></list-con>
- </list-global>
+  <list-global
+    title="用户"
+    :more="user.more"
+    :moreText="user.moreText"
+    linkPage="user"
+    :keyW="keyword"
+  >
+    <list-con
+      v-for="(item, index) in user"
+      :key="index"
+      :circle="true"
+      :ImgUrl="item.avatarUrl"
+      :name="item.nickname"
+      :gender="item.gender"
+      :nickname="item.signature"
+    ></list-con>
+  </list-global>
 </template>
 
 <script>
@@ -28,7 +32,7 @@ export default {
   name: '',
   props: {
     user: {
-      type: Object
+      type: Array
     },
     keyword: {
       type: String
@@ -42,5 +46,4 @@ export default {
 </script>
 
 <style lang='less' scoped>
-
 </style>

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-07 12:09:22
- * @Update: 2019-10-15 11:58:23
+ * @Update: 2019-11-01 13:25:16
  * @Update log: 更新日志
  -->
 <template>
@@ -15,7 +15,10 @@
       <i class="result yinliang" v-show="nowSong"></i>
     </div>
     <div class="song-info">
-      <p class="song-name" :class="{twoLine}">{{songName}}</p>
+      <p class="song-name" :class="{twoLine}" v-html="songName">
+        <!-- {{songName | setKeyWords}} -->
+        <span class="alia" v-show="alia">({{alia}})</span>
+      </p>
       <p class="song-art" v-if="type==='songList'">
         <span>
           <span class="artist" v-for="(item, index) in artists" :key="index">{{ item.name }}</span>
@@ -55,6 +58,9 @@ export default {
     albumName: {
       type: String
     },
+    alia: {
+      type: String
+    },
     imgUrl: {
       type: String
     },
@@ -80,6 +86,9 @@ export default {
     },
     twoLine: {
       type: Boolean
+    },
+    keywords: {
+      type: String
     }
   },
   filters: {
@@ -141,6 +150,9 @@ export default {
       max-height: 0.4rem;
       line-height: 0.4rem;
       .ellipsis();
+      .alia {
+        color: #7c7b7d;
+      }
       &.twoLine {
         max-height: 0.8rem;
         white-space: normal;

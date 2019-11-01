@@ -13,7 +13,7 @@
     :keyW="keyword"
   >
     <list-con
-      v-for="(item, index) in djRadio.djRadios"
+      v-for="(item, index) in djRadio"
       :key="index"
       :dj="true"
       line="one"
@@ -32,7 +32,7 @@ export default {
   name: '',
   props: {
     djRadio: {
-      type: Object
+      type: Array
     },
     keyword: {
       type: String

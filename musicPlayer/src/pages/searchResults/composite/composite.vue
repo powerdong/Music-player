@@ -1,50 +1,34 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:17:07
- * @Update: 2019-09-22 12:26:03
+ * @Update: 2019-11-01 13:37:05
  * @Update log: 综合页面展示
  -->
 <template>
- <div class="wrapper pd23">
-   <div v-show="!load">
-    <div v-if="!info">
-      <song-list :songList="songList"
-                  :keyword="keywords"
-                  v-if="orderList.includes('song')">
-        </song-list>
-      <play-list :playList="playListList"
-                  :keyword="keywords"
-                  v-if="orderList.includes('playList')">
-        </play-list>
-      <video-list :videoList="videoList"
-                    :keyword="keywords"
-                    v-if="orderList.includes('video')"
-        ></video-list>
-      <sim-query :simQuery="sim_queryList"
-                  :keyword="keywords"
-                  v-if="orderList.includes('sim_query')">
-        </sim-query>
-      <artist :artist="artistList"
-                  :keyword="keywords"
-                  v-if="orderList.includes('artist')">
-        </artist>
-      <album :album="albumList"
-                  :keyword="keywords"
-                  v-if="orderList.includes('album')">
-        </album>
-      <dj-radio  :djRadio="djRadioList"
-                  :keyword="keywords"
-                  v-if="orderList.includes('djRadio')">
-        </dj-radio>
-      <user :user="userList"
-              :keyword="keywords"
-              v-if="orderList.includes('user')">
-        </user>
+  <div class="wrapper pd23">
+    <div v-show="!load">
+      <div v-if="!info">
+        <song-list :songList="songList" :keyword="keywords" v-if="orderList.includes('song')"></song-list>
+        <video-list :videoList="videoList" :keyword="keywords" v-if="orderList.includes('video')"></video-list>
+        <play-list
+          :playList="playListList"
+          :keyword="keywords"
+          v-if="orderList.includes('playList')"
+        ></play-list>
+        <sim-query
+          :simQuery="sim_queryList"
+          :keyword="keywords"
+          v-if="orderList.includes('sim_query')"
+        ></sim-query>
+        <artist :artist="artistList" :keyword="keywords" v-if="orderList.includes('artist')"></artist>
+        <album :album="albumList" :keyword="keywords" v-if="orderList.includes('album')"></album>
+        <dj-radio :djRadio="djRadioList" :keyword="keywords" v-if="orderList.includes('djRadio')"></dj-radio>
+        <user :user="userList" :keyword="keywords" v-if="orderList.includes('user')"></user>
+      </div>
+      <info :info="info" :keywords="keywords"></info>
     </div>
-    <info :info="info" :keywords="keywords"></info>
+    <page-loading v-show="load"></page-loading>
   </div>
-  <page-loading v-show="load"></page-loading>
- </div>
 </template>
 
 <script>
@@ -58,6 +42,8 @@ import djRadio from './components/djRadio'
 import user from './components/user'
 import info from 'base/pageErrorInfo'
 import pageLoading from 'base/pageLoading'
+import { filterSetKeyWords } from 'utils/setKeyWords'
+
 import api from 'api'
 
 export default {
@@ -123,14 +109,21 @@ export default {
             } = data.result
             let simQuery = data.result.sim_query
             this.orderList = order
-            this.songList = song
-            this.playListList = playList
-            this.videoList = video
+            this.songList = song.songs
+            this.playListList = playList.playLists
+            this.videoList = video.videos
             this.sim_queryList = simQuery
-            this.artistList = artist
-            this.albumList = album
-            this.djRadioList = djRadio
-            this.userList = user
+            this.artistList = artist.artists
+            this.albumList = album.albums
+            this.djRadioList = djRadio.djRadios
+            this.userList = user.users
+            this.songList = filterSetKeyWords(this.keywords, this.songList, 'name')
+            this.videoList = filterSetKeyWords(this.keywords, this.videoList, 'title')
+            this.playListList = filterSetKeyWords(this.keywords, this.playListList, 'name')
+            this.albumList = filterSetKeyWords(this.keywords, this.albumList, 'name')
+            this.djRadioList = filterSetKeyWords(this.keywords, this.djRadioList, 'name')
+            this.userList = filterSetKeyWords(this.keywords, this.userList, 'nickname')
+            this.artistList = filterSetKeyWords(this.keywords, this.artistList, 'name')
             this.load = false
             // 没有信息展示
             if (this.orderList.length === 0) {
@@ -161,6 +154,5 @@ export default {
 </script>
 
 <style lang='less' scoped>
-@import url('~styles/global.less');
-
+@import url("~styles/global.less");
 </style>

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:24:13
- * @Update: 2019-09-08 16:30:42
+ * @Update: 2019-11-01 13:47:12
  * @Update log: 更新日志
  -->
 <template>
@@ -27,6 +27,7 @@ import api from 'api'
 import info from 'base/pageErrorInfo'
 import user from 'base/interchangeable'
 import pageLoading from 'base/pageLoading'
+import { filterSetKeyWords } from 'utils/setKeyWords'
 
 export default {
   name: '',
@@ -56,6 +57,7 @@ export default {
             if (data.result.userprofileCount === 0) {
               this.info = true
             }
+            this.allUserList = filterSetKeyWords(this.keywords, this.allUserList, 'nickname')
             this.load = false
           }
         })

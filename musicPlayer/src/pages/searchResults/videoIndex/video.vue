@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:23:42
- * @Update: 2019-09-08 16:17:48
+ * @Update: 2019-11-01 13:47:41
  * @Update log: 更新日志
  -->
 <template>
@@ -28,6 +28,7 @@
 import info from 'base/pageErrorInfo'
 import videoList from 'base/interchangeable'
 import pageLoading from 'base/pageLoading'
+import { filterSetKeyWords } from 'utils/setKeyWords'
 
 import api from 'api'
 export default {
@@ -59,6 +60,7 @@ export default {
             } else {
               this.allVideoList = data.result.videos
             }
+            this.allVideoList = filterSetKeyWords(this.keywords, this.allVideoList, 'title')
             this.load = false
             // 当没有视频信息的时候
             if (data.result.videoCount === 0) {

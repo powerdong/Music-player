@@ -29,6 +29,7 @@ import api from 'api'
 import songList from 'base/interchangeable'
 import pageLoading from 'base/pageLoading'
 import info from 'base/pageErrorInfo'
+import { filterSetKeyWords } from 'utils/setKeyWords'
 
 export default {
   name: '',
@@ -64,6 +65,7 @@ export default {
             } else {
               this.allSongListList = data.result.playlists
             }
+            this.allSongListList = filterSetKeyWords(this.keywords, this.allSongListList, 'name')
             this.load = false
           }
         })

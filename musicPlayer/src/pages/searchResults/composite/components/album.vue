@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 10:58:10
- * @Update: 2019-09-05 09:39:28
+ * @Update: 2019-11-01 12:54:23
  * @Update log: 更新日志
  -->
 <template>
@@ -13,11 +13,12 @@
     :keyW="keyword"
   >
     <list-con
-      v-for="(item, index) in album.albums "
+      v-for="(item, index) in album "
       :key="index"
       :album="true"
       line="one"
       :ImgUrl="item.blurPicUrl"
+      :alia="item.alias.length > 0 ? item.alias[0] : ''"
       :name="item.name"
       :artists="item.artists"
       :durationms="item.publishTime"
@@ -33,7 +34,7 @@ export default {
   name: '',
   props: {
     album: {
-      type: Object
+      type: Array
     },
     keyword: {
       type: String

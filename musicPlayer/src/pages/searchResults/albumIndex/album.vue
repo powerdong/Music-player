@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:26:25
- * @Update: 2019-10-29 12:40:03
+ * @Update: 2019-11-01 13:44:56
  * @Update log: 更新日志
  -->
 <template>
@@ -13,6 +13,7 @@
         :album="true"
         line="one"
         :ImgUrl="item.blurPicUrl"
+        :alia="item.alias.length > 0 ? item.alias[0] : ''"
         :name="item.name"
         :artists="item.artists"
         :durationms="item.publishTime"
@@ -28,6 +29,7 @@ import api from 'api'
 import info from 'base/pageErrorInfo'
 import album from 'base/interchangeable'
 import pageLoading from 'base/pageLoading'
+import { filterSetKeyWords } from 'utils/setKeyWords'
 
 export default {
   name: '',
@@ -58,6 +60,7 @@ export default {
             } else {
               this.allAlbumList = data.result.albums
             }
+            this.allAlbumList = filterSetKeyWords(this.keywords, this.allAlbumList, 'name')
             this.load = false
             if (data.result.albumCount === 0) {
               this.info = true

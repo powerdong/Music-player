@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:24:50
- * @Update: 2019-09-22 12:12:06
+ * @Update: 2019-11-01 13:28:52
  * @Update log: 更新日志
  -->
 <template>
@@ -20,6 +20,7 @@
             :key="index"
             :songName="item.name"
             :artists="item.artists"
+            :alia="item.alias.length > 0 ? item.alias[0] : ''"
             :albumName="item.album.name"
             @beginSong="setAudioList(item)"
             :nowSong="item.id === audioSong.id"
@@ -38,6 +39,8 @@ import api from 'api'
 import info from 'base/pageErrorInfo'
 import pageLoading from 'base/pageLoading'
 import songList from 'base/song'
+import { filterSetKeyWords } from 'utils/setKeyWords'
+
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -75,6 +78,7 @@ export default {
             } else {
               this.allSongList = data.result.songs
             }
+            this.allSongList = filterSetKeyWords(this.keywords, this.allSongList, 'name')
             this.load = false
             this.scroll = false
             if (data.result.songCount === 0) {

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:25:40
- * @Update: 2019-10-29 12:42:22
+ * @Update: 2019-11-01 13:49:02
  * @Update log: 更新日志
  -->
 <template>
@@ -27,6 +27,7 @@ import api from 'api'
 import info from 'base/pageErrorInfo'
 import djRadio from 'base/interchangeable'
 import pageLoading from 'base/pageLoading'
+import { filterSetKeyWords } from 'utils/setKeyWords'
 
 export default {
   name: '',
@@ -52,12 +53,12 @@ export default {
         .then((res) => {
           const data = res.data
           if (data.code === 200) {
-            console.log(data)
             if (this.allDjRadioList.length) {
               this.allDjRadioList = [this.allDjRadioList, ...data.result.albums]
             } else {
               this.allDjRadioList = data.result.djRadios
             }
+            this.allDjRadioList = filterSetKeyWords(this.keywords, this.allDjRadioList, 'name')
             this.load = false
             /**
              * 这里使用Es6 判断一个对象是否为空
