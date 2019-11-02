@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:24:13
- * @Update: 2019-11-01 13:47:12
+ * @Update: 2019-11-02 12:47:57
  * @Update log: 更新日志
  -->
 <template>
@@ -14,6 +14,8 @@
         :ImgUrl="item.avatarUrl"
         :name="item.nickname"
         :gender="item.gender"
+        line="one"
+        maxWidth="4.7rem"
         :nickname="item.signature"
       ></user>
       <info :info="info" :keywords="keywords"></info>

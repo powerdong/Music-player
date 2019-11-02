@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:33:42
- * @Update: 2019-10-11 08:07:48
+ * @Update: 2019-11-02 12:32:05
  * @Update log: 更新日志
  -->
 <template>
@@ -18,11 +18,11 @@
       :songName="item.name"
       :artists="item.artists"
       :albumName="item.album.name"
-      :imgUrl="item.album.blurPicUrl"
+      :imgUrl="item.album.picUrl"
       @beginSong="setAudioList(item, index)"
       :nowSong="item.id === audioSong.id"
     ></song-list>
-    <should-login></should-login>
+    <should-login v-show="!songLists"></should-login>
   </song-list-page>
 </template>
 

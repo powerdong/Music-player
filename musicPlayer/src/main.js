@@ -1,7 +1,7 @@
 /*
  * @Author: Lambda
  * @Begin: 2019-08-30 19:47:55
- * @Update: 2019-08-30 19:47:55
+ * @Update: 2019-11-02 13:51:37
  * @Update log: 更新日志
  */
 // The Vue build version to load with the `import` command
@@ -16,6 +16,10 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
 
 import ElementUI from 'element-ui'
+import {
+  Search
+} from 'vant'
+
 import 'element-ui/lib/theme-chalk/index.css'
 
 import 'styles/reset.css'
@@ -24,6 +28,7 @@ import 'styles/resetEleUI.less'
 
 fastclick.attach(document.body)
 // import ""
+Vue.use(Search)
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false

@@ -21,6 +21,7 @@
       :alia="item.alias.length > 0 ? item.alias[0] : ''"
       :name="item.name"
       :artists="item.artists"
+      maxWidth="4.7rem"
       :durationms="item.publishTime"
     ></list-con>
   </list-global>

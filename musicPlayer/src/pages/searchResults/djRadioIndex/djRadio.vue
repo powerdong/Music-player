@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:25:40
- * @Update: 2019-11-01 13:49:02
+ * @Update: 2019-11-02 12:46:47
  * @Update log: 更新日志
  -->
 <template>
@@ -11,6 +11,7 @@
         v-for="(item, index) in allDjRadioList"
         :key="index"
         :dj="true"
+        maxWidth="4.7rem"
         line="one"
         :ImgUrl="item.picUrl"
         :name="item.name"

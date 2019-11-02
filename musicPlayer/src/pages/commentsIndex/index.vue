@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-27 07:48:55
- * @Update: 2019-10-27 10:51:43
+ * @Update: 2019-11-02 14:20:24
  * @Update log: 更新日志
  -->
 <template>
@@ -26,10 +26,23 @@
       class="pd23"
       @likeComment="likeComment"
     ></comments>
+    <van-search
+      class="border-top commentInp"
+      v-model="input"
+      :placeholder="placeholder"
+      show-action
+      :clearable="false"
+      background="#fff"
+      left-icon
+      @search="pushCom(input)"
+    >
+      <div slot="action" :class="{disable: !input}" @click="pushCom(input)">发送</div>
+    </van-search>
   </div>
 </template>
 
 <script>
+import { Toast } from 'vant'
 import generalNav from 'base/generalNav'
 import pageLoading from 'base/pageLoading'
 import albumList from './components/albumListInfo'
@@ -48,7 +61,9 @@ export default {
         author: '',
         imgUrl: '',
         title: ''
-      }
+      },
+      input: '',
+      placeholder: ''
     }
   },
   activated () {
@@ -66,14 +81,46 @@ export default {
      * 判断当前资源是歌单还是专辑
      */
     if (params.playlistId) {
-      this._getPlaylistComments(params.playlistId)
+      // 歌单
+      this.type = 2
+      this.id = params.playlistId
+      this._getPlaylistComments(this.id)
       return
     }
     if (params.albumId) {
-      this._getAlbumComments(params.albumId)
+      // 专辑
+      this.type = 3
+      this.id = params.albumId
+      this._getAlbumComments(this.id)
     }
   },
   methods: {
+    pushCom (content) {
+      if (!content) {
+        Toast({
+          position: 'bottom',
+          message: '评论为空'
+        })
+        return
+      }
+      Toast.allowMultiple()
+      let loadingToast = Toast.loading({
+        forbidClick: true,
+        duration: 1000
+      })
+      api.pushComFn(this.type, this.id, content)
+        .then(res => {
+          const { data } = res
+          if (data.code === 200) {
+            this.input = ''
+            loadingToast.clear()
+            Toast({
+              position: 'bottom',
+              message: '发表成功'
+            })
+          }
+        })
+    },
     /**
      * 获取歌单评论
      */
@@ -133,6 +180,16 @@ export default {
 .wrapper {
   .text {
     font-size: 0.4rem;
+  }
+  .commentInp {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    .disable {
+      color: #ccc;
+    }
   }
 }
 </style>

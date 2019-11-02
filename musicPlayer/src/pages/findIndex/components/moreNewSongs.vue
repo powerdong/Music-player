@@ -1,14 +1,14 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-10-08 11:12:45
- * @Update: 2019-10-26 08:22:49
+ * @Update: 2019-11-02 12:30:05
  * @Update log: 更新日志
  -->
 <template>
   <div class="wrapper pd23">
     <div class="titleFixed">
       <general-nav @returnPage="returnPage">
-        <span class="text">新碟上架</span>
+        <span class="text">最新音乐</span>
       </general-nav>
       <slider-nav :list="list"></slider-nav>
     </div>

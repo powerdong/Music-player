@@ -16,6 +16,7 @@
       v-for="(item, index) in djRadio"
       :key="index"
       :dj="true"
+      maxWidth="4.7rem"
       line="one"
       :ImgUrl="item.picUrl"
       :name="item.name"

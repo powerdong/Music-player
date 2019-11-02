@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:26:25
- * @Update: 2019-11-01 13:44:56
+ * @Update: 2019-11-02 12:45:02
  * @Update log: 更新日志
  -->
 <template>
@@ -14,6 +14,7 @@
         line="one"
         :ImgUrl="item.blurPicUrl"
         :alia="item.alias.length > 0 ? item.alias[0] : ''"
+        maxWidth="4.7rem"
         :name="item.name"
         :artists="item.artists"
         :durationms="item.publishTime"

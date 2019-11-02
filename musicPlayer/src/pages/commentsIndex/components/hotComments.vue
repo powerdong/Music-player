@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-27 09:13:12
- * @Update: 2019-10-29 21:43:17
+ * @Update: 2019-11-02 13:16:28
  * @Update log: 更新日志
  -->
 <template>
@@ -80,6 +80,7 @@ export default {
   box-sizing: border-box;
   margin: 0.3rem 0;
   padding-bottom: 0.3rem;
+  height: auto;
   .left-img {
     width: 0.6rem;
     height: 0;

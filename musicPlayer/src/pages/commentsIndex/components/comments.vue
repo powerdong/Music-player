@@ -89,6 +89,7 @@ export default {
   box-sizing: border-box;
   margin: 0.3rem 0;
   padding-bottom: 0.3rem;
+  height: auto;
   .left-img {
     width: 0.6rem;
     height: 0;

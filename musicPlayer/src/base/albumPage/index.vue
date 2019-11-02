@@ -1,13 +1,13 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:47:11
- * @Update: 2019-10-29 13:27:00
+ * @Update: 2019-11-02 14:11:21
  * @Update log: 这个是歌单展示的通用组件
  -->
 <template>
   <!-- 通过传递参数给子组件，标题，加载样式，图片链接，歌单名称，作者头像，作者昵称，歌单介绍，评论数，分享数，歌单歌曲数，收藏数，是否收藏 -->
   <song-list-page
-    title="歌单"
+    :title="title"
     :load="load"
     :imgUrl="albumInfo.coverImgUrl ? albumInfo.coverImgUrl : albumInfo.album ? albumInfo.album.picUrl : ''"
     :albumTitle="albumInfo.name ? albumInfo.name : albumInfo.album ? albumInfo.album.name : ''"
@@ -58,7 +58,8 @@ export default {
       albumId: 0,
       dishId: 0,
       idxId: 0,
-      idxComId: 0
+      idxComId: 0,
+      title: ''
     }
   },
   components: {
@@ -80,16 +81,19 @@ export default {
     let idxId = this.$route.params.idxId
     let dishId = this.$route.params.dishId
     if (albumId) {
+      this.title = '歌单'
       this.albumId = +albumId
       this._getInfo(albumId)
       return
     }
     if (idxId || idxId === 0) {
+      this.title = ''
       this.idxId = +idxId
       this._getIdxInfo(idxId)
       return
     }
     if (dishId) {
+      this.title = '专辑'
       this.dishId = +dishId
       this._getDishInfo(dishId)
       return

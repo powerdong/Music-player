@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-02 13:36:42
- * @Update: 2019-11-01 13:31:01
+ * @Update: 2019-11-02 12:43:25
  * @Update log: 这是一个公共的组件，用来展示搜索展示页面除单曲以外的项目
  * 通过props接收对应的结果，渲染。
  * 组件调用是通过 for 循环组件，来循环组件渲染的
@@ -32,9 +32,10 @@
       <!-- 标题文字 -->
       <div
         class="play-name"
+        :style="{maxWidth}"
         :class="{oneLine: line === 'one', twoLines: line === 'two'}"
-        v-html="name"
       >
+        <span v-html="name"></span>
         <span class="alia" v-show="alia">({{alia}})</span>
         <!-- 在用户区域用类名显示不同的用户性别图标 -->
         <i
@@ -107,6 +108,9 @@ export default {
       type: Array
     },
     line: {
+      type: String
+    },
+    maxWidth: {
       type: String
     },
     dj: {
@@ -266,7 +270,7 @@ export default {
         color: #7c7b7d;
       }
       &.oneLine {
-        max-width: 4rem;
+        max-width: 3.8rem;
         .ellipsis();
       }
       &.twoLines {

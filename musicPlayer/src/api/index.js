@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-10-27 10:43:17
+ * @Update: 2019-11-02 13:40:10
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -66,7 +66,8 @@ import {
   commentPlaylist,
   commentLike,
   commentAlbum,
-  userEvent
+  userEvent,
+  pushOrDeleteCom
 } from './config'
 
 export default {
@@ -791,6 +792,46 @@ export default {
         t,
         type
       }
+    })
+  },
+  /**
+   * 调用此接口,可发送评论
+   * @param {*} t 1: 发送评论
+   * @param {*} type 数字,资源类型,对应歌曲,mv,专辑,歌单,电台,视频对应以下类型
+   * 0: 歌曲 1: mv 2: 歌单 3: 专辑 4: 电台 5: 视频  6: 动态
+   * @param {*} id 对应资源 id
+   * @param {*} content 要发送的内容
+   * @param {*} commentId 回复的评论id (回复评论时必填)
+   * @param {*} threadId 如给动态发送评论，则不需要传 id，需要传动态的 threadId
+   */
+  pushComFn (type, id, content, commentId, threadId) {
+    const t = 1
+    return axios.post(pushOrDeleteCom, {
+      t,
+      type,
+      id,
+      content,
+      commentId,
+      threadId
+    })
+  },
+  /**
+   * 调用此接口,可删除评论
+   * @param {*} t 0: 删除评论
+   * @param {*} type 数字,资源类型,对应歌曲,mv,专辑,歌单,电台,视频对应以下类型
+   * 0: 歌曲 1: mv 2: 歌单 3: 专辑 4: 电台 5: 视频  6: 动态
+   * @param {*} id 对应资源 id
+   * @param {*} threadId 如给动态删除评论，则不需要传 id，需要传动态的 `threadId`
+   * @param {*} commentId 回复的评论id (回复评论时必填)
+   */
+  delComFn (type, id, commentId, threadId) {
+    const t = 0
+    return axios.post(pushOrDeleteCom, {
+      t,
+      type,
+      id,
+      threadId,
+      commentId
     })
   }
 }

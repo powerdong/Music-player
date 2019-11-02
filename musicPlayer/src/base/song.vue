@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-07 12:09:22
- * @Update: 2019-11-01 13:25:16
+ * @Update: 2019-11-02 12:37:27
  * @Update log: 更新日志
  -->
 <template>
@@ -15,8 +15,10 @@
       <i class="result yinliang" v-show="nowSong"></i>
     </div>
     <div class="song-info">
-      <p class="song-name" :class="{twoLine}" v-html="songName">
+      <p class="song-name" :class="{twoLine}">
         <!-- {{songName | setKeyWords}} -->
+        <!-- 注意 如果使用 v-html 显示内容可能会把子节点内容覆盖 -->
+        <span v-html="songName"></span>
         <span class="alia" v-show="alia">({{alia}})</span>
       </p>
       <p class="song-art" v-if="type==='songList'">

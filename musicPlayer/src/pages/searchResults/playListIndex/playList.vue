@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:25:20
- * @Update: 2019-09-05 09:29:50
+ * @Update: 2019-11-02 12:44:23
  * @Update log: 更新日志
  -->
 <template>
@@ -12,6 +12,7 @@
         :key="index"
         :songList="true"
         line="one"
+        maxWidth="4.7rem"
         :ImgUrl="item.coverImgUrl"
         :name="item.name"
         :trackCount="item.trackCount"

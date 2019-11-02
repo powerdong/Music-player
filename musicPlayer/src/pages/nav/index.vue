@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-10-26 11:16:11
+ * @Update: 2019-11-02 12:49:39
  * @Update log: 更新日志
  -->
 <template>
@@ -12,10 +12,10 @@
         <i class="nav iconnav ripple" @click="SHOW_LOGIN"></i>
       </div>
       <ul class="nav-center">
-        <router-link tag="li" class="nav-title ripple" to="/home">我的</router-link>
-        <router-link tag="li" class="nav-title ripple" to="/find">发现</router-link>
-        <router-link tag="li" class="nav-title ripple" to="/friend">朋友</router-link>
-        <router-link tag="li" class="nav-title ripple" to="/videoPage">视频</router-link>
+        <router-link tag="li" class="nav-title ripple" replace to="/home">我的</router-link>
+        <router-link tag="li" class="nav-title ripple" replace to="/find">发现</router-link>
+        <router-link tag="li" class="nav-title ripple" replace to="/friend">朋友</router-link>
+        <router-link tag="li" class="nav-title ripple" replace to="/videoPage">视频</router-link>
       </ul>
       <div class="nav-right">
         <!-- 注意link时要加上/ 要不然会出现异常情况 -->

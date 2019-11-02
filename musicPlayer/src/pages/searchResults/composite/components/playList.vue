@@ -18,6 +18,7 @@
       :key="index"
       :ImgUrl="item.coverImgUrl"
       line="one"
+      maxWidth="4.7rem"
       :name="item.name"
       :trackCount="item.trackCount"
       :nickname="item.creator.nickname"

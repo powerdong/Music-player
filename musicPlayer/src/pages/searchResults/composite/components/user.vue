@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 10:58:35
- * @Update: 2019-09-03 11:13:51
+ * @Update: 2019-11-02 12:48:36
  * @Update log: 更新日志
  -->
 <template>
@@ -20,6 +20,8 @@
       :name="item.nickname"
       :gender="item.gender"
       :nickname="item.signature"
+      line="one"
+      maxWidth="4.7rem"
     ></list-con>
   </list-global>
 </template>
