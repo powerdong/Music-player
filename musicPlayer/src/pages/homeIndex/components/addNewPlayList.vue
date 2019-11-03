@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-26 13:09:11
- * @Update: 2019-10-12 13:15:25
+ * @Update: 2019-11-03 13:02:37
  * @Update log: 更新日志
  -->
 <template>
@@ -21,12 +21,12 @@
         <i v-show="playListName" @click="clearInp" class="search search-guanbi"></i>
       </div>
       <div class="line">
-        <el-checkbox v-model="checked">设置为隐私歌单</el-checkbox>
+        <van-checkbox v-model="checked" shape="square" checked-color="#dd001b">设置为隐私歌单</van-checkbox>
         <span class="length">{{ playListName.length }}/40</span>
       </div>
       <div class="button">
-        <el-button type="text" @click="hide">取消</el-button>
-        <el-button type="text" :disabled="!playListName" @click="pushNewPlaylist">提交</el-button>
+        <div class="btn" @click="hide">取消</div>
+        <div class="btn" :class="{disable: !playListName}" @click="pushNewPlaylist">提交</div>
       </div>
     </div>
   </div>
@@ -133,6 +133,13 @@ export default {
     margin-top: 0.2rem;
     display: flex;
     justify-content: flex-end;
+    color: @bgcolor;
+    .btn {
+      margin: 0.3rem 0.2rem;
+    }
+    .disable {
+      opacity: 0.3;
+    }
   }
 }
 </style>

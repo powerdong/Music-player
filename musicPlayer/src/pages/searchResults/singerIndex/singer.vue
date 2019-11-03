@@ -1,12 +1,12 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-10-10 08:19:51
- * @Update: 2019-10-29 12:54:17
+ * @Update: 2019-11-03 13:58:32
  * @Update log: 更新日志
  -->
 <template>
   <div class="wrapper">
-    <div class="fixed">
+    <div class="titleFixed">
       <general-nav class="pd23" @returnPage="returnPage">
         <span class="text">歌手分类</span>
       </general-nav>
@@ -159,7 +159,6 @@ export default {
   .title {
     background-color: #ddd;
     line-height: 1.8;
-    margin-top: 2.2rem;
   }
 }
 </style>

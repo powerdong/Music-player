@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-10-10 12:40:09
- * @Update: 2019-10-10 13:22:50
+ * @Update: 2019-11-03 13:59:40
  * @Update log: 这是一个歌手分类页面的选择组件
   通过点击第一列和第二列进行不同的数据渲染
   默认是华语 + 男
@@ -86,7 +86,8 @@ export default {
 @import url("~styles/global.less");
 .list-wrap {
   display: flex;
-  margin: 0.3rem 0;
+  padding: 0.2rem 0;
+  // margin: 0.3rem 0;
   .list-item {
     margin-right: 0.4rem;
   }

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-10-30 14:36:25
+ * @Update: 2019-11-03 12:54:13
  * @Update log: 更新日志
  -->
 <template>
@@ -18,8 +18,7 @@
     <!-- 已经登陆状态样式 -->
     <div class="login-ed" @click="goUserInfo" v-if="loginState">
       <div class="img-info">
-        <el-avatar class="account-bg" :src="avatarUrl + '?param=200y200'"></el-avatar>
-        <!-- <img class="account-bg" :src="avatarUrl" alt=""> -->
+        <img class="account-bg" :src="avatarUrl + '?param=200y200'" alt />
       </div>
       <div class="nickname">
         <span class="account-nickname">{{nickname}}</span>
@@ -27,13 +26,20 @@
       </div>
       <div class="daily_sign-in">
         <!-- 这里添加stop 修饰符，防止冒泡跳转到个人信息页面 -->
-        <el-button type="danger" size="mini" @click.stop="sign" round v-show="!isSign">
+        <van-button
+          type="primary"
+          size="small"
+          color="#dd001b"
+          round
+          @click.stop="sign"
+          v-show="!isSign"
+        >
           <i class="login icontubiaozhizuo-"></i>签到
-        </el-button>
-        <el-button size="mini" round v-show="isSign">
+        </van-button>
+        <van-button size="small" class="sign" round v-show="isSign">
           已签到
           <i class="login iconyoujiantou"></i>
-        </el-button>
+        </van-button>
       </div>
     </div>
   </div>
@@ -205,10 +211,9 @@ export default {
       font-size: 0.2rem;
       margin-top: auto;
       color: #fff;
-      width: 1.2rem;
-      height: 0.44rem;
-      border-radius: 0.2rem;
-      background: @bgcolor;
+      .sign {
+        color: #7b7c7d;
+      }
       .iconyoujiantou {
         font-size: 0.24rem;
       }

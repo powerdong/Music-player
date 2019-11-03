@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 19:54:27
- * @Update: 2019-10-25 19:25:14
+ * @Update: 2019-11-03 13:54:36
  * @Update log: 因为存在 url地址自动将中文转换为编码
  *              在第一次加载时，默认组件不能正确添加active样式
  -->
@@ -117,7 +117,7 @@ export default {
   .more {
     position: fixed;
     right: 8px;
-    top: 0.95rem;
+    top: 1.3rem;
     // transform: translateY(-50%);
     .recommend {
       font-size: 0.4rem;
