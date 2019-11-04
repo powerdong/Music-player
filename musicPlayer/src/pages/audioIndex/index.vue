@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-12 13:02:20
- * @Update: 2019-10-29 13:44:39
+ * @Update: 2019-11-04 13:49:39
  * @Update log: 点击歌单中的某一项，将歌单列表信息传入vuex，用来展示歌曲列表，
  *              点击的index 用列表[index]来设置当前要播放的歌曲
  -->
@@ -113,6 +113,13 @@ export default {
       offsetLyric: 'OFFSET_LYRIC',
       playingShow: 'PLAYING_SHOW' })
   },
+  filters: {
+    setName: function (val) {
+      let reg = /<\/?.+?\/?>/g
+      val = val.replace(reg, '')
+      return val
+    }
+  },
   watch: {
     /**
      * 当前歌曲变化，首先查看能不能播放
@@ -138,11 +145,19 @@ export default {
             ? val.al.picUrl
             : val.album
               ? val.album.artist.img1v1Url : val.coverUrl ? val.coverUrl : ''
-        this.name = val.name
+        this.name = this.setName(val.name)
       })
     }
   },
   methods: {
+    /**
+     * 去除名字的标签
+     */
+    setName (val) {
+      let reg = /<\/?.+?\/?>/g
+      val = val.replace(reg, '')
+      return val
+    },
     /**
      * 获取音乐url
      */

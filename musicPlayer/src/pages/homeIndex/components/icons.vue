@@ -30,17 +30,11 @@
 
 <script>
 import { homeIcons } from 'getInfos/getData'
-import { swiper } from 'vue-awesome-swiper'
 import icon from 'base/icon'
 export default {
   name: 'homeIcons',
   data () {
     return {
-      swiperOption: {
-        pagination: {
-          el: '.swiper-pagination'
-        }
-      },
       homeIcons
     }
   },
@@ -53,7 +47,6 @@ export default {
     }
   },
   components: {
-    swiper,
     icon
   }
 }
