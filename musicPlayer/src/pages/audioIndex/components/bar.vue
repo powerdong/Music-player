@@ -1,21 +1,22 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-13 14:01:18
- * @Update: 2019-09-15 10:34:00
+ * @Update: 2019-11-05 13:59:06
  * @Update log: 更新日志
  -->
 <template>
   <div class="bar">
     <span>{{ time }}</span>
     <div class="bar-bg" ref="barBg" @touchstart.prevent="clickBg">
-      <div class="bar-layer" :style="{width:length}">
-      </div>
-      <div class="point"
+      <div class="bar-layer" :style="{width:length}"></div>
+      <div
+        class="point"
         :style="{left:length}"
         @touchstart.prevent="start"
         @touchmove.prevent="move"
-        @touchend="end"></div>
-      </div>
+        @touchend="end"
+      ></div>
+    </div>
     <span>{{ allTime | setTime }}</span>
   </div>
 </template>
@@ -38,12 +39,12 @@ export default {
     },
     width: {
       type: Number
+    },
+    index: {
+      type: Number
     }
   },
   watch: {
-    time: function (val) {
-      return val
-    },
     width: function (val) {
       if (val && !this.touch.state) {
         val = val + '%'
@@ -66,8 +67,10 @@ export default {
       const left = this.$refs.barBg.offsetLeft
       this.touch.endX = e.changedTouches[0].pageX - left
       const offsetWidth = this.touch.endX / this.touch.width * 100
+      console.log(offsetWidth)
+
       this._changeWidth(offsetWidth)
-      this.$emit('time', offsetWidth)
+      this.$emit('time', offsetWidth, isNaN(this.index) ? '' : this.index)
     },
     move (e) {
       if (!this.touch.state) {
@@ -84,7 +87,7 @@ export default {
     },
     end () {
       this.touch.state = false
-      this.$emit('time', this.touch.offsetWidth)
+      this.$emit('time', this.touch.offsetWidth, isNaN(this.index) ? '' : this.index)
     }
   },
   filters: {

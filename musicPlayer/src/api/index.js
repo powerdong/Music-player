@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-11-02 13:40:10
+ * @Update: 2019-11-04 18:55:21
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -67,7 +67,8 @@ import {
   commentLike,
   commentAlbum,
   userEvent,
-  pushOrDeleteCom
+  pushOrDeleteCom,
+  getVideoUrl
 } from './config'
 
 export default {
@@ -733,6 +734,17 @@ export default {
    */
   getVideoGroupFn (id) {
     return axios.get(getVideoGroup, {
+      params: {
+        id
+      }
+    })
+  },
+  /**
+   * 调用此接口 , 传入视频 id,可获取视频播放地址
+   * @param {*} id 视频 id
+   */
+  getVideoUrlFn (id) {
+    return axios.get(getVideoUrl, {
       params: {
         id
       }
