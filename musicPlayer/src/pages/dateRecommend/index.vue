@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:33:42
- * @Update: 2019-11-02 12:32:05
+ * @Update: 2019-11-06 13:22:24
  * @Update log: 更新日志
  -->
 <template>
@@ -22,7 +22,7 @@
       @beginSong="setAudioList(item, index)"
       :nowSong="item.id === audioSong.id"
     ></song-list>
-    <should-login v-show="!songLists"></should-login>
+    <should-login v-show="isLogin === 0"></should-login>
   </song-list-page>
 </template>
 
@@ -37,7 +37,8 @@ export default {
   data () {
     return {
       songLists: [],
-      load: ''
+      load: '',
+      isLogin: localStorage.getItem('loginState')
     }
   },
   created () {

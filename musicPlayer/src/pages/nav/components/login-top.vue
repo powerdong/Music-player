@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-11-03 12:54:13
+ * @Update: 2019-11-05 18:48:37
  * @Update log: 更新日志
  -->
 <template>
@@ -13,7 +13,7 @@
         <p>手机电脑多端同步，尽享海量高品质音乐</p>
       </div>
       <!-- 在一个组件的根元素上直接监听一个原生事件 使用native修饰-->
-      <router-link to="login" tag="button" class="to-login" @click.native="HIDE_LOGIN">立即登录</router-link>
+      <router-link to="/login" tag="button" class="to-login" @click.native="HIDE_LOGIN">立即登录</router-link>
     </div>
     <!-- 已经登陆状态样式 -->
     <div class="login-ed" @click="goUserInfo" v-if="loginState">

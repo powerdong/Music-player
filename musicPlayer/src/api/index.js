@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-11-04 18:55:21
+ * @Update: 2019-11-05 19:05:51
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -68,7 +68,8 @@ import {
   commentAlbum,
   userEvent,
   pushOrDeleteCom,
-  getVideoUrl
+  getVideoUrl,
+  register
 } from './config'
 
 export default {
@@ -302,6 +303,23 @@ export default {
     return axios.get(signIn, {
       params: {
         type
+      }
+    })
+  },
+  /**
+   * 调用此接口 ,传入手机号码和验证码,密码,昵称, 可注册网易云音乐账号(同时可修改密码)
+   * @param {*} captcha 验证码
+   * @param {*} phone 手机号码
+   * @param {*} password 密码
+   * @param {*} nickname 昵称
+   */
+  registerFn (captcha, phone, password, nickname) {
+    return axios.get(register, {
+      params: {
+        captcha,
+        phone,
+        password,
+        nickname
       }
     })
   },

@@ -1,14 +1,14 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-14 15:42:41
- * @Update: 2019-10-26 07:58:25
+ * @Update: 2019-11-05 19:18:59
  * @Update log: 手机号登录密码页面
  -->
 <template>
   <div class="wrapper">
     <div class="inp border-bottom">
       <input type="password" v-model="pwd" placeholder="请输入密码" ref="inputs" autofocus="autofocus" />
-      <router-link to="/forget">忘记密码</router-link>
+      <span @click="goForget">忘记密码</span>
     </div>
     <login-btn @click.native="logon" :title="title"></login-btn>
     <!-- 设置提示语 -->
@@ -93,6 +93,10 @@ export default {
         .catch(err => {
           console.log(err)
         })
+    },
+    goForget () {
+      const phone = getPhone()
+      this.$router.push(`/verify?phone=${phone}`)
     },
     /**
      * 获取用户详情

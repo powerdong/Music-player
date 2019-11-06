@@ -38,6 +38,7 @@ export const verify = api + '//captcha/verify' // 验证验证码
 export const loginStatus = api + '/login/status' // 登录状态
 export const logout = api + '/logout' // 退出登录
 export const signIn = api + '/daily_signin' // 签到
+export const register = api + '/register/cellphone' // 注册修改密码
 // ===================我的页面相关
 export const userRecord = api + '/user/record' // 用户播放记录
 export const userInfo = api + '/user/subcount' // 用户信息

@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-26 08:48:50
- * @Update: 2019-11-05 14:00:14
+ * @Update: 2019-11-06 14:08:23
  * @Update log: 更新日志
  -->
 <template>
@@ -16,7 +16,7 @@
             @timeupdate="setBarTime(index)"
             class="video_tag"
             ref="video"
-            src
+            src="localhost"
           ></video>
           <!-- 阻止工具条冒泡 -->
           <div class="fn-btn" ref="fnBtn" @click.stop>
@@ -86,6 +86,8 @@ import { filterSetPlayCount, filterSetTime } from 'utils/filters'
 import circleLoading from 'base/circleLoading'
 import bar from '../audioIndex/components/bar'
 import api from 'api'
+// 定义一个上一个播放的视频索引，初始值为undefined
+let lastIndex
 export default {
   name: '',
   data () {
@@ -121,31 +123,51 @@ export default {
     /**
     * 这里使用了 async/await处理异步
     */
-    async playVideo (index, id) {
-      const video = this.$refs.video[index]
-      // 当没有值的时候，src默认为 http://localhost:8080/，通过判断是否包含localhost来判断当前src的值是否是真正的视频地址
-      if (video.src.includes('localhost')) {
-        // 显示loading样式
-        this.$refs.load[index].block()
-        // 这里会等待请求数据
-        const res = await api.getVideoUrlFn(id)
-        // 赋值给src开始加载
-        video.src = res.data.urls[0].url
+    playVideo (index, id) {
+      // 当点击了播放按钮时，判断是否有上一次的播放
+      if (!isNaN(lastIndex)) {
+        // 如果有过播放，并且当前播放的与上一个播放的不是一个
+        if (lastIndex !== index) {
+          // 获取到上一个的视频标签，执行隐藏，并且停止视频的播放
+          const video = this.$refs.video[lastIndex]
+          this.hideVideoTag(lastIndex)
+          // 停止视频播放
+          video.pause()
+          video.currentTime = 0
+        }
       }
-      this.showFnBtn(index)
-      if (video.paused) {
-        // 暂停 -> 播放
-        this.videoPlay(video, index)
-      } else {
-        // 播放 -> 暂停
-        this.videoPause(video, index)
-      }
+      // 更新上一个视频索引
+      lastIndex = index
+      this.$nextTick(async () => {
+        const video = this.$refs.video[index]
+        // // 当没有值的时候，src默认为 http://localhost:8080/，通过判断是否包含localhost来判断当前src的值是否是真正的视频地址
+        // 给src设置默认值为localhost
+        if (video.src.includes('localhost')) {
+          // 显示loading样式
+          this.$refs.load[index].block()
+          // 这里会等待请求数据
+          const res = await api.getVideoUrlFn(id)
+          // 赋值给src开始加载
+          video.src = res.data.urls[0].url
+        }
+        // 显示视频元素
+        this.showVideoTag(index)
+        // 显示相关btn按钮
+        this.showFnBtn(index)
+        if (video.paused) {
+          // 暂停 -> 播放
+          this.videoPlay(video, index)
+        } else {
+          // 播放 -> 暂停
+          this.videoPause(video, index)
+        }
+      })
     },
     /**
      * 显示相关按钮
      */
     showFnBtn (index) {
-      this.$refs.fnBtn[index].style.zIndex = 2
+      this.$refs.fnBtn[index].style.zIndex = 1
       this.play = `play${index}`
     },
     /**
@@ -190,9 +212,21 @@ export default {
      * 当前可以播放了
      */
     startPlay (index) {
-      const videoBtn = this.$refs.playVideo[index]
-      videoBtn.style.zIndex = 2
       this.$refs.load[index].none()
+    },
+    /**
+     * 显示整个video区域
+     */
+    showVideoTag (index) {
+      const videoBtn = this.$refs.playVideo[index]
+      videoBtn.style.zIndex = 1
+    },
+    /**
+     * 隐藏整个 video 区域
+     */
+    hideVideoTag (index) {
+      const videoBtn = this.$refs.playVideo[index]
+      videoBtn.style.zIndex = '-1'
     },
     /**
      * 播放视频
@@ -203,6 +237,9 @@ export default {
       this.pause = ``
       this.hideFnBtn(index)
     },
+    /**
+     * 当视频正在播放时的事件
+     */
     changeTime (time, index) {
       const video = this.$refs.video[index]
       const current = time * video.duration / 100
@@ -218,6 +255,9 @@ export default {
       this.pause = `pause${index}`
       this.play = ``
     },
+    /**
+     * 在一段时间没有操作后隐藏工具按钮
+     */
     hideFnBtn (index) {
       const _self = this
       this.showFnBtn(index)
@@ -278,7 +318,7 @@ export default {
       height: @imgHeight;
       .bar {
         position: absolute;
-        bottom: 0;
+        bottom: -0.3rem;
         left: 0;
         right: 0;
       }

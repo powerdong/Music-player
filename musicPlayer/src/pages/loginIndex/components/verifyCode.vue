@@ -1,37 +1,62 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-18 14:11:40
- * @Update: 2019-08-18 14:17:22
+ * @Update: 2019-11-05 19:21:06
  * @Update log: 更新日志
  -->
 <template>
   <div class="code">
-    <div class="v-number"></div>
-    <div class="v-number"></div>
-    <div class="v-number"></div>
-    <div class="v-number"></div>
+    <van-password-input
+      :value="value"
+      :length="4"
+      :gutter="15"
+      :focused="showKeyboard"
+      @focus="showKeyboard = true"
+    />
+    <van-number-keyboard
+      :show="showKeyboard"
+      @input="onInput"
+      @delete="onDelete"
+      @blur="showKeyboard = false"
+    />
   </div>
 </template>
 
 <script>
+import api from 'api'
+import { getPhone } from 'utils/getPhone'
+
 export default {
-  name: 'verifyCode'
+  name: 'verifyCode',
+  data () {
+    return {
+      value: '',
+      showKeyboard: true
+    }
+  },
+  methods: {
+    async onInput (key) {
+      this.value = (this.value + key).slice(0, 4)
+      if (this.value.length === 4) {
+        const nickname = localStorage.getItem('nickname')
+        const phone = getPhone()
+        const password = this.password
+        const captcha = this.value
+        const { data } = await api.registerFn(captcha, phone, password, nickname)
+        console.log(data)
+        console.log('发送请求')
+      }
+    },
+    onDelete () {
+      this.value = this.value.slice(0, this.value.length - 1)
+    }
+  }
+
 }
 </script>
 
 <style lang="less" scoped>
-.code{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .v-number{
-    width: 0.7rem;
-    height: 1rem;
-    margin-left: 10px;
-    font-size: 0.5rem;
-    text-align: center;
-    line-height: 1rem;
-    border-bottom: 1.3px solid #000;
-  }
+.code /deep/ li {
+  border-bottom: 2px solid #aaa;
 }
 </style>

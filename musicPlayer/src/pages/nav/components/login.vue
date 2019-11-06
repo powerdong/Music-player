@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-10-24 10:58:34
+ * @Update: 2019-11-05 18:46:36
  * @Update log: 更新日志
  -->
 <template>
@@ -68,7 +68,7 @@ export default {
 .login-menu {
   // 左侧侧边栏 宽度设置为6rem
   position: absolute;
-  z-index: 11;
+  z-index: 99;
   height: 100vh;
   overflow-y: auto;
   top: 0;

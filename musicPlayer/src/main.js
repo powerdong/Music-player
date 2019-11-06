@@ -1,7 +1,7 @@
 /*
  * @Author: Lambda
  * @Begin: 2019-08-30 19:47:55
- * @Update: 2019-11-03 14:18:23
+ * @Update: 2019-11-05 18:43:32
  * @Update log: 更新日志
  */
 // The Vue build version to load with the `import` command
@@ -20,7 +20,9 @@ import {
   SwipeItem,
   Button,
   Checkbox,
-  CheckboxGroup
+  CheckboxGroup,
+  PasswordInput,
+  NumberKeyboard
 } from 'vant'
 
 import 'styles/reset.css'
@@ -33,6 +35,7 @@ Vue.use(Button)
 Vue.use(ActionSheet)
 Vue.use(Swipe).use(SwipeItem)
 Vue.use(Checkbox).use(CheckboxGroup)
+Vue.use(PasswordInput).use(NumberKeyboard)
 
 Vue.config.productionTip = false
 
