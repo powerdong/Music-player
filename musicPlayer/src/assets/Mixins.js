@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-09-21 15:14:40
- * @Update: 2019-10-26 10:00:32
+ * @Update: 2019-11-07 12:38:11
  * @Update log: 更新日志
  */
 
@@ -60,11 +60,13 @@ export const videoPage = {
             data
           } = res
           if (data.code === 200) {
-            console.log(data.datas)
             this.data = data.datas
             this.load = false
           }
         })
+    },
+    hideVideo () {
+      this.$refs.public.stopVideoTag()
     }
   }
 }

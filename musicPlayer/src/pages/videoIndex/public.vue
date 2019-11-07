@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-26 08:48:50
- * @Update: 2019-11-06 14:08:23
+ * @Update: 2019-11-07 12:36:03
  * @Update log: 更新日志
  -->
 <template>
@@ -129,11 +129,7 @@ export default {
         // 如果有过播放，并且当前播放的与上一个播放的不是一个
         if (lastIndex !== index) {
           // 获取到上一个的视频标签，执行隐藏，并且停止视频的播放
-          const video = this.$refs.video[lastIndex]
-          this.hideVideoTag(lastIndex)
-          // 停止视频播放
-          video.pause()
-          video.currentTime = 0
+          this.stopVideoTag(lastIndex)
         }
       }
       // 更新上一个视频索引
@@ -162,6 +158,19 @@ export default {
           this.videoPause(video, index)
         }
       })
+    },
+    stopVideoTag (index) {
+      console.log(index, lastIndex)
+      const i = index || lastIndex
+      // 时常注意在判断0的时候会成false
+      // 如果需要可以使用 isNaN() 判断是否是非数 再取反 就可以获得正确的结果
+      if (!isNaN(i)) {
+        const video = this.$refs.video[i]
+        this.hideVideoTag(i)
+        // 停止视频播放
+        video.pause()
+        video.currentTime = 0
+      }
     },
     /**
      * 显示相关按钮
@@ -401,14 +410,9 @@ export default {
     .praised,
     .comment {
       position: relative;
-      margin-right: 0.7rem;
       .praised-num,
       .comment-num {
-        position: absolute;
         font-size: 0.1rem;
-        top: -3px;
-        right: 0;
-        transform: translateX(60%);
         background-color: #fff;
       }
     }

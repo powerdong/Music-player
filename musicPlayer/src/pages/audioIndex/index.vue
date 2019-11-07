@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-12 13:02:20
- * @Update: 2019-11-04 13:49:39
+ * @Update: 2019-11-07 12:05:00
  * @Update log: 点击歌单中的某一项，将歌单列表信息传入vuex，用来展示歌曲列表，
  *              点击的index 用列表[index]来设置当前要播放的歌曲
  -->
@@ -35,6 +35,7 @@
         @next="nextSong"
         @changeMode="changeMode"
         :mode="mode"
+        @showAudioList="showAudioList"
       ></function-button>
     </div>
     <small-audio
@@ -236,6 +237,7 @@ export default {
      * 显示歌曲列表
      */
     showAudioList () {
+      console.log('列表信息')
       this.isShowAudioList = !this.isShowAudioList
     },
     /**
@@ -556,7 +558,7 @@ export default {
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: 99;
+  z-index: 10;
   background-color: #7f8c8d;
   .color {
     color: #fff;

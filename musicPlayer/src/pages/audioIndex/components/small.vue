@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-14 17:51:26
- * @Update: 2019-10-16 11:39:34
+ * @Update: 2019-11-07 12:10:02
  * @Update log: 更新日志
  -->
 <template>
@@ -11,7 +11,7 @@
     </div>
     <div class="con-info">
       <p class="name">{{name}}</p>
-      <p class="lrc">{{ lyric }}</p>
+      <p class="lrc">{{ lyric | emptyCon }}</p>
     </div>
     <div class="button">
       <span class="circle">
@@ -44,6 +44,14 @@ export default {
     },
     artist: {
       type: [Array, String]
+    }
+  },
+  filters: {
+    emptyCon: function (val) {
+      if (!val) {
+        return '-'
+      }
+      return val
     }
   },
   computed: {

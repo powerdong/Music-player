@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div @scroll="hideVideo">
     <page-loading v-show="load"></page-loading>
-    <public-img-card :data="data" v-show="!load"></public-img-card>
+    <public-img-card :data="data" v-show="!load" ref="public"></public-img-card>
   </div>
 </template>
 

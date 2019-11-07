@@ -1,13 +1,13 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-25 13:31:37
- * @Update: 2019-10-26 09:49:11
+ * @Update: 2019-11-07 12:29:55
  * @Update log: 更新日志
  -->
 <template>
-  <div>
+  <div @scroll="hideVideo">
     <page-loading v-show="load"></page-loading>
-    <public-img-card :data="data" v-show="!load"></public-img-card>
+    <public-img-card :data="data" v-show="!load" ref="public"></public-img-card>
   </div>
 </template>
 
@@ -38,6 +38,9 @@ export default {
             this.load = false
           }
         })
+    },
+    hideVideo () {
+      this.$refs.public.stopVideoTag()
     }
   },
   components: {
