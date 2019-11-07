@@ -1,11 +1,16 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-11-04 13:58:11
- * @Update: 2019-11-04 14:14:36
+ * @Update: 2019-11-07 19:55:14
  * @Update log: 更新日志
  -->
 <template>
-  <div class="wrapper" v-show="load" :class="{absolute: type === 'absolute' }">
+  <div
+    class="circle-load"
+    :style="{width, height}"
+    v-show="load"
+    :class="{absolute: type === 'absolute' }"
+  >
     <svg viewBox="25 25 50 50">
       <circle cx="50" cy="50" r="20" />
     </svg>
@@ -23,6 +28,12 @@ export default {
   props: {
     type: {
       type: String
+    },
+    width: {
+      type: String
+    },
+    height: {
+      type: String
     }
   },
   methods: {
@@ -37,15 +48,13 @@ export default {
 </script>
 
 <style lang='less' scoped>
-.wrapper {
+.circle-load {
   top: 0;
   display: flex;
   justify-content: center;
-  width: 6.7rem;
-  height: 3.8rem;
   &.absolute {
     position: absolute;
-    z-index: 5
+    z-index: 5;
   }
 }
 svg {

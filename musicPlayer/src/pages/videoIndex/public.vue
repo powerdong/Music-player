@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-26 08:48:50
- * @Update: 2019-11-07 12:36:03
+ * @Update: 2019-11-07 19:55:58
  * @Update log: 更新日志
  -->
 <template>
@@ -9,7 +9,7 @@
     <div v-for="(item, index) in data" :key="index">
       <div class="videoInfo pd23">
         <img ref="videoImg" :src="item.data.coverUrl + '?param=360y170'" alt />
-        <circle-loading type="absolute" class="none" ref="load"></circle-loading>
+        <circle-loading type="absolute" width="6.7rem" height="3.8rem" class="none" ref="load"></circle-loading>
         <div class="play-video" ref="playVideo" @touchstart="hideFnBtn(index)">
           <video
             @canplay="startPlay(index)"
