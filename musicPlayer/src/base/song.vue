@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-07 12:09:22
- * @Update: 2019-11-02 12:37:27
+ * @Update: 2019-11-08 13:45:23
  * @Update log: 更新日志
  -->
 <template>
@@ -39,7 +39,7 @@
         </span>
       </p>
     </div>
-    <div class="icon">
+    <div class="icon" @click.stop="showSlider(itemId)">
       <i class="result diandiandian"></i>
     </div>
   </div>
@@ -72,6 +72,9 @@ export default {
     type: {
       type: String,
       default: 'songList'
+    },
+    itemId: {
+      type: Number
     },
     createTime: {
       type: Number
@@ -107,6 +110,9 @@ export default {
   methods: {
     startSong () {
       this.$emit('beginSong')
+    },
+    showSlider (id) {
+      this.$emit('showSlider', id)
     }
   }
 }

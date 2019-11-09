@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-27 07:48:55
- * @Update: 2019-11-02 14:20:24
+ * @Update: 2019-11-09 09:46:05
  * @Update log: 更新日志
  -->
 <template>
@@ -24,6 +24,7 @@
       :comments="comments"
       :total="total"
       class="pd23"
+      @showMenu="showMenu"
       @likeComment="likeComment"
     ></comments>
     <van-search
@@ -38,6 +39,7 @@
     >
       <div slot="action" :class="{disable: !input}" @click="pushCom(input)">发送</div>
     </van-search>
+    <center-menu @update:show="updateShow" @delCom="delCom" :isShow="isShow"></center-menu>
   </div>
 </template>
 
@@ -48,12 +50,14 @@ import pageLoading from 'base/pageLoading'
 import albumList from './components/albumListInfo'
 import hotComments from './components/hotComments'
 import comments from './components/comments'
+import centerMenu from './components/centerMenu'
 import api from 'api'
 export default {
   name: '',
   data () {
     return {
       total: 0,
+      isShow: false,
       hotComments: [],
       comments: [],
       load: true,
@@ -92,9 +96,19 @@ export default {
       this.type = 3
       this.id = params.albumId
       this._getAlbumComments(this.id)
+      return
+    }
+    if (params.djId) {
+      // 专辑
+      this.type = 4
+      this.id = params.djId
+      this._getDjComments(this.id)
     }
   },
   methods: {
+    /**
+     * 评论内容
+     */
     pushCom (content) {
       if (!content) {
         Toast({
@@ -108,9 +122,13 @@ export default {
         forbidClick: true,
         duration: 1000
       })
-      api.pushComFn(this.type, this.id, content)
+      const params = this.params
+      const id = params.playlistId || params.albumId || params.djId
+      const type = params.playlistId ? 2 : params.albumId ? 3 : params.djId ? 4 : ''
+      api.pushComFn(type, id, content)
         .then(res => {
           const { data } = res
+          console.log(data)
           if (data.code === 200) {
             this.input = ''
             loadingToast.clear()
@@ -118,6 +136,27 @@ export default {
               position: 'bottom',
               message: '发表成功'
             })
+            this.pushComInCon(params)
+          }
+        })
+        .catch(err => {
+          if (err) {
+            loadingToast.clear()
+            Toast('当前未登录')
+          }
+        })
+    },
+    delCom (comId) {
+      const params = this.params
+      const id = params.playlistId || params.albumId || params.djId
+      const type = params.playlistId ? 2 : params.albumId ? 3 : params.djId ? 4 : ''
+      api.delComFn(type, id, comId)
+        .then(res => {
+          const { data } = res
+          if (data.code === 200) {
+            // 删除成功
+            this.hideMenu()
+            this.pushComInCon(params)
           }
         })
     },
@@ -129,10 +168,19 @@ export default {
         .then(res => {
           const { data } = res
           if (data.code === 200) {
-            this.total = data.total
-            this.hotComments = data.hotComments
-            this.comments = data.comments
-            this.load = false
+            this.getOver(data)
+          }
+        })
+    },
+    /**
+      获取电台节目评论
+     */
+    _getDjComments (id) {
+      api.commentDjFn(id)
+        .then(res => {
+          const { data } = res
+          if (data.code === 200) {
+            this.getOver(data)
           }
         })
     },
@@ -144,21 +192,64 @@ export default {
         .then(res => {
           const { data } = res
           if (data.code === 200) {
-            this.total = data.total
-            this.hotComments = data.hotComments
-            this.comments = data.comments
-            this.load = false
+            this.getOver(data)
           }
         })
     },
+    /**
+     * 通过传入的params判断应该使用哪个方法进行再请求
+     */
+    pushComInCon (params) {
+      if (params.playlistId) {
+        this._getPlaylistComments(this.id)
+      } else if (params.albumId) {
+        this._getAlbumComments(this.id)
+      } else if (params.djId) {
+        this._getDjComments(this.id)
+      }
+    },
+    /**
+     * 获取评论结束后
+     * 存下total信息
+     * 存下热门评论和最新评论信息
+     * loading 关闭
+     */
+    getOver (data) {
+      this.total = data.total
+      this.hotComments = data.hotComments
+      this.comments = data.comments
+      this.load = false
+    },
+    /**
+     * 喜欢，点赞该评论
+     */
     likeComment (cid, like) {
-      api.commentLikeFn(this.params.id, cid, like, 2)
+      const params = this.params
+      const id = params.playlistId || params.albumId || params.djId
+      const type = params.playlistId ? 2 : params.albumId ? 3 : params.djId ? 4 : ''
+      api.commentLikeFn(id, cid, like, type)
         .then(res => {
           const { data } = res
           if (data.code === 200) {
-            console.log(data)
+            this.pushComInCon(params)
           }
         })
+    },
+    /**
+     * 显示回复评论，
+     * 如果是自己的评论显示删除评论
+     */
+    showMenu () {
+      this.isShow = true
+    },
+    /**
+     * 隐藏
+     */
+    hideMenu () {
+      this.isShow = false
+    },
+    updateShow (val) {
+      this.isShow = val
     },
     returnPage () {
       this.$router.go(-1)
@@ -169,7 +260,8 @@ export default {
     albumList,
     hotComments,
     comments,
-    pageLoading
+    pageLoading,
+    centerMenu
   }
 }
 </script>

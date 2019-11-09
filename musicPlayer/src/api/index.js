@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-11-05 19:05:51
+ * @Update: 2019-11-09 09:36:30
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -69,7 +69,8 @@ import {
   userEvent,
   pushOrDeleteCom,
   getVideoUrl,
-  register
+  register,
+  commentDj
 } from './config'
 
 export default {
@@ -777,12 +778,14 @@ export default {
    * 获取下一页数据(获取超过5000条评论的时候需要用到)
    */
   commentPlaylistFn (id, limit = 20, offset, before) {
+    const timestamp = +new Date()
     return axios.get(commentPlaylist, {
       params: {
         id,
         limit,
         offset,
-        before
+        before,
+        timestamp
       }
     })
   },
@@ -795,12 +798,26 @@ export default {
    * 获取下一页数据(获取超过5000条评论的时候需要用到)
    */
   commentAlbumFn (id, limit = 20, offset, before) {
+    const timestamp = +new Date()
     return axios.get(commentAlbum, {
       params: {
         id,
         limit,
         offset,
-        before
+        before,
+        timestamp
+      }
+    })
+  },
+  commentDjFn (id, limit = 20, offset, before) {
+    const timestamp = +new Date()
+    return axios.get(commentDj, {
+      params: {
+        id,
+        limit,
+        offset,
+        before,
+        timestamp
       }
     })
   },
@@ -836,13 +853,15 @@ export default {
    */
   pushComFn (type, id, content, commentId, threadId) {
     const t = 1
+    const timestamp = +new Date()
     return axios.post(pushOrDeleteCom, {
       t,
       type,
       id,
       content,
       commentId,
-      threadId
+      threadId,
+      timestamp
     })
   },
   /**
@@ -852,7 +871,7 @@ export default {
    * 0: 歌曲 1: mv 2: 歌单 3: 专辑 4: 电台 5: 视频  6: 动态
    * @param {*} id 对应资源 id
    * @param {*} threadId 如给动态删除评论，则不需要传 id，需要传动态的 `threadId`
-   * @param {*} commentId 回复的评论id (回复评论时必填)
+   * @param {*} commentId 回复的评论id (回复评论时必填),删除评论时传入评论的id
    */
   delComFn (type, id, commentId, threadId) {
     const t = 0

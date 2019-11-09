@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-13 12:03:28
- * @Update: 2019-10-28 09:21:52
+ * @Update: 2019-11-09 08:00:14
  * @Update log: 更新日志
  -->
 <template>
@@ -82,6 +82,8 @@
             :listenerCount="item.listenerCount"
             :duration="item.duration"
             :twoLine="true"
+            :itemId="item.id"
+            @showSlider="showSlider"
             type="djList"
             @beginSong="setAudioList(item, index)"
             :nowSong="item.id === audioSong.id"
@@ -107,6 +109,14 @@
         <p class="text">{{desc}}</p>
       </div>
     </div>
+    <slider
+      ref="slider"
+      :title="title"
+      :author="name"
+      :imgUrl="coverImgUrl"
+      :id="itemId"
+      :djDetailList="djDetail"
+    ></slider>
   </div>
 </template>
 
@@ -116,6 +126,7 @@ import djDetailNav from 'base/generalNav'
 import changeNav from './components/changeNav'
 import songList from 'base/song'
 import pageLoading from 'base/pageLoading'
+import slider from 'base/slider'
 
 import api from 'api'
 export default {
@@ -123,6 +134,7 @@ export default {
   data () {
     return {
       djProgramData: [],
+      djDetail: false,
       coverImgUrl: '',
       count: 0,
       name: '',
@@ -142,6 +154,7 @@ export default {
       top: '0rem',
       subed: false,
       ridId: 0,
+      itemId: 0,
       opacity: 1
     }
   },
@@ -154,11 +167,13 @@ export default {
     this.count = 0
     this.name = ''
     this.active = 'second'
-    this.ridId = this.$route.params.ridId
-    let ridId = this.ridId
-    if (!ridId) {
+    const params = this.$route.params
+    if (!params.ridId) {
       this.$router.go(-1)
+      return
     }
+    this.ridId = params.ridId
+    const ridId = this.ridId
     this._getDjProgramInfo(ridId)
     this._getDjDetailInfo(ridId)
   },
@@ -202,6 +217,12 @@ export default {
             console.log(data)
           }
         })
+    },
+    showSlider (id) {
+      this.title = '电台节目：' + this.name
+      this.djDetail = true
+      this.itemId = id
+      this.$refs.slider.showSlider()
     },
     deleteDj () {
       api.djSubFn(this.ridId, 0)
@@ -264,7 +285,8 @@ export default {
     djDetailNav,
     changeNav,
     songList,
-    pageLoading
+    pageLoading,
+    slider
   }
 }
 </script>

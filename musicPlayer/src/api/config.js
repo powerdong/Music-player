@@ -81,5 +81,6 @@ export const djHotToplist = api + '/dj/toplist' // 获取电台榜
 // ================评论页面相关
 export const commentPlaylist = api + '/comment/playlist' // 获取歌单的评论
 export const commentAlbum = api + '/comment/album' // 获取专辑的评论
+export const commentDj = api + '/comment/dj' // 获取电台节目评论
 export const commentLike = api + '/comment/like' // 给评论点赞
 export const pushOrDeleteCom = api + '/comment' // 发送删除评论

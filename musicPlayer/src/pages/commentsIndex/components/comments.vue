@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-27 09:14:42
- * @Update: 2019-10-29 21:45:12
+ * @Update: 2019-11-09 09:18:54
  * @Update log: 更新日志
  -->
 <template>
@@ -10,7 +10,12 @@
       最新评论
       <span class="num">{{total}}</span>
     </h1>
-    <div class="item border-bottom" v-for="(item, index) in comments" :key="index">
+    <div
+      class="item border-bottom"
+      @click="showMenu(item)"
+      v-for="(item, index) in comments"
+      :key="index"
+    >
       <div class="left-img">
         <img :src="item.user.avatarUrl + '?param=50y50'" alt />
       </div>
@@ -38,6 +43,7 @@
 
 <script>
 import { filterSetMonth } from 'utils/filters'
+import Bus from '@/assets/Bus'
 export default {
   name: '',
   props: {
@@ -62,6 +68,17 @@ export default {
         like = 0
       }
       this.$emit('likeComment', cid, like)
+    },
+    showMenu (item) {
+      console.log(item)
+      const localUserId = +localStorage.getItem('accountUid')
+      const userId = item.user.userId
+      if (localUserId === userId) {
+        // 当前评论是自己的，可以删除，不能举报
+        Bus.$emit('user', true)
+      }
+      Bus.$emit('comId', item.commentId)
+      this.$emit('showMenu')
     },
     /**
      * 将返回来的数据进行格式化处理

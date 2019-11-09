@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:33:42
- * @Update: 2019-11-06 13:22:24
+ * @Update: 2019-11-08 12:59:22
  * @Update log: 更新日志
  -->
 <template>
@@ -38,7 +38,7 @@ export default {
     return {
       songLists: [],
       load: '',
-      isLogin: localStorage.getItem('loginState')
+      isLogin: +localStorage.getItem('loginState') || 0
     }
   },
   created () {
@@ -49,19 +49,23 @@ export default {
   },
   methods: {
     _getRecSongs () {
-      api.recSongsFn()
-        .then(res => {
-          const data = res.data
-          if (data.code === 200) {
-            this.songLists = data.recommend
-            this.load = false
-          }
-        })
-        .catch(err => {
-          if (err) {
-            this.load = false
-          }
-        })
+      if (this.isLogin !== 0) {
+        api.recSongsFn()
+          .then(res => {
+            const data = res.data
+            if (data.code === 200) {
+              this.songLists = data.recommend
+              this.load = false
+            }
+          })
+          .catch(err => {
+            if (err) {
+              this.load = false
+            }
+          })
+      } else {
+        this.load = false
+      }
     },
     startPlay () {
       this.startPlayAll({

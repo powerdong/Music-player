@@ -39,7 +39,7 @@ export default {
       let res = []
       arr.forEach((ele, index) => {
         res.push(JSON.parse(ele.json))
-        let reason = ele.rcmdInfo.userReason
+        let reason = ele.rcmdInfo ? ele.rcmdInfo.userReason : ''
         res[index].userReason = reason
         // 刚开始是使用下边这个写法。是错误的！！
         // 形成了命名冲突，但是不会报错，造成最后的key值名称不正确
