@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-10-26 10:32:40
+ * @Update: 2019-11-11 12:01:39
  * @Update log: 更新日志
  */
 import Vue from 'vue'
@@ -11,6 +11,7 @@ const navIndex = () => import(/* webpackChunkName: "group-nav" */ '@/pages/nav/i
 const findIndex = () => import(/* webpackChunkName: "group-findPage" */ '@/pages/findIndex/index')
 const homeIndex = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/homeIndex/index')
 const videoIndex = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/index')
+const videoComments = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/videoComments/index')
 const userInfoIndex = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/userInfoIndex/index')
 const musicFestival = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/musicFestival')
 const scene = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/scene')
@@ -134,6 +135,14 @@ export default new Router({
         component: animation
       }]
     }]
+  }, {
+    // 视频评论页面
+    // 使用  this.$router.push({ name: 'videoComments', params: { id } })
+    // 可以使得地址栏不显示 id 信息，并且可以通过 this.$route.params 获取到值
+    // 要注意这时候在path中不能再写 /:id
+    path: '/videoComments',
+    name: 'videoComments',
+    component: videoComments
   }, {
     // 更多新碟
     path: '/moreNewDish',

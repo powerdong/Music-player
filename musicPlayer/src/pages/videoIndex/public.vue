@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-26 08:48:50
- * @Update: 2019-11-07 19:55:58
+ * @Update: 2019-11-11 11:59:51
  * @Update log: 更新日志
  -->
 <template>
@@ -66,7 +66,7 @@
             <i class="praised-num">{{item.data.praisedCount | setCount}}</i>
           </span>
           <!-- 评论 -->
-          <span class="comment">
+          <span class="comment" @click="toVideoCom(item.data.vid)">
             <i class="video videopinglun"></i>
             <i class="comment-num">{{item.data.commentCount | setCount}}</i>
           </span>
@@ -160,7 +160,6 @@ export default {
       })
     },
     stopVideoTag (index) {
-      console.log(index, lastIndex)
       const i = index || lastIndex
       // 时常注意在判断0的时候会成false
       // 如果需要可以使用 isNaN() 判断是否是非数 再取反 就可以获得正确的结果
@@ -277,6 +276,9 @@ export default {
       this.timer = setTimeout(function () {
         _self.$refs.fnBtn[index].style.display = 'none'
       }, 2000)
+    },
+    toVideoCom (id) {
+      this.$router.push({ name: 'videoComments', params: { id } })
     }
   },
   components: {

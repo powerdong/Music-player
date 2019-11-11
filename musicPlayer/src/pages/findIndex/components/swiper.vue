@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-11-03 12:05:44
+ * @Update: 2019-11-10 12:23:04
  * @Update log: 更新日志
  -->
 <template>
@@ -24,7 +24,7 @@ export default {
   name: 'findSwiper',
   data () {
     return {
-      // //存放图片组信息
+      // 存放图片组信息
       swiperList: []
     }
   },
