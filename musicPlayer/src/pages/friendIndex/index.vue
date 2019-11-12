@@ -1,17 +1,30 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-26 10:32:15
- * @Update: 2019-11-07 20:18:08
+ * @Update: 2019-11-12 21:55:07
  * @Update log: 更新日志
  -->
 <template>
-  <div>
-    <public-info :data="dataInfo"></public-info>
+  <div class="friend-wra">
+    静待...
+    <br />
+    <br />欢迎访问我的 GitHub
+    <br />
+    <br />
+
+    <a
+      href="https://github.com/powerdong/Music-player"
+      target="_blank"
+      rel="noopener noreferrer"
+    >项目地址</a>
+    <br />
+    <br />您的 star 是我最大的鼓励
   </div>
+  <!-- <public-info :data="dataInfo"></public-info> -->
 </template>
 
 <script>
-import publicInfo from './public'
+// import publicInfo from './public'
 import api from 'api'
 export default {
   name: '',
@@ -21,7 +34,7 @@ export default {
     }
   },
   created () {
-    this._getFriendInfo()
+    // this._getFriendInfo()
   },
   methods: {
     async _getFriendInfo () {
@@ -50,10 +63,14 @@ export default {
     }
   },
   components: {
-    publicInfo
+    // publicInfo
   }
 }
 </script>
 
 <style lang='less' scoped>
+.friend-wra {
+  width: 4rem;
+  margin: 0.5rem auto;
+}
 </style>

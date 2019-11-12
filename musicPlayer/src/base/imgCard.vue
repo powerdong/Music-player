@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-08 14:37:08
- * @Update: 2019-10-13 12:01:37
+ * @Update: 2019-11-12 21:42:40
  * @Update log: 通用的方形展示组件
  -->
 <template>
@@ -26,7 +26,7 @@
       <!-- <router-link class="cover"  @click="toAlbum(albumId)" :to="'/albumPage/'+albumId"></router-link> -->
     </div>
     <div class="dec" :class="{lines:lines === 'one',twoLines:lines === 'two'}">{{ dec }}</div>
-    <div class="artists">
+    <div class="artists" v-if="artists">
       <span v-for="(item, index) in artists" :key="index" class="artist">{{ item.name }}</span>
     </div>
   </div>

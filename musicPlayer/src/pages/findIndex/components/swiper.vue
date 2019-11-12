@@ -1,17 +1,15 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-11-10 12:23:04
+ * @Update: 2019-11-12 21:36:15
  * @Update log: 更新日志
  -->
 <template>
   <div class="banner-container">
     <van-swipe :autoplay="5000" indicator-color="#dd001b">
       <van-swipe-item v-for="(item, index) in swiperList" :key="index">
-        <router-link :to="'/song/?id='+ item.targetId">
-          <img class="banner-img" :src="item.pic" alt />
-          <span class="title" :style="{background:item.titleColor}">{{item.typeTitle}}</span>
-        </router-link>
+        <img class="banner-img" :src="item.pic" alt />
+        <span class="title" :style="{background:item.titleColor}">{{item.typeTitle}}</span>
       </van-swipe-item>
     </van-swipe>
   </div>

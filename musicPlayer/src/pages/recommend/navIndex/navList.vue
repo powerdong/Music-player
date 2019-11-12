@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 19:54:27
- * @Update: 2019-11-03 13:54:36
+ * @Update: 2019-11-12 21:44:53
  * @Update log: 因为存在 url地址自动将中文转换为编码
  *              在第一次加载时，默认组件不能正确添加active样式
  -->
@@ -76,6 +76,7 @@ export default {
 <style lang='less' scoped>
 @import url("~styles/global.less");
 .wrapper {
+  position: relative;
   display: flex;
   flex-wrap: nowrap;
   box-sizing: border-box;
