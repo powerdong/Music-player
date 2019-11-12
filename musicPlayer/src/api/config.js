@@ -54,6 +54,9 @@ export const djSublist = api + '/dj/sublist' // 获取订阅的电台
 export const getVideoTag = api + '/video/group/list' // 获取视频标签导航
 export const getVideoGroup = api + '/video/group' // 获取对应标签的视频详情
 export const getVideoUrl = api + '/video/url' // 获取视频播放地址
+export const getVideoDetail = api + '/video/detail' // 获取视频详情
+export const getVideoRelated = api + '/related/allvideo' // 获取相关视频
+export const getVideoComments = api + '/comment/video' // 获取视频评论
 // ==================搜索页面相关
 export const search = api + '/search' // 搜索关键词
 export const defaultSearch = api + '/search/default' // 默认搜索关键词

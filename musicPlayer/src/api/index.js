@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-11-09 09:36:30
+ * @Update: 2019-11-12 13:35:04
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -70,7 +70,10 @@ import {
   pushOrDeleteCom,
   getVideoUrl,
   register,
-  commentDj
+  commentDj,
+  getVideoDetail,
+  getVideoRelated,
+  getVideoComments
 } from './config'
 
 export default {
@@ -536,6 +539,45 @@ export default {
    */
   favoriteVideosFn () {
     return axios.get(favoriteVideos)
+  },
+  /**
+   * 获取视频详情
+   * @param {*} id 视频id
+   */
+  getVideoDetailFn (id) {
+    return axios.get(getVideoDetail, {
+      params: {
+        id
+      }
+    })
+  },
+  /**
+   * 获取相关视频
+   * @param {*} id 视频id
+   */
+  getVideoRelatedFn (id) {
+    return axios.get(getVideoRelated, {
+      params: {
+        id
+      }
+    })
+  },
+  /**
+   * 调用此接口 , 传入音乐 id 和 limit 参数 , 可获得该 视频 的所有评论 ( 不需要登录 )
+   * @param {*} id 视频的 id
+   * @param {*} limit 取出评论数量 , 默认为 20
+   * @param {*} offset 偏移数量 , 用于分页 , 如 :( 评论页数 -1)*20, 其中 20 为 limit 的值
+   * @param {*} before 分页参数,取上一页最后一项的 time 获取下一页数据(获取超过5000条评论的时候需要用到)
+   */
+  getVideoCommentsFn (id, limit = 20, offset, before) {
+    return axios.get(getVideoComments, {
+      params: {
+        id,
+        limit,
+        offset,
+        before
+      }
+    })
   },
   /**
    * 登陆后调用此接口 , 可获取订阅的电台列表

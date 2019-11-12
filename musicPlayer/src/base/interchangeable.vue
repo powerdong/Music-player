@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-02 13:36:42
- * @Update: 2019-11-02 12:43:25
+ * @Update: 2019-11-12 13:46:40
  * @Update log: 这是一个公共的组件，用来展示搜索展示页面除单曲以外的项目
  * 通过props接收对应的结果，渲染。
  * 组件调用是通过 for 循环组件，来循环组件渲染的
@@ -63,7 +63,7 @@
           <span class="time">{{durationms | setYear}}</span>
         </p>
         <!-- 视频展示 -->
-        <p class="video" v-if="videoList">
+        <p class="video-show" v-if="videoList">
           <span class="time">
             {{durationms | setTime}}
             <span>

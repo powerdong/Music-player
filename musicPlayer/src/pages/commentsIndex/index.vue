@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-27 07:48:55
- * @Update: 2019-11-09 09:46:05
+ * @Update: 2019-11-12 19:35:25
  * @Update log: 更新日志
  -->
 <template>
@@ -13,14 +13,17 @@
     <album-list :info="albumInfo"></album-list>
     <div class="split"></div>
     <page-loading v-show="load"></page-loading>
-    <hot-comments
+    <comments
       v-show="!load && hotComments.length"
-      :hotComments="hotComments"
+      title="精彩评论"
+      :comments="hotComments"
       class="pd23"
+      @showMenu="showMenu"
       @likeComment="likeComment"
-    ></hot-comments>
+    ></comments>
     <comments
       v-show="!load && comments.length"
+      title="最新评论"
       :comments="comments"
       :total="total"
       class="pd23"
@@ -48,8 +51,7 @@ import { Toast } from 'vant'
 import generalNav from 'base/generalNav'
 import pageLoading from 'base/pageLoading'
 import albumList from './components/albumListInfo'
-import hotComments from './components/hotComments'
-import comments from './components/comments'
+import comments from 'base/comments'
 import centerMenu from './components/centerMenu'
 import api from 'api'
 export default {
@@ -258,7 +260,6 @@ export default {
   components: {
     generalNav,
     albumList,
-    hotComments,
     comments,
     pageLoading,
     centerMenu
@@ -268,7 +269,6 @@ export default {
 
 <style lang='less' scoped>
 @import url("~styles/global.less");
-@import url("//at.alicdn.com/t/font_1478463_b9awmkqysf8.css");
 .wrapper {
   .text {
     font-size: 0.4rem;

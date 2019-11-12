@@ -1,13 +1,13 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-27 09:14:42
- * @Update: 2019-11-09 09:18:54
+ * @Update: 2019-11-12 19:11:06
  * @Update log: 更新日志
  -->
 <template>
   <div class="wrapper">
     <h1 class="title">
-      最新评论
+      {{title}}
       <span class="num">{{total}}</span>
     </h1>
     <div
@@ -52,6 +52,9 @@ export default {
     },
     comments: {
       type: Array
+    },
+    title: {
+      type: String
     }
   },
   filters: {
@@ -95,6 +98,8 @@ export default {
 
 <style lang='less' scoped>
 @import url("~styles/global.less");
+@import url("//at.alicdn.com/t/font_1478463_b9awmkqysf8.css");
+
 .wrapper {
   margin-top: 0.3rem;
 }

@@ -1,180 +1,294 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-11-11 11:49:45
- * @Update: 2019-11-11 13:18:04
+ * @Update: 2019-11-12 21:16:11
  * @Update log: 更新日志
  -->
 <template>
   <div class="video-com">
-    <general-nav @returnPage="returnPage" ref="nav" class="fixed nav-color">
-      <span class="text">最近被弄哭最近被弄哭最近被弄哭最近被弄哭最近被弄哭最近被弄哭</span>
-    </general-nav>
-    <div class="play-video" ref="playVideo" @touchstart="hideFnBtn">
-      <video @canplay="startPlay" @timeupdate="setBarTime" class="video_tag" ref="video" src></video>
-      <!-- 阻止工具条冒泡 -->
-      <div class="fn-btn" ref="fnBtn" @click.stop>
-        <!-- 这里是视频按钮集合 -->
-        <span class="center-bofang" ref="button">
-          <i
-            class="video"
-            :class="{videobofang1: pause === `pause`, videozantingtingzhi: play === `play`}"
-            @click="playVideo"
-          ></i>
-        </span>
-        <!-- :allTime="item.data.durationms" -->
-        <bar class="bar" :time="playTime" :width="progressWidth" @time="changeTime"></bar>
-      </div>
+    <div class="titleFixed">
+      <general-nav @returnPage="returnPage" ref="nav" class="fixed nav-color">
+        <span class="text">{{title}}</span>
+      </general-nav>
+      <video-card :videoId="videoId" :allTime="allTime" @blockNav="blockNav" @hideNav="hideNav"></video-card>
+    </div>
+    <div v-show="!load" class="bottom-wra" ref="wra" @scroll="scroll">
+      <video-info
+        class="pd23"
+        :title="title"
+        :playTime="playTime"
+        :praisedCount="praisedCount"
+        :commentCount="commentCount"
+        :shareCount="shareCount"
+        :subscribeCount="subscribeCount"
+        :videoGroup="videoGroup.slice(0,3)"
+      ></video-info>
+      <video-creator :class="{creatorFixed}" :avatarUrl="avatarUrl" :nickname="nickname"></video-creator>
+      <div class="split" :style="{marginTop: top}"></div>
+      <h1 class="pd23 title">相关视频</h1>
+      <video-list
+        class="pd23"
+        v-for="(item, index) in allVideoList"
+        :key="index"
+        :videoList="true"
+        line="two"
+        :ImgUrl="item.coverUrl"
+        :name="item.title"
+        :durationms="item.durationms"
+        :nicknames="item.creator"
+        :playTime="item.playTime"
+      ></video-list>
+      <div class="split"></div>
+      <comments
+        v-show="hotComments.length"
+        title="精彩评论"
+        :comments="hotComments"
+        class="pd23"
+        @showMenu="showMenu"
+        @likeComment="likeComment"
+      ></comments>
+      <comments
+        v-show="comments.length"
+        title="最新评论"
+        :total="total"
+        :comments="comments"
+        class="pd23"
+        @showMenu="showMenu"
+        @likeComment="likeComment"
+      ></comments>
+      <van-search
+        class="border-top commentInp"
+        v-model="input"
+        :placeholder="placeholder"
+        show-action
+        :clearable="false"
+        background="#fff"
+        left-icon
+        @search="pushCom(input)"
+      >
+        <div slot="action" :class="{disable: !input}" @click="pushCom(input)">发送</div>
+      </van-search>
+      <center-menu @update:show="updateShow" @delCom="delCom" :isShow="isShow"></center-menu>
     </div>
     <page-loading v-show="load"></page-loading>
   </div>
 </template>
 
 <script>
-import { filterSetPlayCount, filterSetTime } from 'utils/filters'
 import pageLoading from 'base/pageLoading'
-import circleLoading from 'base/circleLoading'
-import bar from '../../audioIndex/components/bar'
+import comments from 'base/comments'
+import videoCard from './components/video'
+import videoCreator from './components/videoCreator'
+import videoInfo from './components/videoInfo'
+import videoList from 'base/interchangeable'
 import generalNav from 'base/generalNav'
+import centerMenu from '../../commentsIndex/components/centerMenu'
 import api from 'api'
+import { Toast } from 'vant'
 
 export default {
   name: '',
   data () {
     return {
       load: true,
-      pause: 'pause',
-      play: '',
-      timer: null,
-      playTime: '00:00',
+      allLoad: { detail: false, comments: false, videoRelated: false },
+      videoId: '',
       allTime: 0,
-      progressWidth: 0
-    }
-  },
-  filters: {
-    setCount: function (val) {
-      return filterSetPlayCount(val)
-    },
-    setTime: function (val) {
-      return filterSetTime(val)
+      title: '',
+      total: 0,
+      playTime: 0,
+      praisedCount: 0,
+      commentCount: 0,
+      shareCount: 0,
+      subscribeCount: 0,
+      avatarUrl: '',
+      nickname: '',
+      videoComments: [],
+      hotComments: [],
+      comments: [],
+      isShow: false,
+      input: '',
+      top: '',
+      placeholder: '',
+      creatorFixed: false,
+      allVideoList: [],
+      videoGroup: []
     }
   },
   activated () {
     this.load = true
+    this.title = ''
+    this.videoId = ''
     this.params = this.$route.params
     const params = this.params
     if (Object.keys(params).length === 0) {
       this.$router.back()
     }
+    this.videoId = params.id
+    this.getAllInfo(params.id)
   },
   methods: {
     /**
-    * 这里使用了 async/await处理异步
-    */
-    playVideo (id) {
-      this.$nextTick(async () => {
-        const video = this.$refs.video
-        // 显示loading样式
-        this.$refs.load.block()
-        // 这里会等待请求数据
-        const res = await api.getVideoUrlFn(id)
-        // 赋值给src开始加载
-        video.src = res.data.urls[0].url
-        // // 当没有值的时候，src默认为 http://localhost:8080/，通过判断是否包含localhost来判断当前src的值是否是真正的视频地址
-        // 显示相关btn按钮
-        if (video.paused) {
-          // 暂停 -> 播放
-          this.videoPlay(video)
-        } else {
-          // 播放 -> 暂停
-          this.videoPause(video)
-        }
-      })
+     * 通过 async/await 使得等待函数请求，当全部函数正确请求成功后
+     * 改变页面的 loading 状态
+     */
+    async getAllInfo (id) {
+      const detail = await this._getVideoDetail(id)
+      const related = await this._getVideoRelated(id)
+      const comments = await this._getVideoComments(id)
+      if (detail && related && comments) {
+        this.load = false
+      }
     },
     /**
-     * 设置当前播放时长
+     * 获取视频详情
      */
-    setBarTime () {
-      // 首先我们计算到当前的播放时间
-      const video = this.$refs.video
-      let minutes = Math.floor(video.currentTime / 60)
-      let seconds = Math.floor(video.currentTime - minutes * 60)
-      let minuteValue
-      let secondValue
-      // 进行格式转换，当分钟小于10的时候，在前面加0
-      if (minutes < 10) {
-        minuteValue = '0' + minutes
-      } else {
-        minuteValue = minutes
+    async _getVideoDetail (id) {
+      const res = await api.getVideoDetailFn(id)
+      const { data } = res
+      if (data.code === 200) {
+        const { durationms, title, videoGroup, playTime, praisedCount, commentCount, shareCount, subscribeCount } = data.data
+        const { avatarUrl, nickname } = data.data.creator
+        this.allTime = durationms
+        this.title = title
+        this.playTime = playTime
+        this.praisedCount = praisedCount
+        this.commentCount = commentCount
+        this.shareCount = shareCount
+        this.subscribeCount = subscribeCount
+        this.avatarUrl = avatarUrl
+        this.nickname = nickname
+        this.videoGroup = videoGroup
+        return true
       }
-      // 秒数的格式设置
-      if (seconds < 10) {
-        secondValue = '0' + seconds
-      } else {
-        secondValue = seconds
-      }
-      // 进行时间值拼接，展示到页面
-      let audioTime = minuteValue + ':' + secondValue
-      this.playTime = audioTime
-      // // 进度条的长度计算
-      let barLength = video.currentTime / video.duration * 100
-      this.setProgress(barLength)
+      return false
     },
     /**
-     * 设置进度条长度
+     * 获取相关视频列表信息
      */
-    setProgress (val) {
-      if (val < 0 || val > 100) {
+    async _getVideoRelated (id) {
+      const res = await api.getVideoRelatedFn(id)
+      const { data } = res
+      if (data.code === 200) {
+        this.allVideoList = data.data
+        return true
+      }
+      return false
+    },
+    /**
+     * 获取视频评论
+     */
+    async _getVideoComments (id) {
+      const res = await api.getVideoCommentsFn(id)
+      const { data } = res
+      if (data.code === 200) {
+        this.total = data.total
+        this.hotComments = data.hotComments
+        this.comments = data.comments
+        return true
+      }
+      return false
+    },
+    /**
+     * 显示回复评论，
+     * 如果是自己的评论显示删除评论
+     */
+    showMenu () {
+      this.isShow = true
+    },
+    scroll (e) {
+      let top = this.$refs.wra.scrollTop
+      if (top >= 148) {
+        this.creatorFixed = true
+        this.top = '1.2rem'
+      } else {
+        this.creatorFixed = false
+        this.top = '0'
+      }
+    },
+    /**
+     * 评论内容
+     */
+    pushCom (content) {
+      if (!content) {
+        Toast({
+          position: 'bottom',
+          message: '评论为空'
+        })
         return
       }
-      this.progressWidth = val
+      Toast.allowMultiple()
+      let loadingToast = Toast.loading({
+        forbidClick: true,
+        duration: 1000
+      })
+      const params = this.params
+      const id = params.playlistId || params.albumId || params.djId
+      const type = params.playlistId ? 2 : params.albumId ? 3 : params.djId ? 4 : ''
+      api.pushComFn(type, id, content)
+        .then(res => {
+          const { data } = res
+          console.log(data)
+          if (data.code === 200) {
+            this.input = ''
+            loadingToast.clear()
+            Toast({
+              position: 'bottom',
+              message: '发表成功'
+            })
+            this.pushComInCon(params)
+          }
+        })
+        .catch(err => {
+          if (err) {
+            loadingToast.clear()
+            Toast('当前未登录')
+          }
+        })
+    },
+    delCom (comId) {
+      const params = this.params
+      const id = params.playlistId || params.albumId || params.djId
+      const type = params.playlistId ? 2 : params.albumId ? 3 : params.djId ? 4 : ''
+      api.delComFn(type, id, comId)
+        .then(res => {
+          const { data } = res
+          if (data.code === 200) {
+            // 删除成功
+            this.hideMenu()
+            this.pushComInCon(params)
+          }
+        })
+    },
+    updateShow (val) {
+      this.isShow = val
     },
     /**
-     * 当前可以播放了
+     * 隐藏标题行
      */
-    startPlay () {
-      this.$refs.load.none()
+    hideNav () {
+      this.$refs.nav.none()
     },
     /**
-     * 播放视频
+     * 喜欢，点赞该评论
      */
-    videoPlay (video) {
-      video.play()
-      this.play = `play`
-      this.pause = ``
-      this.hideFnBtn()
+    likeComment (cid, like) {
+      const params = this.params
+      const id = params.playlistId || params.albumId || params.djId
+      const type = params.playlistId ? 2 : params.albumId ? 3 : params.djId ? 4 : ''
+      api.commentLikeFn(id, cid, like, type)
+        .then(res => {
+          const { data } = res
+          if (data.code === 200) {
+            this.pushComInCon(params)
+          }
+        })
     },
     /**
-     * 当视频正在播放时的事件
+     * 显示标题行
      */
-    changeTime (time) {
-      const video = this.$refs.video
-      const current = time * video.duration / 100
-      video.currentTime = current
-      this.videoPlay(video)
-    },
-    /**
-     * 暂停视频
-     */
-    videoPause (video) {
-      video.pause()
-      this.hideFnBtn()
-      this.pause = `pause`
-      this.play = ``
-    },
-    /**
-     * 在一段时间没有操作后隐藏工具按钮
-     */
-    hideFnBtn () {
-      const _self = this
-      _self.$refs.fnBtn.style.display = 'block'
-      _self.$refs.nav.block()
-      if (this.timer) {
-        clearTimeout(this.timer)
-      }
-      this.timer = setTimeout(function () {
-        _self.$refs.fnBtn.style.display = 'none'
-        _self.$refs.nav.none()
-      }, 2000)
+    blockNav () {
+      this.$refs.nav.block()
     },
     returnPage () {
       this.$router.go(-1)
@@ -182,19 +296,21 @@ export default {
   },
   components: {
     pageLoading,
-    circleLoading,
-    bar,
-    generalNav
+    videoCard,
+    videoInfo,
+    videoCreator,
+    generalNav,
+    comments,
+    videoList,
+    centerMenu
   }
 }
 </script>
 
 <style lang='less' scoped>
 @import url("~styles/global.less");
-@import url("//at.alicdn.com/t/font_1477601_lo5yxiay04f.css");
-@imgWidth: 100vw;
-@imgHeight: 3.8rem;
 
+@import url("//at.alicdn.com/t/font_1477601_lo5yxiay04f.css");
 .topFixed {
   position: fixed;
   width: 100%;
@@ -205,11 +321,14 @@ export default {
   .topFixed();
   top: 0;
 }
-
-.none {
-  display: none;
+.creatorFixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  background: #fff;
+  z-index: 1;
+  top: 3.8rem;
 }
-
 .video-com {
   .nav-color {
     color: #fff;
@@ -219,75 +338,18 @@ export default {
     .ellipsis();
   }
 }
-.videotag {
-  box-sizing: border-box;
-  font-size: 0.2rem;
-  color: #ccc;
-  padding: 0.04rem 0.13rem;
+.title {
+  font-weight: 700;
+  margin: 0.3rem 0;
 }
-.play-video {
-  position: relative;
-  width: @imgWidth;
-  height: @imgHeight;
-  background-color: #222;
-  .video_tag {
-    position: absolute;
-    width: @imgWidth;
-    height: @imgHeight;
-  }
-  .fn-btn {
-    width: @imgWidth;
-    height: @imgHeight;
-    .bar {
-      position: absolute;
-      bottom: -0.3rem;
-      left: 0;
-      right: 0;
-    }
-  }
-  .center-bofang {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    .videobofang1,
-    .videozantingtingzhi {
-      font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.7);
-    }
-  }
-  .go-count {
-    position: absolute;
-    bottom: 0.1rem;
-    left: 0.1rem;
-    .videotag();
-    .videobofang {
-      font-size: 0.24rem;
-      margin-right: 3px;
-    }
-  }
-  .go-time {
-    position: absolute;
-    bottom: 0.1rem;
-    right: 0.1rem;
-    .videotag();
-    .videoyinlebofangxuanlvjiezou {
-      font-size: 0.2rem;
-      margin-right: 3px;
-    }
-  }
-  .tag {
-    position: absolute;
-    top: 0.2rem;
-    right: 0.13rem;
-    .videotag();
-    border-radius: 0.3rem;
-    border: 1px solid #777;
-  }
-  img {
-    width: @imgWidth;
-    border-radius: 0.2rem;
-    height: @imgHeight;
-  }
+.bottom-wra {
+  height: 8rem;
+  overflow: scroll;
+}
+.commentInp {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 </style>
