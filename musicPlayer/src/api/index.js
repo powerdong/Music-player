@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-11-12 13:35:04
+ * @Update: 2019-11-12 22:09:06
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -570,12 +570,14 @@ export default {
    * @param {*} before 分页参数,取上一页最后一项的 time 获取下一页数据(获取超过5000条评论的时候需要用到)
    */
   getVideoCommentsFn (id, limit = 20, offset, before) {
+    const timestamp = +new Date()
     return axios.get(getVideoComments, {
       params: {
         id,
         limit,
         offset,
-        before
+        before,
+        timestamp
       }
     })
   },

@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-11-11 11:49:45
- * @Update: 2019-11-12 21:16:11
+ * @Update: 2019-11-12 22:07:06
  * @Update log: 更新日志
  -->
 <template>
@@ -223,12 +223,11 @@ export default {
         duration: 1000
       })
       const params = this.params
-      const id = params.playlistId || params.albumId || params.djId
-      const type = params.playlistId ? 2 : params.albumId ? 3 : params.djId ? 4 : ''
+      const id = params.id
+      const type = 5
       api.pushComFn(type, id, content)
         .then(res => {
           const { data } = res
-          console.log(data)
           if (data.code === 200) {
             this.input = ''
             loadingToast.clear()
@@ -236,7 +235,7 @@ export default {
               position: 'bottom',
               message: '发表成功'
             })
-            this.pushComInCon(params)
+            this._getVideoComments(id)
           }
         })
         .catch(err => {
@@ -248,15 +247,15 @@ export default {
     },
     delCom (comId) {
       const params = this.params
-      const id = params.playlistId || params.albumId || params.djId
-      const type = params.playlistId ? 2 : params.albumId ? 3 : params.djId ? 4 : ''
+      const id = params.id
+      const type = 5
       api.delComFn(type, id, comId)
         .then(res => {
           const { data } = res
           if (data.code === 200) {
             // 删除成功
             this.hideMenu()
-            this.pushComInCon(params)
+            this._getVideoComments(id)
           }
         })
     },
@@ -274,13 +273,13 @@ export default {
      */
     likeComment (cid, like) {
       const params = this.params
-      const id = params.playlistId || params.albumId || params.djId
-      const type = params.playlistId ? 2 : params.albumId ? 3 : params.djId ? 4 : ''
+      const id = params.id
+      const type = 5
       api.commentLikeFn(id, cid, like, type)
         .then(res => {
           const { data } = res
           if (data.code === 200) {
-            this.pushComInCon(params)
+            this._getVideoComments(id)
           }
         })
     },
