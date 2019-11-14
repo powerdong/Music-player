@@ -1,13 +1,14 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:23:42
- * @Update: 2019-11-01 13:47:41
+ * @Update: 2019-11-14 15:30:47
  * @Update log: 更新日志
  -->
 <template>
   <div class="wrapper pd23">
     <div v-show="!load">
       <video-list
+        @click.native="toVideoCom(item.vid)"
         v-for="(item, index) in allVideoList"
         :key="index"
         :videoList="true"
@@ -47,6 +48,7 @@ export default {
     }
   },
   created () {
+    this.load = true
     this._getAllVideoList(this.keywords)
   },
   methods: {
@@ -73,6 +75,9 @@ export default {
           this.info = true
           console.log(error)
         })
+    },
+    toVideoCom (id) {
+      this.$router.push({ name: 'videoComments', params: { id } })
     }
   },
   components: {

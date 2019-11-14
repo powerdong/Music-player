@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-13 12:03:28
- * @Update: 2019-11-09 08:00:14
+ * @Update: 2019-11-14 14:03:58
  * @Update log: 更新日志
  -->
 <template>
@@ -18,7 +18,7 @@
       <div class="data" v-show="!listFixed" :style="{opacity}">
         <div>
           <div class="name">{{name}}</div>
-          <div class="dj-num">{{subscription}}人已订阅</div>
+          <div class="num">{{subscription}}人已订阅</div>
         </div>
         <div class="subscription" v-show="!subed" @click.prevent="addDj">
           <svg
@@ -352,18 +352,23 @@ export default {
       padding-right: 0.8rem;
       .name {
         color: #fff;
+        max-width: 4rem;
+        .twoLinesEllipsis();
         font-size: 0.3rem;
         line-height: 1.5;
       }
-      .dj-num {
+      .num {
         color: #eee;
-        font-size: 0.2rem;
         line-height: 1.5;
       }
       .subscription {
         box-sizing: border-box;
+        position: absolute;
+        right: 0.5rem;
+        bottom: 0;
         display: flex;
         padding: 0 0.23rem;
+        height: 0.5rem;
         align-items: center;
         justify-content: center;
         color: #fff;
@@ -375,8 +380,12 @@ export default {
       }
       .subscription1 {
         box-sizing: border-box;
+        position: absolute;
+        right: 0.5rem;
+        bottom: 0;
         display: flex;
         padding: 0 0.23rem;
+        height: 0.5rem;
         align-items: center;
         justify-content: center;
         color: #fff;

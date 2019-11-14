@@ -28,7 +28,7 @@
           <div
             class="like"
             :class="{liked: item.liked}"
-            @click="likeThisComment(item.commentId, item.liked)"
+            @click.stop="likeThisComment(item.commentId, item.liked)"
           >
             <span v-show="item.likedCount > 0">{{item.likedCount}}</span>
             <i class="comment" :class="{ commentzan: !item.liked, commentzan1:item.liked}"></i>

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:17:07
- * @Update: 2019-11-04 13:43:05
+ * @Update: 2019-11-14 15:27:53
  * @Update log: 综合页面展示
  -->
 <template>
@@ -80,6 +80,7 @@ export default {
   },
   watch: {
     keywords: function (val) {
+      this.load = true
       if (val) {
         this._searchShow(val)
       }

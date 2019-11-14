@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:26:07
- * @Update: 2019-11-01 13:45:29
+ * @Update: 2019-11-14 15:29:23
  * @Update log: 更新日志
  -->
 <template>
@@ -46,6 +46,7 @@ export default {
     }
   },
   created () {
+    this.load = true
     this._getAllArtistList(this.keywords)
   },
   methods: {

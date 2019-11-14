@@ -47,6 +47,7 @@ export default {
     }
   },
   created () {
+    this.load = true
     this._getAllUserList(this.keywords)
   },
   methods: {

@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-11-12 22:09:06
+ * @Update: 2019-11-14 13:06:54
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -73,8 +73,27 @@ import {
   commentDj,
   getVideoDetail,
   getVideoRelated,
-  getVideoComments
+  getVideoComments,
+  resourceLike
 } from './config'
+
+/**
+ * 以后可以利用 ES6 的解构赋值进行重构
+ * function personInfo({ name, age, address, gender }) {
+      console.log(name, age, address, gender)
+    }
+    personInfo({ gender: 'man', address: 'changsha', name: 'william', age: 18 })
+
+    function saveInfo({
+      name = 'william',
+      age = 18,
+      address = 'changsha',
+      gender = 'man'
+    } = {}) {
+      console.log(name, age, address, gender)
+    }
+    saveInfo()
+ */
 
 export default {
   /**
@@ -925,6 +944,36 @@ export default {
       id,
       threadId,
       commentId
+    })
+  },
+  /**
+   * 调用此接口 , 可对 MV,电台,视频点赞
+   * @param {*} type 资源类型,对应以下类型 1: mv 4: 电台 5: 视频 6: 动态
+   * @param {*} id 资源 id
+   */
+  resourceLikeInFn (type, id) {
+    const t = 1
+    return axios.get(resourceLike, {
+      params: {
+        t,
+        type,
+        id
+      }
+    })
+  },
+  /**
+   * 调用此接口 , 可对 MV,电台,视频取消点赞
+   * @param {*} type 资源类型,对应以下类型 1: mv 4: 电台 5: 视频 6: 动态
+   * @param {*} id 资源 id
+   */
+  resourceLikeOutFn (type, id) {
+    const t = 0
+    return axios.get(resourceLike, {
+      params: {
+        t,
+        type,
+        id
+      }
     })
   }
 }

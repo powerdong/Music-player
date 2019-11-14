@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:25:20
- * @Update: 2019-11-02 12:44:23
+ * @Update: 2019-11-14 13:53:22
  * @Update log: 更新日志
  -->
 <template>
@@ -10,6 +10,7 @@
       <song-list
         v-for="(item, index) in allSongListList"
         :key="index"
+        @click.native="goAlbumPage(item.id)"
         :songList="true"
         line="one"
         maxWidth="4.7rem"
@@ -48,6 +49,7 @@ export default {
     }
   },
   created () {
+    this.load = true
     this._getAllSongListList(this.keywords)
   },
   methods: {
@@ -73,6 +75,9 @@ export default {
         .catch(error => {
           console.log(error)
         })
+    },
+    goAlbumPage (id) {
+      this.$router.push({ name: 'albumPage', params: { albumId: id } })
     }
   },
   components: {

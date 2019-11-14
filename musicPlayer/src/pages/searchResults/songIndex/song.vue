@@ -64,6 +64,7 @@ export default {
     ...mapGetters({ audioSong: 'AUDIO_ING_SONG' })
   },
   created () {
+    this.load = true
     this._getAllSongList(this.keywords)
   },
   methods: {

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-10-12 14:23:32
+ * @Update: 2019-11-14 13:45:17
  * @Update log: 更新日志
  -->
 <template>
@@ -28,7 +28,7 @@
           <p class="list-title">我喜欢的音乐</p>
           <p class="list-num">0首</p>
         </div>
-        <div class="heart">
+        <div class="heart-module">
           <span class="heart-text">
             <i class="home iconxintiao"></i>心动模式
           </span>
@@ -44,7 +44,7 @@
           <p class="list-title">{{ item.name | setName}}</p>
           <p class="list-num">{{item.trackCount}}首</p>
         </div>
-        <div class="heart">
+        <div class="heart-module">
           <span class="heart-text" @click.stop="heartMode(item.id)">
             <i class="home iconxintiao"></i>心动模式
           </span>
@@ -89,7 +89,7 @@
           <img :src="item.coverImgUrl + '?param=100y100'" />
         </div>
         <div class="list-info">
-          <p class="list-title">{{ item.name}}</p>
+          <p class="list-title ellipsis">{{ item.name}}</p>
           <p class="list-num">
             {{item.trackCount}}首
             <span class="nickname">by {{item.creator.nickname}}</span>
@@ -227,7 +227,7 @@ export default {
 <style lang="less" scoped>
 @import url("~styles/global.less");
 
-@listHeight: 0.8rem;
+@listHeight: 1rem;
 
 .wrapper-title {
   width: 100%;
@@ -252,7 +252,6 @@ export default {
 .song-group {
   .song-list {
     width: 100%;
-    height: @listHeight;
     margin: 0.16rem 0;
     .flex-between();
     .ripple();
@@ -299,7 +298,8 @@ export default {
       align-items: flex-start;
       justify-content: center;
       .list-title {
-        font-size: small;
+        max-width: 5rem;
+        font-size: 0.3rem;
       }
       .list-num {
         margin-top: 0.13rem;
@@ -310,8 +310,8 @@ export default {
         }
       }
     }
-    .heart {
-      width: 2rem;
+    .heart,
+    .heart-module {
       height: @listHeight;
       display: flex;
       align-items: center;
@@ -326,6 +326,12 @@ export default {
           font-weight: 700;
         }
       }
+    }
+    .heart {
+      width: 0.3rem;
+    }
+    .heart-module {
+      width: 2rem;
     }
   }
 }

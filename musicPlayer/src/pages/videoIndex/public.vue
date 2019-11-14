@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-26 08:48:50
- * @Update: 2019-11-11 11:59:51
+ * @Update: 2019-11-14 13:48:17
  * @Update log: 更新日志
  -->
 <template>
@@ -61,14 +61,14 @@
         </div>
         <div class="button">
           <!-- 点赞 -->
-          <span class="praised">
+          <span class="praised" @click="likeVideo(item.data.vid)">
             <i class="video videozan"></i>
-            <i class="praised-num">{{item.data.praisedCount | setCount}}</i>
+            <i class="num">{{item.data.praisedCount | setCount}}</i>
           </span>
           <!-- 评论 -->
           <span class="comment" @click="toVideoCom(item.data.vid)">
             <i class="video videopinglun"></i>
-            <i class="comment-num">{{item.data.commentCount | setCount}}</i>
+            <i class="num">{{item.data.commentCount | setCount}}</i>
           </span>
           <!-- 分享 -->
           <span class="share">
@@ -170,6 +170,17 @@ export default {
         video.pause()
         video.currentTime = 0
       }
+    },
+    likeVideo (id) {
+      const type = 5
+      this.$emit('likeVideo', type, id)
+      api.resourceLikeOutFn(type, id)
+        .then(res => {
+          const { data } = res
+          if (data.code === 200) {
+            console.log(data)
+          }
+        })
     },
     /**
      * 显示相关按钮
@@ -412,11 +423,6 @@ export default {
     .praised,
     .comment {
       position: relative;
-      .praised-num,
-      .comment-num {
-        font-size: 0.1rem;
-        background-color: #fff;
-      }
     }
   }
 }

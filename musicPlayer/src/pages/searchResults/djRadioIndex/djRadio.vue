@@ -1,13 +1,14 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:25:40
- * @Update: 2019-11-02 12:46:47
+ * @Update: 2019-11-14 13:57:40
  * @Update log: 更新日志
  -->
 <template>
   <div class="wrapper pd23">
     <div v-show="!load">
       <dj-radio
+        @click.native="goDjDetailPage(item.id)"
         v-for="(item, index) in allDjRadioList"
         :key="index"
         :dj="true"
@@ -46,6 +47,7 @@ export default {
     }
   },
   created () {
+    this.load = true
     this._getAllDjRadioList(this.keywords)
   },
   methods: {
@@ -74,6 +76,9 @@ export default {
           this.info = true
           console.log(error)
         })
+    },
+    goDjDetailPage (id) {
+      this.$router.push({ name: 'djDetailPage', params: { ridId: id } })
     }
   },
   components: {

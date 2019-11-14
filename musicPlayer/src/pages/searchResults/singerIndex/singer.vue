@@ -80,6 +80,7 @@ export default {
     }
   },
   created () {
+    this.load = true
     this._getSingerInfo(this.firstId, this.secondId)
   },
   mounted () {

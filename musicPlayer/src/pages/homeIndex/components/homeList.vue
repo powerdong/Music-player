@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-10-01 15:12:52
+ * @Update: 2019-11-14 13:34:02
  * @Update log: 我的页面的列表项
  -->
 <template>
@@ -88,11 +88,13 @@ export default {
 .list-item {
   .flex-between();
   margin: 0.1rem 0;
-  height: 0.76rem;
   line-height: 0.76rem;
   .ripple();
   &:last-child .wrapper::before {
     border: none;
+  }
+  .list-content {
+    font-size: 0.3rem;
   }
   .wrapper {
     flex: 1;

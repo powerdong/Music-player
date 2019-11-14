@@ -8,6 +8,7 @@
   <div class="wrapper pd23">
     <div v-show="!load">
       <album
+        @click.native="toDishPage(item.id)"
         v-for="(item, index) in allAlbumList"
         :key="index"
         :album="true"
@@ -48,6 +49,7 @@ export default {
     }
   },
   created () {
+    this.load = true
     this._getAllAlbumList(this.keywords)
   },
   methods: {
@@ -73,6 +75,9 @@ export default {
           this.info = true
           console.log(error)
         })
+    },
+    toDishPage (id) {
+      this.$router.push({ name: 'albumPage', params: { dishId: id } })
     }
   },
   components: {
