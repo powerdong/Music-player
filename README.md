@@ -78,7 +78,7 @@ npm run dev
 
 ### :clap: 项目演示
 
-[demo 地址](http://140.143.128.100:8080)（请用 chrome 手机模式预览）
+[demo 地址](http://140.143.128.100:3000)（请用 chrome 手机模式预览）
 
 ## :mega: 目标功能
 
@@ -210,6 +210,12 @@ npm run dev
     +-- mutation // 根级别的 mutation
     +-- state // 根级别的 state
 ```
+
+## 打包日志
+
+![M0Apjg.png](https://s2.ax1x.com/2019/11/16/M0Apjg.png)
+
+![M0ASgS.png](https://s2.ax1x.com/2019/11/16/M0ASgS.png)
 
 > 本项目会长期更新，欢迎大家指出问题，共同学习
 
