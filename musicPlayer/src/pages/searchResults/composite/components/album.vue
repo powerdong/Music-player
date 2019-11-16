@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 10:58:10
- * @Update: 2019-11-01 12:54:23
+ * @Update: 2019-11-16 13:44:29
  * @Update log: 更新日志
  -->
 <template>
@@ -13,6 +13,7 @@
     :keyW="keyword"
   >
     <list-con
+      @click.native="toDishPage(item.id)"
       v-for="(item, index) in album "
       :key="index"
       :album="true"
@@ -39,6 +40,11 @@ export default {
     },
     keyword: {
       type: String
+    }
+  },
+  methods: {
+    toDishPage (id) {
+      this.$router.push({ name: 'albumPage', params: { dishId: id } })
     }
   },
   components: {

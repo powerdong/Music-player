@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:17:07
- * @Update: 2019-11-14 15:27:53
+ * @Update: 2019-11-16 13:42:02
  * @Update log: 综合页面展示
  -->
 <template>
@@ -9,12 +9,12 @@
     <div v-show="!load">
       <div v-if="!info">
         <song-list :songList="songList" :keyword="keywords" v-if="orderList.includes('song')"></song-list>
-        <video-list :videoList="videoList" :keyword="keywords" v-if="orderList.includes('video')"></video-list>
         <play-list
           :playList="playListList"
           :keyword="keywords"
           v-if="orderList.includes('playList')"
         ></play-list>
+        <video-list :videoList="videoList" :keyword="keywords" v-if="orderList.includes('video')"></video-list>
         <sim-query
           :simQuery="sim_queryList"
           :keyword="keywords"
@@ -81,6 +81,7 @@ export default {
   watch: {
     keywords: function (val) {
       this.load = true
+      console.log('watch')
       if (val) {
         this._searchShow(val)
       }
@@ -89,12 +90,20 @@ export default {
   created () {
     this._searchShow(this.keywords)
   },
+  beforeRouteEnter (to, from, next) {
+    // 在渲染该组件的对应路由被 confirm 前调用
+    // 不！能！获取组件实例 `this`
+    // 因为当守卫执行前，组件实例还没被创建
+    console.log(to, from)
+    next()
+  },
   methods: {
     /**
      * 通过获取到的 动态的搜索关键字
      * 来获取数据，返回到页面
      */
     _searchShow (key) {
+      console.log('search')
       api.searchFn(key)
         .then(res => {
           const data = res.data
@@ -110,14 +119,14 @@ export default {
             } = data.result
             let simQuery = data.result.sim_query
             this.orderList = order
-            this.songList = song.songs
-            this.playListList = playList.playLists
-            this.videoList = video.videos
-            this.sim_queryList = simQuery
-            this.artistList = artist.artists
-            this.albumList = album.albums
-            this.djRadioList = djRadio.djRadios
-            this.userList = user.users
+            this.songList = song ? song.songs : []
+            this.playListList = playList ? playList.playLists : []
+            this.videoList = video ? video.videos : []
+            this.sim_queryList = simQuery || {}
+            this.artistList = artist ? artist.artists : []
+            this.albumList = album ? album.albums : []
+            this.djRadioList = djRadio ? djRadio.djRadios : []
+            this.userList = user ? user.users : []
             this.songList = filterSetKeyWords(this.keywords, this.songList, 'name')
             this.videoList = filterSetKeyWords(this.keywords, this.videoList, 'title')
             this.playListList = filterSetKeyWords(this.keywords, this.playListList, 'name')

@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-02 13:36:42
- * @Update: 2019-11-12 13:46:40
+ * @Update: 2019-11-16 13:54:29
  * @Update log: 这是一个公共的组件，用来展示搜索展示页面除单曲以外的项目
  * 通过props接收对应的结果，渲染。
  * 组件调用是通过 for 循环组件，来循环组件渲染的
@@ -35,6 +35,7 @@
         :style="{maxWidth}"
         :class="{oneLine: line === 'one', twoLines: line === 'two'}"
       >
+        <span v-if="isMv" class="mv">MV</span>
         <span v-html="name"></span>
         <span class="alia" v-show="alia">({{alia}})</span>
         <!-- 在用户区域用类名显示不同的用户性别图标 -->
@@ -97,6 +98,10 @@ export default {
   name: '',
   props: {
     videoList: {
+      type: Boolean,
+      default: false
+    },
+    isMv: {
       type: Boolean,
       default: false
     },
@@ -266,6 +271,14 @@ export default {
     margin-left: 0.23rem;
     .play-name {
       line-height: 0.4rem;
+      .mv {
+        box-sizing: border-box;
+        padding: 0.01rem 0.05rem;
+        border: 1px solid @bgcolor;
+        font-size: 0.2rem;
+        font-weight: 700;
+        color: @bgcolor;
+      }
       .alia {
         color: #7c7b7d;
       }

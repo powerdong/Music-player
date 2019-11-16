@@ -14,6 +14,7 @@
   >
     <list-con
       :songList="true"
+        @click.native="goAlbumPage(item.id)"
       v-for="(item, index) in playList"
       :key="index"
       :ImgUrl="item.coverImgUrl"
@@ -47,6 +48,11 @@ export default {
   data () {
     return {
       lists: this.playList.playLists
+    }
+  },
+  methods: {
+    goAlbumPage (id) {
+      this.$router.push({ name: 'albumPage', params: { albumId: id } })
     }
   }
 }

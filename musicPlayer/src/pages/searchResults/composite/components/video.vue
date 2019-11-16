@@ -16,9 +16,11 @@
       :videoList="true"
       v-for="(item, index) in videoList"
       :key="index"
+      @click.native="toVideoCom(item.vid)"
       line="two"
       :ImgUrl="item.coverUrl"
       :name="item.title"
+      :isMv="item.vid.length < 20"
       :durationms="item.durationms"
       :nicknames="item.creator"
       :playTime="item.playTime"
@@ -42,6 +44,11 @@ export default {
     },
     keyword: {
       type: String
+    }
+  },
+  methods: {
+    toVideoCom (id) {
+      this.$router.push({ name: 'videoComments', params: { id } })
     }
   }
 }

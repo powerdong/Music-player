@@ -1,12 +1,12 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-26 08:48:50
- * @Update: 2019-11-14 13:48:17
+ * @Update: 2019-11-15 13:50:21
  * @Update log: 更新日志
  -->
 <template>
   <div>
-    <div v-for="(item, index) in data" :key="index">
+    <div class="video-item" v-for="(item, index) in data" :key="index">
       <div class="videoInfo pd23">
         <img ref="videoImg" :src="item.data.coverUrl + '?param=360y170'" alt />
         <circle-loading type="absolute" width="6.7rem" height="3.8rem" class="none" ref="load"></circle-loading>

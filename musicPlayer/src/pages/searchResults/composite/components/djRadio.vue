@@ -14,6 +14,7 @@
   >
     <list-con
       v-for="(item, index) in djRadio"
+      @click.native="goDjDetailPage(item.id)"
       :key="index"
       :dj="true"
       maxWidth="4.7rem"
@@ -37,6 +38,11 @@ export default {
     },
     keyword: {
       type: String
+    }
+  },
+  methods: {
+    goDjDetailPage (id) {
+      this.$router.push({ name: 'djDetailPage', params: { ridId: id } })
     }
   },
   components: {
