@@ -1,13 +1,13 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:42:17
- * @Update: 2019-11-16 14:25:50
+ * @Update: 2019-11-17 14:05:18
  * @Update log: 更新日志
  */
 // 开发环境
-// const api = '/api'
+const api = '/api'
 // 线上环境
-const api = ''
+// const api = ''
 // ===================发现页面
 export const bannerSwiper = api + '/banner?type=1' // 请求发现页面轮播图
 export const recSongList = api + '/top/playlist' // 推荐歌单，歌单广场
@@ -24,12 +24,12 @@ export const getDishInfo = api + '/album' // 获取专辑内容
 export const newSongs = api + '/top/song' // 发现页新歌
 export const personalFm = api + '/personal_fm' // 发现页私人FM
 // ======================播放歌曲
-export const songUrl = 'api/song/url' // 获取歌曲url
-export const checkSong = 'api/check/music' // 查看歌曲是否可用
-export const songLyric = 'api/lyric' // 获取歌词
-export const heartMode = 'api/playmode/intelligence/list' // 心动模式播放
-export const likeMusicList = 'api/likelist' // 喜欢歌曲列表
-export const likeMusic = 'api/like' // 喜欢歌曲
+export const songUrl = api + '/song/url' // 获取歌曲url
+export const checkSong = api + '/check/music' // 查看歌曲是否可用
+export const songLyric = api + '/lyric' // 获取歌词
+export const heartMode = api + '/playmode/intelligence/list' // 心动模式播放
+export const likeMusicList = api + '/likelist' // 喜欢歌曲列表
+export const likeMusic = api + '/like' // 喜欢歌曲
 // ===================登陆
 export const phoneLogin = api + '/login/cellphone' // 手机号登陆
 export const phoneRegistered = api + '/cellphone/existence/check' // 手机号是否被注册
