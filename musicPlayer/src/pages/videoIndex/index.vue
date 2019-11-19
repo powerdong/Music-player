@@ -8,7 +8,7 @@
   <div>
     <slider-nav :list="chooseListTag"></slider-nav>
     <keep-alive>
-      <router-view style="height: 87vh; overflow-y: scroll;"></router-view>
+      <router-view class="router-view" style="height: 87vh; overflow-y: scroll;"></router-view>
     </keep-alive>
   </div>
 </template>

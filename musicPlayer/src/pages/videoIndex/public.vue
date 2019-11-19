@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-26 08:48:50
- * @Update: 2019-11-15 13:50:21
+ * @Update: 2019-11-19 13:51:47
  * @Update log: 更新日志
  -->
 <template>
@@ -134,6 +134,7 @@ export default {
       }
       // 更新上一个视频索引
       lastIndex = index
+      this.$emit('index', index)
       this.$nextTick(async () => {
         const video = this.$refs.video[index]
         // // 当没有值的时候，src默认为 http://localhost:8080/，通过判断是否包含localhost来判断当前src的值是否是真正的视频地址

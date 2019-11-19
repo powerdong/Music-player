@@ -1,13 +1,11 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:42:17
- * @Update: 2019-11-17 14:05:18
+ * @Update: 2019-11-17 14:30:04
  * @Update log: 更新日志
  */
-// 开发环境
-const api = '/api'
-// 线上环境
-// const api = ''
+const api = process.env.NODE_ENV === 'development' ? '/api' : ''
+
 // ===================发现页面
 export const bannerSwiper = api + '/banner?type=1' // 请求发现页面轮播图
 export const recSongList = api + '/top/playlist' // 推荐歌单，歌单广场
