@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-14 15:44:26
- * @Update: 2019-11-11 13:21:54
+ * @Update: 2019-11-19 22:01:42
  * @Update log: 登录页通用顶部导航
  -->
 <template>
@@ -26,11 +26,11 @@ export default {
     }
   },
   methods: {
-    block () {
-      this.$refs.nav.style.opacity = 1
+    visible () {
+      this.$refs.nav.style.visibility = 'visible'
     },
-    none () {
-      this.$refs.nav.style.opacity = 0
+    hidden () {
+      this.$refs.nav.style.visibility = 'hidden'
     },
     returnPage () {
       // 这个方法的参数是一个整数，意思是在 history 记录中向前或者后退多少步

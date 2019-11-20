@@ -266,7 +266,7 @@ export default {
      * 隐藏标题行
      */
     hideNav () {
-      this.$refs.nav.none()
+      this.$refs.nav.hidden()
     },
     /**
      * 喜欢，点赞该评论
@@ -287,7 +287,7 @@ export default {
      * 显示标题行
      */
     blockNav () {
-      this.$refs.nav.block()
+      this.$refs.nav.visible()
     },
     returnPage () {
       this.$router.go(-1)

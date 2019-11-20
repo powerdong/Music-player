@@ -1,13 +1,13 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-25 13:32:17
- * @Update: 2019-10-26 09:59:52
+ * @Update: 2019-11-20 20:00:02
  * @Update log: 更新日志
  -->
 <template>
   <div @scroll="hideVideo">
     <page-loading v-show="load"></page-loading>
-    <public-img-card :data="data" v-show="!load" ref="public"></public-img-card>
+    <public-img-card :data="data" @index="getIndex" v-show="!load" ref="public"></public-img-card>
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-09-21 15:14:40
- * @Update: 2019-11-07 12:38:11
+ * @Update: 2019-11-20 19:59:46
  * @Update log: 更新日志
  */
 
@@ -9,6 +9,8 @@ import {
   mapGetters
 } from 'vuex'
 import api from 'api'
+import isInSport from 'utils/scrollStopVideo'
+
 /**
  * 这里包含对于不同模式下的icon展示
  * 对于更改mode
@@ -42,6 +44,8 @@ export const audio = {
   }
 }
 
+let timer = null
+
 export const videoPage = {
   data () {
     return {
@@ -66,7 +70,30 @@ export const videoPage = {
         })
     },
     hideVideo () {
-      this.$refs.public.stopVideoTag()
+      const self = this
+      if (timer) {
+        clearTimeout(timer)
+        timer = null
+      }
+      timer = setTimeout(() => {
+        this.stopVideo(self)
+      }, 300)
+    },
+    stopVideo (self) {
+      // 父容器
+      const wra = self.$el
+      // video集合
+      const videos = [...wra.querySelectorAll('.video-item')]
+      // 获取到当前正在播放的video
+      const ele = videos[this.index]
+      // 查看当前播放的video是否已经出去！！！
+      if (!isInSport(ele, wra)) {
+        // 出去的话调用方法，停止视频播放
+        self.$refs.public.stopVideoTag()
+      }
+    },
+    getIndex (index) {
+      this.index = index
     }
   }
 }
@@ -75,6 +102,7 @@ export const videoPage = {
  * 当页面显示了播放组件，页面整体需要设置paddingBottom
  * 大小为迷你播放器的高度
  */
+
 export const paddingBottom = {
   computed: {
     ...mapGetters({
