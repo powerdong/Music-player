@@ -1,13 +1,14 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-25 13:32:01
- * @Update: 2019-11-07 12:32:41
+ * @Update: 2019-11-23 11:51:00
  * @Update log: 更新日志
  -->
 <template>
   <div @scroll="hideVideo">
     <page-loading v-show="load"></page-loading>
     <public-img-card :data="data" @index="getIndex" v-show="!load" ref="public"></public-img-card>
+    <should-login v-show="isLogin === 0"></should-login>
   </div>
 </template>
 
@@ -15,13 +16,14 @@
 import { videoPage } from 'mixins/Mixins'
 import publicImgCard from '../public'
 import pageLoading from 'base/pageLoading'
-
+import shouldLogin from 'base/shouldLogin'
 export default {
   mixins: [videoPage],
   name: '',
   components: {
     publicImgCard,
-    pageLoading
+    pageLoading,
+    shouldLogin
   }
 }
 </script>

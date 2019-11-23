@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-09-21 15:14:40
- * @Update: 2019-11-20 19:59:46
+ * @Update: 2019-11-23 11:49:03
  * @Update log: 更新日志
  */
 
@@ -50,7 +50,8 @@ export const videoPage = {
   data () {
     return {
       data: [],
-      load: true
+      load: true,
+      isLogin: +localStorage.getItem('loginState') || 0
     }
   },
   created () {
@@ -65,6 +66,11 @@ export const videoPage = {
           } = res
           if (data.code === 200) {
             this.data = data.datas
+            this.load = false
+          }
+        })
+        .catch(err => {
+          if (err) {
             this.load = false
           }
         })

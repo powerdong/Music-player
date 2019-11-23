@@ -1,13 +1,14 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-25 13:31:37
- * @Update: 2019-11-20 19:59:02
+ * @Update: 2019-11-23 11:47:13
  * @Update log: 更新日志
  -->
 <template>
   <div class="container-wra" @scroll="hideVideo">
     <page-loading v-show="load"></page-loading>
     <public-img-card :data="data" @index="getIndex" v-show="!load" ref="public"></public-img-card>
+    <should-login v-show="isLogin === 0"></should-login>
   </div>
 </template>
 
@@ -16,6 +17,7 @@ import api from 'api'
 import publicImgCard from '../public'
 import pageLoading from 'base/pageLoading'
 import isInSport from 'utils/scrollStopVideo'
+import shouldLogin from 'base/shouldLogin'
 
 let timer = null
 export default {
@@ -24,7 +26,8 @@ export default {
     return {
       data: [],
       load: true,
-      index: 0
+      index: 0,
+      isLogin: +localStorage.getItem('loginState') || 0
     }
   },
   created () {
@@ -39,6 +42,11 @@ export default {
           } = res
           if (data.code === 200) {
             this.data = data.datas
+            this.load = false
+          }
+        })
+        .catch(err => {
+          if (err) {
             this.load = false
           }
         })
@@ -75,7 +83,8 @@ export default {
   },
   components: {
     publicImgCard,
-    pageLoading
+    pageLoading,
+    shouldLogin
   }
 }
 </script>
