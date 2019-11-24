@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 11:17:07
- * @Update: 2019-11-16 13:42:02
+ * @Update: 2019-11-24 13:13:33
  * @Update log: 综合页面展示
  -->
 <template>
@@ -90,20 +90,12 @@ export default {
   created () {
     this._searchShow(this.keywords)
   },
-  beforeRouteEnter (to, from, next) {
-    // 在渲染该组件的对应路由被 confirm 前调用
-    // 不！能！获取组件实例 `this`
-    // 因为当守卫执行前，组件实例还没被创建
-    console.log(to, from)
-    next()
-  },
   methods: {
     /**
      * 通过获取到的 动态的搜索关键字
      * 来获取数据，返回到页面
      */
     _searchShow (key) {
-      console.log('search')
       api.searchFn(key)
         .then(res => {
           const data = res.data

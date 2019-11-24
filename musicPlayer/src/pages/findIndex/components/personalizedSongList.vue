@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-10-24 08:54:17
+ * @Update: 2019-11-24 12:02:09
  * @Update log: 更新日志
  -->
 <template>
@@ -35,57 +35,71 @@ import { getRandomArrayElements } from 'utils/getRandomArrayElements'
 import { mapGetters } from 'vuex'
 export default {
   name: 'songList',
-  components: {
-    imgCard,
-    pageLoading
-  },
   data () {
     return {
       load: true,
-      songList: []
+      songList: [],
+      isGetOver: false
     }
+  },
+  created () {
+    this._getImgCard()
   },
   computed: {
     ...mapGetters({ loginState: 'LOGIN_STATE' })
   },
   methods: {
     /**
+     * 获取推荐歌单的入口函数
+     */
+    async _getImgCard () {
+      let getFlag = +localStorage.getItem('loginState')
+      if (this.loginState || getFlag) {
+        // 用户已经登录
+        const isGetOver = await this.loadGetSongListInfo()
+        this.isGetOver = isGetOver
+      } else {
+        const isGetOver = await this.getSongListInfo()
+        this.isGetOver = isGetOver
+      }
+    },
+    /**
      * 在用户没有登陆的情况下随机取出6项进行展示
      */
-    getSongListInfo () {
-      api.recSongListFn()
-        .then(res => {
-          const data = res.data
-          if (data.code === 200) {
-            this.songList = getRandomArrayElements(data.playlists, 6)
-            this.load = false
-          }
-        })
-        .catch(error => console.log(error))
+    async getSongListInfo () {
+      try {
+        const { data } = await api.recSongListFn()
+        if (data.code === 200) {
+          this.songList = getRandomArrayElements(data.playlists, 6)
+          this.load = false
+          return true
+        }
+        return false
+      } catch (error) {
+        console.log(error)
+      }
     },
     /**
      * 在用户登陆情况下执行这个函数获取每日推荐歌单
      */
-    loadGetSongListInfo () {
-      api.dateRecSongListFn()
-        .then(res => {
-          const data = res.data
-          if (data.code === 200) {
-            const arr = data.recommend
-            this.songList = getRandomArrayElements(arr, 6)
-            this.load = false
-          }
-        })
+    async loadGetSongListInfo () {
+      try {
+        const { data } = await api.dateRecSongListFn()
+        if (data.code === 200) {
+          const arr = data.recommend
+          this.songList = getRandomArrayElements(arr, 6)
+          this.load = false
+          return true
+        }
+        return false
+      } catch (error) {
+        console.log(error)
+      }
     }
   },
-  activated () {
-    let getFlag = +localStorage.getItem('loginState')
-    if (this.loginState || getFlag) {
-      // 用户已经登录
-      this.loadGetSongListInfo()
-    } else {
-      this.getSongListInfo()
-    }
+  components: {
+    imgCard,
+    pageLoading
   }
 }
 </script>

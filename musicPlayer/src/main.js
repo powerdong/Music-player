@@ -1,7 +1,7 @@
 /*
  * @Author: Lambda
  * @Begin: 2019-08-30 19:47:55
- * @Update: 2019-11-05 18:43:32
+ * @Update: 2019-11-24 11:15:58
  * @Update log: 更新日志
  */
 // The Vue build version to load with the `import` command
@@ -12,7 +12,7 @@ import router from './router'
 import store from './store'
 import fastclick from 'fastclick'
 import VueLazyload from 'vue-lazyload'
-
+import topTip from '@/components/top-tip'
 import {
   Search,
   ActionSheet,
@@ -22,7 +22,8 @@ import {
   Checkbox,
   CheckboxGroup,
   PasswordInput,
-  NumberKeyboard
+  NumberKeyboard,
+  PullRefresh
 } from 'vant'
 
 import 'styles/reset.css'
@@ -33,6 +34,7 @@ fastclick.attach(document.body)
 Vue.use(Search)
 Vue.use(Button)
 Vue.use(ActionSheet)
+Vue.use(PullRefresh)
 Vue.use(Swipe).use(SwipeItem)
 Vue.use(Checkbox).use(CheckboxGroup)
 Vue.use(PasswordInput).use(NumberKeyboard)
@@ -46,6 +48,8 @@ Vue.use(VueLazyload, {
   attempt: 1,
   listenEvents: ['scroll', 'wheel', 'mousewheel', 'resize', 'animationend', 'transitionend', 'touchmove']
 })
+
+Vue.component('top-tip', topTip)
 
 /* eslint-disable no-new */
 // eslint-disable-next-line no-unused-vars
