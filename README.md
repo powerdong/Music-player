@@ -1,5 +1,13 @@
 <h1 align="center">Welcome to Music-player 👋</h1>
 
+<p align="center">
+<img src="https://img.shields.io/badge/webpack-^3.6.0-informational" alt="webpack">
+<img src="https://img.shields.io/badge/vue-2.5.2-success" alt="vue">
+<img src="https://img.shields.io/badge/node-10.15.3-fa983a" alt="node">
+<img src="https://img.shields.io/badge/dependencies-up to date-8c7ae6" alt="dependencies">
+<img src="https://img.shields.io/badge/dev dependencies-up to date-44bd32" alt="dev dependencies">
+<p>
+
 ## :speech_balloon:前言
 
 随着不断的学习 Vue，需要做一个小项目通过在实现项目过程中了解到更多的知识。随着如今人们对于音乐的需求，移动端的使用量愈发增加，项目通过 Vue 编写实现，全面借用**网易云音乐移动端**的 UI 设计、功能实现，努力做到以假乱真的效果。前几天便着手开始弄了,到今天为止也算是勉强能用了。

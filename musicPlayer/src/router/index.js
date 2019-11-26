@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-11-11 12:01:39
+ * @Update: 2019-11-26 12:59:53
  * @Update log: 更新日志
  */
 import Vue from 'vue'
@@ -54,6 +54,7 @@ const djRankingProgram = () => import(/* webpackChunkName: "group-myFavorite" */
 const djRankingRadio = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/dj/childrenPage/ranking-radio')
 const albumPage = () => import(/* webpackChunkName: "group-albumPage" */ 'base/albumPage')
 const djDetailPage = () => import(/* webpackChunkName: "group-djDetailPage" */ 'base/djDetailPage')
+const artistDetailPage = () => import(/* webpackChunkName: "group-djDetailPage" */ '@/components/detailPage')
 const recentlyPlayed = () => import(/* webpackChunkName: "group-recentlyPlayed" */ '@/pages/recentlyPlayed')
 const djSublist = () => import(/* webpackChunkName: "group-djSublist" */ '@/pages/djSublist')
 const myFavorite = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/myFavorite')
@@ -317,10 +318,15 @@ export default new Router({
     name: 'albumPage',
     component: albumPage
   }, {
-    // 通用专辑展示页面
+    // 通用电台详情展示页面
     path: '/djDetailPage',
     name: 'djDetailPage',
     component: djDetailPage
+  }, {
+    // 通用歌手展示页面
+    path: '/artistDetailPage',
+    name: 'artistDetailPage',
+    component: artistDetailPage
   }, {
     // 通用评论展示页面
     path: '/comments',

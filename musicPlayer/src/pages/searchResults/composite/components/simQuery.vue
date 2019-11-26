@@ -1,31 +1,36 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 10:57:31
- * @Update: 2019-09-02 20:32:28
+ * @Update: 2019-11-26 12:50:04
  * @Update log: 更新日志
  -->
 <template>
- <list-global title="相关搜索"
-              :more="simQuery.more"
-              :moreText="simQuery.moreText">
+  <list-global title="相关搜索" :more="simQuery.more" :moreText="simQuery.moreText">
     <ul class="sim-group">
-      <li class="sim-list"
-          v-for="(item, index) in simQuery.sim_querys"
-          :key="index">
-          {{item.keyword}}
-      </li>
+      <li
+        class="sim-list"
+        v-for="(item, index) in simQuery.sim_querys"
+        @click="toSearch(item.keyword)"
+        :key="index"
+      >{{item.keyword}}</li>
     </ul>
- </list-global>
+  </list-global>
 </template>
 
 <script>
 import listGlobal from 'base/titleFooter'
+import Bus from '../../../../assets/Bus'
 
 export default {
   name: '',
   props: {
     simQuery: {
       type: Object
+    }
+  },
+  methods: {
+    toSearch (keywords) {
+      Bus.$emit('search', keywords)
     }
   },
   components: {
@@ -35,10 +40,10 @@ export default {
 </script>
 
 <style lang='less' scoped>
-.sim-group{
+.sim-group {
   display: flex;
   flex-wrap: wrap;
-  .sim-list{
+  .sim-list {
     height: 0.5rem;
     display: flex;
     justify-content: center;

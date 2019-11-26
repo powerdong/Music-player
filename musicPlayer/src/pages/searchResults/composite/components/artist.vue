@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-31 10:57:52
- * @Update: 2019-09-03 11:02:12
+ * @Update: 2019-11-26 13:01:35
  * @Update log: 更新日志
  -->
 <template>
@@ -18,6 +18,7 @@
         :key="index"
         :circle="true"
         :ImgUrl="item.img1v1Url"
+        @click.native="toArtistDetail"
         :alia="item.alias.length > 0 ? item.alias[0] : ''"
         :name="item.name"
         :isIn="item.accountId"
@@ -38,6 +39,11 @@ export default {
     },
     keyword: {
       type: String
+    }
+  },
+  methods: {
+    toArtistDetail () {
+      this.$router.push('/artistDetailPage')
     }
   },
   components: {

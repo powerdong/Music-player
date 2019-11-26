@@ -7,7 +7,7 @@
 <template>
   <div class="center">
     <p class="m3">当前未登录，请您跳转登陆页面进行登陆</p>
-    <router-link to="login">点我去登陆</router-link>
+    <router-link to="/login">点我去登陆</router-link>
   </div>
 </template>
 
