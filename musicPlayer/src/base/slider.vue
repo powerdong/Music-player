@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-27 12:49:09
- * @Update: 2019-11-14 13:24:43
+ * @Update: 2019-11-29 13:18:49
  * @Update log: 更新日志
  -->
 <template>
@@ -164,6 +164,7 @@ export default {
       this.$router.push({ name: 'comments', params: { djId, imgUrl, title, author } })
     },
     showSlider () {
+      console.log('kkk')
       this.drawer = true
     },
     itemHandle (name, id) {

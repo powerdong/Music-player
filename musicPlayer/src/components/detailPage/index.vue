@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-13 12:03:28
- * @Update: 2019-11-26 13:19:30
+ * @Update: 2019-11-29 13:22:32
  * @Update log: 更新日志
  -->
 <template>
@@ -16,15 +16,16 @@
     >
       <div class="cover" :style="{backgroundColor: `rgba(0, 0, 0, ${cover})`}"></div>
       <div class="data" v-show="!listFixed" :style="{opacity}">
-        <slot name="data"></slot>
+        <slot name="data">上半部区域</slot>
       </div>
     </div>
     <div :class="{listFixed}">
-      <slot name="nav-list"></slot>
+      <slot name="nav-list">如果有标签行的话</slot>
     </div>
     <div class="container-bottom" :style="{ marginTop: top}">
-      <slot name="bottom"></slot>
+      <slot name="bottom">下边展示音乐列表</slot>
     </div>
+    <slot name="slider">这里是显示下方滑块</slot>
   </div>
 </template>
 
@@ -35,15 +36,36 @@ export default {
   name: '',
   data () {
     return {
-      coverImgUrl: '',
       cover: '0.2',
-      iTitle: '电台',
-      title: '电台',
       listFixed: false,
       coverFixed: false,
       position: true,
       top: '0rem',
       opacity: 1
+    }
+  },
+  props: {
+    iTitle: {
+      type: String
+    },
+    title: {
+      type: String
+    },
+    name: {
+      type: String
+    },
+    coverImgUrl: {
+      type: String
+    }
+  },
+  computed: {
+    _iTitle: {
+      get: function () {
+        return this.iTitle
+      },
+      set: function (con) {
+        this.$emit('update_iTitle', con)
+      }
     }
   },
   methods: {
@@ -67,13 +89,13 @@ export default {
         this.opacity = 1 - top / 500
       }
       if (top >= 282) {
-        this.iTitle = this.name
+        this._iTitle = this.name
         this.listFixed = true
         this.coverFixed = true
         this.position = false
-        this.top = '6.6rem'
+        this.top = '7.8rem'
       } else {
-        this.iTitle = this.title
+        this._iTitle = this.title
         this.listFixed = false
         this.coverFixed = false
         this.position = true
