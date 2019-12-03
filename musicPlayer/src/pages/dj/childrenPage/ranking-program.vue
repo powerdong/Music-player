@@ -1,18 +1,23 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-17 13:04:59
- * @Update: 2019-10-18 10:36:29
+ * @Update: 2019-12-03 18:38:16
  * @Update log: 更新日志
  -->
 <template>
   <div class="pd23">
-    <public-con v-show="!loading" title="最热节目" :data="djToplist" type="rank"></public-con>
+    <div v-show="!loading">
+      <top-con title="24小时榜" :data="topData"></top-con>
+      <div class="split"></div>
+      <public-con title="最热节目" :data="djToplist" type="rank"></public-con>
+    </div>
     <page-loading v-show="loading"></page-loading>
   </div>
 </template>
 
 <script>
 import publicCon from '../public'
+import topCon from '../titleAndThree'
 import api from 'api'
 import pageLoading from 'base/pageLoading'
 
@@ -21,28 +26,37 @@ export default {
   data () {
     return {
       djToplist: [],
-      loading: true
+      loading: true,
+      topData: []
     }
   },
-  created () {
-    this._getDjToplist()
+  async created () {
+    await this._getDjProgramTopHours()
+    await this._getDjToplist()
   },
   methods: {
-    _getDjToplist () {
+    async _getDjToplist () {
       let limit, offset
-      api.djToplistFn(limit, offset)
-        .then(res => {
-          const { data } = res
-          if (data.code === 200) {
-            this.djToplist = data.toplist
-            this.loading = false
-          }
-        })
+      const { data } = await api.djToplistFn(limit, offset)
+      if (data.code === 200) {
+        console.log('222')
+
+        this.djToplist = data.toplist
+        this.loading = false
+      }
+    },
+    async _getDjProgramTopHours () {
+      const { data } = await api.djProgramTopHoursFn(3)
+      if (data.code === 200) {
+        this.topData = data.data.list
+        console.log('111')
+      }
     }
   },
   components: {
     publicCon,
-    pageLoading
+    pageLoading,
+    topCon
   }
 }
 </script>

@@ -5,13 +5,7 @@
  * @Update log: 更新日志
  -->
 <template>
-  <detail-page
-    :iTitle="iTitle"
-    :name="name"
-    :coverImgUrl="coverImgUrl"
-    @update_iTitle="update_iTitle"
-    :title="title"
-  >
+  <detail-page :title="title" :name="name" :coverImgUrl="coverImgUrl">
     <div slot="data">
       <div>
         <div class="name">{{name}}</div>
@@ -143,7 +137,6 @@ export default {
       category: '',
       desc: '',
       loading: true,
-      iTitle: '电台',
       title: '电台',
       subed: false,
       ridId: 0,
@@ -188,9 +181,6 @@ export default {
             this.loading = false
           }
         })
-    },
-    update_iTitle (con) {
-      this.iTitle = con
     },
     _getDjDetailInfo (id) {
       api.djDetailFn(id)

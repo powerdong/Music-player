@@ -1,13 +1,13 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-13 12:03:28
- * @Update: 2019-11-29 13:22:32
+ * @Update: 2019-11-30 13:27:53
  * @Update log: 更新日志
  -->
 <template>
   <div class="wrapper" @scroll="scrollList">
     <detail-nav @returnPage="returnPage" class="fixed pd23" style="color:#fff;">
-      <span class="text">{{iTitle}}</span>
+      <span class="text">{{$title}}</span>
     </detail-nav>
     <div
       class="container-top"
@@ -20,7 +20,7 @@
       </div>
     </div>
     <div :class="{listFixed}">
-      <slot name="nav-list">如果有标签行的话</slot>
+      <slot name="nav-list">这里显示吸顶标签行</slot>
     </div>
     <div class="container-bottom" :style="{ marginTop: top}">
       <slot name="bottom">下边展示音乐列表</slot>
@@ -41,13 +41,11 @@ export default {
       coverFixed: false,
       position: true,
       top: '0rem',
-      opacity: 1
+      opacity: 1,
+      $title: ''
     }
   },
   props: {
-    iTitle: {
-      type: String
-    },
     title: {
       type: String
     },
@@ -56,16 +54,6 @@ export default {
     },
     coverImgUrl: {
       type: String
-    }
-  },
-  computed: {
-    _iTitle: {
-      get: function () {
-        return this.iTitle
-      },
-      set: function (con) {
-        this.$emit('update_iTitle', con)
-      }
     }
   },
   methods: {
@@ -89,13 +77,13 @@ export default {
         this.opacity = 1 - top / 500
       }
       if (top >= 282) {
-        this._iTitle = this.name
+        this.$title = this.name
         this.listFixed = true
         this.coverFixed = true
         this.position = false
         this.top = '7.8rem'
       } else {
-        this._iTitle = this.title
+        this.$title = this.title
         this.listFixed = false
         this.coverFixed = false
         this.position = true

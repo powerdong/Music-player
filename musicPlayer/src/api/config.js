@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:42:17
- * @Update: 2019-11-17 14:30:04
+ * @Update: 2019-12-03 13:37:22
  * @Update log: 更新日志
  */
 const api = process.env.NODE_ENV === 'development' ? '/api' : ''
@@ -79,6 +79,9 @@ export const djPayGift = api + '/dj/paygift' // 电台付费精选
 export const djSub = api + '/dj/sub' // 订阅/取消订阅电台
 export const djToplist = api + '/dj/program/toplist' // 获取最热节目
 export const djHotToplist = api + '/dj/toplist' // 获取电台榜
+export const djProgramTopHours = api + '/dj/program/toplist/hours' // 获取节目榜24小时榜
+export const djToplistHours = api + '/dj/toplist/hours' // 获取主播榜24小时榜
+export const djToplistNewComers = api + '/dj/toplist/newcomer' // 获取主播榜2新人榜
 // ================评论页面相关
 export const commentPlaylist = api + '/comment/playlist' // 获取歌单的评论
 export const commentAlbum = api + '/comment/album' // 获取专辑的评论

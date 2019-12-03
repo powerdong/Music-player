@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-10-12 13:19:59
- * @Update: 2019-10-18 11:18:03
+ * @Update: 2019-12-03 18:44:59
  * @Update log: 更新日志
  -->
 <template>
@@ -33,7 +33,7 @@
         </div>
         <div class="img-info" :class="{hotRank}">
           <img
-            :src="item.picUrl ? item.picUrl  + '?param=100y100' : item.program ? item.program.coverUrl  + '?param=100y100' : ''"
+            v-lazy="item.picUrl ? item.picUrl  + '?param=100y100' : item.program ? item.program.coverUrl  + '?param=100y100' : ''"
             alt
           />
         </div>
@@ -43,7 +43,7 @@
             <div class="name">
               <div class="img-info">
                 <img
-                  :src="item.dj  ? item.dj.avatarUrl + '?param=50y50' : item.program ? item.program.coverUrl + '?param=50y50' : ''"
+                  v-lazy="item.dj  ? item.dj.avatarUrl + '?param=50y50' : item.program ? item.program.coverUrl + '?param=50y50' : ''"
                   alt
                 />
               </div>
@@ -106,7 +106,7 @@ export default {
 
 <style lang='less' scoped>
 @import url("~styles/global.less");
-@import url("//at.alicdn.com/t/font_1463228_r8h4j6n64o.css");
+@import url("//at.alicdn.com/t/font_1463228_6ejm47f2r6h.css");
 .wrapper {
   margin-top: 0.5rem;
   .title {

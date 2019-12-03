@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-11-14 13:06:54
+ * @Update: 2019-12-03 13:39:05
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -74,7 +74,10 @@ import {
   getVideoDetail,
   getVideoRelated,
   getVideoComments,
-  resourceLike
+  resourceLike,
+  djProgramTopHours,
+  djToplistHours,
+  djToplistNewComers
 } from './config'
 
 /**
@@ -785,6 +788,39 @@ export default {
         limit,
         offset,
         type
+      }
+    })
+  },
+  /**
+   * 调用此接口,可获取24小时节目榜
+   * @param {*} limit 返回数量 , 默认为 100 (不支持 offset)
+   */
+  djProgramTopHoursFn (limit) {
+    return axios.get(djProgramTopHours, {
+      params: {
+        limit
+      }
+    })
+  },
+  /**
+   * 调用此接口,可获取24小时主播榜
+   * @param {*} limit 返回数量 , 默认为 100 (不支持 offset)
+   */
+  djToplistHoursFn (limit) {
+    return axios.get(djToplistHours, {
+      params: {
+        limit
+      }
+    })
+  },
+  /**
+   * 说明 : 调用此接口,可获取主播新人榜
+   * @param {*} limit 返回数量 , 默认为 100 (不支持 offset)
+   */
+  djToplistNewComersFn (limit) {
+    return axios.get(djToplistNewComers, {
+      params: {
+        limit
       }
     })
   },
