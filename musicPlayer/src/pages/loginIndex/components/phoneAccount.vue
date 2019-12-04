@@ -1,35 +1,38 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-12 18:16:59
- * @Update: 2019-08-31 09:51:04
+ * @Update: 2019-12-04 18:32:14
  * @Update log: 手机号登陆账号页面
  -->
 <template>
-  <div class="wrapper">
-    <div class="info">未注册手机号登录后将自动创建账号</div>
-    <!-- 绑定内联样式 使用 对象 -->
-    <div class="inp border-bottom" :style="{opacity}">
-      <span>+86</span>
-      <input
-        type="text"
-        v-model.trim="phone"
-        placeholder="请输入手机号"
-        ref="inputs"
-        autofocus="autofocus"
-        @input="canShow"
-      />
-      <i v-show="isShow" class="phone iconguanbi" @click="clearInput"></i>
+  <account-login>
+    <div class="wrapper">
+      <div class="info">未注册手机号登录后将自动创建账号</div>
+      <!-- 绑定内联样式 使用 对象 -->
+      <div class="inp border-bottom" :style="{opacity}">
+        <span>+86</span>
+        <input
+          type="text"
+          v-model.trim="phone"
+          placeholder="请输入手机号"
+          ref="inputs"
+          autofocus="autofocus"
+          @input="canShow"
+        />
+        <i v-show="isShow" class="phone iconguanbi" @click="clearInput"></i>
+      </div>
+      <login-btn @click.native="clickEvent"></login-btn>
+      <transition>
+        <!-- 提示语 -->
+        <alert :is-alert="alert" alert="请输入11位数字的手机号"></alert>
+      </transition>
     </div>
-    <login-btn @click.native="clickEvent"></login-btn>
-    <transition>
-      <!-- 提示语 -->
-      <alert :is-alert="alert" alert="请输入11位数字的手机号"></alert>
-    </transition>
-  </div>
+  </account-login>
 </template>
 
 <script>
 import loginBtn from 'base/button'
+import accountLogin from './accountLogin'
 import alert from 'base/alert'
 import api from 'api'
 
@@ -47,7 +50,8 @@ export default {
   },
   components: {
     loginBtn,
-    alert
+    alert,
+    accountLogin
   },
   methods: {
     // 在vue生命周期的created()钩子函数进行的DOM操作要放在Vue.nextTick()的回调函数中，

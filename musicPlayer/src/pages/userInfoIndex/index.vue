@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-28 08:56:16
- * @Update: 2019-10-28 13:28:34
+ * @Update: 2019-12-04 18:47:58
  * @Update log: 更新日志
  -->
 <template>
@@ -17,7 +17,7 @@
       <div class="cover" :style="{backgroundColor: `rgba(0, 0, 0, ${cover})`}"></div>
       <div class="data" v-show="!listFixed" :style="{opacity}">
         <div class="user-img">
-          <img src="http://p1.music.126.net/86ildkNdYbtpJZLyGGsOSg==/109951163982316131.jpg" alt />
+          <img v-lazy="avatarUrl + '?param=200y200'" :key="avatarUrl" alt />
         </div>
         <div class="user-info-content">
           <div class="user-info-left">
@@ -109,6 +109,7 @@ export default {
       followeds: 0,
       birthday: 0,
       nickname: '',
+      avatarUrl: '',
       coverImgUrl: 'http://p1.music.126.net/2zSNIqTcpHL2jIvU6hG0EA==/109951162868128395.jpg'
     }
   },
@@ -136,7 +137,7 @@ export default {
         .then(res => {
           const { data } = res
           if (data.code === 200) {
-            const { nickname, newFollows, followeds, birthday, signature, gender } = data.profile
+            const { nickname, newFollows, followeds, backgroundUrl, birthday, signature, gender, avatarUrl } = data.profile
             this.nickname = nickname
             this.newFollows = newFollows
             this.followeds = followeds
@@ -150,8 +151,9 @@ export default {
             this.year = createDate.getFullYear()
             this.month = createDate.getMonth() + 1
             this.age = parseInt(data.createDays / 365)
+            this.avatarUrl = avatarUrl
+            this.coverImgUrl = backgroundUrl
             this.astro = getAstro(createDate.getMonth() + 1, createDate.getDate())
-            console.log(data)
           }
         })
     },
@@ -163,7 +165,6 @@ export default {
         .then(res => {
           const { data } = res
           if (data.code === 200) {
-            console.log(data)
             if (data.events.length === 0) {
               // 没有动态
               this.dataInfo = false
@@ -178,7 +179,6 @@ export default {
     scrollList (e) {
       // 获取到 top 值
       let top = this.$el.scrollTop
-      console.log(top)
       this.cover = top / 1000 + 0.3
       this.opacity = 1 - top / 500
       if (this.cover > 0.6) {
@@ -301,6 +301,7 @@ export default {
         flex-direction: column;
         line-height: 1.5;
         .user-nickname {
+          font-size: 0.28rem;
         }
         .follow-wrapper {
           color: #999;

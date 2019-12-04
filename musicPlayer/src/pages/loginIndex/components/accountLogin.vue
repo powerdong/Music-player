@@ -1,15 +1,15 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-08-25 13:23:44
- * @Update: 2019-10-10 17:28:10
+ * @Update: 2019-12-04 18:37:14
  * @Update log: 更新日志
  -->
 <template>
   <div class="wrapper">
-    <login-nav>
-      <span class="text" @returnPage="returnPage">{{text}}</span>
+    <login-nav @returnPage="returnPage">
+      <span class="text">{{text}}</span>
     </login-nav>
-    <router-view></router-view>
+    <slot></slot>
   </div>
 </template>
 
@@ -28,6 +28,8 @@ export default {
   },
   methods: {
     returnPage () {
+      console.log('111')
+
       this.$router.go(-1)
     }
   }

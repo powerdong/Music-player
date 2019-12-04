@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-11-05 18:48:37
+ * @Update: 2019-12-04 18:47:09
  * @Update log: 更新日志
  -->
 <template>
@@ -114,7 +114,10 @@ export default {
      * 跳转到展示用户详情信息的页面
      */
     goUserInfo () {
-      this.$router.push('/user_info')
+      this.HIDE_LOGIN()
+      setTimeout(() => {
+        this.$router.push('/user_info')
+      }, 500)
     },
     /**
      * 签到成功后设置cookie，标记用户已经签到

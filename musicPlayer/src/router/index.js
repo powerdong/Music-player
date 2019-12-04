@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-11-26 12:59:53
+ * @Update: 2019-12-04 18:34:45
  * @Update log: 更新日志
  */
 import Vue from 'vue'
@@ -24,7 +24,6 @@ const game = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/vide
 const animation = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/videoIndex/components/animation')
 const friend = () => import(/* webpackChunkName: "group-homePage" */ '@/pages/friendIndex/index')
 const loginIndex = () => import(/* webpackChunkName: "group-loginPage" */ '@/pages/loginIndex/index')
-const accountLogin = () => import(/* webpackChunkName: "group-login-accountPage" */ '@/pages/loginIndex/components/accountLogin')
 const phoneAccount = () => import(/* webpackChunkName: "group-login-phonePage" */ '@/pages/loginIndex/components/phoneAccount')
 const phonePwd = () => import(/* webpackChunkName: "group-login-pwdPage" */ '@/pages/loginIndex/components/phonePwd')
 const phoneVerify = () => import(/* webpackChunkName: "group-login-verifyPage" */ '@/pages/loginIndex/components/phoneVerify')
@@ -86,8 +85,8 @@ export default new Router({
   linkActiveClass: 'ac',
   routes: [{
     /**
-     * 设置页面初次加载后默认显示 find 页面
-     */
+       * 设置页面初次加载后默认显示 find 页面
+       */
     path: '/',
     name: 'main',
     component: navIndex,
@@ -200,23 +199,21 @@ export default new Router({
   }, {
     // 登录的一系列路由
     path: '/phone',
-    component: accountLogin,
-    children: [{
-      path: '',
-      component: phoneAccount
-    }, {
-      path: '/pwd',
-      component: phonePwd
-    }, {
-      path: '/verify',
-      name: 'phoneVerify',
-      component: phoneVerify
-    }]
+    component: phoneAccount
   }, {
+    path: '/pwd',
+    component: phonePwd
+  }, {
+    path: '/verify',
+    name: 'phoneVerify',
+    component: phoneVerify
+  },
+  {
     // 搜索页
     path: '/search',
     component: search
-  }, {
+  },
+  {
     // 搜索展示页面
     path: '/searchResults/:id',
     component: searchResults,
@@ -254,19 +251,23 @@ export default new Router({
       path: '/user/:id',
       component: user
     }]
-  }, {
+  },
+  {
     // 歌手分类页面
     path: '/singer',
     component: singer
-  }, {
+  },
+  {
     // 用户信息展示页面
     path: '/user_info',
     component: userInfoIndex
-  }, {
+  },
+  {
     // 每日推荐页面
     path: '/dateRecommend',
     component: dateRecommend
-  }, {
+  },
+  {
     // 歌单广场页面
     path: '/recommend',
     component: recommend,
@@ -284,21 +285,26 @@ export default new Router({
       path: '/general/:id',
       component: general
     }]
-  }, {
+  },
+  {
     // 排行榜页面
     path: '/idx',
     component: idx
-  }, {
+  },
+  {
     // 电台页面
     path: '/dj',
     component: dj
-  }, {
+  },
+  {
     path: '/classification',
     component: classification
-  }, {
+  },
+  {
     path: '/pay_fine',
     component: djPayGift
-  }, {
+  },
+  {
     path: '/ranking',
     component: djRanking,
     redirect: '/program',
@@ -312,25 +318,30 @@ export default new Router({
       path: '/radio',
       component: djRankingRadio
     }]
-  }, {
+  },
+  {
     // 通用专辑展示页面
     path: '/albumPage',
     name: 'albumPage',
     component: albumPage
-  }, {
+  },
+  {
     // 通用电台详情展示页面
     path: '/djDetailPage',
     name: 'djDetailPage',
     component: djDetailPage
-  }, {
+  },
+  {
     // 通用歌手展示页面
     path: '/artistDetailPage',
     name: 'artistDetailPage',
     component: artistDetailPage
-  }, {
+  },
+  {
     // 通用评论展示页面
     path: '/comments',
     name: 'comments',
     component: comments
-  }]
+  }
+  ]
 })
