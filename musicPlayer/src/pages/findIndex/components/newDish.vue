@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-10-24 08:52:58
+ * @Update: 2019-12-05 15:50:04
  * @Update log: 更新日志
  -->
 <template>
@@ -61,6 +61,10 @@ export default {
       load: true
     }
   },
+  async created () {
+    await this._getDishListInfo()
+    await this._getNewSongsInfo()
+  },
   methods: {
     _getDishListInfo () {
       api.newDishFn()
@@ -69,7 +73,11 @@ export default {
           if (data.code === 200) {
             const arr = data.albums
             this.dishList = this.getRandomArrayElements(arr, 3)
-            this.load = false
+          }
+        })
+        .catch(error => {
+          if (error) {
+            console.log(error, '请求超时')
           }
         })
     },
@@ -84,6 +92,12 @@ export default {
             const arr = data.data
             this.newSongsList = this.getRandomArrayElements(arr, 3)
             this.load = false
+          }
+        })
+        .catch(error => {
+          if (error) {
+            this.load = false
+            console.log(error, '请求超时')
           }
         })
     },
@@ -121,10 +135,6 @@ export default {
       return shuffled.slice(min)
     },
     ...mapActions(['addToAudioList'])
-  },
-  created () {
-    this._getDishListInfo()
-    this._getNewSongsInfo()
   }
 }
 </script>

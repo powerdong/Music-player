@@ -1,11 +1,10 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-12-03 13:39:05
+ * @Update: 2019-12-05 15:52:50
  * @Update log: 更新日志
  */
 import axios from 'axios'
-
 import {
   bannerSwiper,
   recSongList,
@@ -79,6 +78,11 @@ import {
   djToplistHours,
   djToplistNewComers
 } from './config'
+// 请求超时时间
+axios.defaults.timeout = 30000
+
+// post请求头
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
 
 /**
  * 以后可以利用 ES6 的解构赋值进行重构

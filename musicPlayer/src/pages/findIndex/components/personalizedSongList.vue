@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-11-24 12:02:09
+ * @Update: 2019-12-05 15:47:01
  * @Update log: 更新日志
  -->
 <template>
@@ -76,7 +76,8 @@ export default {
         }
         return false
       } catch (error) {
-        console.log(error)
+        this.load = false
+        console.log(error, '请求超时')
       }
     },
     /**
@@ -93,7 +94,7 @@ export default {
         }
         return false
       } catch (error) {
-        console.log(error)
+        console.log(error, '请求超时')
       }
     }
   },
