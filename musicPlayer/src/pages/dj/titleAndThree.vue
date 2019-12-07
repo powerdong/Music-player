@@ -1,22 +1,27 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-12-03 12:34:55
- * @Update: 2019-12-03 13:55:24
+ * @Update: 2019-12-07 13:17:23
  * @Update log: 更新日志
  -->
 <template>
   <div class="wrapper">
-    <div class="title">
+    <div class="title" @click="goDetailPage">
       {{title}}
       <i class="threeTitle threeTitleiconfontxiangxia1copy19"></i>
     </div>
     <div class="three-item">
       <div class="item-info" v-for="(item, index) in data" :key="index">
         <div class="img-info" :class="{circle: type === 'circle'}">
-          <img :src="item.program ? item.program.coverUrl : item.avatarUrl" alt />
+          <img
+            :src="item.program ? item.program.coverUrl : item.avatarUrl ? item.avatarUrl : item.picUrl"
+            alt
+          />
           <i v-if="!type === 'circle'" class="threeTitle threeTitlebofang"></i>
         </div>
-        <span class="name twoLinesEllipsis">{{item.program ? item.program.name : item.nickName}}</span>
+        <span
+          class="name twoLinesEllipsis"
+        >{{item.program ? item.program.name : item.nickName ? item.nickName : item.name}}</span>
         <span v-if="type === 'circle'" class="num small">
           <i class="threeTitle threeTitlehuo"></i>
           {{ item.score | setCount}}
@@ -39,11 +44,19 @@ export default {
     },
     type: {
       type: String
+    },
+    pageId: {
+      type: String
     }
   },
   filters: {
     setCount: function (val) {
       return filterSetPlayCount(val)
+    }
+  },
+  methods: {
+    goDetailPage () {
+      this.$router.push({ name: 'conDetail', params: { id: this.pageId } })
     }
   }
 }

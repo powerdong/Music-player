@@ -1,12 +1,12 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-10-12 13:19:59
- * @Update: 2019-12-03 18:44:59
+ * @Update: 2019-12-07 13:56:18
  * @Update log: 更新日志
  -->
 <template>
   <div class="wrapper">
-    <div class="title">
+    <div class="title" v-if="title">
       <h1 class="text">
         {{ title }}
         <i class="dj dj-arrow-right" v-show="!type === 'rank'"></i>
@@ -31,23 +31,27 @@
             <i class="num" v-show="item.lastRank !== -1">{{(item.lastRank - item.rank) | setNum1}}</i>
           </span>
         </div>
-        <div class="img-info" :class="{hotRank}">
+        <div class="img-info" :class="{hotRank, circle : content === 'popular'}">
           <img
-            v-lazy="item.picUrl ? item.picUrl  + '?param=100y100' : item.program ? item.program.coverUrl  + '?param=100y100' : ''"
+            v-lazy="item.picUrl ? item.picUrl  + '?param=100y100' : item.program ? item.program.coverUrl  + '?param=100y100' :  item.avatarUrl ? item.avatarUrl + '?param=100y100' : ''"
             alt
           />
         </div>
         <div class="content">
-          <p class="name">{{item.name ? item.name : item.program.name}}</p>
-          <div class="dec" :class="{hotRank}">
+          <p
+            class="name"
+          >{{item.name ? item.name : item.program ? item.program.name : item.nickName }}</p>
+          <div class="dec" v-if="content !== 'popular'" :class="{hotRank}">
             <div class="name">
-              <div class="img-info">
+              <div class="img-info" v-show="noImg">
                 <img
-                  v-lazy="item.dj  ? item.dj.avatarUrl + '?param=50y50' : item.program ? item.program.coverUrl + '?param=50y50' : ''"
+                  v-lazy="item.dj  ? item.dj.avatarUrl + '?param=50y50' : item.program ? item.program.coverUrl + '?param=50y50' : item.avatarUrl ? item.avatarUrl + '?param=50y50' : ''"
                   alt
                 />
               </div>
-              <span class="name-con">{{item.dj ? item.dj.nickname : item.program.dj.nickname}}</span>
+              <span
+                class="name-con"
+              >{{item.dj ? item.dj.nickname : item.program ? item.program.dj.nickname : item.creatorName ? item.creatorName : ''}}</span>
             </div>
             <div class="hot-num">
               <span class="num">
@@ -57,7 +61,11 @@
             </div>
           </div>
         </div>
-        <span class="icon" v-show="!hotRank">
+        <span class="num" v-if="content === 'popular'">
+          <i class="dj-public publichuo"></i>
+          {{ hotRank ? item.score : item.subCount ? item.subCount : item.score ? item.score : '' | setNum }}
+        </span>
+        <span class="icon" v-if="!hotRank">
           <i class="dj-public publicbofang1"></i>
         </span>
       </li>
@@ -99,6 +107,13 @@ export default {
     },
     hotRank: {
       type: Boolean
+    },
+    content: {
+      type: String
+    },
+    noImg: {
+      type: Boolean,
+      default: true
     }
   }
 }
@@ -179,6 +194,15 @@ export default {
         width: 1rem;
         height: 1rem;
       }
+      &.circle {
+        width: 0.9rem;
+        padding-bottom: 0.9rem;
+        img {
+          border-radius: 50%;
+          width: 0.9rem;
+          height: 0.9rem;
+        }
+      }
     }
     .content {
       min-width: 3rem;
@@ -194,6 +218,7 @@ export default {
         display: flex;
         align-items: center;
         color: #aaa;
+        font-size: 0.24rem;
         &.hotRank {
           flex-direction: column;
           align-items: baseline;
@@ -219,8 +244,11 @@ export default {
             }
           }
           &::after {
-            content: "|";
+            content: " | ";
           }
+        }
+        .publichuo {
+          font-size: 0.24rem;
         }
       }
     }

@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-08-19 13:47:19
- * @Update: 2019-12-05 15:52:50
+ * @Update: 2019-12-07 12:55:59
  * @Update log: 更新日志
  */
 import axios from 'axios'
@@ -76,7 +76,9 @@ import {
   resourceLike,
   djProgramTopHours,
   djToplistHours,
-  djToplistNewComers
+  djToplistNewComers,
+  djToplistPopulars,
+  djToplistPays
 } from './config'
 // 请求超时时间
 axios.defaults.timeout = 30000
@@ -823,6 +825,28 @@ export default {
    */
   djToplistNewComersFn (limit) {
     return axios.get(djToplistNewComers, {
+      params: {
+        limit
+      }
+    })
+  },
+  /**
+   * 调用此接口,可获取最热主播榜
+   * @param {*} limit 返回数量 , 默认为 100 (不支持 offset)
+   */
+  djToplistPopularsFn (limit) {
+    return axios.get(djToplistPopulars, {
+      params: {
+        limit
+      }
+    })
+  },
+  /**
+   * 调用此接口,可获取付费精品电台
+   * @param {*} limit 返回数量 , 默认为 100 (不支持 offset)
+   */
+  djToplistPaysFn (limit) {
+    return axios.get(djToplistPays, {
       params: {
         limit
       }

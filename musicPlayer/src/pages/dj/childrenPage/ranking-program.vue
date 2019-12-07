@@ -7,7 +7,7 @@
 <template>
   <div class="pd23">
     <div v-show="!loading">
-      <top-con title="24小时榜" :data="topData"></top-con>
+      <top-con title="24小时榜" :data="topData" pageId="programHours"></top-con>
       <div class="split"></div>
       <public-con title="最热节目" :data="djToplist" type="rank"></public-con>
     </div>
@@ -39,8 +39,6 @@ export default {
       let limit, offset
       const { data } = await api.djToplistFn(limit, offset)
       if (data.code === 200) {
-        console.log('222')
-
         this.djToplist = data.toplist
         this.loading = false
       }
@@ -49,7 +47,6 @@ export default {
       const { data } = await api.djProgramTopHoursFn(3)
       if (data.code === 200) {
         this.topData = data.data.list
-        console.log('111')
       }
     }
   },

@@ -1,18 +1,23 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-17 13:05:15
- * @Update: 2019-10-18 10:50:46
+ * @Update: 2019-12-07 13:18:14
  * @Update log: 更新日志
  -->
 <template>
   <div class="pd23">
-    <public-con v-show="!loading" title="最热电台" :data="djToplist" type="rank" :hotRank="true"></public-con>
+    <div v-show="!loading">
+      <top-con title="付费精品榜" :data="djTopListPay" pageId="pay"></top-con>
+      <div class="split"></div>
+      <public-con title="最热电台" :data="djToplist" type="rank" :hotRank="true"></public-con>
+    </div>
     <page-loading v-show="loading"></page-loading>
   </div>
 </template>
 
 <script>
 import publicCon from '../public'
+import topCon from '../titleAndThree'
 import api from 'api'
 import pageLoading from 'base/pageLoading'
 export default {
@@ -20,29 +25,34 @@ export default {
   data () {
     return {
       djToplist: [],
+      djTopListPay: [],
       loading: true
     }
   },
-  created () {
-    this._getDjHotToplist()
+  async created () {
+    await this._getDjTopListPay()
+    await this._getDjHotToplist()
   },
   methods: {
-    _getDjHotToplist () {
+    async _getDjHotToplist () {
       let limit, offset, type
-      api.djHotToplistFn(limit, offset, type)
-        .then(res => {
-          const { data } = res
-          if (data.code === 200) {
-            console.log(data)
-            this.djToplist = data.toplist
-            this.loading = false
-          }
-        })
+      const { data } = await api.djHotToplistFn(limit, offset, type)
+      if (data.code === 200) {
+        this.djToplist = data.toplist
+        this.loading = false
+      }
+    },
+    async _getDjTopListPay () {
+      const { data } = await api.djToplistPaysFn(3)
+      if (data.code === 200) {
+        this.djTopListPay = data.data.list
+      }
     }
   },
   components: {
     publicCon,
-    pageLoading
+    pageLoading,
+    topCon
   }
 }
 </script>

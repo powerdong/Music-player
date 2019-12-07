@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-07-27 17:08:42
- * @Update: 2019-12-04 18:34:45
+ * @Update: 2019-12-07 13:17:07
  * @Update log: 更新日志
  */
 import Vue from 'vue'
@@ -53,6 +53,7 @@ const djRankingProgram = () => import(/* webpackChunkName: "group-myFavorite" */
 const djRankingRadio = () => import(/* webpackChunkName: "group-myFavorite" */ '@/pages/dj/childrenPage/ranking-radio')
 const albumPage = () => import(/* webpackChunkName: "group-albumPage" */ 'base/albumPage')
 const djDetailPage = () => import(/* webpackChunkName: "group-djDetailPage" */ 'base/djDetailPage')
+const djTopConDetailPage = () => import(/* webpackChunkName: "group-djDetailPage" */ '@/pages/dj/childrenPage/topConDetail')
 const artistDetailPage = () => import(/* webpackChunkName: "group-djDetailPage" */ '@/components/detailPage')
 const recentlyPlayed = () => import(/* webpackChunkName: "group-recentlyPlayed" */ '@/pages/recentlyPlayed')
 const djSublist = () => import(/* webpackChunkName: "group-djSublist" */ '@/pages/djSublist')
@@ -295,6 +296,11 @@ export default new Router({
     // 电台页面
     path: '/dj',
     component: dj
+  },
+  {
+    path: '/conDetail',
+    name: 'conDetail',
+    component: djTopConDetailPage
   },
   {
     path: '/classification',

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
+    "core-js": "3",
     "fastclick": "^1.0.6",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
@@ -73,10 +74,5 @@
   "engines": {
     "node": ">= 6.0.0",
     "npm": ">= 3.0.0"
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+  }
 }

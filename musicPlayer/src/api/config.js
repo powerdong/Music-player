@@ -81,7 +81,9 @@ export const djToplist = api + '/dj/program/toplist' // 获取最热节目
 export const djHotToplist = api + '/dj/toplist' // 获取电台榜
 export const djProgramTopHours = api + '/dj/program/toplist/hours' // 获取节目榜24小时榜
 export const djToplistHours = api + '/dj/toplist/hours' // 获取主播榜24小时榜
-export const djToplistNewComers = api + '/dj/toplist/newcomer' // 获取主播榜2新人榜
+export const djToplistNewComers = api + '/dj/toplist/newcomer' // 获取主播榜新人榜
+export const djToplistPopulars = api + '/dj/toplist/popular' // 获取主播榜最热主播
+export const djToplistPays = api + '/dj/toplist/pay' // 获取电台磅付费精品榜
 // ================评论页面相关
 export const commentPlaylist = api + '/comment/playlist' // 获取歌单的评论
 export const commentAlbum = api + '/comment/album' // 获取专辑的评论
