@@ -1,14 +1,21 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-10-12 14:24:51
- * @Update: 2019-10-17 13:21:14
+ * @Update: 2019-12-08 12:24:40
  * @Update log: 更新日志
  -->
 <template>
   <div class="wrapper">
     <div class="title border-bottom" :class="{center: type ==='class'}">{{title}}</div>
-    <ul class="list-wrap">
-      <li class="list-item" v-for="(item, index) in data" :key="index">
+    <ul class="list-wrap" @click="toClassDetailPage">
+      <li
+        class="list-item"
+        ref="item"
+        :data-id="item.id"
+        :data-title="item.name"
+        v-for="(item, index) in data"
+        :key="index"
+      >
         <div class="img-info">
           <img :src="item.imgUrl" alt />
         </div>
@@ -30,6 +37,16 @@ export default {
     },
     type: {
       type: String
+    }
+  },
+  methods: {
+    toClassDetailPage (e) {
+      const nodeName = e.target.nodeName.toLowerCase()
+      if (nodeName === 'li') {
+        const id = e.target.dataset.id
+        const title = e.target.dataset.title
+        this.$router.push({ name: 'classDetail', params: { id, title } })
+      }
     }
   }
 }
@@ -57,6 +74,8 @@ export default {
       box-sizing: border-box;
       padding: 0.2rem;
       .img-info {
+        position: relative;
+        z-index: -1;
         width: 0.5rem;
         height: 0;
         padding-bottom: 0.5rem;
@@ -65,6 +84,10 @@ export default {
           width: 0.5rem;
           height: 0.5rem;
         }
+      }
+      .name {
+        position: relative;
+        z-index: -1;
       }
     }
   }

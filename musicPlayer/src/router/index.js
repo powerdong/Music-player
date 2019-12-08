@@ -54,6 +54,7 @@ const djRankingRadio = () => import(/* webpackChunkName: "group-myFavorite" */ '
 const albumPage = () => import(/* webpackChunkName: "group-albumPage" */ 'base/albumPage')
 const djDetailPage = () => import(/* webpackChunkName: "group-djDetailPage" */ 'base/djDetailPage')
 const djTopConDetailPage = () => import(/* webpackChunkName: "group-djDetailPage" */ '@/pages/dj/childrenPage/topConDetail')
+const djClassRecommendDetailPage = () => import(/* webpackChunkName: "group-djDetailPage" */ '@/pages/dj/childrenPage/classRecommend')
 const artistDetailPage = () => import(/* webpackChunkName: "group-djDetailPage" */ '@/components/detailPage')
 const recentlyPlayed = () => import(/* webpackChunkName: "group-recentlyPlayed" */ '@/pages/recentlyPlayed')
 const djSublist = () => import(/* webpackChunkName: "group-djSublist" */ '@/pages/djSublist')
@@ -303,8 +304,15 @@ export default new Router({
     component: djTopConDetailPage
   },
   {
+    // 电台分类
     path: '/classification',
     component: classification
+  },
+  {
+    // 电台分类详情
+    path: '/classDetail',
+    name: 'classDetail',
+    component: djClassRecommendDetailPage
   },
   {
     path: '/pay_fine',
