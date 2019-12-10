@@ -44,7 +44,6 @@ export default {
           const data = res.data
           if (data.code === 200) {
             this.radioRecomList = data.data
-            console.log(data)
           }
         })
     }

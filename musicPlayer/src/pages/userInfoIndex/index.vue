@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-10-28 08:56:16
- * @Update: 2019-12-04 18:47:58
+ * @Update: 2019-12-10 18:55:16
  * @Update log: 更新日志
  -->
 <template>
@@ -71,7 +71,7 @@
           <span class="list-con-con">{{ listenSongs }}首</span>
         </p>
       </div>
-      <user-dynamic v-show="active==='second'" :dataInfo="dataInfo"></user-dynamic>
+      <user-dynamic v-show="active==='second'" :uid="uid"></user-dynamic>
     </div>
   </div>
 </template>
@@ -97,7 +97,6 @@ export default {
       coverFixed: false,
       top: '0rem',
       level: 0,
-      dataInfo: true,
       gender: 0,
       signature: '',
       age: 0,
@@ -110,6 +109,8 @@ export default {
       birthday: 0,
       nickname: '',
       avatarUrl: '',
+      events: [],
+      uid: 0,
       coverImgUrl: 'http://p1.music.126.net/2zSNIqTcpHL2jIvU6hG0EA==/109951162868128395.jpg'
     }
   },
@@ -119,10 +120,10 @@ export default {
     }
   },
   activated () {
+    const { id } = this.$route.params
     this.active = 'first'
-    const uid = localStorage.getItem('accountUid')
-    this._getUserInfo(uid)
-    this._getUserEvent(uid)
+    this.uid = id || localStorage.getItem('accountUid')
+    this._getUserInfo(this.uid)
   },
   methods: {
     /**
@@ -147,28 +148,15 @@ export default {
             this.level = data.level
             const createTime = data.createTime
             const createDate = new Date(createTime)
+            const setAstro = new Date(birthday)
             this.listenSongs = data.listenSongs
             this.year = createDate.getFullYear()
             this.month = createDate.getMonth() + 1
             this.age = parseInt(data.createDays / 365)
             this.avatarUrl = avatarUrl
             this.coverImgUrl = backgroundUrl
-            this.astro = getAstro(createDate.getMonth() + 1, createDate.getDate())
-          }
-        })
-    },
-    /**
-     * 获取用户动态
-     */
-    _getUserEvent (id) {
-      api.userEventFn(id)
-        .then(res => {
-          const { data } = res
-          if (data.code === 200) {
-            if (data.events.length === 0) {
-              // 没有动态
-              this.dataInfo = false
-            }
+            console.log(setAstro.getMonth())
+            this.astro = getAstro(setAstro.getMonth() + 1, createDate.getDate())
           }
         })
     },
@@ -211,6 +199,9 @@ export default {
     changeToSecond () {
       this.active = 'second'
     }
+  },
+  deactivated () {
+    this.uid = 0
   },
   components: {
     generalNav,

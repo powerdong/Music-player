@@ -262,6 +262,7 @@ export default new Router({
   {
     // 用户信息展示页面
     path: '/user_info',
+    name: 'user_info',
     component: userInfoIndex
   },
   {

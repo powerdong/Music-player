@@ -1,7 +1,7 @@
 <!--
  * @Author: Lambda
  * @Begin: 2019-12-03 12:34:55
- * @Update: 2019-12-07 13:17:23
+ * @Update: 2019-12-10 13:09:16
  * @Update log: 更新日志
  -->
 <template>
@@ -10,10 +10,11 @@
       {{title}}
       <i class="threeTitle threeTitleiconfontxiangxia1copy19"></i>
     </div>
-    <div class="three-item">
+    <div class="three-item" @click="toDetailPage">
       <div class="item-info" v-for="(item, index) in data" :key="index">
         <div class="img-info" :class="{circle: type === 'circle'}">
           <img
+            :data-id="item.id ? item.id : ''"
             :src="item.program ? item.program.coverUrl : item.avatarUrl ? item.avatarUrl : item.picUrl"
             alt
           />
@@ -57,6 +58,13 @@ export default {
   methods: {
     goDetailPage () {
       this.$router.push({ name: 'conDetail', params: { id: this.pageId } })
+    },
+    toDetailPage (e) {
+      const { nodeName, dataset } = e.target
+      if (nodeName.toLocaleLowerCase() === 'img') {
+        const id = dataset.id
+        this.$router.push({ name: 'user_info', params: { id } })
+      }
     }
   }
 }

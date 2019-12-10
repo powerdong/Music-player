@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-10-11 13:11:46
- * @Update: 2019-10-13 12:06:47
+ * @Update: 2019-12-10 18:59:09
  * @Update log: 更新日志
  -->
 <template>
@@ -45,7 +45,6 @@ export default {
           const data = res.data
           if (data.code === 200) {
             this.boutiqueRecomList = data.data.list
-            console.log(data)
           }
         })
     },

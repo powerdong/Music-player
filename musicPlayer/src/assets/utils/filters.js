@@ -1,7 +1,7 @@
 /*
  * @Author: 李浩栋
  * @Begin: 2019-10-14 14:08:38
- * @Update: 2019-10-28 11:33:26
+ * @Update: 2019-12-10 13:40:19
  * @Update log: 更新日志
  */
 export const filterSetPlayCount = value => {
@@ -84,4 +84,8 @@ export const filterAge = time => {
     }
   }
   return age
+}
+
+export const filterJson = json => {
+  return JSON.parse(json.toString())
 }
