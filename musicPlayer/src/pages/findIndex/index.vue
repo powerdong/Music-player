@@ -1,11 +1,11 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-07-30 16:42:30
- * @Update: 2019-11-24 12:13:28
+ * @Update: 2020-03-13 22:37:42
  * @Update log: 更新日志
  -->
 <template>
-  <van-pull-refresh class="container" ref="wrapper" v-model="isLoading" @refresh="onRefresh">
+  <div>
     <swiper></swiper>
     <icon></icon>
     <song-list ref="songList"></song-list>
@@ -13,7 +13,9 @@
     <top-tip ref="tip">
       <span class="tips">{{tips}}</span>
     </top-tip>
-  </van-pull-refresh>
+    <img style="display:none" src="https://s2.ax1x.com/2019/09/13/nrJyJP.png" alt="" srcset="">
+    <img style="display:none" src="https://s2.ax1x.com/2019/09/12/n0yYqK.md.png" alt="" srcset="">
+  </div>
 </template>
 
 <script>
