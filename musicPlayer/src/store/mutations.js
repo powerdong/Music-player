@@ -106,6 +106,11 @@ export default {
    * 设置播放器是大还是小
    */
   [SET_FULL_SCREEN] (state, flag) {
+    if (flag) {
+      ModalHelper.afterOpen()
+    } else {
+      ModalHelper.beforeClose()
+    }
     state.fullScreen = flag
   },
   /**

@@ -215,3 +215,8 @@ a {
   color: #25a4bb;
   text-decoration: none;
 }
+
+#audio_pb1 {
+  box-sizing: border-box ;
+  padding-bottom: 1rem;
+}
