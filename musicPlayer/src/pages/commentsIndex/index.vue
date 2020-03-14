@@ -30,6 +30,7 @@
       @showMenu="showMenu"
       @likeComment="likeComment"
     ></comments>
+    <div class="pb1"></div>
     <van-search
       class="border-top commentInp"
       v-model="input"
@@ -144,7 +145,7 @@ export default {
         .catch(err => {
           if (err) {
             loadingToast.clear()
-            Toast('当前未登录')
+            Toast(err.msg || '发表失败')
           }
         })
     },
@@ -159,6 +160,10 @@ export default {
             // 删除成功
             this.hideMenu()
             this.pushComInCon(params)
+          }
+        }).catch(err => {
+          if (err) {
+            Toast(err.msg || '删除失败')
           }
         })
     },
@@ -234,6 +239,11 @@ export default {
           const { data } = res
           if (data.code === 200) {
             this.pushComInCon(params)
+          }
+        }).catch(err => {
+          if (err) {
+            console.log(err)
+            Toast(err.msg || '点赞失败')
           }
         })
     },
