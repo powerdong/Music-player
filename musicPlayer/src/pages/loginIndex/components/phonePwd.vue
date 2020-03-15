@@ -140,10 +140,15 @@ export default {
     _isSure (phone, pwd) {
       api.phoneLoginFn(phone, pwd)
         .then(res => {
-          // 密码正确
-          // 将账号存下，以后登录时账号输入框自动填写
-          localStorage.setItem('account', phone)
-          this.success()
+          console.log(res)
+          if (res.data.code === 200) {
+            // 密码正确
+            // 将账号存下，以后登录时账号输入框自动填写
+            localStorage.setItem('account', phone)
+            this.success()
+          } else {
+            this.error(res.data.msg)
+          }
         })
         // eslint 报 handle-callback-err 错误 添加 if 判断
         .catch(error => {
@@ -165,8 +170,8 @@ export default {
     /**
      * 密码错误登录失败
      */
-    error () {
-      this.alertText = '用户名或密码错误'
+    error (msg) {
+      this.alertText = msg || '用户名或密码错误'
       // 显示提示信息
       this.alertEvent()
       // 输入框内容为空
@@ -182,6 +187,12 @@ export default {
      */
     logon () {
       if (this.flag) {
+        if (!this.pwd) {
+          this.alertText = '请输入密码'
+          // 显示提示信息
+          this.alertEvent()
+          return
+        }
         this.flag = false
         this.Loading()
         // 判断密码是否正确

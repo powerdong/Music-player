@@ -204,6 +204,7 @@ export default new Router({
     component: phoneAccount
   }, {
     path: '/pwd',
+    name: 'phonePwd',
     component: phonePwd
   }, {
     path: '/verify',
