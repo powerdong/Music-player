@@ -91,7 +91,7 @@ npm run dev
 
 ### :clap: 项目演示
 
-[demo 地址](http://140.143.128.100:3000)（请用 chrome/firefox 手机模式预览）
+[demo 地址](http://140.143.128.100:3000)（请用 chrome/firefox 手机模式预览） -- 暂时停止
 
 ## :mega: 目标功能
 
