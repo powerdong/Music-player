@@ -33,13 +33,24 @@ export default {
       phone2: 1234
     }
   },
+  watch: {
+    'phone1': {
+      handler: function (val) {
+        this.phone1 = val
+      }
+    },
+    'phone2': {
+      handler: function (val) {
+        this.phone2 = val
+      }
+    }
+  },
   methods: {
     /**
      * 发送验证码
      */
     _sendVerify () {
       let phone = getPhone()
-      this.showPhone(phone)
       // 发送验证码
       api.sendVerifyFn(phone)
         .then(res => {
@@ -66,7 +77,12 @@ export default {
     }
   },
   created () {
+    const phone = this.$route.query.phone
+    this.showPhone(phone)
     this._sendVerify()
+  },
+  beforeDestroy () {
+    Object.assign(this.$data, this.$options.data())
   }
 }
 </script>

@@ -13,8 +13,7 @@
     <top-tip ref="tip">
       <span class="tips">{{tips}}</span>
     </top-tip>
-    <img style="display:none" src="https://s2.ax1x.com/2019/09/13/nrJyJP.png" alt="" srcset="">
-    <img style="display:none" src="https://s2.ax1x.com/2019/09/12/n0yYqK.md.png" alt="" srcset="">
+    <div id="audio_pb1" v-show="!isMiniAudio"></div>
   </div>
 </template>
 
@@ -23,7 +22,7 @@ import swiper from './components/swiper'
 import icon from './components/icons'
 import songList from './components/personalizedSongList'
 import newDish from './components/newDish'
-
+import {mapGetters} from 'vuex'
 export default {
   name: 'findIndex',
   mounted () {
@@ -40,6 +39,11 @@ export default {
     if (from.path === '/pwd') {
       location.reload()
     }
+  },
+  computed: {
+    ...mapGetters({
+      isMiniAudio: 'FULL_SCREEN'
+    })
   },
   methods: {
     onRefresh () {

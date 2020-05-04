@@ -24,6 +24,7 @@
 
 <script>
 import api from 'api'
+import { Toast } from 'vant'
 import { getPhone } from 'utils/getPhone'
 
 export default {
@@ -38,13 +39,19 @@ export default {
     async onInput (key) {
       this.value = (this.value + key).slice(0, 4)
       if (this.value.length === 4) {
-        const nickname = localStorage.getItem('nickname')
         const phone = getPhone()
-        const password = this.password
         const captcha = this.value
-        const { data } = await api.registerFn(captcha, phone, password, nickname)
-        console.log(data)
-        console.log('发送请求')
+        try {
+          const { data } = await api.verifyFn(phone, captcha)
+          if (data.code === 200) {
+            Toast('验证成功')
+          }
+        } catch (error) {
+          if (error) {
+            Toast(error.msg || '验证失败')
+            this.value = ''
+          }
+        }
       }
     },
     onDelete () {

@@ -79,7 +79,6 @@ import functionButton from './components/functionButton'
 import smallAudio from './components/small'
 import lyricPage from './components/lyricPage'
 import audioList from './components/audioList'
-import ModalHelper from 'utils/modalScroll'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
   name: '',
@@ -319,6 +318,7 @@ export default {
       this.setMode(mode)
       let shufflePlayList
       if (mode === 2) {
+        console.log('随机模式')
         shufflePlayList = this.shuffle(this.list)
       } else {
         shufflePlayList = this.list
@@ -353,6 +353,7 @@ export default {
         _arr[i] = _arr[j]
         _arr[j] = t
       }
+      console.log('_arr: ', _arr)
       return _arr
     },
     /**
@@ -522,14 +523,12 @@ export default {
      */
     returnPage () {
       this.setFull(false)
-      ModalHelper.beforeClose()
     },
     /**
      * 转换为大播放器
      */
     returnFull () {
       this.setFull(true)
-      ModalHelper.afterOpen()
     },
     ...mapMutations({
       setState: 'SET_PLAY_SATE',

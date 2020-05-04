@@ -5,14 +5,22 @@
  * @Update log: 更新日志
  -->
 <template>
-  <div class="wrapper">
-    <router-link to="/phone" tag="button" class="phoneLogin">手机号登陆</router-link>
+  <div class="wrapper" @click="goBack">
+    <div class="phoneLogin" @click.stop="goPhone">手机号登陆</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'loginPage'
+  name: 'loginPage',
+  methods: {
+    goBack () {
+      history.go(-1)
+    },
+    goPhone () {
+      this.$router.push('/phone')
+    }
+  }
 }
 </script>
 
@@ -27,12 +35,15 @@ export default {
   justify-content: center;
   align-items: center;
   .phoneLogin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 5.3rem;
     height: 0.8rem;
     border-radius: 0.4rem;
     background-color: #fff;
     color: @bgcolor;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 3px;
   }
 }

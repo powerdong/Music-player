@@ -17,6 +17,7 @@
       :homeFavoritelistSlider="homeFavoritelistSlider"
       :homePlaylistSlider="homePlaylistSlider"
     ></slider>
+    <div id="audio_pb1" v-show="!isMiniAudio"></div>
   </div>
 </template>
 
@@ -137,8 +138,11 @@ export default {
     ...mapActions(['startPlayAll'])
   },
   computed: {
-    ...mapGetters({ loginState: 'LOGIN_STATE' }),
-    ...mapGetters({ accountUid: 'ACCOUNT_UID' })
+    ...mapGetters({
+      loginState: 'LOGIN_STATE',
+      isMiniAudio: 'FULL_SCREEN',
+      accountUid: 'ACCOUNT_UID'
+    })
   },
   activated () {
     /**
