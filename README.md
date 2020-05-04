@@ -60,7 +60,7 @@ npm run dev
 
 > 感谢大家的关注，最近在实习期间未能及时更新，最近发现网易的api返回有变化，回来改了一个问题
 >
-> 字节有需要内推的可以联系 lihaodong@bytedance.com 
+> 字节跳动**商业变现部**需要内推的可以联系 lihaodong@bytedance.com 
 
 ### :memo: 版本更新
 
