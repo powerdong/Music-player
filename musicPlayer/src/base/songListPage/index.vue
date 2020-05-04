@@ -1,7 +1,7 @@
 <!--
  * @Author: 李浩栋
  * @Begin: 2019-09-06 11:33:42
- * @Update: 2019-10-29 13:29:48
+ * @Update: 2020-05-04 17:41:34
  * @Update log: 这是一个用来展示歌曲列表的基础组件
  -->
 <template>
@@ -43,8 +43,8 @@
               <div class="img-info">
                 <img v-lazy="creatorImgUrl + '?param=200y200'" :key="imgUrl" alt />
               </div>
-              <span>
-                {{author}}
+              <span class="authorName">
+                <div class="authorNameCon ellipsis">{{author}}</div>
                 <i class="date-song iconfontjiantou5"></i>
               </span>
             </div>
@@ -544,6 +544,13 @@ export default {
     padding: 0.1rem 0.23rem;
     background-color: #fff;
     transform: translate3d(0, -0.5rem, 0);
+  }
+}
+
+.authorName {
+  display: flex;
+  .authorNameCon {
+    max-width: 2.2rem;
   }
 }
 </style>
